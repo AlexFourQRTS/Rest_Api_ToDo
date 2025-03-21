@@ -1,0 +1,102 @@
+{
+  "users": [],
+  "tasks": [
+    {
+      "id": 1,
+      "title": "таска",
+      "description": "таска",
+      "userId": "",
+      "status": "в процессе"
+    },
+    {
+      "id": 2,
+      "title": "admin@admin.admin",
+      "description": "admin@admin.admin",
+      "userId": ""
+    },
+    {
+      "id": 3,
+      "title": "sadfgs",
+      "description": "fsdfsdfd",
+      "userId": ""
+    },
+    {
+      "id": 4,
+      "title": "sdfsdf",
+      "description": "sdfsdf",
+      "userId": ""
+    },
+    {
+      "id": 5,
+      "title": "sdfsdf",
+      "description": "asdfsdf",
+      "userId": ""
+    },
+    {
+      "id": 6,
+      "title": "admin@admin.admin",
+      "description": "admin@admin.admin",
+      "userId": "3"
+    },
+    {
+      "id": 7,
+      "title": "admin@admin.admin",
+      "description": "admin@admin.admin",
+      "userId": "3"
+    },
+    {
+      "id": 8,
+      "title": "admin@admin.admin",
+      "description": "admin@admin.admin",
+      "userId": "2"
+    },
+    {
+      "id": 9,
+      "title": "admin@admin.admin",
+      "description": "admin@admin.admin",
+      "userId": "4"
+    },
+    {
+      "id": 10,
+      "title": "admin@admin.adminadmin@admin.admin",
+      "description": "admin@admin.admin",
+      "userId": "4"
+    },
+    {
+      "id": 11,
+      "title": "abracadabra@api.net",
+      "description": "abracadabra@api.net",
+      "userId": "1"
+    },
+    {
+      "id": 12,
+      "title": "abracadabra@api.net",
+      "description": "abracadabra@api.net",
+      "userId": "1"
+    },
+    {
+      "id": 13,
+      "title": "abracadabra@api.net",
+      "description": "abracadabra@api.net",
+      "userId": "2"
+    },
+    {
+      "id": 14,
+      "title": "task for test",
+      "description": "task for test",
+      "userId": "5"
+    },
+    {
+      "id": 15,
+      "title": "task for test",
+      "description": "task for test",
+      "userId": "6"
+    },
+    {
+      "id": 16,
+      "title": "task for testtask for test",
+      "description": "task for testtask for test",
+      "userId": "6"
+    }
+  ]
+}
