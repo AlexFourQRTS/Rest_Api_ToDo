@@ -19,8 +19,6 @@ router.get('/:userId/tasks', authenticateToken, async (req, res) => {
   }
 });
 
-
-// Получение конкретной задачи пользователя
 router.get('/:userId/tasks/:id', authenticateToken, async (req, res) => {
   try {
     const task = await getTaskById(req.params.id);
@@ -33,7 +31,6 @@ router.get('/:userId/tasks/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Создание задачи (только для пользователя)
 router.post('/:userId/tasks', authenticateToken, async (req, res) => {
   try {
     const { title, description, statusTodo } = req.body;
@@ -44,13 +41,10 @@ router.post('/:userId/tasks', authenticateToken, async (req, res) => {
   }
 });
 
-// Обновление задачи (только для владельца)
+
 router.put('/:userId/tasks/:id', authenticateToken, async (req, res) => {
   try {
     const task = await getTaskById(req.params.id);
-    if (task.userId !== req.user.id) {
-      return res.status(403).json({ message: 'Нет доступа для редактирования' });
-    }
     const { title, description, statusTodo } = req.body;
     const updatedTask = await updateTask(req.params.id, title, description, statusTodo, req.user.id);
     res.json(updatedTask);
@@ -59,13 +53,9 @@ router.put('/:userId/tasks/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Удаление задачи (только для владельца)
 router.delete('/:userId/tasks/:id', authenticateToken, async (req, res) => {
   try {
     const task = await getTaskById(req.params.id);
-    if (task.userId !== req.user.id) {
-      return res.status(403).json({ message: 'Нет доступа для удаления' });
-    }
     await deleteTask(req.params.id);
     res.status(204).send();
   } catch (error) {

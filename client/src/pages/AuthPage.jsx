@@ -1,4 +1,3 @@
-// AuthPage.js
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -56,8 +55,7 @@ const AuthPage = ({ onLogin }) => {
     <div className="container color">
       <Form onSubmit={handleSubmit}>
         <div>Авторизация</div>
-        <hr />
-        <br />
+       
 
         <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Label>Имя пользователя</Form.Label>

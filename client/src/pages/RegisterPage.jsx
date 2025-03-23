@@ -48,8 +48,7 @@ const RegisterPage = () => {
     <div className="container color">
       <Form onSubmit={handleSubmit}>
         <div>Регистрация</div>
-        <hr />
-        <br />
+  
         <Form.Group className="mb-3" controlId="formBasicUsername">
           <Form.Label>Имя пользоователя</Form.Label>
           <Form.Control

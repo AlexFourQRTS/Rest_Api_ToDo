@@ -8,11 +8,9 @@ import { routes } from "../routes";
 
 const Home = () => {
   const navigate = useNavigate();
-
   const handleRegisterClick = () => {
     navigate("/register");
   };
-
   const handleLoginClick = () => {
     navigate("/login");
   };
@@ -25,13 +23,10 @@ const Home = () => {
             <div>Начнем?</div>
             <div className="start">
               <Button className="start-item" onClick={handleRegisterClick}>
-                {" "}
-                Регистрация{" "}
+                Регистрация
               </Button>
-
               <Button className="start-item" onClick={handleLoginClick}>
-                {" "}
-                Авторизация{" "}
+                Авторизация
               </Button>
             </div>
           </div>

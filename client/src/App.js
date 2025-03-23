@@ -13,14 +13,12 @@ import "./App.css";
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [role, setRole] = useState(localStorage.getItem("role"));
-
   const updateAuth = (newToken, newRole) => {
     setToken(newToken);
     setRole(newRole);
     localStorage.setItem("token", newToken);
     localStorage.setItem("role", newRole);
   };
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
@@ -40,11 +38,9 @@ function App() {
           />
           <Route path={routes.register} element={<RegisterPage />} />
           <Route path={routes.home} element={<Home />} />
-
           <Route element={<PrivateRoute allowedRoles={['user']} />}>
             <Route path={routes.user} element={<UserPage />} />
           </Route>
-
           <Route element={<PrivateRoute allowedRoles={['admin']} />}>
             <Route path={routes.admin} element={<AdminPage />} />
           </Route>
