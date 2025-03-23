@@ -7,8 +7,6 @@
   margin-right: auto;
   border-radius: 10px;
   padding: 15px;
-
-  
 }
 
 .welcome-content {
@@ -16,7 +14,7 @@
   border-radius: 10px;
   color: #000;
   max-width: 800px;
-  
+
   margin: 10px;
 }
 
@@ -42,18 +40,16 @@
   margin-left: 10px;
 }
 
-.start{
+.start {
   display: flex;
   font-display: row;
 }
 
-
-.start-item{
+.start-item {
   margin: 10px;
 }
 
-
-.start-wrap{
+.start-wrap {
   background-color: #00b1f74b;
   padding: 20px;
   border-radius: 10px;

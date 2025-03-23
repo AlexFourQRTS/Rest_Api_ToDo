@@ -24,7 +24,7 @@ const AdminPage = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/users", {
+      const response = await axios.get("http://localhost:5000/admin/users", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -38,7 +38,7 @@ const AdminPage = () => {
   const fetchUserTasks = async (userId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/tasks/users/${userId}/tasks`,
+        `http://localhost:5000/admin/tasks/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -76,11 +76,9 @@ const AdminPage = () => {
 
         <div className="todo-admin-check">
           <UserToDo
-          
             username={
               users.find((user) => user.id === selectedUserId)?.username
             }
-            
           />
 
           {selectedUserId && <UserTasks tasks={selectedUserTasks} />}

@@ -7,13 +7,13 @@ const CreateTaskForm = ({ users, onCreateTask }) => {
   const [title, setTitle] = useState("Название Задания");
   const [description, setDescription] = useState("Описание задания");
   const [statusTodo, setStatusTodo] = useState("Active Статус");
-  const [userId, setUserId] = useState(users[0]?.id || "");
+  const [userId, setUserId] = useState(users[0]?.id || "1");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/tasks/tasksCreate",
+        "http://localhost:5000/admin/tasksCreate",
         {
           title,
           description,
@@ -30,12 +30,18 @@ const CreateTaskForm = ({ users, onCreateTask }) => {
       setTitle("");
       setDescription("");
 
-      toast.success(`Задача успешно создана: ${response.data.message || 'Задача создана!'}`);
+      toast.success(
+        `Задача успешно создана: ${response.data.message || "Задача создана!"}`
+      );
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         toast.error(`Ошибка создания задачи: ${error.response.data.message}`);
       } else {
-        toast.error("Ошибка создания задачи!"); 
+        toast.error("Ошибка создания задачи!");
       }
       console.error("Ошибка создания задачи:", error);
     }
@@ -92,7 +98,7 @@ const CreateTaskForm = ({ users, onCreateTask }) => {
       </Form>
 
       <br />
-      <ToastContainer position="top-right" autoClose={5000} /> 
+      <ToastContainer position="top-right" autoClose={5000} />
     </>
   );
 };

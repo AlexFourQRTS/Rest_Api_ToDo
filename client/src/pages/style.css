@@ -13,11 +13,11 @@
   border-radius: 15px;
 }
 
-.admin-user{
+.admin-user {
   color: #000;
 }
 
-.admin-task{
+.admin-task {
   background-color: #00c3ff70;
   width: 100%;
   border-radius: 15px;
@@ -27,7 +27,7 @@
   margin-bottom: 10px;
 }
 
-.user-list{
+.user-list {
   background-color: #fff;
   width: 100%;
   border-radius: 15px;
@@ -36,17 +36,13 @@
   margin: 5px;
 }
 
-.wrap-amin{
+.wrap-amin {
   display: flex;
   width: 100%;
   justify-content: baseline;
-
 }
 
-.color{
+.color {
   display: flex;
-  
   color: #000;
-
 }
-

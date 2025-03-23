@@ -4,32 +4,37 @@ import Container from "react-bootstrap/Container";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { routes } from '../routes';
+import { routes } from "../routes";
 
 const Home = () => {
   const navigate = useNavigate();
 
   const handleRegisterClick = () => {
-    navigate('/register'); 
+    navigate("/register");
   };
 
   const handleLoginClick = () => {
-    navigate('/login'); 
+    navigate("/login");
   };
-  
+
   return (
     <>
       <Container className="welcome-page">
         <div className="welcome-content">
           <div className="start-wrap">
             <div>Начнем?</div>
-        <div className="start">
-          <Button className="start-item" onClick={handleRegisterClick}> Регистрация </Button>
+            <div className="start">
+              <Button className="start-item" onClick={handleRegisterClick}>
+                {" "}
+                Регистрация{" "}
+              </Button>
 
-          <Button className="start-item" onClick={handleLoginClick} > Авторизация </Button>
-        </div>
+              <Button className="start-item" onClick={handleLoginClick}>
+                {" "}
+                Авторизация{" "}
+              </Button>
+            </div>
           </div>
-          
 
           <h1>
             Техническое задание: Разработка REST API для управления списком
