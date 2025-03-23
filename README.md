@@ -7,5 +7,14 @@ if not sing in you can't do nothink
 
 create new branch
 
-if you want to run app, need to run next command, use concorently:
+if you want to run app, need to run next command, use concorently
+first need to install npm modile use terminal inside:
+
+cd client 
+npm i
+cd ..
+cd server
+npm i
+cd ..
+npm i
 npm run dev
