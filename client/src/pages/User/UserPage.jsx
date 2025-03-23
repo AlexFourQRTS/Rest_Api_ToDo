@@ -17,7 +17,7 @@ const UserPage = () => {
         if (!userId) return;
     
         try {
-            const response = await axios.get(`http://localhost:5000/users/${userId}/tasks`, {
+            const response = await axios.get(`http://localhost:5000/tasks/users/${userId}/tasks`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -55,10 +55,13 @@ const UserPage = () => {
             <br />
             <h2>Список задач для Id - {userId}</h2>
             <br />
+
             <Container>
                 <h2>Список задач</h2>
+
                 <ListGroup>
                     {tasks.map((task) => (
+
                         <ListGroup.Item key={task.id}>
                             <Form.Check
                                 type="checkbox"
@@ -68,10 +71,13 @@ const UserPage = () => {
                             />
                             <p>{task.description}</p>
                         </ListGroup.Item>
+                        
                     ))}
                 </ListGroup>
                 
             </Container>
+
+
         </>
     );
 };

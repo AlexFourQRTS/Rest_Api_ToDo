@@ -1,8 +1,8 @@
-// utils/data.js
+
 const fs = require('fs').promises;
 const path = require('path');
 
-const dataFilePath = path.resolve(__dirname, '../data.json');
+const dataFilePath = path.resolve(__dirname, './Tasks.json');
 
 const readData = async () => {
   try {

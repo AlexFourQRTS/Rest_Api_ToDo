@@ -2,38 +2,59 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  width: 98%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
-  padding: 20px;
+  padding: 15px;
+
+  
 }
 
 .welcome-content {
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.452);
+  color: #000;
   max-width: 800px;
+  
+  margin: 10px;
 }
 
 .welcome-content h1 {
   font-size: 2em;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .welcome-content h2 {
   font-size: 1.5em;
-  margin-top: 20px;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .welcome-content p,
 .welcome-content ul {
   font-size: 1.1em;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .welcome-content ul {
   list-style-type: disc;
-  margin-left: 20px;
+  margin-left: 10px;
+}
+
+.start{
+  display: flex;
+  font-display: row;
+}
+
+
+.start-item{
+  margin: 10px;
+}
+
+
+.start-wrap{
+  background-color: #00b1f74b;
+  padding: 20px;
+  border-radius: 10px;
 }

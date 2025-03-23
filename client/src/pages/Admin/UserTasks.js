@@ -6,9 +6,11 @@ const UserTasks = ({ tasks }) => {
         <Card>
             <ListGroup variant="flush">
                 {tasks.map(task => (
+
                     <ListGroup.Item key={task.id}>
                         {task.title} - {task.description}
                     </ListGroup.Item>
+                    
                 ))}
             </ListGroup>
         </Card>

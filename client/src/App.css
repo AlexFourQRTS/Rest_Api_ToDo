@@ -1,6 +1,7 @@
 
   .wrap {
     display: flex;
+    width: 1366px;
     justify-content: center; 
     margin-left: auto;
     margin-right: auto;
