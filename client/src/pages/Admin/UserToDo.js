@@ -1,15 +1,12 @@
 import React from "react";
-import { Card } from 'react-bootstrap';
+import { Card } from "react-bootstrap";
 
 const UserToDo = ({ username }) => {
-    return (
-        <Card>
-           
-            <Card.Body>
-                <p> Задачи для {username}</p>
-            </Card.Body>
-        </Card>
-    );
+  return (
+    <div>
+      <p> Задачи для {username}</p>
+    </div>
+  );
 };
 
 export default UserToDo;

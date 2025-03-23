@@ -1,21 +1,22 @@
 import React from "react";
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup } from "react-bootstrap";
 
 const UserList = ({ users, onUserSelect, selectedUserId }) => {
-    return (
-        <ListGroup>
-            {users.map(user => (
-                <ListGroup.Item
-                    key={user.id}
-                    action
-                    onClick={() => onUserSelect(user.id)}
-                    active={selectedUserId === user.id}
-                >
-                    {user.username}
-                </ListGroup.Item>
-            ))}
-        </ListGroup>
-    );
+  return (
+    <div className="user-list-task-column">
+      {users.map((user) => (
+        <div
+          key={user.id}
+          action
+          onClick={() => onUserSelect(user.id)}
+          active={selectedUserId === user.id}
+          className="user-list"
+        >
+          {user.username}
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default UserList;

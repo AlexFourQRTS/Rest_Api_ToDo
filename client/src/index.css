@@ -2,7 +2,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 1024px;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
@@ -14,7 +14,41 @@ body {
 
 .wrap {
   display: inline-block;
-  width: 90%;
+  width: 1024px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.user-list-task-row{
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  
+  justify-content: space-around;
+  border-radius: 5px;
+  color: #000;
+}
+
+.user-list-task-colomn{
+ 
+  display: flex;
+  flex-direction: column;
+  /* border: 2px solid rgba(131, 131, 131, 0.527); */
+  border-radius: 5px;
+  color: #000;
+  width: 50%;
+  margin: 15px;
+}
+
+
+.todo-admin-check{
+  background-color: rgb(255, 255, 255);
+  padding: 5px;
+  margin: 15px;
+  border-radius: 10px;
+  width: 50%;
+}
+
+.user-name-check-admin{
+  background-color: #006eff9d;
 }

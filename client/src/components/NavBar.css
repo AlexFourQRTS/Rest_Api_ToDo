@@ -1,5 +1,18 @@
-.border{
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 10px;
+.border {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
 }
+
+.nav-bar-wraper {
+  width: 1024px;
+}
+
+.general-wrap {
+  width: 1366px;
+}
+
+.nav-link.active {
+    font-weight: bold;
+    border: 2px black solid;
+  }

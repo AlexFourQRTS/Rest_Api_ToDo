@@ -5,7 +5,7 @@ import axios from "axios";
 import UserList from "./UserList";
 import UserTasks from "./UserTasks";
 import UserToDo from "./UserToDo";
-import CreateTaskForm from "./CreateTaskForm"; 
+import CreateTaskForm from "./CreateTaskForm";
 
 const AdminPage = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const AdminPage = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/users", {
+      const response = await axios.get("http://localhost:5000/admin/users", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -38,7 +38,7 @@ const AdminPage = () => {
   const fetchUserTasks = async (userId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${userId}/tasks`,
+        `http://localhost:5000/admin/tasks/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -59,34 +59,32 @@ const AdminPage = () => {
 
   const handleTaskCreated = () => {
     if (selectedUserId) {
-      fetchUserTasks(selectedUserId); 
+      fetchUserTasks(selectedUserId);
     }
   };
 
   return (
-    <Container fluid>
-         <CreateTaskForm users={users} onCreateTask={handleTaskCreated} />
-      <Row>
-        <br />
-        <br />
-        <Col md={3}>
-          <UserList
-            users={users}
-            onUserSelect={handleUserSelect}
-            selectedUserId={selectedUserId}
-          />
-        </Col>
-        <Col md={6}>
+    <>
+      <CreateTaskForm users={users} onCreateTask={handleTaskCreated} />
+
+      <div className="user-list-task-row">
+        <UserList
+          users={users}
+          onUserSelect={handleUserSelect}
+          selectedUserId={selectedUserId}
+        />
+
+        <div className="todo-admin-check">
           <UserToDo
             username={
               users.find((user) => user.id === selectedUserId)?.username
             }
           />
-          {selectedUserId && <UserTasks tasks={selectedUserTasks} />}
 
-        </Col>
-      </Row>
-    </Container>
+          {selectedUserId && <UserTasks tasks={selectedUserTasks} />}
+        </div>
+      </div>
+    </>
   );
 };
 
