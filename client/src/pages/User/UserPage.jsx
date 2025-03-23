@@ -7,11 +7,17 @@ import { jwtDecode } from "jwt-decode";
 const UserPage = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const userId = token ? jwtDecode(token).userId : null;
+
   const [tasks, setTasks] = useState([]);
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [editedTask, setEditedTask] = useState({});
-  const [newTask, setNewTask] = useState({ title: "", description: "", statusTodo: "Active Статус" });
-  const userId = token ? jwtDecode(token).userId : null;
+  const [newTask, setNewTask] = useState({
+    title: "",
+    description: "",
+    userId: userId,
+    statusTodo: "Active Статус",
+  });
 
   const fetchTasks = useCallback(async () => {
     if (!userId) return;
@@ -37,7 +43,6 @@ const UserPage = () => {
     if (!token) {
       navigate("/login");
     } else {
-      setTasks([]);
       fetchTasks();
     }
   }, [navigate, token, userId, fetchTasks]);
@@ -47,7 +52,7 @@ const UserPage = () => {
     setNewTask((prevTask) => ({ ...prevTask, [name]: value }));
   };
 
-  const handleCreateTask = async () => {
+  const createTask = async () => {
     if (!newTask.title.trim()) {
       alert("Пожалуйста, введите название задачи.");
       return;
@@ -63,36 +68,22 @@ const UserPage = () => {
         }
       );
       setTasks((prevTasks) => [...prevTasks, response.data]);
-      setNewTask({ title: "", description: "", statusTodo: "Active Статус" }); // Очистить форму
+      setNewTask({
+        title: "",
+        description: "",
+        statusTodo: "Active Статус",
+        userId: userId,
+      });
     } catch (error) {
-      console.error("Ошибка создания задачи:", error.response?.data || error.message);
+      console.error(
+        "Ошибка создания задачи:",
+        error.response?.data || error.message
+      );
       alert("Не удалось создать задачу.");
     }
   };
 
-  const handleStatusChange = async (taskId, newStatus) => {
-    try {
-      await axios.put(
-        `http://localhost:5000/users/${userId}/tasks/${taskId}`,
-        { statusTodo: newStatus },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === taskId ? { ...task, statusTodo: newStatus } : task
-        )
-      );
-    } catch (error) {
-      console.error("Ошибка обновления статуса:", error.response?.data || error.message);
-      fetchTasks();
-    }
-  };
-
-  const handleDeleteTask = async (taskId) => {
+  const deleteTask = async (taskId) => {
     if (window.confirm("Вы уверены, что хотите удалить эту задачу?")) {
       try {
         await axios.delete(
@@ -105,13 +96,16 @@ const UserPage = () => {
         );
         setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
       } catch (error) {
-        console.error("Ошибка удаления задачи:", error.response?.data || error.message);
+        console.error(
+          "Ошибка удаления задачи:",
+          error.response?.data || error.message
+        );
         fetchTasks();
       }
     }
   };
 
-  const handleEditTask = (task) => {
+  const editTask = (task) => {
     setEditingTaskId(task.id);
     setEditedTask({ ...task });
   };
@@ -124,7 +118,7 @@ const UserPage = () => {
     }));
   };
 
-  const handleSaveTask = async (taskId) => {
+  const saveTask = async (taskId) => {
     try {
       await axios.put(
         `http://localhost:5000/users/${userId}/tasks/${taskId}`,
@@ -140,12 +134,15 @@ const UserPage = () => {
       );
       setEditingTaskId(null);
     } catch (error) {
-      console.error("Ошибка обновления задачи:", error.response?.data || error.message);
+      console.error(
+        "Ошибка обновления задачи:",
+        error.response?.data || error.message
+      );
       fetchTasks();
     }
   };
 
-  const handleCancelEdit = () => {
+  const cancelEdit = () => {
     setEditingTaskId(null);
   };
 
@@ -167,6 +164,7 @@ const UserPage = () => {
               onChange={handleInputChangeNewTask}
             />
           </Form.Group>
+
           <Form.Group className="mb-3">
             <Form.Label>Описание</Form.Label>
             <Form.Control
@@ -176,7 +174,15 @@ const UserPage = () => {
               onChange={handleInputChangeNewTask}
             />
           </Form.Group>
-          <Button variant="primary" onClick={handleCreateTask}>
+
+          <Form.Group className="mb-3">
+            <Form.Control
+              name="userId"
+              value={newTask.userId || userId}
+              readOnly
+            />
+          </Form.Group>
+          <Button variant="primary" onClick={createTask}>
             Создать задачу
           </Button>
         </Form>
@@ -218,41 +224,38 @@ const UserPage = () => {
                       <option value="Active Статус">Active Статус</option>
                       <option value="В процессе">В процессе</option>
                       <option value="Завершено">Завершено</option>
-                      {/* Добавьте другие статусы по необходимости */}
                     </Form.Control>
                   </Form.Group>
-                  <Button variant="success" onClick={() => handleSaveTask(task.id)}>
+                  <Button variant="success" onClick={() => saveTask(task.id)}>
                     Сохранить
                   </Button>{" "}
-                  <Button variant="secondary" onClick={handleCancelEdit}>
+                  <Button variant="secondary" onClick={cancelEdit}>
                     Отмена
                   </Button>
                 </Form>
               ) : (
                 <>
-                  <div>
-                    {task.title}
-                    <Form.Check
-                      inline
-                      type="checkbox"
-                      label="Завершено"
-                      checked={task.statusTodo === "Завершено"}
-                      onChange={(e) =>
-                        handleStatusChange(
-                          task.id,
-                          e.target.checked ? "Завершено" : "Active Статус"
-                        )
-                      }
-                    />
-                  </div>
                   <p>{task.description}</p>
                   <small>Статус: {task.statusTodo}</small>{" "}
-                  <Button variant="primary" size="sm" onClick={() => handleEditTask(task)}>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => editTask(task)}
+                  >
                     Редактировать
                   </Button>{" "}
-                  <Button variant="danger" size="sm" onClick={() => handleDeleteTask(task.id)}>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => deleteTask(task.id)}
+                  >
                     Удалить
                   </Button>
+                  <br />
+                  <br />
+                  <div>{task.title}</div>
+                  <br />
+                  <br />
                 </>
               )}
             </ListGroup.Item>

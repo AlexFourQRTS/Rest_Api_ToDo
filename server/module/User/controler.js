@@ -33,8 +33,8 @@ router.get('/:userId/tasks/:id', authenticateToken, async (req, res) => {
 
 router.post('/:userId/tasks', authenticateToken, async (req, res) => {
   try {
-    const { title, description, statusTodo } = req.body;
-    const newTask = await createTask(title, description, statusTodo, req.user.id);
+    const { title, description, statusTodo , userId} = req.body;
+    const newTask = await createTask(title, description, statusTodo, userId);
     res.status(201).json(newTask);
   } catch (error) {
     res.status(500).json({ message: error.message });

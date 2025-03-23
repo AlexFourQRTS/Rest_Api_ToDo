@@ -80,12 +80,12 @@ const AdminPage = () => {
     }
   };
 
-  const handleUserSelect = (userId) => {
+  const  UserSelect = (userId) => {
     setSelectedUserId(userId);
     fetchUserTasks(userId);
   };
 
-  const handleCreateTaskSubmit = async (event) => {
+  const  CreateTaskSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post(
@@ -119,16 +119,18 @@ const AdminPage = () => {
   };
 
 
-  const handleEditTask = (task) => {
+  const  EditTask = (task) => {
     setEditingTask(task);
   };
 
-  const handleUpdateTask = async () => {
+  const  UpdateTask = async () => {
     if (!editingTask) return;
+  
     try {
       await axios.put(
         `http://localhost:5000/admin/tasks/${editingTask.id}`,
         {
+          id: editingTask.id,  
           title: editTaskTitle,
           description: editTaskDescription,
           statusTodo: editTaskStatusTodo,
@@ -153,7 +155,7 @@ const AdminPage = () => {
     }
   };
 
-  const handleDeleteTask = async () => {
+  const  DeleteTask = async () => {
     if (!editingTask) return;
     if (window.confirm(`Вы уверены, что хотите удалить задачу "${editingTask.title}"?`)) {
       try {
@@ -183,7 +185,7 @@ const AdminPage = () => {
     
       <div className="mb-4 border p-3">
         <h3>Создать новую задачу</h3>
-        <Form onSubmit={handleCreateTaskSubmit}>
+        <Form onSubmit={ CreateTaskSubmit}>
           <Form.Group className="mb-3">
             <Form.Label className="admin-user">Назначить пользователю</Form.Label>
             <Form.Select
@@ -279,10 +281,10 @@ const AdminPage = () => {
               ))}
             </Form.Control>
           </Form.Group>
-          <Button variant="success" onClick={handleUpdateTask} className="me-2">
+          <Button variant="success" onClick={ UpdateTask} className="me-2">
             Сохранить задачу
           </Button>
-          <Button variant="danger" onClick={handleDeleteTask}>
+          <Button variant="danger" onClick={ DeleteTask}>
             Удалить задачу
           </Button>
         </div>
@@ -294,8 +296,8 @@ const AdminPage = () => {
             {users.map((user) => (
               <div
                 key={user.id}
-                onClick={() => handleUserSelect(user.id)}
-                className={`user-list ${selectedUserId === user.id ? "active" : ""}`}
+                onClick={() =>  UserSelect(user.id)}
+                className={`user-list ${selectedUserId === user.id ? "active" : "1"}`}
                 style={{
                   padding: "10px",
                   borderBottom: "1px solid #ccc",
@@ -314,7 +316,7 @@ const AdminPage = () => {
               <div className="d-flex justify-content-between align-items-center mb-2">
                 <h3>
                   Задачи пользователя:{" "}
-                  {users.find((user) => user.id === selectedUserId)?.username || `ID ${selectedUserId}`}
+                  {users.find((user) => user.id === selectedUserId)?.username || `ID ${selectedUserId} || "1"`}
                 </h3>
               </div>
               <Card>
@@ -322,7 +324,7 @@ const AdminPage = () => {
                   {selectedUserTasks.map((task) => (
                     <ListGroup.Item key={task.id} className="d-flex justify-content-between align-items-center">
                       {task.title} - {task.description}
-                      <Button variant="outline-primary" size="sm" onClick={() => handleEditTask(task)}>
+                      <Button variant="outline-primary" size="sm" onClick={() =>  EditTask(task)}>
                         Редактировать
                       </Button>
                     </ListGroup.Item>
