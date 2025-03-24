@@ -38,14 +38,6 @@ router.get("/users/:id", authenticateToken, isAdmin, async (req, res) => {
   }
 });
 
-router.delete("/users/:id", authenticateToken, isAdmin, async (req, res) => {
-  try {
-    await AdminService.deleteUser(req.params.id);
-    res.status(204).send();
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-});
 
 router.get("/tasks/:userId", authenticateToken, async (req, res) => {
   try {

@@ -8,10 +8,10 @@ import { routes } from "../routes";
 
 const Home = () => {
   const navigate = useNavigate();
-  const handleRegisterClick = () => {
+  const RegisterClick = () => {
     navigate("/register");
   };
-  const handleLoginClick = () => {
+  const LoginClick = () => {
     navigate("/login");
   };
 
@@ -22,10 +22,10 @@ const Home = () => {
           <div className="start-wrap">
             <div>Начнем?</div>
             <div className="start">
-              <Button className="start-item" onClick={handleRegisterClick}>
+              <Button className="start-item" onClick={RegisterClick}>
                 Регистрация
               </Button>
-              <Button className="start-item" onClick={handleLoginClick}>
+              <Button className="start-item" onClick={LoginClick}>
                 Авторизация
               </Button>
             </div>

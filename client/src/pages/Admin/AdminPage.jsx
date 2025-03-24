@@ -202,7 +202,7 @@ const AdminPage = () => {
 
   const [activeWindow, setActiveWindow] = useState('window2');
 
-  const handleButtonClick = (windowName) => {
+  const ButtonClick = (windowName) => {
     setActiveWindow(windowName);
     if (windowName == "window1") {
       setEditingTask(null)
@@ -217,8 +217,8 @@ const AdminPage = () => {
         <h2>Административная панель</h2>
 
         <div>
-          <button className="btn" onClick={() => handleButtonClick('window1')}>Создать задачу</button>
-          <button className="btn" onClick={() => handleButtonClick('window2')}>Пользователи</button>
+          <button className="btn" onClick={() => ButtonClick('window1')}>Создать задачу</button>
+          <button className="btn" onClick={() => ButtonClick('window2')}>Пользователи</button>
         </div>
 
         {activeWindow === 'window1' && (

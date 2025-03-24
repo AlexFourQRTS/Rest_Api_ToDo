@@ -12,7 +12,7 @@ const RegisterPage = () => {
   const [role, setRole] = useState("user");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = async (event) => {
+  const Submit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("http://localhost:5000/auth/register", {
@@ -46,7 +46,7 @@ const RegisterPage = () => {
 
   return (
     <div className="container color">
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={Submit}>
         <div>Регистрация</div>
   
         <Form.Group className="mb-3" controlId="formBasicUsername">

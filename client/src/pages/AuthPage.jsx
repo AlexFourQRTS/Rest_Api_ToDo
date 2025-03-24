@@ -14,7 +14,7 @@ const AuthPage = ({ onLogin }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
+  const Submit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("http://localhost:5000/auth/login", {
@@ -53,7 +53,7 @@ const AuthPage = ({ onLogin }) => {
 
   return (
     <div className="container color">
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={Submit}>
         <div>Авторизация</div>
        
 

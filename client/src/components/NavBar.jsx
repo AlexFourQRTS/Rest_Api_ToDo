@@ -12,7 +12,7 @@ const NavBar = ({ token, role, onLogout }) => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const handleLogoutClick = () => {
+  const LogoutClick = () => {
     onLogout();
     navigate(routes.home);
   };
@@ -59,7 +59,7 @@ const NavBar = ({ token, role, onLogout }) => {
                     Пользователь
                   </Nav.Link>
                 )}
-                <Button variant="outline-danger" onClick={handleLogoutClick}>
+                <Button variant="outline-danger" onClick={LogoutClick}>
                   Выйти
                 </Button>
               </>

@@ -23,17 +23,6 @@ class AdminService {
     }
   }
 
-  static async deleteUser(id) {
-    try {
-      const success = User.deleteUser(id);
-      if (!success) {
-        throw new Error(`Пользователь с ID ${id} не найден`);
-      }
-      return true;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-  }
 }
 
 module.exports = AdminService;

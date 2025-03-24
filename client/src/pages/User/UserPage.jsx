@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Container, ListGroup, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { ToastContainer, toast } from "react-toastify";
+
+import 'react-toastify/dist/ReactToastify.css';
 
 const UserPage = () => {
   const navigate = useNavigate();
@@ -48,7 +51,7 @@ const UserPage = () => {
     }
   }, [navigate, token, userId, fetchTasks]);
 
-  const handleInputChangeNewTask = (e) => {
+  const InputChangeNewTask = (e) => {
     const { name, value } = e.target;
     setNewTask((prevTask) => ({ ...prevTask, [name]: value }));
   };
@@ -84,34 +87,63 @@ const UserPage = () => {
     }
   };
 
+
+
   const deleteTask = async (taskId) => {
-    if (window.confirm("Вы уверены, что хотите удалить эту задачу?")) {
-      try {
-        await axios.delete(
-          `http://localhost:5000/users/${userId}/tasks/${taskId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+    const taskToDelete = tasks.find(task => task.id === taskId);
+    if (!taskToDelete) return;
+
+    const toastId = toast.warn(
+      <div>
+        <p>Вы уверены, что хотите удалить задачу "{taskToDelete.title}"?</p>
+        <Button variant="danger" size="sm" onClick={async () => {
+          try {
+            await axios.delete(
+              `http://localhost:5000/users/${userId}/tasks/${taskId}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+            setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
+            toast.success("Задача успешно удалена!");
+            toast.dismiss(toastId);
+          } catch (error) {
+            toast.error(
+              `Ошибка удаления задачи: ${error.response?.data || error.message}`
+            );
+            console.error("Ошибка удаления задачи:", error);
+            fetchTasks(); 
+            toast.dismiss(toastId);
           }
-        );
-        setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
-      } catch (error) {
-        console.error(
-          "Ошибка удаления задачи:",
-          error.response?.data || error.message
-        );
-        fetchTasks();
+        }}>
+          Удалить
+        </Button>{' '}
+        <Button variant="secondary" size="sm" onClick={() => toast.dismiss(toastId)}>
+          Отмена
+        </Button>
+      </div>,
+      {
+        position: "top-right",
+        autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
       }
-    }
+    );
   };
+
 
   const editTask = (task) => {
     setEditingTaskId(task.id);
     setEditedTask({ ...task });
   };
 
-  const handleInputChange = (e) => {
+  const InputChange = (e) => {
     const { name, value } = e.target;
     setEditedTask((prevTask) => ({
       ...prevTask,
@@ -149,7 +181,7 @@ const UserPage = () => {
 
   const [activeWindow, setActiveWindow] = useState('window2');
 
-  const handleButtonClick = (windowName) => {
+  const ButtonClick = (windowName) => {
     setActiveWindow(windowName);
 
   };
@@ -160,8 +192,8 @@ const UserPage = () => {
       <h2>Пользователь - {username}</h2>
       <br />
       <div>
-        <button className="btn" onClick={() => handleButtonClick('window1')}>Создать</button>
-        <button className="btn" onClick={() => handleButtonClick('window2')}>Список</button>
+        <button className="btn" onClick={() => ButtonClick('window1')}>Создать</button>
+        <button className="btn" onClick={() => ButtonClick('window2')}>Список</button>
       </div>
 
       {activeWindow === 'window1' && (
@@ -176,7 +208,7 @@ const UserPage = () => {
                 type="text"
                 name="title"
                 value={newTask.title}
-                onChange={handleInputChangeNewTask}
+                onChange={InputChangeNewTask}
               />
             </Form.Group>
 
@@ -186,7 +218,7 @@ const UserPage = () => {
                 as="textarea"
                 name="description"
                 value={newTask.description}
-                onChange={handleInputChangeNewTask}
+                onChange={InputChangeNewTask}
               />
             </Form.Group>
 
@@ -219,7 +251,7 @@ const UserPage = () => {
                         type="text"
                         name="title"
                         value={editedTask.title || ""}
-                        onChange={handleInputChange}
+                        onChange={InputChange}
                       />
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -228,7 +260,7 @@ const UserPage = () => {
                         as="textarea"
                         name="description"
                         value={editedTask.description || ""}
-                        onChange={handleInputChange}
+                        onChange={InputChange}
                       />
                     </Form.Group>
                     <Form.Group className="mb-3">
@@ -237,7 +269,7 @@ const UserPage = () => {
                         as="select"
                         name="statusTodo"
                         value={editedTask.statusTodo || ""}
-                        onChange={handleInputChange}
+                        onChange={InputChange}
                       >
                         <option value="Active Статус">Active Статус</option>
                         <option value="В процессе">В процессе</option>
@@ -270,9 +302,9 @@ const UserPage = () => {
                       Удалить
                     </Button>
                     <br />
-                    <br />
+
                     <div>{task.title}</div>
-                    <br />
+
                     <br />
                   </>
                 )}
@@ -281,6 +313,7 @@ const UserPage = () => {
           </ListGroup>
         </Container>
       )}
+        <ToastContainer />
     </>
   );
 };

@@ -44,22 +44,11 @@ const findAll = () => {
   return users;
 };
 
-const deleteUser = (id) => {
-  const userId = parseInt(id);
-  const initialLength = users.length;
-  users = users.filter((user) => user.id !== userId);
-  if (users.length < initialLength) {
-    saveUsers();
-    return true;
-  }
-  return false;
-};
 
 module.exports = {
   createUser,
   findUserByUsername,
   findUserById,
-  findAll,
-  deleteUser,
+  findAll
  
 };

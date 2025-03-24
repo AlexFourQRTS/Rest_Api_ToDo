@@ -19,7 +19,7 @@ function App() {
     localStorage.setItem("token", newToken);
     localStorage.setItem("role", newRole);
   };
-  const handleLogout = () => {
+  const Logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     setToken(null);
@@ -30,7 +30,7 @@ function App() {
     <>
       <br />
       <BrowserRouter>
-        <NavBar token={token} role={role} onLogout={handleLogout} />
+        <NavBar token={token} role={role} onLogout={Logout} />
         <Routes>
           <Route
             path={routes.login}
