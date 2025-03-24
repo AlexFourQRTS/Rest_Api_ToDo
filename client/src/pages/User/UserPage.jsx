@@ -8,6 +8,7 @@ const UserPage = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const userId = token ? jwtDecode(token).userId : null;
+  const username = token ? jwtDecode(token).username : null;
 
   const [tasks, setTasks] = useState([]);
   const [editingTaskId, setEditingTaskId] = useState(null);
@@ -146,122 +147,140 @@ const UserPage = () => {
     setEditingTaskId(null);
   };
 
+  const [activeWindow, setActiveWindow] = useState('window2');
+
+  const handleButtonClick = (windowName) => {
+    setActiveWindow(windowName);
+
+  };
+
   return (
     <>
       <br />
-      <h2>Список задач для Id - {userId}</h2>
+      <h2>Пользователь - {username}</h2>
       <br />
+      <div>
+        <button className="btn" onClick={() => handleButtonClick('window1')}>Создать</button>
+        <button className="btn" onClick={() => handleButtonClick('window2')}>Список</button>
+      </div>
 
-      <Container className="mb-4">
-        <h3>Создать новую задачу</h3>
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Название</Form.Label>
-            <Form.Control
-              type="text"
-              name="title"
-              value={newTask.title}
-              onChange={handleInputChangeNewTask}
-            />
-          </Form.Group>
+      {activeWindow === 'window1' && (
 
-          <Form.Group className="mb-3">
-            <Form.Label>Описание</Form.Label>
-            <Form.Control
-              as="textarea"
-              name="description"
-              value={newTask.description}
-              onChange={handleInputChangeNewTask}
-            />
-          </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Control
-              name="userId"
-              value={newTask.userId || userId}
-              readOnly
-            />
-          </Form.Group>
-          <Button variant="primary" onClick={createTask}>
-            Создать задачу
-          </Button>
-        </Form>
-      </Container>
+        <Container className="mb-4">
 
-      <Container>
-        <h2>Список задач</h2>
-        <ListGroup>
-          {tasks.map((task) => (
-            <ListGroup.Item key={task.id}>
-              {editingTaskId === task.id ? (
-                <Form>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Название</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="title"
-                      value={editedTask.title || ""}
-                      onChange={handleInputChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Описание</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      name="description"
-                      value={editedTask.description || ""}
-                      onChange={handleInputChange}
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Статус</Form.Label>
-                    <Form.Control
-                      as="select"
-                      name="statusTodo"
-                      value={editedTask.statusTodo || ""}
-                      onChange={handleInputChange}
+          <Form>
+            <Form.Group className="mb-3">
+              <Form.Label>Название</Form.Label>
+              <Form.Control
+                type="text"
+                name="title"
+                value={newTask.title}
+                onChange={handleInputChangeNewTask}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Описание</Form.Label>
+              <Form.Control
+                as="textarea"
+                name="description"
+                value={newTask.description}
+                onChange={handleInputChangeNewTask}
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Control
+                name="userId"
+                value={newTask.userId || userId}
+                readOnly
+              />
+            </Form.Group>
+            <Button variant="primary" onClick={createTask}>
+              Создать задачу
+            </Button>
+          </Form>
+        </Container>
+      )}
+
+      {activeWindow === 'window2' && (
+
+        <Container>
+
+          <ListGroup>
+            {tasks.map((task) => (
+              <ListGroup.Item key={task.id}>
+                {editingTaskId === task.id ? (
+                  <Form>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Название</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="title"
+                        value={editedTask.title || ""}
+                        onChange={handleInputChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Описание</Form.Label>
+                      <Form.Control
+                        as="textarea"
+                        name="description"
+                        value={editedTask.description || ""}
+                        onChange={handleInputChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>Статус</Form.Label>
+                      <Form.Control
+                        as="select"
+                        name="statusTodo"
+                        value={editedTask.statusTodo || ""}
+                        onChange={handleInputChange}
+                      >
+                        <option value="Active Статус">Active Статус</option>
+                        <option value="В процессе">В процессе</option>
+                        <option value="Завершено">Завершено</option>
+                      </Form.Control>
+                    </Form.Group>
+                    <Button variant="success" onClick={() => saveTask(task.id)}>
+                      Сохранить
+                    </Button>{" "}
+                    <Button variant="secondary" onClick={cancelEdit}>
+                      Отмена
+                    </Button>
+                  </Form>
+                ) : (
+                  <>
+                    <p>{task.description}</p>
+                    <small>Статус: {task.statusTodo}</small>{" "}
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => editTask(task)}
                     >
-                      <option value="Active Статус">Active Статус</option>
-                      <option value="В процессе">В процессе</option>
-                      <option value="Завершено">Завершено</option>
-                    </Form.Control>
-                  </Form.Group>
-                  <Button variant="success" onClick={() => saveTask(task.id)}>
-                    Сохранить
-                  </Button>{" "}
-                  <Button variant="secondary" onClick={cancelEdit}>
-                    Отмена
-                  </Button>
-                </Form>
-              ) : (
-                <>
-                  <p>{task.description}</p>
-                  <small>Статус: {task.statusTodo}</small>{" "}
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    onClick={() => editTask(task)}
-                  >
-                    Редактировать
-                  </Button>{" "}
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    onClick={() => deleteTask(task.id)}
-                  >
-                    Удалить
-                  </Button>
-                  <br />
-                  <br />
-                  <div>{task.title}</div>
-                  <br />
-                  <br />
-                </>
-              )}
-            </ListGroup.Item>
-          ))}
-        </ListGroup>
-      </Container>
+                      Редактировать
+                    </Button>{" "}
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={() => deleteTask(task.id)}
+                    >
+                      Удалить
+                    </Button>
+                    <br />
+                    <br />
+                    <div>{task.title}</div>
+                    <br />
+                    <br />
+                  </>
+                )}
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Container>
+      )}
     </>
   );
 };

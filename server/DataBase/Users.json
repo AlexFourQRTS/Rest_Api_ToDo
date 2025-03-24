@@ -22,5 +22,11 @@
     "username": "xsander@gmail.com",
     "password": "xsander@gmail.com",
     "role": "user"
+  },
+  {
+    "id": 5,
+    "username": "test@test.test",
+    "password": "test@test.test",
+    "role": "user"
   }
 ]

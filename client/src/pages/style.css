@@ -50,3 +50,27 @@
 *{
   color: #000;
 }
+
+
+.btn {
+	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+	background-color:#ededed;
+	border-radius:15px;
+	border:1px solid #d6bcd6;
+	display:inline-block;
+	cursor:pointer;
+	color:#3a8a9e;
+	font-family:Arial;
+	font-size:21px;
+	padding:5px 5px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #e1e2ed;
+  margin: 5px;
+}
+.btn:hover {
+	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+	background-color:#bab1ba;
+}
+.btn:active {
+	background-color:#a599a5;
+}
