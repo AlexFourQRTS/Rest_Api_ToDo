@@ -1,39 +1,54 @@
-const fs = require("fs");
-const path = require("path");
+const db = require("../../models/db");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
-const usersFilePath = path.join(__dirname, "../../DataBase/Users.json");
+const initializeDatabase = async () => {
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      username VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL, 
+      role VARCHAR(50) NOT NULL
+    );
+  `;
+  await db.query(createTableQuery);
+};
 
-let users = [];
-
-const loadUsers = () => {
+const createUser = async (username, password, role) => {
   try {
-    const data = fs.readFileSync(usersFilePath, "utf8");
-    users = JSON.parse(data);
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    console.log("hashedPassword", hashedPassword);
+    
+    const insertQuery = `
+      INSERT INTO users (username, password, role) 
+      VALUES ($1, $2, $3)
+      RETURNING id, username, role;
+    `;
+    const result = await db.query(insertQuery, [username, hashedPassword, role]);
+    return result.rows[0];
   } catch (error) {
-    users = [];
+    throw error;
   }
 };
-const saveUsers = () => {
-  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), "utf8");
-};
-loadUsers();
-const createUser = (username, password, role) => {
-  const newUser = {
-    id: users.length + 1,
-    username,
-    password,
-    role,
-  };
-  users.push(newUser);
-  saveUsers();
-  return newUser;
+
+const findUserByUsername = async (username) => {
+  const selectQuery = `
+    SELECT id, username, password, role FROM users 
+    WHERE username = $1;
+  `;
+  const result = await db.query(selectQuery, [username]);
+  return result.rows[0];
 };
 
-const findUserByUsername = (username) => {
-  return users.find((user) => user.username === username);
+const comparePasswords = async (plainPassword, hashedPassword) => {
+  return await bcrypt.compare(plainPassword, hashedPassword);
 };
+
+initializeDatabase();
 
 module.exports = {
   createUser,
   findUserByUsername,
+  comparePasswords,
 };

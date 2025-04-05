@@ -1,53 +1,51 @@
-const fs = require("fs").promises;
-const path = require("path");
-const dataFilePath = path.resolve(__dirname, "../DataBase/Tasks.json");
+const db = require('./db'); 
 
-const readData = async () => {
-  try {
-    const data = await fs.readFile(dataFilePath, "utf8");
-    return JSON.parse(data);
-  } catch {
-    return { users: [], tasks: [] };
-  }
+const getTasks = async () => {
+  const selectAllQuery = `
+    SELECT * FROM tasks;
+  `;
+  const result = await db.query(selectAllQuery);
+  return result.rows;
 };
-
-const writeData = async (data) => {
-  await fs.writeFile(dataFilePath, JSON.stringify(data, null, 2));
-};
-
-const getTasks = async () => (await readData()).tasks;
 
 const getTaskById = async (id) => {
-  const task = (await getTasks()).find((t) => t.id === parseInt(id));
-  if (!task) throw new Error(`Задача с ID ${id} не найдена`);
-  return task;
+  const selectQuery = `
+    SELECT * FROM tasks
+    WHERE id = $1;
+  `;
+  const result = await db.query(selectQuery, [id]);
+  if (result.rows.length === 0) {
+    throw new Error(`Задача с ID ${id} не найдена`);
+  }
+  return result.rows[0];
 };
 
-const getTasksByUserId = async (userId) =>
-  (await getTasks()).filter((t) => t.userId === String(userId));
+const getTasksByUserId = async (user_id) => {
+  const selectQuery = `
+    SELECT * FROM tasks
+    WHERE user_id = $1;
+  `;
+  const result = await db.query(selectQuery, [user_id]);
+  return result.rows;
+};
 
 const createTask = async (
   title = "Без названия",
   description = "Описание отсутствует",
   statusTodo = "pending",
-  userId
+  user_id
 ) => {
-  if (userId == "") {
-    return "Не верный ввод";
-  } else {
-    console.log("userId", userId);
-    const data = await readData();
-    const newTask = {
-      id: data.tasks.length + 1,
-      title,
-      description,
-      userId: String(userId),
-      statusTodo,
-    };
-    data.tasks.push(newTask);
-    await writeData(data);
-    return newTask;
+  if (!user_id) {
+    return "Не верный ввод createTask";
   }
+
+  const insertQuery = `
+    INSERT INTO tasks (title, description, status_todo, user_id)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *;
+  `;
+  const result = await db.query(insertQuery, [title, description, statusTodo, user_id]);
+  return result.rows[0];
 };
 
 const updateTask = async (
@@ -57,34 +55,31 @@ const updateTask = async (
   statusTodo = "pending",
   userId
 ) => {
-  if (userId == "") {
-    return "Не верный ввод";
-  } else {
-    const data = await readData();
-    const taskIndex = data.tasks.findIndex((t) => t.id === parseInt(id));
-    if (taskIndex === -1) throw new Error(`Задача с ID ${id} не найдена`);
-
-    const currentTask = data.tasks[taskIndex];
-    data.tasks[taskIndex] = {
-      ...currentTask,
-      title: title || currentTask.title,
-      description: description || currentTask.description,
-      userId: userId || currentTask.userId,
-      statusTodo: statusTodo || currentTask.statusTodo,
-    };
-
-    await writeData(data);
-    return data.tasks[taskIndex];
+  // ...
+  const updateQuery = `
+    UPDATE tasks
+    SET title = COALESCE($2, title),
+        description = COALESCE($3, description),
+        status_todo = COALESCE($4, status_todo),
+        user_id = COALESCE($5, user_id)
+    WHERE id = $1
+    RETURNING *;
+  `;
+  const result = await db.query(updateQuery, [id, title, description, statusTodo, userId]);
+  if (result.rows.length === 0) {
+    throw new Error(`Задача с ID ${id} не найдена`);
   }
+  return result.rows[0];
 };
 
 const deleteTask = async (id) => {
-  const data = await readData();
-  const taskIndex = data.tasks.findIndex((t) => t.id === parseInt(id));
-  if (taskIndex === -1) return false;
-  data.tasks.splice(taskIndex, 1);
-  await writeData(data);
-  return true;
+  const deleteQuery = `
+    DELETE FROM tasks
+    WHERE id = $1
+    RETURNING *;
+  `;
+  const result = await db.query(deleteQuery, [id]);
+  return result.rows.length > 0;
 };
 
 module.exports = {

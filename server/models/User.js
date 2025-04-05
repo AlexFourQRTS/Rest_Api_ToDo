@@ -1,54 +1,58 @@
-const fs = require('fs');
-const path = require('path');
+const db = require('./db'); 
 
-const usersFilePath = path.join(__dirname, '../DataBase/Users.json');
-
-let users = [];
-
-const loadUsers = () => {
-  try {
-    const data = fs.readFileSync(usersFilePath, 'utf8');
-    users = JSON.parse(data);
-  } catch (error) {
-    users = [];
-  }
+const initializeDatabase = async () => {
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      username VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      role VARCHAR(50) NOT NULL
+    );
+  `;
+  await db.query(createTableQuery);
 };
 
-const saveUsers = () => {
-  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2), 'utf8');
+const createUser = async (username, password, role) => {
+  const insertQuery = `
+    INSERT INTO users (username, password, role)
+    VALUES ($1, $2, $3)
+    RETURNING *;
+  `;
+  const result = await db.query(insertQuery, [username, password, role]);
+  return result.rows[0];
 };
 
-loadUsers();
-
-const createUser = (username, password, role) => {
-  const newUser = {
-    id: users.length + 1,
-    username,
-    password,
-    role,
-  };
-  users.push(newUser);
-  saveUsers();
-  return newUser;
+const findUserByUsername = async (username) => {
+  const selectQuery = `
+    SELECT * FROM users
+    WHERE username = $1;
+  `;
+  const result = await db.query(selectQuery, [username]);
+  return result.rows[0];
 };
 
-const findUserByUsername = (username) => {
-  return users.find((user) => user.username === username);
+const findUserById = async (id) => {
+  const selectQuery = `
+    SELECT * FROM users
+    WHERE id = $1;
+  `;
+  const result = await db.query(selectQuery, [id]);
+  return result.rows[0];
 };
 
-const findUserById = (id) => {
-  return users.find((user) => user.id === parseInt(id));
+const findAll = async () => {
+  const selectAllQuery = `
+    SELECT * FROM users;
+  `;
+  const result = await db.query(selectAllQuery);
+  return result.rows;
 };
 
-const findAll = () => {
-  return users;
-};
-
+initializeDatabase();
 
 module.exports = {
   createUser,
   findUserByUsername,
   findUserById,
-  findAll
- 
+  findAll,
 };

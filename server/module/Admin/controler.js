@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const AdminService = require("./servise");
 const authenticateToken = require("../../middleware/auth");
+
 const {
   getTasksByUserId,
   createTask,
@@ -38,7 +39,6 @@ router.get("/users/:id", authenticateToken, isAdmin, async (req, res) => {
   }
 });
 
-
 router.get("/tasks/:userId", authenticateToken, async (req, res) => {
   try {
     const tasks = await getTasksByUserId(req.params.userId);
@@ -61,28 +61,31 @@ router.post("/tasksCreate", authenticateToken, async (req, res) => {
 router.put("/tasks/:id", authenticateToken, async (req, res) => {
   try {
     const { title, description, statusTodo, userId } = req.body;
+
     const updatedTask = await updateTask(req.params.id, title, description, statusTodo, userId);
     if (!updatedTask) {
       return res.status(404).json({ message: "Задача не найдена" });
     }
     res.json(updatedTask);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
 router.delete("/tasks/:id", authenticateToken, async (req, res) => {
+
   try {
     const success = await deleteTask(req.params.id);
     if (!success) {
       return res.status(404).json({ message: "Задача не найдена" });
     }
-    res.status(204).send();
+    res.status(204).send({ message: "Task delete done" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-});
 
+});
 
 
 module.exports = router;

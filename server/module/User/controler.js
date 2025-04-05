@@ -22,7 +22,7 @@ router.get('/:userId/tasks', authenticateToken, async (req, res) => {
 router.get('/:userId/tasks/:id', authenticateToken, async (req, res) => {
   try {
     const task = await getTaskById(req.params.id);
-    if (task.userId !== req.user.id) {
+    if (task.userId !== req.user_id) {
       return res.status(403).json({ message: 'Нет доступа к этой задаче' });
     }
     res.json(task);
