@@ -28,8 +28,8 @@ router.post("/login", async (req, res) => {
     if (password !== user.password) {
       return res.status(400).json({ message: "Неверные учетные данные" });
     }
-    const token = jwt.sign({ userId: user.id, role: user.role }, "api");
-    res.json({ token, role: user.role });
+    const token = jwt.sign({username: user.username, userId: user.id, role: user.role }, "api");
+    res.json({ token, role: user.role , username: user.username,});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
