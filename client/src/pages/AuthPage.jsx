@@ -18,7 +18,7 @@ const AuthPage = ({ onLogin }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", {
+      const response = await axios.post("https://skydishch.fun/api/auth/login", {
         username,
         password,
       });

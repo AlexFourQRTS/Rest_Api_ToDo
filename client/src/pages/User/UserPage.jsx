@@ -18,7 +18,7 @@ const UserPage = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/users/${userId}/tasks`,
+        `https://skydishch.fun/api/users/${userId}/tasks`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

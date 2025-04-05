@@ -24,7 +24,7 @@ const AdminPage = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/admin/users", {
+      const response = await axios.get("https://skydishch.fun/api/admin/users", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -38,7 +38,7 @@ const AdminPage = () => {
   const fetchUserTasks = async (userId) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/admin/tasks/${userId}`,
+        `https://skydishch.fun/api/admin/tasks/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

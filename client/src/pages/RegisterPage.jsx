@@ -15,7 +15,7 @@ const RegisterPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/auth/register", {
+      const response = await axios.post("https://skydishch.fun/api/auth/register", {
         username,
         password,
         role,
