@@ -12,7 +12,7 @@ const initializeDatabase = async () => {
   await db.query(createTableQuery);
 };
 
-const createUser = async (username, password, role) => {
+const createUser = async (username, password, role = "user") => {
   const insertQuery = `
     INSERT INTO users (username, password, role)
     VALUES ($1, $2, $3)

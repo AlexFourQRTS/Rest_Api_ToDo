@@ -37,103 +37,56 @@ const Home = () => {
           </div>
 
           <h1>
-            Техническое задание: Разработка REST API для управления списком
-            задач (To-Do List)
+            <br />
+            Ай посмотрим что из этого вырастит.
+            <br />
           </h1>
           <Accordion defaultActiveKey="0">
             <Accordion.Item eventKey="0">
-              <Accordion.Header>1. Введение</Accordion.Header>
+              <Accordion.Header>1.Новости </Accordion.Header>
               <Accordion.Body>
                 <p>
-                  Необходимо разработать REST API для управления списком задач.
-                  API должно позволять пользователям создавать, редактировать,
-                  просматривать и удалять задачи.
+                  Можем новостную ленту сюда подключу, просто по приколу
                 </p>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">
-              <Accordion.Header>2. Технологический стек</Accordion.Header>
+              <Accordion.Header>2. Курс валют</Accordion.Header>
               <Accordion.Body>
                 <p>
-                  Разработчик может выбрать один из следующих стеков технологий:
+                  На главной странице, наверное прикольно
                 </p>
                 <ul>
                   <li>
-                    Backend: Node.js (Express) или PHP (чистый или с
-                    использованием Laravel)
+                    А тут тебе хоп и 20 самых ходовых валют
                   </li>
-                  <li>База данных: JSON-файл, SQLite, MySQL или MongoDB</li>
+                  <li>И наверное биткоин</li>
                 </ul>
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="2">
-              <Accordion.Header>3. Функционал API</Accordion.Header>
+              <Accordion.Header>3. Web-Soket</Accordion.Header>
               <Accordion.Body>
-                <p>Методы API:</p>
+                <p>Чат:</p>
                 <ul>
-                  <li>POST /tasks – Создать новую задачу</li>
-                  <li>GET /tasks – Получить список всех задач</li>
+                  <li>Профиль</li>
                   <li>
-                    GET /tasks/&#123;id&#125; – Получить конкретную задачу
+                    Музыка
                   </li>
-                  <li>PUT /tasks/&#123;id&#125; – Обновить задачу</li>
-                  <li>DELETE /tasks/&#123;id&#125; – Удалить задачу</li>
+                  <li>Видео</li>
+                  <li>Нужные программы типа 7zip</li>
                 </ul>
-                <p>Входные параметры (JSON):</p>
+                <p>И например классные сборки винды:</p>
                 <ul>
-                  <li>title (string) – Заголовок задачи (обязательный)</li>
+                  <li>Картинки, не уверен что это конечно актуально</li>
                   <li>
-                    description (string) – Описание задачи (необязательный)
+                    Может инструкции какие-то
                   </li>
                   <li>
-                    status (string) – Статус задачи (pending, in progress,
-                    completed)
+                    Может вцеплю сюда GPT через Api, или какой-то локальный ИИ типа Лама 3.2
                   </li>
                 </ul>
-                <p>Выходные данные: Объект созданной задачи с id</p>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="3">
-              <Accordion.Header>4. Frontend</Accordion.Header>
-              <Accordion.Body>
-                <p>
-                  Простое отображение списка задач с возможностью добавления,
-                  редактирования и удаления.
-                </p>
-                <p>
-                  Можно использовать любой фреймворк (React, Vue, Angular) или
-                  чистый HTML + JavaScript.
-                </p>
-                <p>Минимальное количество CSS, оформление не критично.</p>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="4">
-              <Accordion.Header>5. Дополнительные требования</Accordion.Header>
-              <Accordion.Body>
-                <p>
-                  Структурированный код: Разделить логику на файлы (контроллеры,
-                  маршруты, сервисы, модели).
-                </p>
-                <p>
-                  Аутентификация (необязательно, если сложно): Реализовать
-                  JWT-аутентификацию (по желанию), чтобы пользователи могли
-                  получать и изменять только свои задачи. Если JWT сложен, можно
-                  обойтись без аутентификации.
-                </p>
-                <p>
-                  Роли пользователей (дополнительно, если возможно):
-                  Администратор – Полный доступ ко всем задачам. Обычный
-                  пользователь – Доступ только к своим задачам.
-                </p>
-              </Accordion.Body>
-            </Accordion.Item>
-            <Accordion.Item eventKey="5">
-              <Accordion.Header>6. Требования к коду</Accordion.Header>
-              <Accordion.Body>
-                <p>
-                  Чистота и читаемость кода. Обработчики ошибок. Минимальная
-                  документация (README с инструкцией по запуску).
-                </p>
+                <p>Надо бы адаптив добавить, просто что бы был</p>
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>

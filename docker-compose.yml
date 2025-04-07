@@ -9,30 +9,30 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - DATABASE_URL=postgres://user:password@db:5432/mydatabase
+      - DATABASE_URL=postgres://xsanderadmin:qazxdr5WSE#!QAZXDR%2wse43@postgres:5432/mydatabase
       - DEBUG=True
     volumes:
       - ./server:/app
     depends_on:
-      - db
+      - postgres
     networks:
       - app-network
-    restart: unless-stopped
+    restart: always 
 
-  db:
+  postgres:
     image: postgres:15
     container_name: Database
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: xsanderadmin
+      POSTGRES_PASSWORD: qazxdr5WSE#!QAZXDR%2wse43
       POSTGRES_DB: mydatabase
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     networks:
       - app-network
-    restart: unless-stopped
+    restart: always 
 
 networks:
   app-network:

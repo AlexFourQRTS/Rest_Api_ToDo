@@ -38,14 +38,10 @@ const findUserByUsername = async (username) => {
   return result.rows[0];
 };
 
-const comparePasswords = async (plainPassword, hashedPassword) => {
-  return await bcrypt.compare(plainPassword, hashedPassword);
-};
-
 initializeDatabase();
 
 module.exports = {
   createUser,
   findUserByUsername,
-  comparePasswords, 
+  
 };

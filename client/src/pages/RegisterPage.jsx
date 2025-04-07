@@ -5,15 +5,43 @@ import "./style.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [role, setRole] = useState("user");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const isValidEmail = (email) => {
+   
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrorMessage(""); 
+
+    if (password.length < 8) {
+      setErrorMessage("Пароль должен содержать не менее 8 символов.");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setErrorMessage("Пароли не совпадают.");
+      return;
+    }
+
+    if (!isValidEmail(username)) {
+      setErrorMessage("Введите адрес электронной почты.");
+      return;
+    }
+
     try {
       const response = await axios.post("https://skydishch.fun/api/auth/register", {
         username,
@@ -25,10 +53,10 @@ const RegisterPage = () => {
         onClose: () => {
           setUsername("");
           setPassword("");
+          setConfirmPassword("");
           setRole("user");
         },
       });
-      setErrorMessage("");
     } catch (error) {
       console.error("Ошибка регистрации:", error);
       if (
@@ -44,14 +72,21 @@ const RegisterPage = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   return (
     <div className="container color">
       <Form onSubmit={handleSubmit}>
         <div>Регистрация</div>
-        <hr />
-        <br />
+        
         <Form.Group className="mb-3" controlId="formBasicUsername">
-          <Form.Label>Имя пользоователя</Form.Label>
+          <Form.Label>Имя пользователя</Form.Label>
           <Form.Control
             type="text"
             placeholder=""
@@ -62,32 +97,60 @@ const RegisterPage = () => {
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Пароль</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder=""
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="password-input-group">
+            <Form.Control
+              type={showPassword ? "text" : "password"}
+              placeholder=""
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <span
+              className="password-toggle-icon"
+              onClick={togglePasswordVisibility}
+            >
+              <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+            </span>
+          </div>
+          {password.length < 8 && password.length > 0 && (
+            <Form.Text className="text-danger">
+              Пароль должен содержать не менее 8 символов.
+            </Form.Text>
+          )}
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicRole">
-          <Form.Label>Полномочия</Form.Label>
-          <Form.Control
-            as="select"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </Form.Control>
+        <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
+          <Form.Label>Подтвердите пароль</Form.Label>
+          <div className="password-input-group">
+            <Form.Control
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder=""
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <span
+              className="password-toggle-icon"
+              onClick={toggleConfirmPasswordVisibility}
+            >
+              <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+            </span>
+          </div>
+          {confirmPassword !== password && confirmPassword.length > 0 && (
+            <Form.Text className="text-danger">Пароли не совпадают.</Form.Text>
+          )}
         </Form.Group>
+        <br />
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <br />
+        <ToastContainer position="top-right" autoClose={500} />
+       
+        <br />
+        <br />
 
         <Button variant="primary" type="submit">
-          Зарегестрироваться
+          Зарегистрироваться
         </Button>
       </Form>
-      <ToastContainer position="top-right" autoClose={5000} />
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+     
     </div>
   );
 };

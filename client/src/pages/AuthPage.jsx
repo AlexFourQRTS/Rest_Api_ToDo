@@ -83,7 +83,7 @@ const AuthPage = ({ onLogin }) => {
           Войти
         </Button>
       </Form>
-      <ToastContainer position="top-right" autoClose={5000} />
+      <ToastContainer position="top-right" autoClose={500} />
       {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
