@@ -1,11 +1,7 @@
 import React from "react";
-
-import { routes } from "../routes";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { routes } from "../routes";
+import "../style.css"; // Импортируем файл стилей
 
 const NavBar = ({ token, role, onLogout }) => {
   const navigate = useNavigate();
@@ -22,69 +18,60 @@ const NavBar = ({ token, role, onLogout }) => {
   };
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand as={Link} to={routes.home}>
-          Panda
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link
-              as={Link}
-              to={routes.home}
-              className={isActive(routes.home)}
-            >
-              Главная
-            </Nav.Link>
+    <nav className="navbar">
+      <div className="navbar-container">
+
+        <div className="navbar-menu">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link to={routes.home} className={`nav-link ${isActive(routes.home)}`}>
+                Panda
+              </Link>
+            </li>
             {token ? (
               <>
+                {/* Admin */}
                 {role === "admin" && (
-                  <>
-                    <Nav.Link
-                      as={Link}
-                      to={routes.admin}
-                      className={isActive(routes.admin)}
-                    >
+
+                  <li className="nav-item">
+                    <Link to={routes.admin} className={`nav-link ${isActive(routes.admin)}`}>
                       Админ
-                    </Nav.Link>
-                  </>
+                    </Link>
+                  </li>
                 )}
+                {/* User */}
                 {role === "user" && (
-                  <Nav.Link
-                    as={Link}
-                    to={routes.user}
-                    className={isActive(routes.user)}
-                  >
-                    Пользователь
-                  </Nav.Link>
+                  <li className="nav-item">
+                    <Link to={routes.user} className={`nav-link ${isActive(routes.user)}`}>
+                      Пользователь
+                    </Link>
+                  </li>
                 )}
-                <Button variant="outline-danger" onClick={handleLogoutClick}>
-                  Выйти
-                </Button>
+                <li className="nav-item">
+                  <button onClick={handleLogoutClick} className="logout-button">
+                    Выйти
+                  </button>
+                </li>
               </>
+              // Uther
             ) : (
               <>
-                <Nav.Link
-                  as={Link}
-                  to={routes.login}
-                  className={isActive(routes.login)}
-                >
-                  Авторизация
-                </Nav.Link>
-                <Nav.Link
-                  as={Link}
-                  to={routes.register}
-                  className={isActive(routes.register)}
-                >
-                  Регистрация
-                </Nav.Link>
+                <li className="nav-item">
+                  <Link to={routes.login} className={`nav-link ${isActive(routes.login)}`}>
+                    Авторизация
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={routes.register} className={`nav-link ${isActive(routes.register)}`}>
+                    Регистрация
+                  </Link>
+                </li>
               </>
             )}
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
 };
 

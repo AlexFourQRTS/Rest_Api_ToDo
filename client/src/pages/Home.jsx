@@ -1,7 +1,6 @@
 import React from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Container from "react-bootstrap/Container";
-import "./Home.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { routes } from "../routes";
