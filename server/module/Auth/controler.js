@@ -28,10 +28,12 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: "Пользователь не найден" });
     }
+
     const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
       return res.status(400).json({ message: "Неверный пароль" });
     }
+    
     const token = jwt.sign({ username: user.username, userId: user.id, role: user.role }, "api");
     res.json({ token, role: user.role, username: user.username });
   } catch (error) {
