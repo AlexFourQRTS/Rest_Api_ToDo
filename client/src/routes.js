@@ -1,8 +1,20 @@
-
 export const routes = {
-    login: '/login',
-    register: '/register',
-    home: '/',
-    user: '/user',
-    admin: '/admin',
-  };
+  login: '/login',
+  register: '/register',
+  home: '/',
+  user: '/user',
+  admin: '/admin',
+  files: '/files',
+  videos: '/videos',
+  music: '/music',
+  chat: '/chat',
+  profile: '/profile',
+  settings: '/settings',
+  notifications: '/notifications',
+  help: '/help',
+  logout: '/logout',
+  blog: '/blog',
+  news: '/news',
+  friends: '/friends',
+  messages: '/messages',
+};

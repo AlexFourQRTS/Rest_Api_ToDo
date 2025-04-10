@@ -33,12 +33,12 @@ const FooterPage = () => {
           <h4>Подпишитесь на новости</h4>
           <form>
             <input type="email" placeholder="Ваш e-mail" />
-            <button type="submit">Подписаться</button>
+            <button type="submit" >Подписаться</button>
           </form>
         </div>
       </div>
       <div className="footer-bottom">
-        <p>  Skydishch.fun.  </p>
+        <p>  Skydishch.fun  </p>
         <p>&copy; {new Date().getFullYear()} Все права защищены.</p>
       </div>
     </footer>
