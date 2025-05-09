@@ -1,0 +1,272 @@
+{
+  "en": {
+    "title": "About Me",
+    "intro": "I am a developer specializing in web development with a focus on interactive solutions, including real-time technologies like WebSocket. I also create cross-platform applications and deploy projects on servers. My goal is to build reliable, user-friendly, and modern solutions for businesses. I work with Linux (primarily Linux Mint) and Windows, choosing tools based on the task. While not a designer, I handle projects from scratch to production, including domain setup, SSL, and servers. For startups, I can configure local servers on home machines, but for production, I recommend professional hosting. Additionally, I work on parsers and integrate local LLMs (e.g., Ollama). I strive for performance optimization, security, and transparent communication.",
+    "skills": "My Skills",
+    "skillNames": {
+      "Docker": "Docker",
+      "React": "React",
+      "Next.js": "Next.js",
+      "NestJS": "NestJS",
+      "Express": "Express",
+      "WebSocket": "WebSocket",
+      "PostgreSQL": "PostgreSQL",
+      "MongoDB": "MongoDB",
+      "Nginx": "Nginx",
+      "Ollama": "Ollama",
+      "Electron": "Electron"
+    },
+    "tools": "My Tools",
+    "toolNames": {
+      "Linux Mint": "Linux Mint",
+      "Windows": "Windows",
+      "Git": "Git",
+      "Notion": "Notion",
+      "Jira": "Jira"
+    },
+    "services": "Services",
+    "serviceNames": {
+      "Web Development": "Web Development",
+      "Desktop Apps": "Desktop Apps",
+      "Server Deployment": "Server Deployment",
+      "Parsers": "Parsers",
+      "API Integration": "API Integration",
+      "SEO Optimization": "SEO Optimization",
+      "Security Consulting": "Security Consulting"
+    },
+    "projects": "Projects",
+    "projectItems": [
+      "<strong>Web Development:</strong> Built blogs and sites from scratch, including admin panels with content editors, automatic SEO metadata, adaptive design, and WebSocket for real-time features.",
+      "<strong>Desktop Apps:</strong> Developed cross-platform apps for Windows, Linux, and macOS using Electron, with user-friendly data management interfaces.",
+      "<strong>Server Deployment:</strong> Configured sites from scratch to production, including domains, SSL, and hosting. Set up servers with WebSocket for parsers and admin panels.",
+      "<strong>Parsers:</strong> Created over 10 types of parsers using WebSocket for admin control or as desktop apps, handling tasks like site map updates or data transfer to Excel."
+    ],
+    "philosophy": "My Approach",
+    "philosophyText": "Technologies are tools to achieve results. I use Linux Mint for most tasks but switch to Windows when needed. I focus on delivering efficient solutions, from web development to server setup, prioritizing simplicity and performance."
+  },
+  "ru": {
+    "title": "Обо мне",
+    "intro": "Я разработчик, специализирующийся на веб-разработке с акцентом на интерактивные решения, включая технологии реального времени, такие как WebSocket. Также создаю кроссплатформенные приложения и разворачиваю проекты на серверах. Моя цель — разрабатывать надежные, удобные и современные решения для бизнеса. Работаю с Linux (основная система — Linux Mint) и Windows, выбирая инструменты под задачу. Не являюсь дизайнером, но разворачиваю проекты с нуля до продакшна, включая настройку доменов, SSL и серверов. Для стартапов могу настроить локальные серверы на домашних машинах, но для продакшна рекомендую профессиональные хостинги. Дополнительно занимаюсь созданием парсеров и интеграцией локальных LLM (например, Ollama). Стремлюсь к оптимизации производительности, безопасности и прозрачной коммуникации.",
+    "skills": "Мои навыки",
+    "skillNames": {
+      "Docker": "Docker",
+      "React": "React",
+      "Next.js": "Next.js",
+      "NestJS": "NestJS",
+      "Express": "Express",
+      "WebSocket": "WebSocket",
+      "PostgreSQL": "PostgreSQL",
+      "MongoDB": "MongoDB",
+      "Nginx": "Nginx",
+      "Ollama": "Ollama",
+      "Electron": "Electron"
+    },
+    "tools": "Мои инструменты",
+    "toolNames": {
+      "Linux Mint": "Linux Mint",
+      "Windows": "Windows",
+      "Git": "Git",
+      "Notion": "Notion",
+      "Jira": "Jira"
+    },
+    "services": "Сервисы",
+    "serviceNames": {
+      "Web Development": "Веб-разработка",
+      "Desktop Apps": "Приложения для ПК",
+      "Server Deployment": "Развертывание на серверах",
+      "Parsers": "Парсеры",
+      "API Integration": "Интеграция API",
+      "SEO Optimization": "SEO-оптимизация",
+      "Security Consulting": "Консультации по безопасности"
+    },
+    "projects": "Проекты",
+    "projectItems": [
+      "<strong>Веб-разработка:</strong> Создавал блоги и сайты с нуля, включая админ-панели с редакторами контента, автоматические SEO-метатеги, адаптивный дизайн и WebSocket для интерактивных функций.",
+      "<strong>Приложения для ПК:</strong> Разрабатывал кроссплатформенные приложения для Windows, Linux и macOS с использованием Electron, с удобными интерфейсами для управления данными.",
+      "<strong>Развертывание серверов:</strong> Настраивал сайты с нуля до продакшна, включая домены, SSL и хостинг. Реализовал серверы с WebSocket для парсеров и админок.",
+      "<strong>Парсеры:</strong> Создал более 10 видов парсеров, использующих WebSocket для управления из админки или как десктопные приложения, для задач вроде обновления карт сайта или переноса данных в Excel."
+    ],
+    "philosophy": "Мой подход",
+    "philosophyText": "Технологии — это инструменты для достижения результатов. Я использую Linux Mint для большинства задач, но переключаюсь на Windows при необходимости. Мой фокус — на эффективных решениях, от веб-разработки до настройки серверов, с упором на простоту и производительность."
+  },
+  "uk": {
+    "title": "Про мене",
+    "intro": "Я розробник, що спеціалізується на веб-розробці з акцентом на інтерактивні рішення, включаючи технології реального часу, такі як WebSocket. Також створюю кросплатформні додатки та розгортаю проєкти на серверах. Моя мета — розробляти надійні, зручні та сучасні рішення для бізнесу. Працюю з Linux (основна система — Linux Mint) та Windows, обираючи інструменти залежно від завдання. Не є дизайнером, але розгортаю проєкти з нуля до продакшну, включаючи налаштування доменів, SSL та серверів. Для стартапів можу налаштувати локальні сервери на домашніх машинах, але для продакшну рекомендую професійні хостинги. Додатково займаюся створенням парсерів та інтеграцією локальних LLM (наприклад, Ollama). Прагну до оптимізації продуктивності, безпеки та прозорої комунікації.",
+    "skills": "Мої навички",
+    "skillNames": {
+      "Docker": "Docker",
+      "React": "React",
+      "Next.js": "Next.js",
+      "NestJS": "NestJS",
+      "Express": "Express",
+      "WebSocket": "WebSocket",
+      "PostgreSQL": "PostgreSQL",
+      "MongoDB": "MongoDB",
+      "Nginx": "Nginx",
+      "Ollama": "Ollama",
+      "Electron": "Electron"
+    },
+    "tools": "Мої інструменти",
+    "toolNames": {
+      "Linux Mint": "Linux Mint",
+      "Windows": "Windows",
+      "Git": "Git",
+      "Notion": "Notion",
+      "Jira": "Jira"
+    },
+    "services": "Сервіси",
+    "serviceNames": {
+      "Web Development": "Веб-розробка",
+      "Desktop Apps": "Додатки для ПК",
+      "Server Deployment": "Розгортання на серверах",
+      "Parsers": "Парсери",
+      "API Integration": "Інтеграція API",
+      "SEO Optimization": "SEO-оптимізація",
+      "Security Consulting": "Консультації з безпеки"
+    },
+    "projects": "Проєкти",
+    "projectItems": [
+      "<strong>Веб-розробка:</strong> Створював блоги та сайти з нуля, включаючи адмін-панелі з редакторами контенту, автоматичні SEO-метатеги, адаптивний дизайн та WebSocket для інтерактивних функцій.",
+      "<strong>Додатки для ПК:</strong> Розробляв кросплатформні додатки для Windows, Linux та macOS з використанням Electron, з зручними інтерфейсами для керування даними.",
+      "<strong>Розгортання серверів:</strong> Налаштовував сайти з нуля до продакшну, включаючи домени, SSL та хостинг. Реалізував сервери з WebSocket для парсерів та адмінок.",
+      "<strong>Парсери:</strong> Створив понад 10 видів парсерів, що використовують WebSocket для керування з адмінки або як десктопні додатки, для завдань на кшталт оновлення карт сайту чи перенесення даних у Excel."
+    ],
+    "philosophy": "Мій підхід",
+    "philosophyText": "Технології — це інструменти для досягнення результатів. Я використовую Linux Mint для більшості завдань, але переходжу на Windows за потреби. Мій фокус — на ефективних рішеннях, від веб-розробки до налаштування серверів, з акцентом на простоту та продуктивність."
+  },
+  "es": {
+    "title": "Sobre Mí",
+    "intro": "Soy un desarrollador especializado en desarrollo web con un enfoque en soluciones interactivas, incluyendo tecnologías en tiempo real como WebSocket. También creo aplicaciones multiplataforma y despliego proyectos en servidores. Mi objetivo es construir soluciones confiables, amigables y modernas para negocios. Trabajo con Linux (principalmente Linux Mint) y Windows, eligiendo herramientas según la tarea. No soy diseñador, pero manejo proyectos desde cero hasta producción, incluyendo configuración de dominios, SSL y servidores. Para startups, puedo configurar servidores locales en máquinas domésticas, pero para producción recomiendo hosting profesional. Además, trabajo en parsers e integro LLMs locales (por ejemplo, Ollama). Busco optimizar el rendimiento, la seguridad y la comunicación transparente.",
+    "skills": "Mis Habilidades",
+    "skillNames": {
+      "Docker": "Docker",
+      "React": "React",
+      "Next.js": "Next.js",
+      "NestJS": "NestJS",
+      "Express": "Express",
+      "WebSocket": "WebSocket",
+      "PostgreSQL": "PostgreSQL",
+      "MongoDB": "MongoDB",
+      "Nginx": "Nginx",
+      "Ollama": "Ollama",
+      "Electron": "Electron"
+    },
+    "tools": "Mis Herramientas",
+    "toolNames": {
+      "Linux Mint": "Linux Mint",
+      "Windows": "Windows",
+      "Git": "Git",
+      "Notion": "Notion",
+      "Jira": "Jira"
+    },
+    "services": "Servicios",
+    "serviceNames": {
+      "Web Development": "Desarrollo Web",
+      "Desktop Apps": "Aplicaciones de Escritorio",
+      "Server Deployment": "Despliegue en Servidores",
+      "Parsers": "Parsers",
+      "API Integration": "Integración de API",
+      "SEO Optimization": "Optimización SEO",
+      "Security Consulting": "Consultoría de Seguridad"
+    },
+    "projects": "Proyectos",
+    "projectItems": [
+      "<strong>Desarrollo Web:</strong> Construí blogs y sitios desde cero, incluyendo paneles de administración con editores de contenido, metadatos SEO automáticos, diseño adaptable y WebSocket para funciones en tiempo real.",
+      "<strong>Aplicaciones de Escritorio:</strong> Desarrollé aplicaciones multiplataforma para Windows, Linux y macOS usando Electron, con interfaces amigables para gestión de datos.",
+      "<strong>Despliegue en Servidores:</strong> Configuré sitios desde cero hasta producción, incluyendo dominios, SSL y hosting. Implementé servidores con WebSocket para parsers y paneles de administración.",
+      "<strong>Parsers:</strong> Creé más de 10 tipos de parsers usando WebSocket para control desde admin o como aplicaciones de escritorio, manejando tareas como actualizaciones de mapas de sitio o transferencia de datos a Excel."
+    ],
+    "philosophy": "Mi Enfoque",
+    "philosophyText": "Las tecnologías son herramientas para lograr resultados. Uso Linux Mint para la mayoría de las tareas, pero cambio a Windows cuando es necesario. Mi enfoque está en soluciones eficientes, desde desarrollo web hasta configuración de servidores, priorizando simplicidad y rendimiento."
+  },
+  "fr": {
+    "title": "À Propos de Moi",
+    "intro": "Je suis un développeur spécialisé dans le développement web avec un accent sur les solutions interactives, y compris les technologies en temps réel comme WebSocket. Je crée également des applications multiplateformes et déploie des projets sur des serveurs. Mon objectif est de concevoir des solutions fiables, conviviales et modernes pour les entreprises. Je travaille avec Linux (principalement Linux Mint) et Windows, en choisissant les outils selon la tâche. Bien que je ne sois pas designer, je gère les projets de A à Z jusqu'à la production, y compris la configuration des domaines, SSL et serveurs. Pour les startups, je peux configurer des serveurs locaux sur des machines domestiques, mais pour la production, je recommande un hébergement professionnel. De plus, je travaille sur des parsers et intègre des LLMs locaux (par exemple, Ollama). J'aspire à optimiser les performances, la sécurité et la communication transparente.",
+    "skills": "Mes Compétences",
+    "skillNames": {
+      "Docker": "Docker",
+      "React": "React",
+      "Next.js": "Next.js",
+      "NestJS": "NestJS",
+      "Express": "Express",
+      "WebSocket": "WebSocket",
+      "PostgreSQL": "PostgreSQL",
+      "MongoDB": "MongoDB",
+      "Nginx": "Nginx",
+      "Ollama": "Ollama",
+      "Electron": "Electron"
+    },
+    "tools": "Mes Outils",
+    "toolNames": {
+      "Linux Mint": "Linux Mint",
+      "Windows": "Windows",
+      "Git": "Git",
+      "Notion": "Notion",
+      "Jira": "Jira"
+    },
+    "services": "Services",
+    "serviceNames": {
+      "Web Development": "Développement Web",
+      "Desktop Apps": "Applications de Bureau",
+      "Server Deployment": "Déploiement sur Serveurs",
+      "Parsers": "Parseurs",
+      "API Integration": "Intégration d'API",
+      "SEO Optimization": "Optimisation SEO",
+      "Security Consulting": "Conseil en Sécurité"
+    },
+    "projects": "Projets",
+    "projectItems": [
+      "<strong>Développement Web :</strong> Construit des blogs et sites de A à Z, y compris des panneaux d'administration avec éditeurs de contenu, métadonnées SEO automatiques, design adaptatif et WebSocket pour des fonctionnalités en temps réel.",
+      "<strong>Applications de Bureau :</strong> Développé des applications multiplateformes pour Windows, Linux et macOS avec Electron, avec des interfaces conviviales pour la gestion de données.",
+      "<strong>Déploiement sur Serveurs :</strong> Configuré des sites de A à Z jusqu'à la production, y compris domaines, SSL et hébergement. Implémenté des serveurs avec WebSocket pour parseurs et panneaux d'administration.",
+      "<strong>Parseurs :</strong> Créé plus de 10 types de parseurs utilisant WebSocket pour un contrôle depuis l'admin ou comme applications de bureau, gérant des tâches comme les mises à jour de plans de site ou le transfert de données vers Excel."
+    ],
+    "philosophy": "Mon Approche",
+    "philosophyText": "Les technologies sont des outils pour atteindre des résultats. J'utilise Linux Mint pour la plupart des tâches, mais passe à Windows si nécessaire. Mon focus est sur des solutions efficaces, du développement web à la configuration de serveurs, avec un accent sur la simplicité et la performance."
+  },
+  "pt": {
+    "title": "Sobre Mim",
+    "intro": "Sou um desenvolvedor especializado em desenvolvimento web com foco em soluções interativas, incluindo tecnologias em tempo real como WebSocket. Também crio aplicativos multiplataforma e implanto projetos em servidores. Meu objetivo é construir soluções confiáveis, amigáveis e modernas para negócios. Trabalho com Linux (principalmente Linux Mint) e Windows, escolhendo ferramentas conforme a tarefa. Não sou designer, mas gerencio projetos do zero até a produção, incluindo configuração de domínios, SSL e servidores. Para startups, posso configurar servidores locais em máquinas domésticas, mas para produção recomendo hospedagem profissional. Além disso, trabalho com parsers e integro LLMs locais (por exemplo, Ollama). Busco otimizar desempenho, segurança e comunicação transparente.",
+    "skills": "Minhas Habilidades",
+    "skillNames": {
+      "Docker": "Docker",
+      "React": "React",
+      "Next.js": "Next.js",
+      "NestJS": "NestJS",
+      "Express": "Express",
+      "WebSocket": "WebSocket",
+      "PostgreSQL": "PostgreSQL",
+      "MongoDB": "MongoDB",
+      "Nginx": "Nginx",
+      "Ollama": "Ollama",
+      "Electron": "Electron"
+    },
+    "tools": "Minhas Ferramentas",
+    "toolNames": {
+      "Linux Mint": "Linux Mint",
+      "Windows": "Windows",
+      "Git": "Git",
+      "Notion": "Notion",
+      "Jira": "Jira"
+    },
+    "services": "Serviços",
+    "serviceNames": {
+      "Web Development": "Desenvolvimento Web",
+      "Desktop Apps": "Aplicativos de Desktop",
+      "Server Deployment": "Implantação em Servidores",
+      "Parsers": "Parsers",
+      "API Integration": "Integração de API",
+      "SEO Optimization": "Otimização SEO",
+      "Security Consulting": "Consultoria de Segurança"
+    },
+    "projects": "Projetos",
+    "projectItems": [
+      "<strong>Desenvolvimento Web:</strong> Construí blogs e sites do zero, incluindo painéis de administração com editores de conteúdo, metadados SEO automáticos, design adaptável e WebSocket para funcionalidades em tempo real.",
+      "<strong>Aplicativos de Desktop:</strong> Desenvolvi aplicativos multiplataforma para Windows, Linux e macOS usando Electron, com interfaces amigáveis para gestão de dados.",
+      "<strong>Implantação em Servidores:</strong> Configurei sites do zero até a produção, incluindo domínios, SSL e hospedagem. Implementei servidores com WebSocket para parsers e painéis de administração.",
+      "<strong>Parsers:</strong> Criei mais de 10 tipos de parsers usando WebSocket para controle via admin ou como aplicativos de desktop, lidando com tarefas como atualizações de mapas de site ou transferência de dados para Excel."
+    ],
+    "philosophy": "Minha Abordagem",
+    "philosophyText": "Tecnologias são ferramentas para alcançar resultados. Uso Linux Mint para a maioria das tarefas, mas mudo para Windows quando necessário. Meu foco está em soluções eficientes, desde desenvolvimento web até configuração de servidores, priorizando simplicidade e desempenho."
+  }
+}

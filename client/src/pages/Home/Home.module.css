@@ -1,0 +1,241 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Arabic:wght@100..900&family=Noto+Sans+Bengali:wght@100..900&family=Noto+Sans+Devanagari:wght@100..900&family=Noto+Sans+SC:wght@100..900&display=swap');
+
+.home {
+  padding: 4% 2%;
+  color: #333333;
+  background: #FFFFFF;
+  border-radius: 0.5%;
+  font-family: 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans Bengali', 'Noto Sans Devanagari', 'Noto Sans SC', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.languageSwitcher {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2%;
+}
+
+.languageSelect {
+  padding: 0.5%;
+  font-size: 1rem;
+  border: 1px solid #e18145;
+  border-radius: 0.3rem;
+  background: #FFFFFF;
+  color: #333333;
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.languageSelect:hover {
+  transform: scale(1.05);
+}
+
+.languageSelect:focus {
+  outline: none;
+  border-color: #d16a30;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #e18145;
+  margin-bottom: 2%;
+  text-align: center;
+}
+
+.text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555555;
+  max-width: 800px;
+  margin: 0 auto 2%;
+}
+
+.routes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2%;
+  margin-bottom: 4%;
+}
+
+.routeCard {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 2%;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.routeCard:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.routeIcon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 1%;
+}
+
+.routeTitle {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: #e18145;
+  margin-bottom: 1%;
+}
+
+.routeDescription {
+  font-size: 0.95rem;
+  color: #555555;
+  line-height: 1.6;
+  margin-bottom: 1%;
+}
+
+.routeLink {
+  display: inline-block;
+  font-size: 0.95rem;
+  color: #e18145;
+  text-decoration: none;
+  padding: 0.5% 1%;
+  border: 1px solid #e18145;
+  border-radius: 0.3rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.routeLink:hover {
+  background-color: #e18145;
+  color: #FFFFFF;
+}
+
+.animationSection {
+  text-align: center;
+  margin-top: 4%;
+}
+
+.houseSvg {
+  width: 200px;
+  height: 150px;
+  margin: 0 auto;
+}
+
+.pandaText {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: #e18145;
+  margin: 1% 0;
+}
+
+.personSvg {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.buildText {
+  font-size: 1rem;
+  color: #555555;
+  margin-top: 1%;
+}
+
+/* Мобильная версия (до 768px) */
+@media (max-width: 767px) {
+  .home {
+    padding: 6% 4%;
+  }
+
+  .languageSelect {
+    width: 100%;
+    padding: 1%;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .text {
+    font-size: 0.95rem;
+  }
+
+  .routes {
+    grid-template-columns: 1fr;
+  }
+
+  .routeTitle {
+    font-size: 1.2rem;
+  }
+
+  .routeDescription {
+    font-size: 0.9rem;
+  }
+
+  .routeIcon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .houseSvg {
+    width: 150px;
+    height: 120px;
+  }
+
+  .pandaText {
+    font-size: 1.5rem;
+  }
+
+  .personSvg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .buildText {
+    font-size: 0.95rem;
+  }
+}
+
+/* Планшетная версия (768–1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .home {
+    padding: 5% 3%;
+  }
+
+  .languageSelect {
+    width: 200px;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .routes {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+/* Десктопная версия (1025px+) */
+@media (min-width: 1025px) {
+  .home {
+    padding: 4% 2%;
+  }
+
+  .languageSelect {
+    width: 250px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .text {
+    font-size: 1.1rem;
+  }
+
+  .routeTitle {
+    font-size: 1.5rem;
+  }
+
+  .routeDescription {
+    font-size: 1rem;
+  }
+}

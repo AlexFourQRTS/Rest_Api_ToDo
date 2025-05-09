@@ -12,6 +12,8 @@
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
+    "feather-icons": "^4.29.2",
+    "framer-motion": "^12.10.5",
     "jwt-decode": "^4.0.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
@@ -45,5 +47,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "css-loader": "^7.1.2",
+    "postcss": "^8.5.3",
+    "postcss-loader": "^8.1.1",
+    "style-loader": "^4.0.0"
   }
 }

@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Arabic:wght@100..900&family=Noto+Sans+Bengali:wght@100..900&family=Noto+Sans+Devanagari:wght@100..900&family=Noto+Sans+SC:wght@100..900&display=swap');
+
+.services {
+  padding: 4% 2%;
+  color: #333333;
+  background: #FFFFFF;
+  border-radius: 0.5%;
+  font-family: 'Evolventa', 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans Bengali', 'Noto Sans Devanagari', 'Noto Sans SC', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.languageSwitcher {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2%;
+}
+
+.languageSelect {
+  padding: 0.5%;
+  font-size: 1rem;
+  border: 1px solid #e18145;
+  border-radius: 0.3rem;
+  background: #FFFFFF;
+  color: #333333;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.languageSelect:focus {
+  outline: none;
+  border-color: #d16a30;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #e18145;
+  margin-bottom: 2%;
+  text-align: center;
+}
+
+.servicesList {
+  margin: 3% 0;
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2%;
+}
+
+.serviceItem {
+  background: #f9f9f9;
+  padding: 2%;
+  border-radius: 0.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.serviceItem:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.serviceIcon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 1%;
+}
+
+.serviceTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333333;
+  margin: 0.5% 0;
+}
+
+.serviceDescription {
+  font-size: 0.95rem;
+  color: #555555;
+  line-height: 1.5;
+}
+
+.cta {
+  text-align: center;
+  margin-top: 3%;
+}
+
+.ctaButton {
+  display: inline-block;
+  padding: 1% 2%;
+  font-size: 1rem;
+  color: #FFFFFF;
+  background: #e18145;
+  border-radius: 0.3rem;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: #d16a30;
+}
+
+/* Мобильная версия (до 768px) */
+@media (max-width: 767px) {
+  .services {
+    padding: 6% 4%;
+  }
+
+  .languageSelect {
+    width: 100%;
+    padding: 1%;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .servicesGrid {
+    grid-template-columns: 1fr;
+    gap: 3%;
+  }
+
+  .serviceItem {
+    padding: 4%;
+  }
+
+  .serviceIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .serviceTitle {
+    font-size: 1.1rem;
+  }
+
+  .serviceDescription {
+    font-size: 0.9rem;
+  }
+
+  .ctaButton {
+    padding: 2% 4%;
+  }
+}
+
+/* Планшетная версия (768–1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .services {
+    padding: 5% 3%;
+  }
+
+  .languageSelect {
+    width: 200px;
+  }
+
+  .title {
+    font-size: 2.2rem;
+  }
+
+  .servicesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .serviceIcon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Десктопная версия (1025px+) */
+@media (min-width: 1025px) {
+  .services {
+    padding: 4% 2%;
+  }
+
+  .languageSelect {
+    width: 250px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .servicesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .serviceIcon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .serviceTitle {
+    font-size: 1.3rem;
+  }
+
+  .serviceDescription {
+    font-size: 1rem;
+  }
+}
