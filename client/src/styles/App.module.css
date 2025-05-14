@@ -231,7 +231,7 @@ a{
 @media (min-width: 1025px) {
   .app {
     background: rgba(255, 255, 255, 0.2); /* Ещё светлее для десктопов */
-    display: flex; /* Для постоянной боковой панели */
+     /* display: flex;  */
   }
 
   .navbar {
@@ -292,7 +292,7 @@ a{
   }
 
   .content {
-    margin-top: 8vh; /* Синхронизируем с .navbar */
+    /* margin-top: 8vh; */
     margin-left: 20%; /* Постоянный отступ для боковой панели */
     padding: 4%;
     width: 80%; /* Контент занимает оставшееся пространство */
@@ -304,7 +304,7 @@ a{
   }
 
   .content__wrapper {
-    padding: 4%;
+    padding: 0%;
     border-radius: 0.5%;
     box-shadow: 0 0.2% 0.5% rgba(0, 0, 0, 0.1);
   }

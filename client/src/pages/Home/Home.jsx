@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import translations from "./homeTranslations.json";
 import styles from "./Home.module.css";
+import * as feather from "feather-icons";
 
 const languages = [
   { code: "en", name: "English" },
@@ -14,82 +15,55 @@ const languages = [
 ];
 
 const routesInfo = [
-  {
-    path: "/",
-    id: "home",
-    title: "home_title",
-    description: "home_description",
-    icon: "home",
-  },
+
   {
     path: "/about",
     id: "about",
     title: "about_title",
     description: "about_description",
-    icon: "user",
+    
   },
   {
     path: "/services",
     id: "services",
     title: "services_title",
     description: "services_description",
-    icon: "briefcase",
+    
   },
   {
     path: "/portfolio",
     id: "portfolio",
     title: "portfolio_title",
     description: "portfolio_description",
-    icon: "folder",
+    
   },
   {
     path: "/whyus",
     id: "whyus",
     title: "whyus_title",
     description: "whyus_description",
-    icon: "check-circle",
+    
   },
   {
     path: "/skills",
     id: "skills",
     title: "skills_title",
     description: "skills_description",
-    icon: "code",
-  },
-  {
-    path: "/testimonials",
-    id: "testimonials",
-    title: "testimonials_title",
-    description: "testimonials_description",
-    icon: "file-text",
+    
   },
   {
     path: "/contact",
     id: "contact",
     title: "contact_title",
     description: "contact_description",
-    icon: "phone",
+    
   },
   {
     path: "/faq",
     id: "faq",
     title: "faq_title",
     description: "faq_description",
-    icon: "edit",
-  },
-  {
-    path: "/login",
-    id: "login",
-    title: "login_title",
-    description: "login_description",
-    icon: "log-in",
-  },
-  {
-    path: "/register",
-    id: "register",
-    title: "register_title",
-    description: "register_description",
-    icon: "user-plus",
+    
   },
 ];
 
@@ -161,11 +135,11 @@ const Home = () => {
               transition={{ duration: 0.3, delay: index * 0.1 }}
               whileHover={{ scale: 1.03 }}
             >
-              <img
+              {/* <img
                 src={`https://cdn.simpleicons.org/${route.icon}`}
                 alt={route.id}
                 className={styles.routeIcon}
-              />
+              /> */}
               <h2 className={styles.routeTitle}>{t[route.title]}</h2>
               <p className={styles.routeDescription}>{t[route.description]}</p>
               <Link to={route.path} className={styles.routeLink}>
@@ -235,6 +209,7 @@ const Home = () => {
           </motion.p>
         </motion.div>
       </motion.section>
+
     </div>
   );
 };

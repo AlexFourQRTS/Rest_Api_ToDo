@@ -19,7 +19,6 @@ const skills = [
 
 const tools = [
   { name: "Linux Mint", icon: "https://cdn.simpleicons.org/linuxmint/87cf3e" },
-  { name: "Windows", icon: "https://cdn.simpleicons.org/windows/00a4ef" },
   { name: "Git", icon: "https://cdn.simpleicons.org/git/f05032" },
   { name: "Notion", icon: "https://cdn.simpleicons.org/notion/000000" },
   { name: "Jira", icon: "https://cdn.simpleicons.org/jira/0052cc" },

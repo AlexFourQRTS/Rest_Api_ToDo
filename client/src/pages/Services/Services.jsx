@@ -17,7 +17,7 @@ const languages = [
   { code: "es", name: "Español" },
   { code: "fr", name: "Français" },
   { code: "pt", name: "Português" },
- 
+
 ];
 
 const Services = () => {
@@ -57,13 +57,15 @@ const Services = () => {
               <p className={styles.serviceDescription}>{service.description}</p>
             </div>
           ))}
-        </div>
-      </section>
 
-      <section className={styles.cta}>
-        <a href="/contact" className={styles.ctaButton}>
-          {t.cta}
-        </a>
+          {/* <a href="/contact" className={styles.ctaButton}>
+            {t.cta}
+          </a> */}
+        </div>
+
+
+
+
       </section>
     </div>
   );

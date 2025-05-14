@@ -19,7 +19,6 @@
     "tools": "My Tools",
     "toolNames": {
       "Linux Mint": "Linux Mint",
-      "Windows": "Windows",
       "Git": "Git",
       "Notion": "Notion",
       "Jira": "Jira"
@@ -64,7 +63,6 @@
     "tools": "Мои инструменты",
     "toolNames": {
       "Linux Mint": "Linux Mint",
-      "Windows": "Windows",
       "Git": "Git",
       "Notion": "Notion",
       "Jira": "Jira"
@@ -109,7 +107,6 @@
     "tools": "Мої інструменти",
     "toolNames": {
       "Linux Mint": "Linux Mint",
-      "Windows": "Windows",
       "Git": "Git",
       "Notion": "Notion",
       "Jira": "Jira"
@@ -154,7 +151,6 @@
     "tools": "Mis Herramientas",
     "toolNames": {
       "Linux Mint": "Linux Mint",
-      "Windows": "Windows",
       "Git": "Git",
       "Notion": "Notion",
       "Jira": "Jira"
@@ -199,7 +195,6 @@
     "tools": "Mes Outils",
     "toolNames": {
       "Linux Mint": "Linux Mint",
-      "Windows": "Windows",
       "Git": "Git",
       "Notion": "Notion",
       "Jira": "Jira"
@@ -244,7 +239,6 @@
     "tools": "Minhas Ferramentas",
     "toolNames": {
       "Linux Mint": "Linux Mint",
-      "Windows": "Windows",
       "Git": "Git",
       "Notion": "Notion",
       "Jira": "Jira"

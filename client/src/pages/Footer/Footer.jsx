@@ -44,7 +44,7 @@ const FooterPage = ({ isSidebarOpen }) => {
        
       </div>
 
-      <hr className={styles.hr} />
+      {/* <hr className={styles.hr} /> */}
       <div className={styles.footer__bottom}>
         <p>
           <a href="https://skydishch.fun" className={styles.footer__brand}>

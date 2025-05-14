@@ -54,14 +54,14 @@ function App() {
               Panda
             </Link>
           </div>
-          <div className={styles.navbar__links}>
+          {/* <div className={styles.navbar__links}>
             <SidebarLink
               to={routes.home}
               label="Главная"
               icon="home"
               closeSidebar={() => setIsSidebarOpen(false)}
             />
-          </div>
+          </div> */}
         </nav>
 
         <div className={styles.app__main}>
