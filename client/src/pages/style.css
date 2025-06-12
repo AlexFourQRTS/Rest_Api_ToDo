@@ -1,0 +1,48 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 15px;
+}
+
+.admin-user {
+  color: #000;
+}
+
+.admin-task {
+  background-color: #00c3ff70;
+  width: 100%;
+  border-radius: 15px;
+  display: inline-block;
+  padding: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.user-list {
+  background-color: #fff;
+  width: 100%;
+  border-radius: 15px;
+  display: inline-block;
+  padding: 15px;
+  margin: 5px;
+}
+
+.wrap-amin {
+  display: flex;
+  width: 100%;
+  justify-content: baseline;
+}
+
+.color {
+  display: flex;
+  color: #000;
+}

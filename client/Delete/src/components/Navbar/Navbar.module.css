@@ -1,0 +1,117 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #1c2526;
+    border-bottom: 1px solid #2e3a3b;
+}
+  
+.navContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.navBrand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+  
+.navBrand h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #f97316;
+}
+  
+.navBrand span {
+    font-size: 0.9rem;
+    color: #8b9a9b;
+}
+  
+.navMenu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+  
+.navMenu li {
+    margin-left: 2rem;
+}
+  
+.navMenu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+  
+.navMenu a:hover,
+.navMenu a.active {
+    color: #e18145;
+}
+  
+.mobileMenuButton {
+    display: none;
+}
+  
+.menuButton {
+    display: block;
+    background: transparent;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: #8b9a9b;
+    transition: color 0.3s ease;
+}
+  
+.menuButton:hover {
+    color: #f97316;
+}
+  
+/* Медиа-запрос для планшетов и мобильных устройств */
+@media (max-width: 1024px) {
+    .mobileMenuButton {
+        display: block;
+    }
+  
+    .navMenu {
+        display: none;
+    }
+  
+    .navBrand h1 {
+        font-size: 1.3rem;
+    }
+  
+    .navBrand span {
+        font-size: 0.8rem;
+    }
+}
+  
+/* Дополнительные стили для мобильных устройств */
+@media (max-width: 768px) {
+    .mobileMenuButton {
+        display: block;
+    }
+  
+    .navMenu {
+        display: none;
+    }
+  
+    .navBrand h1 {
+        font-size: 1.2rem;
+    }
+  
+    .navBrand span {
+        font-size: 0.7rem;
+    }
+}
+
+
+  

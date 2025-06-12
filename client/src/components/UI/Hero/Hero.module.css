@@ -1,0 +1,57 @@
+.hero {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #c46800 100%);
+  color: white;
+  padding: 5%; /* Відступ зверху у відсотках від висоти батьківського елемента */
+  text-align: center;
+  border-radius: 1rem;
+  margin: 1%;
+  }
+  
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .subtitle {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 3rem 1.5rem;
+      min-height: 10vh;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .subtitle {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero {
+      padding: 2rem 1rem;
+      min-height: 30vh;
+    }
+  
+    .title {
+      font-size: 1.5rem;
+    }
+  
+    .subtitle {
+      font-size: 0.875rem;
+    }
+  }

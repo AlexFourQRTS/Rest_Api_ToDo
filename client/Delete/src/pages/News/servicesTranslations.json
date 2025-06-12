@@ -1,0 +1,152 @@
+{
+    "en": {
+        "title": "My Services",
+        "services": [
+            {
+                "name": "Web Development",
+                "description": "Building modern, scalable web applications using React, Next.js, Express, and NestJS."
+            },
+            {
+                "name": "Desktop Applications",
+                "description": "Developing cross-platform desktop apps for Windows, Linux, and MacOS with Electron."
+            },
+            {
+                "name": "Admin Panels",
+                "description": "Creating user-friendly admin panels for web and desktop, ensuring reliability and security."
+            },
+            {
+                "name": "Data Parsers",
+                "description": "Designing automated parsers with Puppeteer and visual interfaces via Electron, supporting data processing with Excel integration."
+            },
+            {
+                "name": "Server Setup",
+                "description": "Configuring servers with Nginx, Docker, and SSL. Home server setups are offered for startup projects, but I recommend deploying on cloud services like AWS or DigitalOcean."
+            },
+            {
+                "name": "System Administration",
+                "description": "Deploying websites from scratch, managing domains, SSL, and local LLM setups like Ollama."
+            }
+        ],
+        "cta": "Contact me to discuss your project!"
+    },
+    "ru": {
+        "title": "Мои услуги",
+        "services": [
+            {
+                "name": "Веб-разработка",
+                "description": "Создание современных, масштабируемых веб-приложений с использованием React, Next.js, Express и NestJS."
+            },
+            {
+                "name": "Десктопные приложения",
+                "description": "Разработка кроссплатформенных приложений для Windows, Linux и MacOS с использованием Electron."
+            },
+            {
+                "name": "Админ-панели",
+                "description": "Создание удобных админ-панелей для веба и десктопа, обеспечивающих надёжность и безопасность."
+            },
+            {
+                "name": "Парсеры данных",
+                "description": "Разработка автоматизированных парсеров с использованием Puppeteer и визуальных интерфейсов через Electron, с поддержкой обработки данных и интеграции с Excel."
+            },
+            {
+                "name": "Настройка серверов",
+                "description": "Конфигурация серверов с Nginx, Docker и SSL. Настройка домашних серверов доступна только для стартап-проектов, но я рекомендую развёртывание на облачных сервисах, таких как AWS или DigitalOcean."
+            },
+            {
+                "name": "Системное администрирование",
+                "description": "Развёртывание сайтов с нуля, управление доменами, SSL и локальными LLM, такими как Ollama."
+            }
+        ],
+        "cta": "Свяжитесь со мной, чтобы обсудить ваш проект!"
+    },
+    "es": {
+        "title": "Mis Servicios",
+        "services": [
+            {
+                "name": "Desarrollo Web",
+                "description": "Construcción de aplicaciones web modernas y escalables utilizando React, Next.js, Express y NestJS."
+            },
+            {
+                "name": "Aplicaciones de Escritorio",
+                "description": "Desarrollo de aplicaciones de escritorio multiplataforma para Windows, Linux y MacOS con Electron."
+            },
+            {
+                "name": "Paneles de Administración",
+                "description": "Creación de paneles de administración fáciles de usar para web y escritorio, garantizando fiabilidad y seguridad."
+            },
+            {
+                "name": "Parsers de Datos",
+                "description": "Diseño de parsers automatizados con Puppeteer e interfaces visuales vía Electron, soportando procesamiento de datos con integración de Excel."
+            },
+            {
+                "name": "Configuración de Servidores",
+                "description": "Configuración de servidores con Nginx, Docker y SSL. Se ofrecen configuraciones de servidores domésticos para proyectos de startups, pero recomiendo desplegar en servicios en la nube como AWS o DigitalOcean."
+            },
+            {
+                "name": "Administración de Sistemas",
+                "description": "Implementación de sitios web desde cero, gestión de dominios, SSL y configuraciones de LLM locales como Ollama."
+            }
+        ],
+        "cta": "¡Contáctame para discutir tu proyecto!"
+    },
+    "fr": {
+        "title": "Mes Services",
+        "services": [
+            {
+                "name": "Développement Web",
+                "description": "Construction d'applications web modernes et évolutives utilisant React, Next.js, Express et NestJS."
+            },
+            {
+                "name": "Applications de Bureau",
+                "description": "Développement d'applications de bureau multiplateformes pour Windows, Linux et MacOS avec Electron."
+            },
+            {
+                "name": "Panneaux d'Administration",
+                "description": "Création de panneaux d'administration conviviaux pour le web et le bureau, garantissant fiabilité et sécurité."
+            },
+            {
+                "name": "Parseurs de Données",
+                "description": "Conception de parseurs automatisés avec Puppeteer et interfaces visuelles via Electron, prenant en charge le traitement de données avec intégration Excel."
+            },
+            {
+                "name": "Configuration de Serveurs",
+                "description": "Configuration de serveurs avec Nginx, Docker et SSL. Des configurations de serveurs domestiques sont proposées pour les projets de startups, mais je recommande de déployer sur des services cloud comme AWS ou DigitalOcean."
+            },
+            {
+                "name": "Administration Système",
+                "description": "Déploiement de sites web de zéro, gestion des domaines, SSL et configurations LLM locales comme Ollama."
+            }
+        ],
+        "cta": "Contactez-moi pour discuter de votre projet !"
+    },
+    "pt": {
+        "title": "Meus Serviços",
+        "services": [
+            {
+                "name": "Desenvolvimento Web",
+                "description": "Construção de aplicativos web modernos e escaláveis usando React, Next.js, Express e NestJS."
+            },
+            {
+                "name": "Aplicativos de Desktop",
+                "description": "Desenvolvimento de aplicativos de desktop multiplataforma para Windows, Linux e MacOS com Electron."
+            },
+            {
+                "name": "Painéis de Administração",
+                "description": "Criação de painéis de administração amigáveis para web e desktop, garantindo confiabilidade e segurança."
+            },
+            {
+                "name": "Parsers de Dados",
+                "description": "Design de parsers automatizados com Puppeteer e interfaces visuais via Electron, suportando processamento de dados com integração ao Excel."
+            },
+            {
+                "name": "Configuração de Servidores",
+                "description": "Configuração de servidores com Nginx, Docker e SSL. Configurações de servidores domésticos são oferecidas para projetos de startups, mas recomendo implantação em serviços de nuvem como AWS ou DigitalOcean."
+            },
+            {
+                "name": "Administração de Sistemas",
+                "description": "Implantação de sites do zero, gerenciamento de domínios, SSL e configurações de LLM locais como Ollama."
+            }
+        ],
+        "cta": "Entre em contato para discutir seu projeto!"
+    }
+}
