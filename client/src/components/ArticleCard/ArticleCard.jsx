@@ -1,63 +1,60 @@
 // src/components/ArticleCard/ArticleCard.jsx
 import React from 'react';
 import styles from './ArticleCard.module.css';
-import Button from '../Shared/Button/Button';
+import { format } from 'date-fns';
 
-const ArticleCard = ({ article, onReadMore, onLike, onDislike, onEdit }) => {
-  const formattedDate = new Date(article.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const ArticleCard = ({ article, onView, onEdit, onDelete }) => {
+  const {
+    id,
+    name: title,
+    excerpt,
+    image_url: imageUrl,
+    category,
+    created_at: createdAt,
+    readTime,
+    tags,
+    canEdit
+  } = article;
 
   return (
-    <div className={`${styles.articleCard} ${article.featured ? styles.featured : ''}`}>
-      <div className={styles.articleImage}>
-        <img src={article.imageUrl} alt={article.title} className={styles.actualImage} />
-        <span className={styles.categoryTag}>
-          {article.category.charAt(0).toUpperCase() + article.category.slice(1)}
-        </span>
+    <div className={styles.card}>
+      <div className={styles.imageContainer}>
+        <img src={imageUrl || 'https://via.placeholder.com/300x200'} alt={title} className={styles.image} />
+        <div className={styles.category}>{category}</div>
       </div>
-      <div className={styles.articleContent}>
-        <div className={styles.articleMeta}>
-          <span className={styles.articleDate}>
-            {formattedDate}
+
+      <div className={styles.content}>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.excerpt}>{excerpt}</p>
+
+        <div className={styles.meta}>
+          <span className={styles.date}>
+            {format(new Date(createdAt), 'MMM d, yyyy')}
           </span>
-          <span className={styles.readTime}>• {article.readTime}</span>
+          <span className={styles.readTime}>{readTime} min read</span>
         </div>
-        {article.featured ? (
-          <h2>{article.title}</h2>
-        ) : (
-          <h3>{article.title}</h3>
-        )}
-        <p>{article.excerpt}</p>
-        <div className={styles.articleTags}>
-          {article.tags.map(tag => (
+
+        <div className={styles.tags}>
+          {tags?.map(tag => (
             <span key={tag} className={styles.tag}>
               {tag}
             </span>
           ))}
         </div>
-        <div className={styles.cardActions}>
-          <Button onClick={() => onReadMore(article)} className={styles.readMore}>
-            Read More
-          </Button>
-          <div className={styles.feedbackButtons}>
-            <Button
-              className={`${styles.likeButton} ${article.likes ? styles.active : ''}`}
-              onClick={() => onLike(article.id)}
-              title="Like this article"
-            >
-              👍
-            </Button>
-            <Button
-              className={`${styles.dislikeButton} ${article.dislikes ? styles.active : ''}`}
-              onClick={() => onDislike(article.id)}
-              title="Dislike this article"
-            >
-              👎
-            </Button>
-          </div>
-          {article.canEdit && (
-            <Button className={styles.editButton} onClick={() => onEdit(article.id)} title="Edit article">
-              ✏️
-            </Button>
+
+        <div className={styles.actions}>
+          <button onClick={() => onView(id)} className={styles.actionButton}>
+            View
+          </button>
+          {canEdit && (
+            <>
+              <button onClick={() => onEdit(id)} className={styles.actionButton}>
+                Edit
+              </button>
+              <button onClick={() => onDelete(id)} className={styles.actionButton}>
+                Delete
+              </button>
+            </>
           )}
         </div>
       </div>

@@ -1,360 +1,408 @@
 // src/pages/Blog/Blog.jsx
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import styles from './Blog.module.css';
-import ArticleModal from '../../components/ArticleModal/ArticleModal';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
-import BlogControls from '../../components/BlogControls/BlogControls';
-import { SidebarBlog } from '../../components/SidebarBlog/SidebarBlog'; // Убедитесь, что имя файла и компонента совпадают
-import Button from '../../components/Shared/Button/Button';
-import { getArticles, getArticleById, addArticle, updateArticle, deleteArticle, mockArticles as allMockArticlesData } from '../../api/blogApi'; // <-- ИСПРАВЛЕНО: Импортируем mockArticles как allMockArticlesData
+import Hero from '../../components/UI/Hero/Hero';
+import styles from './Blog.module.css';
 
 
-const ARTICLES_PER_LOAD = 6;
+const BASE_URL = process.env.REACT_APP_API_URL;
+const ITEMS_PER_PAGE = 6;
 
 const Blog = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filteredArticlesCount, setFilteredArticlesCount] = useState(0); // Total count for current filter/search
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const [currentCategory, setCurrentCategory] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedArticle, setSelectedArticle] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalArticleContent, setModalArticleContent] = useState('');
-  const [isAddingNewArticle, setIsAddingNewArticle] = useState(false);
-  const [editingArticleId, setEditingArticleId] = useState(null);
-  const [newArticleData, setNewArticleData] = useState({ title: '', excerpt: '', category: '', imageUrl: '', canEdit: true });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [isCreating, setIsCreating] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newArticle, setNewArticle] = useState({
+    name: '',
+    excerpt: '',
+    content: '',
+    category: '',
+    tags: '',
+    image_url: ''
+  });
 
-  const notificationTimeoutRef = useRef(null);
-
-  // Global notification function (can be integrated with a proper notification system)
-  const showNotification = useCallback((message, type = 'info') => {
-    if (notificationTimeoutRef.current) {
-      clearTimeout(notificationTimeoutRef.current);
-    }
-    const notificationDiv = document.createElement('div');
-    notificationDiv.className = `${styles.notification} ${styles[type]}`;
-    notificationDiv.textContent = message;
-    document.body.appendChild(notificationDiv);
-
-    notificationTimeoutRef.current = setTimeout(() => {
-      notificationDiv.remove();
-    }, 3000);
-  }, []);
-
-  // Fetch articles based on current filters and pagination
-  const fetchArticles = useCallback(async () => {
+  // Получение всех статей
+  const fetchArticles = async () => {
     setLoading(true);
     setError(null);
     try {
-      const offset = (currentPage - 1) * ARTICLES_PER_LOAD;
-      const { articles: fetchedArticles, totalCount } = await getArticles(ARTICLES_PER_LOAD, offset, currentCategory, searchTerm);
-
-      if (currentPage === 1) {
-        setArticles(fetchedArticles);
-      } else {
-        setArticles(prevArticles => [...prevArticles, ...fetchedArticles]);
-      }
-      setFilteredArticlesCount(totalCount);
+      const response = await axios.get(`${BASE_URL}/api/blog`, {
+        params: {
+          limit: ITEMS_PER_PAGE,
+          page: currentPage,
+          category: 'all',
+          search: ''
+        }
+      });
+      setArticles(response.data.articles);
+      setTotalPages(Math.ceil(response.data.totalCount / ITEMS_PER_PAGE));
     } catch (err) {
       console.error('Error fetching articles:', err);
-      setError('Failed to load articles. Please try again.');
-      showNotification('Failed to load articles.', 'error');
+      setError('Ошибка загрузки статей');
     } finally {
       setLoading(false);
     }
-  }, [currentPage, currentCategory, searchTerm, showNotification]);
+  };
+
+  // Получение одной статьи по ID
+  const fetchArticleById = async (id) => {
+    try {
+      const response = await axios.get(`${BASE_URL}/api/blog/${id}`);
+      setSelectedArticle(response.data);
+      setIsModalOpen(true);
+    } catch (err) {
+      console.error('Error fetching article:', err);
+      setError('Ошибка загрузки статьи');
+    }
+  };
+
+  // Обновление статьи
+  const updateArticle = async (id, articleData) => {
+    try {
+      const response = await axios.patch(`${BASE_URL}/api/blog/${id}`, articleData);
+      setArticles(prevArticles => 
+        prevArticles.map(article => 
+          article.id === id ? response.data : article
+        )
+      );
+      setIsEditing(false);
+      setSelectedArticle(null);
+      return response.data;
+    } catch (err) {
+      console.error('Error updating article:', err);
+      setError('Ошибка обновления статьи');
+      throw err;
+    }
+  };
+
+  // Удаление статьи
+  const deleteArticle = async (id) => {
+    if (window.confirm('Вы уверены, что хотите удалить эту статью?')) {
+      try {
+        await axios.delete(`${BASE_URL}/api/blog/${id}`);
+        setArticles(prevArticles => 
+          prevArticles.filter(article => article.id !== id)
+        );
+      } catch (err) {
+        console.error('Error deleting article:', err);
+        setError('Ошибка удаления статьи');
+      }
+    }
+  };
+
+  // Создание новой статьи
+  const handleCreateArticle = async (e) => {
+    e.preventDefault();
+    try {
+      const articleData = {
+        ...newArticle,
+        tags: newArticle.tags.split(',').map(tag => tag.trim())
+      };
+      const response = await axios.post(`${BASE_URL}/api/blog`, articleData);
+      setArticles(prevArticles => [response.data, ...prevArticles]);
+      setIsCreating(false);
+      setNewArticle({
+        name: '',
+        excerpt: '',
+        content: '',
+        category: '',
+        tags: '',
+        image_url: ''
+      });
+    } catch (err) {
+      console.error('Error creating article:', err);
+      setError('Ошибка создания статьи');
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewArticle(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleEditClick = (article) => {
+    setSelectedArticle(article);
+    setNewArticle({
+      name: article.name || '',
+      excerpt: article.excerpt || '',
+      content: article.content || '',
+      category: article.category || '',
+      tags: Array.isArray(article.tags) ? article.tags.join(', ') : '',
+      image_url: article.image_url || ''
+    });
+    setIsEditing(true);
+  };
+
+  const handleUpdateArticle = async (e) => {
+    e.preventDefault();
+    if (selectedArticle) {
+      try {
+        // Преобразуем строку тегов в массив
+        const articleData = {
+          ...newArticle,
+          tags: newArticle.tags ? newArticle.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : []
+        };
+        await updateArticle(selectedArticle.id, articleData);
+      } catch (err) {
+        console.error('Error updating article:', err);
+        setError('Ошибка обновления статьи');
+      }
+    }
+  };
 
   useEffect(() => {
     fetchArticles();
-  }, [fetchArticles]);
+  }, [currentPage]);
 
-  // Reset pagination when category or search term changes
-  useEffect(() => {
-    setCurrentPage(1);
-    setArticles([]); // Clear articles to refetch from start
-  }, [currentCategory, searchTerm]);
-
-  const handleSearchChange = (value) => {
-    setSearchTerm(value);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
-  const handleCategoryFilter = (category) => {
-    setCurrentCategory(category);
-  };
+  const renderPagination = () => {
+    const pages = [];
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
-  const loadMoreArticles = () => {
-    setCurrentPage(prevPage => prevPage + 1);
-  };
-
-  const openArticleModal = async (article) => {
-    try {
-      const fullArticle = await getArticleById(article.id);
-      if (fullArticle) {
-        setModalArticleContent(fullArticle.fullContent);
-        setIsModalOpen(true);
-        document.body.style.overflow = 'hidden';
-      } else {
-        showNotification('Article content not found.', 'error');
-      }
-    } catch (err) {
-      console.error('Error opening article:', err);
-      showNotification('Failed to load article content.', 'error');
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
     }
-  };
 
-  const closeArticleModal = () => {
-    setIsModalOpen(false);
-    setModalArticleContent('');
-    document.body.style.overflow = 'auto';
-  };
-
-  const handleNewsletterSubmit = (email) => {
-    if (email && email.includes('@')) {
-      showNotification('Successfully subscribed to newsletter!', 'success');
-      const subscriptions = JSON.parse(localStorage.getItem('newsletter_subscriptions') || '[]');
-      if (!subscriptions.includes(email)) {
-        subscriptions.push(email);
-        localStorage.setItem('newsletter_subscriptions', JSON.stringify(subscriptions));
-      }
-    } else {
-      showNotification('Please enter a valid email address.', 'error');
-    }
-  };
-
-  const handleLike = useCallback(async (id) => {
-    try {
-      const articleToUpdate = articles.find(a => a.id === id);
-      if (!articleToUpdate) return;
-      const updatedArticle = await updateArticle(id, { likes: !articleToUpdate.likes, dislikes: false });
-      setArticles(prevArticles =>
-        prevArticles.map(article => (article.id === id ? updatedArticle : article))
+    if (currentPage > 1) {
+      pages.push(
+        <button
+          key="prev"
+          onClick={() => handlePageChange(currentPage - 1)}
+          className={styles.paginationButton}
+        >
+          ←
+        </button>
       );
-      showNotification(updatedArticle.likes ? 'Article marked as liked!' : 'Like removed.', 'info');
-    } catch (err) {
-      showNotification('Failed to update like status.', 'error');
     }
-  }, [articles, showNotification]);
 
-  const handleDislike = useCallback(async (id) => {
-    try {
-      const articleToUpdate = articles.find(a => a.id === id);
-      if (!articleToUpdate) return;
-      const updatedArticle = await updateArticle(id, { dislikes: !articleToUpdate.dislikes, likes: false });
-      setArticles(prevArticles =>
-        prevArticles.map(article => (article.id === id ? updatedArticle : article))
+    if (startPage > 1) {
+      pages.push(
+        <button
+          key="1"
+          onClick={() => handlePageChange(1)}
+          className={styles.paginationButton}
+        >
+          1
+        </button>
       );
-      showNotification(updatedArticle.dislikes ? 'Article marked for deletion!' : 'Dislike removed.', 'info');
-    } catch (err) {
-      showNotification('Failed to update dislike status.', 'error');
-    }
-  }, [articles, showNotification]);
-
-  const handleEdit = useCallback(async (id) => {
-    try {
-      const articleToEdit = await getArticleById(id);
-      if (articleToEdit) {
-        setEditingArticleId(id);
-        setNewArticleData({
-          title: articleToEdit.title,
-          excerpt: articleToEdit.excerpt,
-          category: articleToEdit.category,
-          imageUrl: articleToEdit.imageUrl || '',
-          canEdit: articleToEdit.canEdit
-        });
-        setIsAddingNewArticle(true); // Re-use the form for editing
+      if (startPage > 2) {
+        pages.push(<span key="start-ellipsis" className={styles.ellipsis}>...</span>);
       }
-    } catch (err) {
-      showNotification('Failed to load article for editing.', 'error');
-    }
-  }, [showNotification]);
-
-
-  const handleAddNewArticle = async (e) => {
-    e.preventDefault();
-    if (!newArticleData.title || !newArticleData.excerpt || !newArticleData.category) {
-      showNotification('Title, excerpt, and category are required.', 'error');
-      return;
     }
 
-    setLoading(true);
-    try {
-      if (editingArticleId) {
-        // Update existing article
-        const updated = await updateArticle(editingArticleId, newArticleData);
-        setArticles(prevArticles =>
-          prevArticles.map(article => (article.id === updated.id ? updated : article))
-        );
-        showNotification('Article updated successfully!', 'success');
-      } else {
-        // Add new article
-        const added = await addArticle(newArticleData);
-        // We prepend new articles to the current articles array for immediate display
-        // In a real app, you might refetch or handle this based on your API's sort order
-        setArticles(prevArticles => [added, ...prevArticles]);
-        showNotification('Article added successfully!', 'success');
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <button
+          key={i}
+          onClick={() => handlePageChange(i)}
+          className={`${styles.paginationButton} ${currentPage === i ? styles.active : ''}`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pages.push(<span key="end-ellipsis" className={styles.ellipsis}>...</span>);
       }
-
-      setNewArticleData({ title: '', excerpt: '', category: '', imageUrl: '', canEdit: true });
-      setIsAddingNewArticle(false);
-      setEditingArticleId(null);
-      // Re-fetch articles to ensure order/pagination consistency if needed
-      // fetchArticles();
-    } catch (err) {
-      console.error('Error saving article:', err);
-      showNotification('Failed to save article.', 'error');
-    } finally {
-      setLoading(false);
+      pages.push(
+        <button
+          key={totalPages}
+          onClick={() => handlePageChange(totalPages)}
+          className={styles.paginationButton}
+        >
+          {totalPages}
+        </button>
+      );
     }
+
+    if (currentPage < totalPages) {
+      pages.push(
+        <button
+          key="next"
+          onClick={() => handlePageChange(currentPage + 1)}
+          className={styles.paginationButton}
+        >
+          →
+        </button>
+      );
+    }
+
+    return pages;
   };
 
-  const handleCancelEdit = () => {
-    setIsAddingNewArticle(false);
-    setEditingArticleId(null);
-    setNewArticleData({ title: '', excerpt: '', category: '', imageUrl: '', canEdit: true });
-  };
-
-
-  // Extract unique categories and tags for filters and sidebar
-  const { allCategories, allTags } = useMemo(() => {
-    const categoriesSet = new Set(['all']);
-    const tagsMap = new Map();
-
-    // ИСПОЛЬЗУЕМ allMockArticlesData ИЗ API МОКА, А НЕ articlesData
-    allMockArticlesData.forEach(article => { 
-      categoriesSet.add(article.category);
-      article.tags.forEach(tag => {
-        const lowerTag = tag.toLowerCase();
-        tagsMap.set(lowerTag, (tagsMap.get(lowerTag) || 0) + 1);
-      });
-    });
-
-    const sortedTags = Array.from(tagsMap.entries())
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count); // Sort by count
-
-    return {
-      allCategories: Array.from(categoriesSet),
-      allTags: sortedTags.slice(0, 15) // Limit to top 15 tags for cloud
-    };
-  }, []); // Зависимость пустая, так как allMockArticlesData статичен
-
-
-  // Недавние посты - берем первые 3 из allMockArticlesData
-  const recentPosts = useMemo(() => allMockArticlesData.slice(0, 3), []); // ИСПОЛЬЗУЕМ allMockArticlesData
-
-  const renderNoResults = searchTerm && filteredArticlesCount === 0 && !loading;
+  if (loading) return <div className={styles.loading}>Загрузка...</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
 
   return (
     <div className={styles.blogContainer}>
-      <header className={styles.blogHeader}>
-        <h1>Our Blog</h1>
-        <p>Stay up-to-date with the latest tech news, tutorials, and insights.</p>
-        <BlogControls
-          searchTerm={searchTerm}
-          onSearchChange={handleSearchChange}
-          onSearchSubmit={setSearchTerm} // Direct update for search button
-          currentCategory={currentCategory}
-          onCategoryFilter={handleCategoryFilter}
-          allCategories={allCategories}
-        />
-        <div className={styles.addArticleSection}>
-          {!isAddingNewArticle ? (
-            <Button onClick={() => setIsAddingNewArticle(true)}>Add New Article</Button>
-          ) : (
-            <form className={styles.newArticleForm} onSubmit={handleAddNewArticle}>
-              <h3>{editingArticleId ? 'Edit Article' : 'Create New Article'}</h3>
+      <Hero 
+        title="Блог"
+        subtitle="Делитесь своими мыслями и идеями с миром"
+        buttonText="Создать статью"
+        onButtonClick={() => setIsCreating(true)}
+      />
+
+      {(isCreating || isEditing) && (
+        <div className={styles.createForm}>
+          <h2>{isEditing ? 'Редактировать статью' : 'Создать новую статью'}</h2>
+          <form onSubmit={isEditing ? handleUpdateArticle : handleCreateArticle}>
+            <div className={styles.formGroup}>
+              <label htmlFor="name">Заголовок</label>
               <input
                 type="text"
-                placeholder="Title"
-                value={newArticleData.title}
-                onChange={(e) => setNewArticleData({ ...newArticleData, title: e.target.value })}
+                id="name"
+                name="name"
+                value={newArticle.name}
+                onChange={handleInputChange}
                 required
               />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="excerpt">Краткое описание</label>
               <textarea
-                placeholder="Excerpt"
-                value={newArticleData.excerpt}
-                onChange={(e) => setNewArticleData({ ...newArticleData, excerpt: e.target.value })}
+                id="excerpt"
+                name="excerpt"
+                value={newArticle.excerpt}
+                onChange={handleInputChange}
                 required
               />
-              <input
-                type="text"
-                placeholder="Category (e.g., javascript)"
-                value={newArticleData.category}
-                onChange={(e) => setNewArticleData({ ...newArticleData, category: e.target.value })}
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="content">Содержание</label>
+              <textarea
+                id="content"
+                name="content"
+                value={newArticle.content}
+                onChange={handleInputChange}
                 required
               />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="category">Категория</label>
               <input
                 type="text"
-                placeholder="Image URL (optional)"
-                value={newArticleData.imageUrl}
-                onChange={(e) => setNewArticleData({ ...newArticleData, imageUrl: e.target.value })}
+                id="category"
+                name="category"
+                value={newArticle.category}
+                onChange={handleInputChange}
+                required
               />
-              <label className={styles.canEditToggle}>
-                <input
-                  type="checkbox"
-                  checked={newArticleData.canEdit}
-                  onChange={(e) => setNewArticleData({ ...newArticleData, canEdit: e.target.checked })}
-                />
-                Allow Editing
-              </label>
-              <div className={styles.formActions}>
-                <Button type="submit">{editingArticleId ? 'Update Article' : 'Publish Article'}</Button>
-                <Button type="button" onClick={handleCancelEdit} className={styles.cancelButton}>Cancel</Button>
-              </div>
-            </form>
-          )}
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="tags">Теги (через запятую)</label>
+              <input
+                type="text"
+                id="tags"
+                name="tags"
+                value={newArticle.tags}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="image_url">URL изображения</label>
+              <input
+                type="url"
+                id="image_url"
+                name="image_url"
+                value={newArticle.image_url}
+                onChange={handleInputChange}
+              />
+            </div>
+
+            <div className={styles.formActions}>
+              <button type="submit" className={styles.submitButton}>
+                {isEditing ? 'Сохранить' : 'Опубликовать'}
+              </button>
+              <button 
+                type="button" 
+                className={styles.cancelButton}
+                onClick={() => {
+                  setIsCreating(false);
+                  setIsEditing(false);
+                  setSelectedArticle(null);
+                  setNewArticle({
+                    name: '',
+                    excerpt: '',
+                    content: '',
+                    category: '',
+                    tags: '',
+                    image_url: ''
+                  });
+                }}
+              >
+                Отмена
+              </button>
+            </div>
+          </form>
         </div>
-      </header>
+      )}
 
-      <div className={styles.blogLayout}>
-        <section className={styles.articlesGrid}>
-          {loading && articles.length === 0 ? (
-            <div className={styles.loadingMessage}>Loading articles...</div>
-          ) : error ? (
-            <div className={styles.errorMessage}>{error}</div>
-          ) : renderNoResults ? (
-            <div className={styles.noResults}>
-              <h3>No articles found</h3>
-              <p>Try adjusting your search terms or filters</p>
-              <Button onClick={() => { setSearchTerm(''); setCurrentCategory('all'); }} className={styles.clearFiltersBtn}>Clear Filters</Button>
+      {isModalOpen && selectedArticle && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h2>{selectedArticle.name}</h2>
+            <p className={styles.modalExcerpt}>{selectedArticle.excerpt}</p>
+            <div className={styles.modalContent}>{selectedArticle.content}</div>
+            <div className={styles.modalMeta}>
+              <span>Категория: {selectedArticle.category}</span>
+              <span>Теги: {selectedArticle.tags ? selectedArticle.tags.join(', ') : 'Нет тегов'}</span>
             </div>
-          ) : (
-            articles.map(article => (
-              <ArticleCard
-                key={article.id}
-                article={article}
-                onReadMore={openArticleModal}
-                onLike={handleLike}
-                onDislike={handleDislike}
-                onEdit={handleEdit}
-              />
-            ))
-          )}
+            <button 
+              className={styles.closeButton}
+              onClick={() => {
+                setIsModalOpen(false);
+                setSelectedArticle(null);
+              }}
+            >
+              Закрыть
+            </button>
+          </div>
+        </div>
+      )}
 
-          {articles.length > 0 && articles.length < filteredArticlesCount && (
-            <div className={styles.loadMoreSection}>
-              <Button onClick={loadMoreArticles} disabled={loading}>
-                {loading ? 'Loading...' : `Load More Articles (${filteredArticlesCount - articles.length} remaining)`}
-              </Button>
-            </div>
-          )}
-        </section>
-
-        <SidebarBlog // Предполагаем, что ваш компонент сайдбара называется SidebarBlog
-          recentPosts={recentPosts}
-          allTags={allTags}
-          onTagFilter={handleCategoryFilter}
-          onNewsletterSubmit={handleNewsletterSubmit}
-        />
+      <div className={styles.blogList}>
+        {articles.length === 0 ? (
+          <div className={styles.empty}>Нет статей</div>
+        ) : (
+          articles.map(article => (
+            <ArticleCard 
+              key={article.id} 
+              article={article}
+              onView={() => fetchArticleById(article.id)}
+              onEdit={() => handleEditClick(article)}
+              onDelete={() => deleteArticle(article.id)}
+            />
+          ))
+        )}
       </div>
 
-      <ArticleModal
-        isOpen={isModalOpen}
-        onClose={closeArticleModal}
-        articleContent={modalArticleContent}
-      />
+      {totalPages > 1 && (
+        <div className={styles.pagination}>
+          {renderPagination()}
+        </div>
+      )}
     </div>
   );
 };

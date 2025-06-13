@@ -12,6 +12,8 @@
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.5.0",
     "feather-icons": "^4.29.2",
     "framer-motion": "^12.10.5",
     "jwt-decode": "^4.0.0",

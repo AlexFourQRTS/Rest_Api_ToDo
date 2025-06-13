@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import * as feather from "feather-icons";
 import styles from "./Navbar.module.css";
 import Button from "../UI/Button/Button";
 import Sidebar from "../Sidebar/Sidebar";
 import { Menu, X } from "lucide-react";
+import { routes } from "../../routes";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const checkScreenSize = () => {
       const mobile = window.innerWidth <= 1024;
       setIsMobile(mobile);
       if (!mobile) {
-        setIsOpen(true);
+        setIsOpen(false);
       }
     };
 
@@ -24,8 +27,25 @@ const Navbar = () => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
+  useEffect(() => {
+    feather.replace();
+  }, [isOpen]);
+
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const NavLink = ({ to, label, icon }) => {
+    const isActive = location.pathname === to;
+    return (
+      <Link
+        to={to}
+        className={`${styles.navLink} ${isActive ? styles.active : ""}`}
+      >
+        {icon && <i data-feather={icon} className={styles.navIcon}></i>}
+        <span>{label}</span>
+      </Link>
+    );
   };
 
   return (
@@ -33,33 +53,61 @@ const Navbar = () => {
       <div className={styles.navContainer}>
         <div className={styles.navBrand}>
           <li>
-            <NavLink to="/" exact activeClassName={styles.active}>
-              <h1>🐼 Panda</h1>
-            </NavLink>
+            <Link to="/" className={styles.navLink}>
+              <h1>🐼 Панда</h1>
+            </Link>
           </li>
-          <span>Developer Hub</span>
+          <span>Хаб Розробника</span>
         </div>
 
-        <div className={styles.menuButton}>
-          <Button 
-            onClick={toggleSidebar} 
-            className={styles.menuButton}
-            aria-label={isOpen ? "Close sidebar" : "Open sidebar"}
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </Button>
-        </div>
+        {/* Бургер-кнопка і Sidebar тільки на мобільних/планшетах */}
+        {isMobile && (
+          <>
+            <div className={styles.menuButton}>
+              <Button 
+                onClick={toggleSidebar} 
+                className={styles.menuButton}
+                aria-label={isOpen ? "Закрити меню" : "Відкрити меню"}
+              >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </Button>
+            </div>
+            <Sidebar 
+              isSidebarOpen={isOpen} 
+              closeSidebar={() => setIsOpen(false)} 
+            />
+          </>
+        )}
 
-        <Sidebar 
-          isSidebarOpen={isOpen} 
-          closeSidebar={() => setIsOpen(false)} 
-        />
-
-        <div>
-          <ul className={`${styles.navMenu} ${isOpen ? styles.active : ""}`}>
-            {/* <Button>=====</Button> */}
+        {/* Меню на десктопі */}
+        {!isMobile && (
+          <ul className={styles.navMenu}>
+            <li className={styles.navItem}>
+              <NavLink to={routes.news} label="Новини" icon="briefcase" />
+            </li>
+            <li className={styles.navItem}>
+              <NavLink to={routes.portfolio} label="Портфоліо" icon="folder" />
+            </li>
+            <li className={styles.navItem}>
+              <NavLink to={routes.chat} label="Чат" icon="message-circle" />
+            </li>
+            <li className={styles.navItem}>
+              <NavLink to={routes.skills} label="Навички" icon="code" />
+            </li>
+            <li className={styles.navItem}>
+              <NavLink to={routes.blog} label="Блог" icon="book-open" />
+            </li>
+            <li className={styles.navItem}>
+              <NavLink to={routes.filecloud} label="Файли" icon="cloud" />
+            </li>
+            <li className={styles.navItem}>
+              <NavLink to={routes.about} label="Про мене" icon="user" />
+            </li>
+            <li className={styles.navItem}>
+              <NavLink to={routes.faq} label="FAQ" icon="help-circle" />
+            </li>
           </ul>
-        </div>
+        )}
       </div>
     </nav>
   );

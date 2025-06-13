@@ -7,6 +7,17 @@ import { routes } from "../../routes";
 const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
   const location = useLocation();
 
+  const navLinks = [
+    { to: routes.news, label: "Новини", icon: "briefcase" },
+    { to: routes.portfolio, label: "Портфоліо", icon: "folder" },
+    { to: routes.chat, label: "Чат", icon: "message-circle" },
+    { to: routes.skills, label: "Навички", icon: "code" },
+    { to: routes.blog, label: "Блог", icon: "book-open" },
+    { to: routes.filecloud, label: "Файли", icon: "cloud" },
+    { to: routes.about, label: "Про нас", icon: "user" },
+    { to: routes.faq, label: "FAQ", icon: "help-circle" },
+  ];
+
   React.useEffect(() => {
     feather.replace();
   }, [isSidebarOpen]);
@@ -29,37 +40,11 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     <aside className={`${styles.sidebar} ${isSidebarOpen ? styles["sidebar--open"] : styles["sidebar--closed"]}`}>
       <nav className={styles.sidebar__nav}>
         <ul className={styles.sidebar__list}>
-          <li className={styles.sidebar__item}>
-            <SidebarLink to={routes.news} label="News" icon="briefcase" />
-          </li>
-
-          <li className={styles.sidebar__item}>
-            <SidebarLink to={routes.portfolio} label="Portfolio" icon="folder" />
-          </li>
-
-          <li className={styles.sidebar__item}>
-            <SidebarLink to={routes.chat} label="Chat" icon="message-circle" />
-          </li>
-
-          <li className={styles.sidebar__item}>
-            <SidebarLink to={routes.skills} label="Skills" icon="code" />
-          </li>
-
-          <li className={styles.sidebar__item}>
-            <SidebarLink to={routes.blog} label="Blog" icon="book-open" />
-          </li>
-
-          <li className={styles.sidebar__item}>
-            <SidebarLink to={routes.filecloud} label="FileCloud" icon="cloud" />
-          </li>
-
-          <li className={styles.sidebar__item}>
-            <SidebarLink to={routes.about} label="About Me" icon="user" />
-          </li>
-
-          <li className={styles.sidebar__item}>
-            <SidebarLink to={routes.faq} label="FAQ" icon="help-circle" />
-          </li>
+          {navLinks.map((link, index) => (
+            <li key={index} className={styles.sidebar__item}>
+              <SidebarLink to={link.to} label={link.label} icon={link.icon} />
+            </li>
+          ))}
         </ul>
       </nav>
     </aside>

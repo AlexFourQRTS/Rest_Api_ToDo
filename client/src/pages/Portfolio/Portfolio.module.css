@@ -2,13 +2,12 @@
 
 .portfolio {
   padding: 4% 2%;
-  color:#FFFFFF;
-  background:  #333333;
+  color: #f8f8f8;
   border-radius: 0.5%;
   font-family: 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans Bengali', 'Noto Sans Devanagari', 'Noto Sans SC', sans-serif;
   max-width: 1200px;
   margin: 0 auto;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .languageSwitcher {
@@ -22,8 +21,8 @@
   font-size: 1rem;
   border: 1px solid #e18145;
   border-radius: 0.3rem;
-  color:#FFFFFF;
-  background:  #333333;
+  background: #000000;
+  color: #ffffff;
   cursor: pointer;
   transition: border-color 0.3s ease, transform 0.3s ease;
 }
@@ -34,7 +33,7 @@
 
 .languageSelect:focus {
   outline: none;
-  border-color: #d16a30;
+  border-color: #d16b3067;
 }
 
 .title {
@@ -48,7 +47,7 @@
 .text {
   font-size: 1rem;
   line-height: 1.6;
-  color:#FFFFFF;
+  color: #f8f8f8;
   max-width: 800px;
   margin: 0 auto 2%;
 }
@@ -56,20 +55,23 @@
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2%;
+  gap: 1.5%;
+  margin: 3% 0;
 }
 
 .projectCard {
-  color:#FFFFFF;
-  background:  #333333;
-  border: 1px solid #000000;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(225, 129, 69, 0.2);
   border-radius: 0.5rem;
   padding: 2%;
-  transition: box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .projectCard:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(225, 129, 69, 0.2);
 }
 
 .projectTitle {
@@ -81,32 +83,44 @@
 
 .projectTask {
   font-size: 1rem;
-  color:#FFFFFF;
+  color: #f8f8f8;
   line-height: 1.6;
   margin-bottom: 1%;
 }
 
 .projectTask strong {
-  color:#FFFFFF;
+  color: #e18145;
 }
 
 .techList {
   display: flex;
   flex-wrap: wrap;
   gap: 1%;
+  margin-top: auto;
+  padding-top: 1%;
+  border-top: 1px solid rgba(225, 129, 69, 0.2);
 }
 
 .techItem {
   display: flex;
   align-items: center;
   gap: 0.5%;
+  padding: 0.5%;
+  background: rgba(225, 129, 69, 0.1);
+  border-radius: 0.3rem;
   font-size: 0.95rem;
-  color:#FFFFFF;
+  color: #e18145;
+  transition: transform 0.3s ease;
+}
+
+.techItem:hover {
+  transform: translateY(-2px);
 }
 
 .techIcon {
   width: 20px;
   height: 20px;
+  filter: brightness(0) saturate(100%) invert(48%) sepia(79%) saturate(2479%) hue-rotate(346deg) brightness(101%) contrast(101%);
 }
 
 /* Мобильная версия (до 768px) */
@@ -130,6 +144,7 @@
 
   .projects {
     grid-template-columns: 1fr;
+    gap: 2%;
   }
 
   .projectTitle {

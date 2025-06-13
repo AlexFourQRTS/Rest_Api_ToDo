@@ -6,7 +6,8 @@ import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import BlogControls from '../../components/BlogControls/BlogControls';
 import { SidebarBlog } from '../../components/SidebarBlog/SidebarBlog'; // Убедитесь, что имя файла и компонента совпадают
 import Button from '../../components/Shared/Button/Button';
-import { getArticles, getArticleById, addArticle, updateArticle, deleteArticle, mockArticles as allMockArticlesData } from '../../api/blogApi'; // <-- ИСПРАВЛЕНО: Импортируем mockArticles как allMockArticlesData
+
+// import { getArticles, getArticleById, addArticle, updateArticle, deleteArticle, mockArticles as allMockArticlesData } from '../../api/blogApi'; // <-- ИСПРАВЛЕНО: Импортируем mockArticles как allMockArticlesData
 
 
 const ARTICLES_PER_LOAD = 6;

@@ -1,54 +1,126 @@
+:root {
+  /* Colors */
+  --primary-color: #006eff;
+  --error-color: #ff4444;
+  --success-color: #00C851;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --bg-primary: #ffffff;
+  --bg-lighter: #f8f9fa;
+  --bg-darker: #e9ecef;
+  --border-color: #dee2e6;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  --shadow-md: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+  --shadow-lg: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-medium: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1024px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 10px;
-  background-color: #cecece;
+  min-height: 100vh;
+  background-color: #383838; /* Настоящий графитовый цвет */
   color: white;
   text-align: left;
-  padding: 20px;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .wrap {
-  display: inline-block;
-  width: 1024px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.user-list-task-row{
+.user-list-task-row {
   margin: 5px;
   display: flex;
   flex-direction: row;
-  
   justify-content: space-around;
   border-radius: 5px;
   color: #000;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.user-list-task-colomn{
- 
+.user-list-task-colomn {
   display: flex;
   flex-direction: column;
-  /* border: 2px solid rgba(131, 131, 131, 0.527); */
   border-radius: 5px;
   color: #000;
-  width: 50%;
+  width: 100%;
+  max-width: 500px;
   margin: 15px;
 }
 
-
-.todo-admin-check{
+.todo-admin-check {
   background-color: rgb(255, 255, 255);
   padding: 5px;
   margin: 15px;
   border-radius: 10px;
-  width: 50%;
+  width: 100%;
+  max-width: 500px;
 }
 
-.user-name-check-admin{
+.user-name-check-admin {
   background-color: #006eff9d;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 1200px) {
+  .wrap {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrap {
+    padding: 10px;
+  }
+  
+  .user-list-task-colomn,
+  .todo-admin-check {
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrap {
+    padding: 5px;
+  }
+  
+  .user-list-task-row {
+    flex-direction: column;
+    margin: 0;
+  }
+  
+  .user-list-task-colomn,
+  .todo-admin-check {
+    margin: 5px 0;
+  }
 }

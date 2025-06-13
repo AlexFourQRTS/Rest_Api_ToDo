@@ -1,18 +1,19 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
-import AppRoutes from './routes';
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './components/AppRouter';
+import { AuthProvider } from './context/AuthContext';
+import { ToastProvider } from './context/ToastContext';
+import './App.css';
 
 function App() {
   return (
-    <Router>
-      <div className="app">
-        <Navbar />
-        <main className="main-content">
-          <AppRoutes />
-        </main>
-      </div>
-    </Router>
+    <BrowserRouter>
+      <AuthProvider>
+        <ToastProvider>
+          <AppRouter />
+        </ToastProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

@@ -11,6 +11,7 @@ export const routes = {
   skills: '/skills',
   blog: '/blog',
   filecloud: '/filecloud',
+  fileDetail: '/filecloud/:fileId',
   faq: '/faq',
   notFound: '*',
 };

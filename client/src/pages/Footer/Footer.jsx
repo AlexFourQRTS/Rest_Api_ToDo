@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react";
 import styles from "./Footer.module.css";
 
-export default function FooterPage() {
+const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
@@ -12,23 +13,23 @@ export default function FooterPage() {
   ];
 
   const quickLinks = [
-    { name: "News", href: "/news" },
-    { name: "Portfolio", href: "/portfolio" },
-    { name: "Chat", href: "/chat" },
-    { name: "Skills", href: "/skills" },
-    { name: "Blog", href: "/blog" },
-    { name: "FileCloud", href: "/filecloud" },
-    { name: "About Me", href: "/about" },
+    { name: "Головна", href: "/" },
+    { name: "Новини", href: "/news" },
+    { name: "Портфоліо", href: "/portfolio" },
+    { name: "Чат", href: "/chat" },
+    { name: "Навички", href: "/skills" },
+    { name: "Блог", href: "/blog" },
+    { name: "Файли", href: "/files" },
+    { name: "Про нас", href: "/about" },
     { name: "FAQ", href: "/faq" }
   ];
 
   const services = [
-    "Web Development",
-    "React Applications",
-    "UI/UX Design",
-    "API Development",
-    "Database Solutions",
-    "Cloud Services"
+    "Розробка",
+    "Дизайн",
+    "Маркетинг",
+    "Консультації",
+    "Навчання"
   ];
 
   return (
@@ -39,10 +40,10 @@ export default function FooterPage() {
         <div className={styles.footer__grid}>
           <div className={styles.footer__company}>
             <h3 className={styles.footer__companyTitle}>
-              <span className={styles.footer__companyTitleGradient}>🐼 Panda</span> Developer Hub
+              <span className={styles.footer__companyTitleGradient}>🐼 Панда</span> Developer Hub
             </h3>
             <p className={styles.footer__companyDescription}>
-              Creating modern web applications and solutions with cutting-edge technologies and best practices.
+              Хаб Розробника - це платформа для розробників, де ви можете знайти корисні ресурси, спілкуватися з іншими розробниками та розвивати свої навички.
             </p>
             <div className={styles.footer__socialLinks}>
               {socialLinks.map((social, index) => {
@@ -62,43 +63,45 @@ export default function FooterPage() {
           </div>
 
           <div className={styles.footer__navigation}>
-            <h3 className={styles.footer__navigationTitle}>Navigation</h3>
+            <h3 className={styles.footer__navigationTitle}>Навігація</h3>
             <ul className={styles.footer__navigationList}>
               {quickLinks.map((link, index) => (
                 <li key={index} className={styles.footer__navigationItem}>
-                  <a href={link.href} className={styles.footer__navigationLink}>
+                  <Link to={link.href} className={styles.footer__navigationLink}>
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className={styles.footer__services}>
-            <h3 className={styles.footer__servicesTitle}>Services</h3>
+            <h3 className={styles.footer__servicesTitle}>Сервіси</h3>
             <ul className={styles.footer__servicesList}>
               {services.map((service, index) => (
                 <li key={index} className={styles.footer__servicesItem}>
-                  {service}
+                  <Link to={`/services/${service.toLowerCase().replace(/\s+/g, '-')}`} className={styles.footer__servicesLink}>
+                    {service}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
           <div className={styles.footer__contact}>
-            <h3 className={styles.footer__contactTitle}>Contact</h3>
+            <h3 className={styles.footer__contactTitle}>Контакти</h3>
             <div className={styles.footer__contactInfo}>
               <div className={styles.footer__contactItem}>
                 <Mail size={18} className={styles.footer__contactIcon} />
-                <span className={styles.footer__contactText}>xvergox@gmail.com</span>
+                <span className={styles.footer__contactText}>info@panda.dev</span>
               </div>
               <div className={styles.footer__contactItem}>
                 <Phone size={18} className={styles.footer__contactIcon} />
-                <span className={styles.footer__contactText}>095 468 96 56</span>
+                <span className={styles.footer__contactText}>+380 44 123 4567</span>
               </div>
               <div className={styles.footer__contactItem}>
                 <MapPin size={18} className={styles.footer__contactIcon} />
-                <span className={styles.footer__contactText}>Odesa, Ukraine</span>
+                <span className={styles.footer__contactText}>Київ, Україна</span>
               </div>
             </div>
           </div>
@@ -107,19 +110,17 @@ export default function FooterPage() {
         <div className={styles.footer__divider}>
           <div className={styles.footer__bottom}>
             <p className={styles.footer__copyright}>
-              © {currentYear} <span className={styles.footer__copyrightName}>Alexander Malyuk</span>. All rights reserved.
+              © {currentYear} <span className={styles.footer__copyrightName}>Alexander Malyuk</span>. Всі права захищені.
             </p>
             <div className={styles.footer__legalLinks}>
-              <a href="#" className={styles.footer__legalLink}>
-                Privacy Policy
-              </a>
-              <a href="#" className={styles.footer__legalLink}>
-                Terms of Service
-              </a>
+              <Link to="/privacy" className={styles.footer__legalLink}>Політика конфіденційності</Link>
+              <Link to="/terms" className={styles.footer__legalLink}>Умови використання</Link>
             </div>
           </div>
         </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

@@ -3,7 +3,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './BlogControls.module.css';
 import Button from '../Shared/Button/Button';
 
-const BlogControls = ({ searchTerm, onSearchChange, onSearchSubmit, currentCategory, onCategoryFilter, allCategories }) => {
+const BlogControls = ({ 
+  searchTerm = '', 
+  onSearchChange, 
+  onSearchSubmit, 
+  currentCategory = 'all', 
+  onCategoryFilter, 
+  allCategories = [] 
+}) => {
   const [localSearchTerm, setLocalSearchTerm] = useState(searchTerm);
   const debounceTimeoutRef = useRef(null);
 
@@ -41,7 +48,7 @@ const BlogControls = ({ searchTerm, onSearchChange, onSearchSubmit, currentCateg
         <Button type="submit" className={styles.searchButton}>Search</Button>
       </form>
       <div className={styles.filterTags}>
-        {allCategories.map(category => (
+        {Array.isArray(allCategories) && allCategories.map(category => (
           <Button
             key={category}
             className={`${styles.tagFilter} ${currentCategory === category ? styles.active : ''}`}

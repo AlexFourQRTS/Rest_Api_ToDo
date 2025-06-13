@@ -1,14 +1,12 @@
 .container {
   width: 100%;
   min-height: 80vh;
-  /* Використовуємо vh замість % для висоти viewport */
 }
 
 .hero {
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #c46800 100%);
   color: white;
   padding: 10%;
-  /* Відступ зверху у відсотках від висоти батьківського елемента */
   text-align: center;
   border-radius: 1rem;
   margin: 1%;
@@ -16,61 +14,15 @@
 
 .heroContent {
   max-width: 800px;
-  /* Залишаємо фіксовану максимальну ширину для контенту */
   margin: 0 auto;
   padding: 0 5%;
-  /* Відступи з боків у відсотках */
 }
 
 .heroTitle {
   font-size: clamp(2.5rem, 5vw, 3.5rem);
   font-weight: bold;
   margin-bottom: 2%;
-  /* Відступ знизу у відсотках */
   line-height: 1.1;
-}
-
-/* cart */
-.card {
-  display: flex;
-  /* width: 50%; */
-  background-color: #3e3e3e;
-  justify-content: space-between;
-  align-self: center;
-  align-content: center;
-  padding: 10px;
-  margin: 10px;
-}
-
-.card_item_space {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  align-self: center;
-  align-content: center;
-
-}
-
-.card_item_button {
-  display: flex;
-  justify-content: center;
-  /* width: 30%; */
-}
-
-.card_item {
-  display: flex;
-  background-color: #ffffff00;
-  padding: 5px;
-  margin-top: 5px;
-}
-
-/* cart */
-
-.heroHighlight {
-  background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 .heroSubtitle {
@@ -82,40 +34,37 @@
 .contact {
   display: flex;
   flex-direction: column;
-  /* Змінюємо на row для розміщення карток поруч */
   flex-wrap: wrap;
-  /* Дозволяємо переносити картки на новий рядок */
   padding: 5% 0;
   justify-content: center;
-  /* Центруємо картки по горизонталі */
   gap: 2%;
-  /* Відступ між картками */
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 .contactContainer {
   display: flex;
   flex-direction: column;
   width: 90%;
-  /* Займає 90% ширини батьківського елемента */
   margin: 0 auto;
 }
 
 .contactCard {
   display: flex;
   flex: 1 1 30%;
-  /* Кожна картка займає приблизно 30% ширини, але може зростати/стискатися */
   min-width: 20%;
-  /* Мінімальна ширина картки */
   flex-direction: row;
   background: #2d2d2d;
   border: 1px solid rgba(255, 107, 53, 0.2);
   border-radius: 1rem;
   padding: 3%;
-  /* Внутрішні відступи у відсотках */
   text-align: center;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   margin: 1%;
-  /* Відступ знизу між картками при перенесенні */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .contactInside {
@@ -128,51 +77,40 @@
 .contactIcon {
   color: #e67e22;
   margin: 0 auto 4%;
-  /* Відступ знизу у відсотках */
 }
 
 .contactTitle {
   font-size: 1.5rem;
-  /* Зменшуємо розмір шрифту для кращої адаптивності */
   font-weight: bold;
   color: #ffffff;
   margin-bottom: 3%;
-  /* Відступ знизу у відсотках */
 }
 
 .contactInfo {
   display: flex;
   flex-direction: row;
-  /* Розташовуємо елементи вертикально */
   gap: 1%;
-  /* Невеликий відступ між елементами */
   text-align: left;
   margin-top: 3%;
-  /* Відступ зверху у відсотках */
 }
 
 .contactItem {
   background: #404040;
   padding: 2%;
-  /* Внутрішні відступи у відсотках */
   border-radius: 0.5rem;
   border: 1px solid rgba(255, 107, 53, 0.1);
   margin-bottom: 1%;
-  /* Невеликий відступ між елементами */
 }
 
 .contactLabel {
   font-size: 0.9rem;
-  /* Зменшуємо розмір шрифту */
   font-weight: 600;
   color: #e67e22;
   margin-bottom: 1%;
-  /* Невеликий відступ */
 }
 
 .contactValue {
   font-size: 1rem;
-  /* Зменшуємо розмір шрифту */
   color: #ffffff;
   font-weight: 500;
 }
@@ -181,19 +119,58 @@
   background: #2d2d2d;
   border: 1px solid rgba(255, 107, 53, 0.2);
   border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 107, 53, 0.4);
+}
+
+.card_item_space {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-self: center;
+  align-content: center;
+  width: 100%;
+  gap: 5px;
+}
+
+.card_item_button {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: 5px;
+}
+
+.card_item {
+  display: flex;
+  background-color: #ffffff00;
+  padding: 5px;
+  margin-top: 5px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.heroHighlight {
+  background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Upload Section */
-
 .uploadSection {
-
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
 }
 
 .uploadControl {
@@ -201,11 +178,8 @@
   flex-direction: column;
   align-items: center;
   gap: 2%;
-  /* Відступ між елементами керування */
   margin-top: 3%;
-  /* Відступ зверху у відсотках */
   width: 80%;
-  /* Обмежуємо ширину елементів керування */
   margin-left: auto;
   margin-right: auto;
 }
@@ -214,12 +188,10 @@
   background-color: #404040;
   color: #ffffff;
   padding: 1.5% 3%;
-  /* Відступи у відсотках */
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
   width: 100%;
-  /* Займає всю ширину контейнера */
 }
 
 .uploadLabel:hover {
@@ -234,7 +206,6 @@
   background-color: #303030;
   color: #e67e22;
   padding: 1.5% 3%;
-  /* Відступи у відсотках */
   border-radius: 0.5rem;
   border: none;
   cursor: pointer;
@@ -242,7 +213,6 @@
   border: solid 2px rgb(0, 0, 0);
   transition: background-color 0.3s ease;
   width: 100%;
-  /* Займає всю ширину контейнера */
 }
 
 .uploadButton:hover {
@@ -251,7 +221,6 @@
 
 .message {
   margin-top: 2%;
-  /* Відступ зверху у відсотках */
   font-weight: bold;
   text-align: center;
 }
@@ -264,8 +233,162 @@
   color: #e74c3c;
 }
 
-/* Планшеты (481px - 768px) */
-@media (max-width: 768px) {}
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5%;
+  }
 
-/* Телефоны (до 480px) */
-@media (max-width: 480px) {}
+  .hero {
+    padding: 6%;
+  }
+
+  .contactCard {
+    flex: 1 1 45%;
+    min-width: 45%;
+  }
+
+  .uploadControl {
+    width: 85%;
+  }
+
+  .card {
+    padding: 8px;
+    margin: 8px;
+  }
+
+  .card_item_space {
+    gap: 4px;
+  }
+
+  .card_item_button {
+    gap: 4px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 1%;
+  }
+
+  .hero {
+    padding: 5%;
+    margin: 0.5%;
+  }
+
+  .heroContent {
+    padding: 0 2%;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .contact {
+    padding: 2% 0;
+    gap: 1%;
+  }
+
+  .contactContainer {
+    width: 95%;
+  }
+
+  .contactCard {
+    padding: 2%;
+    margin: 0.5%;
+    min-width: 100%;
+  }
+
+  .contactInfo {
+    flex-direction: column;
+  }
+
+  .contactItem {
+    width: 100%;
+    margin-bottom: 2%;
+  }
+
+  .uploadSection {
+    padding: 2%;
+  }
+
+  .uploadControl {
+    width: 95%;
+    margin-top: 2%;
+  }
+
+  .uploadLabel {
+    padding: 3% 4%;
+    font-size: 0.9rem;
+  }
+
+  .uploadButton {
+    padding: 3% 4%;
+    font-size: 0.9rem;
+  }
+
+  .message {
+    font-size: 0.9rem;
+    margin-top: 3%;
+  }
+
+  .card {
+    padding: 5px;
+    margin: 5px;
+  }
+
+  .card_item {
+    padding: 3px;
+    margin-top: 3px;
+  }
+
+  .card_item_space {
+    gap: 3px;
+  }
+
+  .card_item_button {
+    gap: 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1%;
+  }
+
+  .hero {
+    padding: 8%;
+    margin: 0.5%;
+  }
+
+  .contactCard {
+    flex: 1 1 100%;
+    min-width: 100%;
+  }
+
+  .uploadControl {
+    width: 95%;
+  }
+
+  .card {
+    padding: 4px;
+    margin: 4px;
+  }
+
+  .card_item {
+    padding: 2px;
+    margin-top: 2px;
+  }
+
+  .card_item_space {
+    gap: 2px;
+  }
+
+  .card_item_button {
+    gap: 2px;
+  }
+}

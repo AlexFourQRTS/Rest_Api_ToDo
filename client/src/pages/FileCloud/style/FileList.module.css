@@ -4,12 +4,20 @@
     margin: 0 0 20px 0;
     display: flex;
     border-bottom: 1px solid #ccc;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   
   .categoryTabs li {
     padding: 10px 15px;
     cursor: pointer;
     border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    flex-shrink: 0;
+    box-sizing: border-box;
   }
   
   .categoryTabs li.active {
@@ -20,3 +28,141 @@
   .categoryTabs li:hover {
     background-color: #f0f0f0;
   }
+
+  /* Мобильные устройства (до 600px) */
+  @media (max-width: 600px) {
+    .categoryTabs {
+      margin: 0 0 10px 0;
+    }
+
+    .categoryTabs li {
+      padding: 6px 8px;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+  }
+
+.fileList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.fileCard {
+  background: white;
+  border-radius: 4px;
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fileIcon {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.filePreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fileTypeIcon {
+  font-size: 48px;
+  color: #666;
+}
+
+.fileInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fileName {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  word-break: break-word;
+}
+
+.fileDetails {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.fileSize {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.fileDate {
+  color: #888;
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.downloadButton {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.downloadButton:hover {
+  background: #218838;
+}
+
+@media (max-width: 768px) {
+  .fileList {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .fileIcon {
+    height: 120px;
+  }
+
+  .fileCard {
+    padding: 0.75rem;
+  }
+
+  .fileIcon {
+    font-size: 1.5rem;
+  }
+
+  .fileName {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fileList {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .fileIcon {
+    height: 100px;
+  }
+}
