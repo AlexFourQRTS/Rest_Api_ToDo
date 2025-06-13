@@ -4,12 +4,13 @@ import * as feather from "feather-icons";
 import styles from "./Navbar.module.css";
 import Button from "../UI/Button/Button";
 import Sidebar from "../Sidebar/Sidebar";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { routes } from "../../routes";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -35,6 +36,10 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   const NavLink = ({ to, label, icon }) => {
     const isActive = location.pathname === to;
     return (
@@ -45,6 +50,40 @@ const Navbar = () => {
         {icon && <i data-feather={icon} className={styles.navIcon}></i>}
         <span>{label}</span>
       </Link>
+    );
+  };
+
+  const DropdownMenu = () => {
+    const dropdownItems = [
+      { to: routes.about, label: "Про мене", icon: "user" },
+      { to: routes.portfolio, label: "Портфоліо", icon: "folder" },
+      { to: routes.skills, label: "Навички", icon: "code" },
+      { to: routes.whyus, label: "Сервіси", icon: "briefcase" },
+      { to: routes.news, label: "Новини", icon: "briefcase" }
+    ];
+
+    return (
+      <div className={styles.dropdown}>
+        <button 
+          className={`${styles.dropdownButton} ${isDropdownOpen ? styles.active : ""}`}
+          onClick={toggleDropdown}
+        >
+          <span>Про мене</span>
+          <ChevronDown size={16} className={`${styles.dropdownIcon} ${isDropdownOpen ? styles.rotated : ""}`} />
+        </button>
+        {isDropdownOpen && (
+          <div className={styles.dropdownContent}>
+            {dropdownItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                label={item.label}
+                icon={item.icon}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     );
   };
 
@@ -83,16 +122,10 @@ const Navbar = () => {
         {!isMobile && (
           <ul className={styles.navMenu}>
             <li className={styles.navItem}>
-              <NavLink to={routes.news} label="Новини" icon="briefcase" />
-            </li>
-            <li className={styles.navItem}>
-              <NavLink to={routes.portfolio} label="Портфоліо" icon="folder" />
+              <DropdownMenu />
             </li>
             <li className={styles.navItem}>
               <NavLink to={routes.chat} label="Чат" icon="message-circle" />
-            </li>
-            <li className={styles.navItem}>
-              <NavLink to={routes.skills} label="Навички" icon="code" />
             </li>
             <li className={styles.navItem}>
               <NavLink to={routes.blog} label="Блог" icon="book-open" />
@@ -101,10 +134,10 @@ const Navbar = () => {
               <NavLink to={routes.filecloud} label="Файли" icon="cloud" />
             </li>
             <li className={styles.navItem}>
-              <NavLink to={routes.about} label="Про мене" icon="user" />
+              <NavLink to={routes.faq} label="FAQ" icon="help-circle" />
             </li>
             <li className={styles.navItem}>
-              <NavLink to={routes.faq} label="FAQ" icon="help-circle" />
+              <NavLink to={routes.profile} label="Мій Профіль" icon="user" />
             </li>
           </ul>
         )}

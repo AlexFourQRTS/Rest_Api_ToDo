@@ -13,5 +13,6 @@ export const routes = {
   filecloud: '/filecloud',
   fileDetail: '/filecloud/:fileId',
   faq: '/faq',
+  profile: '/profile',
   notFound: '*',
 };

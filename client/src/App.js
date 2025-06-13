@@ -11,6 +11,7 @@ import Portfolio from "./pages/Portfolio/Portfolio";
 import WhyUs from "./pages/WhyUs/WhyUs";
 import Skills from "./pages/Skills/Skills";
 import Blog from "./pages/Blog/Blog";
+import Profile from "./pages/Profile/Profile";
 
 import { FileCloud } from "./pages/FileCloud/FileCloud";
 import FileDetail from "./pages/FileCloud/components/FileDetail/FileDetail";
@@ -44,6 +45,7 @@ function App() {
                   <Route path={routes.filecloud} element={<FileCloud />} />
                   <Route path={routes.fileDetail} element={<FileDetail />} />
                   <Route path={routes.faq} element={<FAQ />} />
+                  <Route path={routes.profile} element={<Profile />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </div>

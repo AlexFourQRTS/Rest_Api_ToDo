@@ -1,0 +1,7 @@
+.authContainer {
+  padding: 2rem;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin-top: 2rem;
+} 

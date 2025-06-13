@@ -1,0 +1,86 @@
+.section {
+  padding: 2rem;
+}
+
+.section h2 {
+  margin: 0 0 1.5rem;
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+.linksGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.quickLink {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background-color: var(--card-background);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.quickLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.quickLink:hover .quickLinkDesc {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.quickLinkIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--background-color);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.quickLink:hover .quickLinkIcon {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.quickLink i {
+  width: 24px;
+  height: 24px;
+}
+
+.quickLinkContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.quickLinkTitle {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.quickLinkDesc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 1.5rem;
+  }
+
+  .linksGrid {
+    grid-template-columns: 1fr;
+  }
+} 
