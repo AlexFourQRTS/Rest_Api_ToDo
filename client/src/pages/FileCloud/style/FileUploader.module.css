@@ -77,6 +77,8 @@ li {
   cursor: pointer;
   font-size: 16px;
   transition: background 0.3s;
+  width: 100%;
+  max-width: 200px;
 }
 
 .uploadButton:hover {
@@ -99,6 +101,7 @@ li {
 
 .fileInfo p {
   margin: 5px 0;
+  word-break: break-word;
 }
 
 .uploadProgress {
@@ -134,6 +137,7 @@ li {
 .progressInfo p {
   margin: 0;
   font-size: 14px;
+  word-break: break-word;
 }
 
 .progressInfo p:first-child {
@@ -163,6 +167,8 @@ li {
   font-size: 16px;
   font-weight: bold;
   transition: background 0.3s;
+  width: 100%;
+  max-width: 200px;
 }
 
 .startUploadButton:hover {
@@ -205,6 +211,7 @@ li {
 .uploadedFileInfo p {
   margin: 5px 0;
   color: white;
+  word-break: break-word;
 }
 
 .newUploadButton {
@@ -217,22 +224,112 @@ li {
   cursor: pointer;
   font-size: 16px;
   transition: background 0.3s;
+  width: 100%;
+  max-width: 200px;
 }
 
 .newUploadButton:hover {
   background: #ff8533;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .fileUploaderContainer {
-    padding: 10px;
+    padding: 15px;
   }
   
   .uploadSection {
     padding: 15px;
   }
   
+  .uploadContent {
+    gap: 10px;
+  }
+  
+  .uploadButton,
+  .startUploadButton,
+  .newUploadButton {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  
+  .fileInfo {
+    padding: 12px;
+  }
+  
   .progressInfo {
     font-size: 12px;
+  }
+  
+  .successIcon {
+    font-size: 36px;
+  }
+  
+  .uploadComplete h4 {
+    font-size: 18px;
+  }
+  
+  .uploadedFileInfo {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fileUploaderContainer {
+    padding: 10px;
+  }
+  
+  .uploadSection {
+    padding: 12px;
+  }
+  
+  .uploadContent {
+    gap: 8px;
+  }
+  
+  .uploadContent p {
+    font-size: 14px;
+  }
+  
+  .uploadButton,
+  .startUploadButton,
+  .newUploadButton {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+  
+  .fileInfo {
+    padding: 10px;
+  }
+  
+  .fileInfo p {
+    font-size: 13px;
+  }
+  
+  .progressBar {
+    height: 16px;
+  }
+  
+  .progressInfo {
+    padding: 8px;
+  }
+  
+  .progressInfo p {
+    font-size: 12px;
+  }
+  
+  .successIcon {
+    font-size: 32px;
+  }
+  
+  .uploadComplete h4 {
+    font-size: 16px;
+  }
+  
+  .uploadedFileInfo {
+    padding: 10px;
+  }
+  
+  .uploadedFileInfo p {
+    font-size: 13px;
   }
 }
