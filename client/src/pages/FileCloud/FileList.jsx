@@ -16,11 +16,11 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false); // Consider if these media states are still needed with the new preview approach
+  const [deleteConfirmFile, setDeleteConfirmFile] = useState(null);
   const { success, error, warning } = useToast();
 
   const handleDelete = async (fileId) => {
     try {
-      warning('Are you sure you want to delete this file?', 0);
       setIsDeleting(true);
       const response = await fetch(`${NestJSAPI}/api/files/${fileId}`, {
         method: 'DELETE',
@@ -31,7 +31,8 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
       }
 
       success('File deleted successfully');
-      onFilesUpdate(); // Обновляем список файлов после удаления
+      onFilesUpdate();
+      setDeleteConfirmFile(null);
     } catch (err) {
       error('Error deleting file: ' + err.message);
     } finally {
@@ -87,6 +88,14 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
 
   const handleLoadedMetadata = (e) => {
     setDuration(e.target.duration);
+  };
+
+  const showDeleteConfirmation = (file) => {
+    setDeleteConfirmFile(file);
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmFile(null);
   };
 
   const renderPreview = () => {
@@ -161,7 +170,7 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
           </button>
           <button
             className={styles.actionButton}
-            onClick={() => handleDelete(file.id)}
+            onClick={() => showDeleteConfirmation(file)}
             title="Delete"
           >
             <FaTrash />
@@ -225,6 +234,31 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
         {renderFileList(files[activeTab])}
       </div>
       {renderPreview()}
+
+      {deleteConfirmFile && (
+        <div className={styles.deleteConfirmOverlay}>
+          <div className={styles.deleteConfirmDialog}>
+            <h3>Підтвердження видалення</h3>
+            <p>Ви впевнені, що хочете видалити файл "{deleteConfirmFile.original_name}"?</p>
+            <div className={styles.deleteConfirmActions}>
+              <button
+                className={styles.cancelButton}
+                onClick={cancelDelete}
+                disabled={isDeleting}
+              >
+                Скасувати
+              </button>
+              <button
+                className={styles.confirmDeleteButton}
+                onClick={() => handleDelete(deleteConfirmFile.id)}
+                disabled={isDeleting}
+              >
+                {isDeleting ? 'Видалення...' : 'Видалити'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

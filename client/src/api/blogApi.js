@@ -60,3 +60,30 @@ export const deleteArticle = async (id) => {
         throw error;
     }
 };
+
+export const blogApi = {
+  getPosts: async () => {
+    return [];
+  },
+  createPost: async (post) => {
+    return { id: 1, ...post };
+  },
+  updatePost: async (id, post) => {
+    return { id, ...post };
+  },
+  deletePost: async (id) => {
+    return { success: true };
+  },
+  likePost: async (id) => {
+    return { success: true };
+  },
+  unlikePost: async (id) => {
+    return { success: true };
+  },
+  addComment: async (postId, comment) => {
+    return { id: 1, postId, ...comment };
+  },
+  deleteComment: async (id) => {
+    return { success: true };
+  },
+};

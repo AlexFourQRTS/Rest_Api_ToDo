@@ -512,4 +512,86 @@
 
 .volumeSlider::-webkit-slider-thumb:hover {
   transform: scale(1.2);
+}
+
+.deleteConfirmOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.deleteConfirmDialog {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 24px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.deleteConfirmDialog h3 {
+  margin: 0 0 16px 0;
+  color: #ff6b00;
+  font-size: 1.5rem;
+}
+
+.deleteConfirmDialog p {
+  margin: 0 0 24px 0;
+  color: #b9b9b9;
+  line-height: 1.5;
+}
+
+.deleteConfirmActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.cancelButton {
+  padding: 10px 20px;
+  background: #4b4b4b;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.cancelButton:hover {
+  background: #5b5b5b;
+}
+
+.cancelButton:disabled {
+  background: #333;
+  cursor: not-allowed;
+}
+
+.confirmDeleteButton {
+  padding: 10px 20px;
+  background: #ff6b00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.confirmDeleteButton:hover {
+  background: #ff8533;
+}
+
+.confirmDeleteButton:disabled {
+  background: #ff8533;
+  opacity: 0.7;
+  cursor: not-allowed;
 } 

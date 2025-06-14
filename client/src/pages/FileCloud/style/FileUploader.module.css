@@ -1,11 +1,8 @@
 .fileUploaderContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .selectorContainer {
@@ -41,43 +38,29 @@ li {
 }
 
 .uploadSection {
-  padding: 20px;
+  border: 2px dashed #333;
   border-radius: 8px;
-  background-color: #3e3e3e;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  background: #1a1a1a;
+  transition: all 0.3s ease;
+  color: white;
 }
 
-.uploadSection h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  color: #333;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
+.dragging {
+  border-color: #ff6b00;
+  background: #2a2a2a;
 }
 
 .uploadArea {
-  border: 2px dashed #666;
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  background: #2a2a2a;
-  cursor: pointer;
-}
-
-.uploadArea.dragActive {
-  border-color: #e67e22;
-  background: #333;
+  margin: 20px 0;
 }
 
 .uploadContent {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 15px;
 }
 
 .uploadContent p {
@@ -86,40 +69,76 @@ li {
 }
 
 .uploadButton {
-  background: #4b4b4b;
-  color: #e67e22;
+  padding: 10px 20px;
+  background: #ff6b00;
+  color: white;
   border: none;
-  padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
+  font-size: 16px;
+  transition: background 0.3s;
 }
 
 .uploadButton:hover {
-  background: #555;
+  background: #ff8533;
 }
 
-.uploading {
-  color: #b9b9b9;
-  font-size: 1.1rem;
-  text-align: center;
-  width: 100%;
+.uploadButton:disabled {
+  background: #666;
+  cursor: not-allowed;
+}
+
+.fileInfo {
+  margin-top: 15px;
+  padding: 15px;
+  background: #2a2a2a;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  color: white;
+}
+
+.fileInfo p {
+  margin: 5px 0;
+}
+
+.uploadProgress {
+  margin-top: 20px;
 }
 
 .progressBar {
   width: 100%;
-  height: 8px;
+  height: 20px;
   background: #333;
-  border-radius: 4px;
-  margin-top: 1rem;
+  border-radius: 10px;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .progressBarFill {
   height: 100%;
-  background: #e67e22;
+  background: #ff6b00;
   transition: width 0.3s ease;
+}
+
+.progressInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  background: #2a2a2a;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  color: white;
+}
+
+.progressInfo p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.progressInfo p:first-child {
+  font-weight: bold;
+  color: #ff6b00;
 }
 
 .error {
@@ -133,41 +152,87 @@ li {
   border: 1px solid #161616;
 }
 
+.startUploadButton {
+  margin-top: 15px;
+  padding: 12px 24px;
+  background: #ff6b00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.startUploadButton:hover {
+  background: #ff8533;
+}
+
+.startUploadButton:disabled {
+  background: #666;
+  cursor: not-allowed;
+}
+
+.uploadComplete {
+  margin-top: 20px;
+  padding: 20px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+}
+
+.successIcon {
+  font-size: 48px;
+  color: #ff6b00;
+  margin-bottom: 15px;
+}
+
+.uploadComplete h4 {
+  color: #ff6b00;
+  margin: 10px 0;
+  font-size: 20px;
+}
+
+.uploadedFileInfo {
+  margin: 15px 0;
+  padding: 15px;
+  background: #333;
+  border-radius: 4px;
+}
+
+.uploadedFileInfo p {
+  margin: 5px 0;
+  color: white;
+}
+
+.newUploadButton {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #ff6b00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.newUploadButton:hover {
+  background: #ff8533;
+}
+
 @media (max-width: 600px) {
   .fileUploaderContainer {
-    gap: 10px;
-  }
-
-  .selectorContainer {
-    padding-bottom: 2px;
-  }
-
-  .selectorButton {
-    padding: 6px 8px;
-    font-size: 0.85rem;
-  }
-
-  .uploadSection {
     padding: 10px;
-    margin: 0;
   }
-
-  .uploadSection h3 {
-    font-size: 1rem;
-    margin-bottom: 8px;
+  
+  .uploadSection {
+    padding: 15px;
   }
-
-  .uploadArea {
-    padding: 1.5rem;
-  }
-
-  .uploadButton {
-    padding: 6px 8px;
-    font-size: 0.85rem;
-  }
-
-  .error {
-    padding: 6px;
-    font-size: 0.85rem;
+  
+  .progressInfo {
+    font-size: 12px;
   }
 }
