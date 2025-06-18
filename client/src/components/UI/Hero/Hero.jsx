@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../Button/Button';
 import styles from './Hero.module.css';
 
-const Hero = ({ title, subtitle, buttonText, onButtonClick }) => {
+const Hero = ({ title, subtitle, buttonText, onButtonClick, children }) => {
   return (
     <section className={styles.hero}>
       <div className={styles.content}>
@@ -11,6 +11,7 @@ const Hero = ({ title, subtitle, buttonText, onButtonClick }) => {
         {buttonText && (
           <Button onClick={onButtonClick}>{buttonText}</Button>
         )}
+        {children}
       </div>
     </section>
   );

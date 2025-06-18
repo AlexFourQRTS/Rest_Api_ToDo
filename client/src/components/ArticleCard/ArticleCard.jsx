@@ -1,61 +1,57 @@
 // src/components/ArticleCard/ArticleCard.jsx
 import React from 'react';
 import styles from './ArticleCard.module.css';
-import { format } from 'date-fns';
+import noImg from '../../pages/Blog/noImg.ico';
 
-const ArticleCard = ({ article, onView, onEdit, onDelete }) => {
-  const {
-    id,
-    name: title,
-    excerpt,
-    image_url: imageUrl,
-    category,
-    created_at: createdAt,
-    readTime,
-    tags,
-    canEdit
-  } = article;
+const ArticleCard = ({ article, onViewClick, onDeleteClick }) => {
+  // Универсальный рендер изображения
+  const renderImage = () => {
+    const img = article.image;
+    if (!img) {
+      // Нет изображения
+      return <img src={noImg} alt="no-img" className={styles.image} />;
+    }
+    if (typeof img === 'string') {
+      // SVG-код
+      if (img.trim().startsWith('<svg')) {
+        return (
+          <div
+            className={styles.image}
+            style={{padding:0,background:'none'}}
+            dangerouslySetInnerHTML={{ __html: img }}
+            aria-label={article.name}
+          />
+        );
+      }
+      // base64 или обычный url
+      if (
+        img.startsWith('http') ||
+        img.startsWith('data:image') ||
+        img.startsWith('/')
+      ) {
+        return <img src={img} alt={article.name} className={styles.image} />;
+      }
+    }
+    // fallback
+    return <img src={noImg} alt="no-img" className={styles.image} />;
+  };
 
   return (
-    <div className={styles.card}>
+    <div className={styles.articleCard}>
       <div className={styles.imageContainer}>
-        <img src={imageUrl || 'https://via.placeholder.com/300x200'} alt={title} className={styles.image} />
-        <div className={styles.category}>{category}</div>
+        {renderImage()}
       </div>
-
       <div className={styles.content}>
-        <h3 className={styles.title}>{title}</h3>
-        <p className={styles.excerpt}>{excerpt}</p>
-
-        <div className={styles.meta}>
-          <span className={styles.date}>
-            {format(new Date(createdAt), 'MMM d, yyyy')}
-          </span>
-          <span className={styles.readTime}>{readTime} min read</span>
-        </div>
-
-        <div className={styles.tags}>
-          {tags?.map(tag => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-
+        <div className={styles.category}>{article.category}</div>
+        <h3 className={styles.title}>{article.name}</h3>
+        <p className={styles.excerpt}>{article.content}</p>
         <div className={styles.actions}>
-          <button onClick={() => onView(id)} className={styles.actionButton}>
-            View
+          <button className={styles.viewButton} onClick={onViewClick}>
+            Просмотр
           </button>
-          {canEdit && (
-            <>
-              <button onClick={() => onEdit(id)} className={styles.actionButton}>
-                Edit
-              </button>
-              <button onClick={() => onDelete(id)} className={styles.actionButton}>
-                Delete
-              </button>
-            </>
-          )}
+          {/* <button className={styles.deleteButton} onClick={onDeleteClick}>
+            Удалить
+          </button> */}
         </div>
       </div>
     </div>

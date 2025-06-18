@@ -52,6 +52,8 @@
     .hero {
       padding: 2rem 0.75rem;
       margin: 0.25rem;
+      margin-top: 35px;
+      margin-bottom: 5px;
       border-radius: 0.5rem;
     }
   

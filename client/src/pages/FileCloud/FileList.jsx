@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useToast } from '../../context/ToastContext';
 import styles from './style/FileLists.module.css';
-import { FaFileImage, FaFileVideo, FaFileAudio, FaFileAlt, FaFile, FaPlay, FaDownload, FaTrash } from 'react-icons/fa'; // Removed unused icons
+import { FaFileImage, FaFileVideo, FaFileAudio, FaFileAlt, FaFile, FaPlay, FaDownload, FaTrash, FaCopy, FaLink } from 'react-icons/fa'; // Removed unused icons
 
 // Access the API URL from environment variables
 const NestJSAPI = process.env.REACT_APP_API_URL;
@@ -17,12 +17,15 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
   const [volume, setVolume] = useState(1);
   const [isFullscreen, setIsFullscreen] = useState(false); // Consider if these media states are still needed with the new preview approach
   const [deleteConfirmFile, setDeleteConfirmFile] = useState(null);
+  const [copiedFileId, setCopiedFileId] = useState(null);
   const { success, error, warning } = useToast();
+  const videoRef = useRef(null);
+  const [downloadingFiles, setDownloadingFiles] = useState({});
 
   const handleDelete = async (fileId) => {
     try {
       setIsDeleting(true);
-      const response = await fetch(`${NestJSAPI}/api/files/${fileId}`, {
+      const response = await fetch(`${NestJSAPI}/api/files/number${fileId}`, {
         method: 'DELETE',
       });
 
@@ -42,11 +45,44 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
 
   const handleDownload = async (fileId, filename) => {
     try {
-      const response = await fetch(`${NestJSAPI}/api/files/${fileId}/download`);
+      // Создаем объект для отслеживания прогресса
+      setDownloadingFiles(prev => ({
+        ...prev,
+        [fileId]: { progress: 0, status: 'starting' }
+      }));
+
+      const response = await fetch(`${NestJSAPI}/api/files/number${fileId}/download`);
       if (!response.ok) {
         throw new Error('Failed to download file');
       }
-      const blob = await response.blob();
+
+      // Получаем размер файла
+      const contentLength = response.headers.get('content-length');
+      const total = parseInt(contentLength, 10);
+      let loaded = 0;
+
+      // Создаем ReadableStream для отслеживания прогресса
+      const reader = response.body.getReader();
+      const chunks = [];
+
+      while (true) {
+        const { done, value } = await reader.read();
+        
+        if (done) break;
+        
+        chunks.push(value);
+        loaded += value.length;
+        
+        // Обновляем прогресс
+        const progress = Math.round((loaded / total) * 100);
+        setDownloadingFiles(prev => ({
+          ...prev,
+          [fileId]: { progress, status: 'downloading' }
+        }));
+      }
+
+      // Собираем файл из чанков
+      const blob = new Blob(chunks);
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -55,21 +91,53 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
+
+      // Обновляем статус после завершения
+      setDownloadingFiles(prev => ({
+        ...prev,
+        [fileId]: { progress: 100, status: 'completed' }
+      }));
+
       success('File downloaded successfully');
+
+      // Очищаем статус через 2 секунды
+      setTimeout(() => {
+        setDownloadingFiles(prev => {
+          const newState = { ...prev };
+          delete newState[fileId];
+          return newState;
+        });
+      }, 2000);
+
     } catch (err) {
+      setDownloadingFiles(prev => ({
+        ...prev,
+        [fileId]: { progress: 0, status: 'error' }
+      }));
       error('Error downloading file: ' + err.message);
     }
   };
 
   const handlePreview = async (file) => {
     try {
-      const response = await fetch(`${NestJSAPI}/api/files/${file.id}/download`);
-      if (!response.ok) {
-        throw new Error('Failed to load preview');
+      const isVideo = file.mime_type.startsWith('video/');
+      const isImage = file.mime_type.startsWith('image/');
+      const isAudio = file.mime_type.startsWith('audio/');
+
+      if (isVideo) {
+        // Для видео используем прямую ссылку для потокового воспроизведения
+        const videoUrl = `${NestJSAPI}/api/files/stream/${file.id}`;
+        setPreviewFile({ ...file, previewUrl: videoUrl });
+      } else {
+        // Для остальных типов файлов используем старый метод
+        const response = await fetch(`${NestJSAPI}/api/files/number${file.id}/download`);
+        if (!response.ok) {
+          throw new Error('Failed to load preview');
+        }
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        setPreviewFile({ ...file, previewUrl: url });
       }
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      setPreviewFile({ ...file, previewUrl: url });
     } catch (err) {
       error('Error loading preview: ' + err.message);
     }
@@ -98,6 +166,18 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
     setDeleteConfirmFile(null);
   };
 
+  const handleCopyLink = async (fileId) => {
+    try {
+      const fileUrl = `${NestJSAPI}/api/files/number${fileId}/download`;
+      await navigator.clipboard.writeText(fileUrl);
+      setCopiedFileId(fileId);
+      success('Link copied to clipboard');
+      setTimeout(() => setCopiedFileId(null), 2000);
+    } catch (err) {
+      error('Error copying link: ' + err.message);
+    }
+  };
+
   const renderPreview = () => {
     if (!previewFile) return null;
 
@@ -113,18 +193,40 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
             <img src={previewFile.previewUrl} alt={previewFile.original_name} />
           )}
           {isVideo && (
-            <video controls src={previewFile.previewUrl}>
+            <video 
+              ref={videoRef}
+              controls 
+              src={previewFile.previewUrl}
+              className={styles.videoPlayer}
+              onTimeUpdate={handleTimeUpdate}
+              onLoadedMetadata={handleLoadedMetadata}
+            >
               Your browser does not support the video tag.
             </video>
           )}
           {isAudio && (
-            <audio controls src={previewFile.previewUrl}>
+            <audio 
+              controls 
+              src={previewFile.previewUrl}
+              onTimeUpdate={handleTimeUpdate}
+              onLoadedMetadata={handleLoadedMetadata}
+            >
               Your browser does not support the audio tag.
             </audio>
           )}
           <div className={styles.previewInfo}>
             <h3>{previewFile.original_name}</h3>
             <p>{(previewFile.size / (1024 * 1024)).toFixed(2)} MB</p>
+            {isVideo && (
+              <div className={styles.videoControls}>
+                <button 
+                  onClick={() => videoRef.current?.requestFullscreen()}
+                  className={styles.fullscreenButton}
+                >
+                  Fullscreen
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -135,6 +237,8 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
     const isVideo = file.type === 'video';
     const isAudio = file.type === 'audio';
     const isImage = file.type === 'image';
+    const fileUrl = `${NestJSAPI}/api/files/number${file.id}/download`;
+    const downloadStatus = downloadingFiles[file.id];
 
     return (
       <div key={file.id} className={styles.fileItem}>
@@ -149,22 +253,49 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
           <div className={styles.fileDetails}>
             <span className={styles.fileName}>{file.original_name}</span>
             <span className={styles.fileSize}>{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+            <div className={styles.fileUrl}>
+              <FaLink className={styles.linkIcon} />
+              <span className={styles.urlText}>{fileUrl}</span>
+            </div>
+            {downloadStatus && (
+              <div className={styles.downloadProgress}>
+                <div 
+                  className={`${styles.progressBar} ${styles[downloadStatus.status]}`}
+                  style={{ width: `${downloadStatus.progress}%` }}
+                />
+                <span className={styles.progressText}>
+                  {downloadStatus.status === 'downloading' && `${downloadStatus.progress}%`}
+                  {downloadStatus.status === 'completed' && 'Downloaded!'}
+                  {downloadStatus.status === 'error' && 'Error!'}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
         <div className={styles.fileActions}>
-          {/* The media files in the main list view are now using `handlePreview` for playback */}
+          <button
+            className={styles.actionButton}
+            onClick={() => handleCopyLink(file.id)}
+            title="Copy Link"
+            disabled={!!downloadStatus}
+          >
+            <FaCopy />
+            {copiedFileId === file.id && <span className={styles.copiedTooltip}>Copied!</span>}
+          </button>
           <button
             className={styles.actionButton}
             onClick={() => handlePreview(file)}
             title="Preview"
+            disabled={!!downloadStatus}
           >
             <FaPlay />
           </button>
           <button
-            className={styles.actionButton}
+            className={`${styles.actionButton} ${downloadStatus ? styles.downloading : ''}`}
             onClick={() => handleDownload(file.id, file.original_name)}
             title="Download"
+            disabled={!!downloadStatus}
           >
             <FaDownload />
           </button>
@@ -172,6 +303,7 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
             className={styles.actionButton}
             onClick={() => showDeleteConfirmation(file)}
             title="Delete"
+            disabled={!!downloadStatus}
           >
             <FaTrash />
           </button>

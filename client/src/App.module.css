@@ -25,7 +25,7 @@ body {
 
 .content {
   margin-top: 0;
-  padding: clamp(1rem, 2vw, 2rem);
+  /* padding: clamp(1rem, 2vw, 2rem); */
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
