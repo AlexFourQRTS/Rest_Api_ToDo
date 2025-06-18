@@ -156,7 +156,7 @@
   
 @media (max-width: 768px) {
     .navContainer {
-        padding: 0.5rem 1rem;
+        padding: 0;
     }
     .navBrand h1 {
         font-size: 1.2rem;

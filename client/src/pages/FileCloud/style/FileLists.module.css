@@ -736,7 +736,7 @@
    
     
     justify-content: center;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-content: center;
     justify-self: center;
     flex-direction: column;

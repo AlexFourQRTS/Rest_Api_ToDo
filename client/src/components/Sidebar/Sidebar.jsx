@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import * as feather from "feather-icons";
 import styles from "./Sidebar.module.css";
@@ -8,6 +8,7 @@ import { ChevronDown } from "lucide-react";
 const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const sidebarRef = useRef(null);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -16,6 +17,23 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
   React.useEffect(() => {
     feather.replace();
   }, [isSidebarOpen]);
+
+  // Обработчик клика вне сайдбара
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        closeSidebar();
+      }
+    };
+
+    if (isSidebarOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isSidebarOpen, closeSidebar]);
 
   const SidebarLink = ({ to, label, icon }) => {
     const isActive = location.pathname === to;
@@ -75,7 +93,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
   ];
 
   return (
-    <aside className={`${styles.sidebar} ${isSidebarOpen ? styles["sidebar--open"] : styles["sidebar--closed"]}`}>
+    <aside ref={sidebarRef} className={`${styles.sidebar} ${isSidebarOpen ? styles["sidebar--open"] : styles["sidebar--closed"]}`}>
       <nav className={styles.sidebar__nav}>
         <ul className={styles.sidebar__list}>
           <li className={styles.sidebar__item}>

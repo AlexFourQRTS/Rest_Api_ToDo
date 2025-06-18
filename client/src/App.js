@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { routes } from "./routes";
 import Navbar from "./components/Navbar/Navbar";
+import Sidebar from "./components/Sidebar/Sidebar";
 import { ToastProvider } from "./context/ToastContext";
 
 import Home from "./pages/Home/Home";
@@ -23,17 +24,37 @@ import FooterPage from "./pages/Footer/Footer";
 import {NotFoundPage} from "./pages/NotFoundPage/NotFoundPage";
 
 import styles from "./App.module.css";
+import './utils/activityLogger';
+import { logActivity } from './utils/activityLogger';
+
+// Компонент для логирования изменений маршрута
+const RouteChangeLogger = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    logActivity('route_change', { path: location.pathname });
+  }, [location]);
+
+  return null;
+};
 
 function App() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <BrowserRouter>
       <ToastProvider>
         <div className={styles.app}>
-          <Navbar />
-          
-          <div className={styles.app__main}>
+          <Navbar onMenuClick={toggleSidebar} />
+          <div className={styles.container}>
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
             <main className={styles.content}>
               <div className={styles.content__wrapper}>
+                <RouteChangeLogger />
                 <Routes>
                   <Route path={routes.home} element={<Home />} />
                   <Route path={routes.about} element={<About />} />

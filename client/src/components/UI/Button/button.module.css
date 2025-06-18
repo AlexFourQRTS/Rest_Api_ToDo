@@ -46,8 +46,8 @@
 
 @media (max-width: 480px) {
   .button {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.75rem;
-    min-width: 80px;
+    padding: 4px;
+    font-size: 0.3rem;
+    min-width: 20px;
   }
 }
