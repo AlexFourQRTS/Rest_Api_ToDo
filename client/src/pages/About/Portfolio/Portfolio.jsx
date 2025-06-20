@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import translations from "./portfolioTranslations.json";
 import styles from "./Portfolio.module.css";
-import Hero from "../../components/UI/Hero/Hero";
+import Hero from "../../../components/UI/Hero/Hero";
 
 const languages = [
   { code: "en", name: "English" },

@@ -12,12 +12,15 @@ import {
   FaComments, 
   FaCog 
 } from 'react-icons/fa';
-import { authApi } from '../../api/authApi';
-import { ProfileSidebar } from './components/ProfileSidebar/ProfileSidebar';
-import { ProfileHeader } from './components/ProfileHeader/ProfileHeader';
-import { QuickLinks } from './components/QuickLinks/QuickLinks';
-import { AuthForm } from '../../components/Auth/AuthForm';
-import { Chat } from '../../components/Chat/Chat';
+import { authApi } from 'api/authApi';
+import { routes } from '../../routes';
+import { ProfileSidebar } from 'pages/Profile/components/ProfileSidebar/ProfileSidebar';
+import { ProfileHeader } from 'pages/Profile/components/ProfileHeader/ProfileHeader';
+import { QuickLinks } from 'pages/Profile/components/QuickLinks/QuickLinks';
+import AuthPage from 'pages/Profile/auth/AuthPage';
+import Chat from 'pages/Profile/components/Chat/Chat';
+import ChangePasswordForm from 'pages/Profile/components/ChangePasswordForm/ChangePasswordForm';
+import AdminPage from 'pages/Profile/Admin/AdminPage';
 import styles from './Profile.module.css';
 
 const Profile = () => {
@@ -45,15 +48,10 @@ const Profile = () => {
   const handleLogout = () => {
     authApi.logout();
     setUserData(null);
-    navigate('/');
+    navigate(routes.profile);
   };
 
   const handleLoginSuccess = (data) => {
-    setUserData(data);
-    setIsSidebarOpen(false);
-  };
-
-  const handleRegisterSuccess = (data) => {
     setUserData(data);
     setIsSidebarOpen(false);
   };
@@ -121,10 +119,7 @@ const Profile = () => {
           <p className={styles.featureDescription}>{feature.description}</p>
           <div className={styles.authSection}>
             <h3>Увійдіть для доступу до всіх функцій</h3>
-            <AuthForm
-              onLoginSuccess={handleLoginSuccess}
-              onRegisterSuccess={handleRegisterSuccess}
-            />
+            <AuthPage onAuthSuccess={handleLoginSuccess} />
           </div>
         </div>
       </div>
@@ -146,6 +141,10 @@ const Profile = () => {
         );
       case 'chat':
         return <Chat />;
+      case 'settings':
+        return <ChangePasswordForm />;
+      case 'admin':
+        return <AdminPage user={userData} />;
       default:
         return <div>Розділ в розробці</div>;
     }

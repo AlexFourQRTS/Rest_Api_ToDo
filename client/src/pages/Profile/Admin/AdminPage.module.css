@@ -1,0 +1,33 @@
+.adminPageContainer {
+  padding: 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header h1 {
+  color: var(--text-color);
+}
+
+/* .content { */
+  /* No specific styles needed for now */
+/* } */
+
+.accessDenied {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--card-background);
+  border-radius: 8px;
+}
+
+.accessDenied h2 {
+  color: var(--error-color);
+  margin-bottom: 1rem;
+}
+
+.accessDenied p {
+  color: var(--text-secondary);
+} 

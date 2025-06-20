@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import translations from "./skillsTranslations.json";
 import styles from "./Skills.module.css";
-import Hero from "../../components/UI/Hero/Hero";
+import Hero from "../../../components/UI/Hero/Hero";
 
 const servicesIcons = [
   { name: "Parsers Development", icon: "https://cdn.simpleicons.org/puppeteer/40c4ff" },

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import translations from "./servicesTranslations.json";
 import styles from "./News.module.css";
-import PageWrap from "../../components/UI/PageWrap/PageWrap";
-import Hero from "../../components/UI/Hero/Hero";
+import PageWrap from "../../../components/UI/PageWrap/PageWrap";
+import Hero from "../../../components/UI/Hero/Hero";
 
 // Sample news data (replace with API fetch if needed)
 const newsData = [

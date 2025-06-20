@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styles from './Auth.module.css';
-import Button from '../../components/UI/Button/Button';
-import { authApi } from '../Profile/api/authApi';
+import Button from 'components/UI/Button/Button';
+import { authApi } from 'api/authApi';
 
-const Register = ({ onRegisterSuccess, onLoginClick }) => {
+const Login = ({ onLoginSuccess, onRegisterClick }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -13,9 +13,8 @@ const Register = ({ onRegisterSuccess, onLoginClick }) => {
     setError('');
 
     try {
-      const data = await authApi.register(email, password);
-      localStorage.setItem('token', data.token);
-      onRegisterSuccess();
+      const user = await authApi.login({ email, password });
+      onLoginSuccess(user);
     } catch (err) {
       setError(err.message);
     }
@@ -23,7 +22,7 @@ const Register = ({ onRegisterSuccess, onLoginClick }) => {
 
   return (
     <div className={styles.authForm}>
-      <h2>Реєстрація</h2>
+      <h2>Вхід</h2>
       {error && <div className={styles.error}>{error}</div>}
       <form onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
@@ -49,17 +48,17 @@ const Register = ({ onRegisterSuccess, onLoginClick }) => {
           />
         </div>
         <Button type="submit" className={styles.submitButton}>
-          Зареєструватися
+          Увійти
         </Button>
       </form>
       <p className={styles.switchAuth}>
-        Вже маєте акаунт?{' '}
-        <button onClick={onLoginClick} className={styles.switchButton}>
-          Увійти
+        Немає акаунту?{' '}
+        <button onClick={onRegisterClick} className={styles.switchButton}>
+          Зареєструватися
         </button>
       </p>
     </div>
   );
 };
 
-export default Register; 
+export default Login; 

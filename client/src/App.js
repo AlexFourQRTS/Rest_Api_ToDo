@@ -7,10 +7,10 @@ import { ToastProvider } from "./context/ToastContext";
 
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
-import News from "./pages/News/News";
-import Portfolio from "./pages/Portfolio/Portfolio";
-import WhyUs from "./pages/WhyUs/WhyUs";
-import Skills from "./pages/Skills/Skills";
+import News from "./pages/About/News/News";
+import Portfolio from "./pages/About/Portfolio/Portfolio";
+import WhyUs from "./pages/About/WhyUs/WhyUs";
+import Skills from "./pages/About/Skills/Skills";
 import Blog from "./pages/Blog/Blog";
 import Profile from "./pages/Profile/Profile";
 

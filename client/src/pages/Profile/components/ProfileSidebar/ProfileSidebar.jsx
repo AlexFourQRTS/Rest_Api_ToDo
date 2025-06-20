@@ -1,22 +1,16 @@
 import React from "react";
 import styles from "./ProfileSidebar.module.css";
 import { 
-  FaUser, 
-  FaSignInAlt, 
-  FaSignOutAlt, 
   FaHome, 
   FaUsers, 
   FaImages, 
   FaVideo, 
-  FaFolder, 
-  FaBookmark, 
   FaCog, 
   FaComments,
   FaEnvelope,
   FaCloud,
   FaSave,
   FaUserFriends,
-  FaTimes
 } from 'react-icons/fa';
 
 export const ProfileSidebar = ({ userData, selectedItem, onSelectItem, isOpen, onClose }) => {
@@ -31,6 +25,10 @@ export const ProfileSidebar = ({ userData, selectedItem, onSelectItem, isOpen, o
     { id: 'chat', label: 'Чат', icon: <FaComments /> },
     { id: 'settings', label: 'Налаштування', icon: <FaCog /> },
   ];
+
+  if (userData && userData.role === 'admin') {
+    menuItems.push({ id: 'admin', label: 'Адмін-панель', icon: <FaUsers /> });
+  }
 
   return (
     <>

@@ -1,0 +1,50 @@
+.usersListContainer {
+  padding: 2rem;
+  background-color: var(--card-background);
+  border-radius: 8px;
+}
+
+.usersListContainer h2 {
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+}
+
+.usersList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.userItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.userItem:last-child {
+  border-bottom: none;
+}
+
+.userEmail {
+  color: var(--text-color);
+}
+
+.userRole {
+  color: var(--text-secondary);
+  background-color: var(--background-color);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.message, .error {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
+}
+
+.error {
+  color: var(--error-color);
+} 
