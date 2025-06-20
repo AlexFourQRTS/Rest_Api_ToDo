@@ -49,9 +49,11 @@ const ArticleCard = ({ article, onViewClick, onDeleteClick }) => {
           <button className={styles.viewButton} onClick={onViewClick}>
             Просмотр
           </button>
-          {/* <button className={styles.deleteButton} onClick={onDeleteClick}>
-            Удалить
-          </button> */}
+          {onDeleteClick && (
+            <button className={styles.deleteButton} onClick={onDeleteClick}>
+              Удалить
+            </button>
+          )}
         </div>
       </div>
     </div>

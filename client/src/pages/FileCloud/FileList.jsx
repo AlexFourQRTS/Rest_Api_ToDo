@@ -6,7 +6,7 @@ import { FaFileImage, FaFileVideo, FaFileAudio, FaFileAlt, FaFile, FaPlay, FaDow
 // Access the API URL from environment variables
 const NestJSAPI = process.env.REACT_APP_API_URL;
 
-const FileList = ({ files, isLoading, onFilesUpdate }) => {
+const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [activeTab, setActiveTab] = useState('images');
   const [previewFile, setPreviewFile] = useState(null);
@@ -299,14 +299,16 @@ const FileList = ({ files, isLoading, onFilesUpdate }) => {
           >
             <FaDownload />
           </button>
-          <button
-            className={styles.actionButton}
-            onClick={() => showDeleteConfirmation(file)}
-            title="Delete"
-            disabled={!!downloadStatus}
-          >
-            <FaTrash />
-          </button>
+          {user && user.role === 'admin' && (
+            <button
+              className={styles.actionButton}
+              onClick={() => showDeleteConfirmation(file)}
+              title="Delete"
+              disabled={!!downloadStatus}
+            >
+              <FaTrash />
+            </button>
+          )}
         </div>
       </div>
     );

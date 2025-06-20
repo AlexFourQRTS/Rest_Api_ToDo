@@ -10,7 +10,10 @@ export const ProfileHeader = ({ userData, onLogout }) => {
           <FaUserFriends className={styles.avatarIcon} />
         </div>
         <div className={styles.profileHeaderInfo}>
-          <h1>{userData.email}</h1>
+          <h1>
+            {userData.email}
+            {userData.role === 'admin' && <span className={styles.adminBadge}>Адміністратор</span>}
+          </h1>
           <span className={styles.status}>Онлайн</span>
         </div>
       </div>

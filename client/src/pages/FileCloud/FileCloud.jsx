@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./style/FileCloud.module.css";
+import { authApi } from '../../api/authApi';
 
 import Hero from "../../components/UI/Hero/Hero";
 
@@ -17,7 +18,34 @@ export const FileCloud = () => {
     other: []
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
   const { error } = useToast();
+
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      setIsLoading(true);
+      try {
+        // Fetch files
+        const filesResponse = await fetch('https://skydishch.fun/api/files');
+        if (!filesResponse.ok) {
+          throw new Error('Failed to fetch files');
+        }
+        const filesData = await filesResponse.json();
+        setFiles(filesData);
+
+        // Fetch user profile
+        const userData = await authApi.getProfile();
+        setUser(userData);
+
+      } catch (err) {
+        error('Error loading data: ' + err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchInitialData();
+  }, []);
 
   const fetchFiles = async () => {
     try {
@@ -29,14 +57,8 @@ export const FileCloud = () => {
       setFiles(data);
     } catch (err) {
       error('Error loading files: ' + err.message);
-    } finally {
-      setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchFiles();
-  }, []);
 
   const handleUploadSuccess = () => {
     fetchFiles(); // Обновляем список файлов после успешной загрузки
@@ -48,7 +70,7 @@ export const FileCloud = () => {
       <div className={styles.contactCard}>
         <FileUploader onUploadSuccess={handleUploadSuccess} />
       </div>
-      <FileList files={files} isLoading={isLoading} onFilesUpdate={fetchFiles} />
+      <FileList files={files} isLoading={isLoading} onFilesUpdate={fetchFiles} user={user} />
     </div>
   );
 };

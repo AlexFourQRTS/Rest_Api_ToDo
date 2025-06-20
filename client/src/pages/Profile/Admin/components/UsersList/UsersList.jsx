@@ -11,7 +11,16 @@ const UsersList = () => {
     const fetchUsers = async () => {
       try {
         const data = await authApi.getAdminUsers();
-        setUsers(data);
+        if (Array.isArray(data)) {
+          setUsers(data);
+        } else {
+          // If data is not an array (e.g., null or an error object), set an empty array to prevent crash
+          setUsers([]);
+          if (data) { // If there's some data but it's not an array, it might be an error response
+            console.error("Received unexpected data format for users:", data);
+            setError('Не вдалося завантажити список користувачів: неправильний формат даних.');
+          }
+        }
       } catch (err) {
         setError(err.message || 'Не вдалося завантажити список користувачів.');
       } finally {

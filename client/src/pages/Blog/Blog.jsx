@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { authApi } from 'api/authApi';
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import Hero from '../../components/UI/Hero/Hero';
 import styles from './Blog.module.css';
@@ -13,6 +14,7 @@ const ITEMS_PER_PAGE = 5;
 
 const Blog = () => {
   const [articles, setArticles] = useState([]);
+  const [user, setUser] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [error, setError] = useState(null);
@@ -41,9 +43,14 @@ const Blog = () => {
 
   // Обновляем useEffect для загрузки статей
   useEffect(() => {
-    const fetchArticles = async () => {
+    const fetchArticlesAndUser = async () => {
       try {
         setError(null);
+        // Fetch user
+        const userData = await authApi.getProfile();
+        setUser(userData);
+
+        // Fetch articles
         const response = await axios.get(`${BASE_URL}/api/blog`, {
           params: {
             limit: ITEMS_PER_PAGE,
@@ -55,12 +62,12 @@ const Blog = () => {
         setArticles(response.data.articles);
         setTotalPages(Math.ceil(response.data.totalCount / ITEMS_PER_PAGE) || 1);
       } catch (err) {
-        toast.error('Ошибка при загрузке статей');
-        console.error('Error fetching articles:', err);
+        toast.error('Ошибка при загрузке данных');
+        console.error('Error fetching data:', err);
       }
     };
 
-    fetchArticles();
+    fetchArticlesAndUser();
   }, [page, debouncedSearchQuery]);
 
   // Сбрасываем страницу при новом поиске
@@ -188,9 +195,11 @@ const Blog = () => {
         theme="dark"
       />
       <Hero title="Блог">
-        <button className={styles.createButton} onClick={() => setIsCreating(true)}>
-          Создать статью
-        </button>
+        {user && user.role === 'admin' && (
+          <button className={styles.createButton} onClick={() => setIsCreating(true)}>
+            Создать статью
+          </button>
+        )}
       </Hero>
       {error && toast.error(error)}
       <div className={styles.actions}>
@@ -317,16 +326,13 @@ const Blog = () => {
             key={article.id}
             article={article}
             onViewClick={() => handleViewClick(article)}
-            onDeleteClick={() => handleDeleteClick(article.id)}
+            onDeleteClick={user && user.role === 'admin' ? () => handleDeleteClick(article.id) : null}
           />
         ))}
       </div>
-
-      {totalPages > 1 && (
-        <div className={styles.pagination}>
-          {renderPagination()}
-        </div>
-      )}
+      <div className={styles.pagination}>
+        {renderPagination()}
+      </div>
     </div>
   );
 };
