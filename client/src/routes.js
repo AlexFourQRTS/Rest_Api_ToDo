@@ -14,6 +14,7 @@ export const routes = {
   converter: '/tools/converter',
   microphone: '/tools/microphone',
   ip: '/tools/ip',
+  tone_generator: '/tools/tone_generator',
   chat: '/chat',
   blog: '/blog',
   filecloud: '/filecloud',

@@ -94,9 +94,10 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
   const ToolsDropdownMenu = () => {
     const dropdownItems = [
       { to: routes.camera, label: "Камера", icon: "camera" },
-      { to: routes.converter, label: "Конвертор", icon: "refresh-cw" },
       { to: routes.microphone, label: "Микрофон", icon: "mic" },
-      { to: routes.ip, label: "Ваш IP", icon: "globe" }
+      { to: routes.converter, label: "Конвертор", icon: "refresh-cw" },
+      { to: routes.ip, label: "Ваш IP", icon: "globe" },
+      { to: routes.tone_generator, label: "Тон-генератор", icon: "bar-chart-2" }
     ];
 
     return (

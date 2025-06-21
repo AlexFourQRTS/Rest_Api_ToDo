@@ -16,10 +16,11 @@ import Camera from "./pages/Tools/Camera/Camera";
 import Converter from "./pages/Tools/Converter/Converter";
 import Microphone from "./pages/Tools/Microphone/Microphone";
 import IP from "./pages/Tools/IP/IP";
+import ToneGenerator from "./pages/Tools/ToneGenerator/ToneGenerator";
 import Blog from "./pages/Blog/Blog";
 import Profile from "./pages/Profile/Profile";
 
-import { FileCloud } from "./pages/FileCloud/FileCloud";
+import FileCloud from "./pages/FileCloud/FileCloud";
 import FileDetail from "./pages/FileCloud/components/FileDetail/FileDetail";
 
 import FAQ from "./pages/FQA/FAQ";
@@ -72,6 +73,7 @@ function App() {
                   <Route path={routes.converter} element={<Converter />} />
                   <Route path={routes.microphone} element={<Microphone />} />
                   <Route path={routes.ip} element={<IP />} />
+                  <Route path={routes.tone_generator} element={<ToneGenerator />} />
                   <Route path={routes.blog} element={<Blog />} />
                   <Route path={routes.filecloud} element={<FileCloud />} />
                   <Route path={routes.fileDetail} element={<FileDetail />} />
