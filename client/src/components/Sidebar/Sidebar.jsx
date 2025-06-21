@@ -97,7 +97,8 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
       { to: routes.microphone, label: "Микрофон", icon: "mic" },
       { to: routes.converter, label: "Конвертор", icon: "refresh-cw" },
       { to: routes.ip, label: "Ваш IP", icon: "globe" },
-      { to: routes.tone_generator, label: "Тон-генератор", icon: "bar-chart-2" }
+      { to: routes.tone_generator, label: "Тон-генератор", icon: "bar-chart-2" },
+      { to: routes.paint, label: "Paint", icon: "edit-3" }
     ];
 
     return (

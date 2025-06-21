@@ -17,6 +17,7 @@ import Converter from "./pages/Tools/Converter/Converter";
 import Microphone from "./pages/Tools/Microphone/Microphone";
 import IP from "./pages/Tools/IP/IP";
 import ToneGenerator from "./pages/Tools/ToneGenerator/ToneGenerator";
+import Paint from "./pages/Tools/Paint/Paint";
 import Blog from "./pages/Blog/Blog";
 import Profile from "./pages/Profile/Profile";
 
@@ -79,6 +80,7 @@ function App() {
                   <Route path={routes.fileDetail} element={<FileDetail />} />
                   <Route path={routes.faq} element={<FAQ />} />
                   <Route path={routes.profile} element={<Profile />} />
+                  <Route path={routes.paint} element={<Paint />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </div>
