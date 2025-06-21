@@ -10,7 +10,8 @@ import { routes } from "../../routes";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -36,8 +37,14 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const toggleAboutDropdown = () => {
+    setIsAboutDropdownOpen(!isAboutDropdownOpen);
+    if (isToolsDropdownOpen) setIsToolsDropdownOpen(false);
+  };
+
+  const toggleToolsDropdown = () => {
+    setIsToolsDropdownOpen(!isToolsDropdownOpen);
+    if (isAboutDropdownOpen) setIsAboutDropdownOpen(false);
   };
 
   const NavLink = ({ to, label, icon }) => {
@@ -53,7 +60,7 @@ const Navbar = () => {
     );
   };
 
-  const DropdownMenu = () => {
+  const AboutDropdownMenu = () => {
     const dropdownItems = [
       { to: routes.about, label: "Про мене", icon: "user" },
       { to: routes.portfolio, label: "Портфоліо", icon: "folder" },
@@ -65,13 +72,46 @@ const Navbar = () => {
     return (
       <div className={styles.dropdown}>
         <button 
-          className={`${styles.dropdownButton} ${isDropdownOpen ? styles.active : ""}`}
-          onClick={toggleDropdown}
+          className={`${styles.dropdownButton} ${isAboutDropdownOpen ? styles.active : ""}`}
+          onClick={toggleAboutDropdown}
         >
           <span>Про мене</span>
-          <ChevronDown size={16} className={`${styles.dropdownIcon} ${isDropdownOpen ? styles.rotated : ""}`} />
+          <ChevronDown size={16} className={`${styles.dropdownIcon} ${isAboutDropdownOpen ? styles.rotated : ""}`} />
         </button>
-        {isDropdownOpen && (
+        {isAboutDropdownOpen && (
+          <div className={styles.dropdownContent}>
+            {dropdownItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                label={item.label}
+                icon={item.icon}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const ToolsDropdownMenu = () => {
+    const dropdownItems = [
+      { to: routes.camera, label: "Камера", icon: "camera" },
+      { to: routes.converter, label: "Конвертор", icon: "refresh-cw" },
+      { to: routes.microphone, label: "Микрофон", icon: "mic" },
+      { to: routes.ip, label: "Ваш IP", icon: "globe" }
+    ];
+
+    return (
+      <div className={styles.dropdown}>
+        <button 
+          className={`${styles.dropdownButton} ${isToolsDropdownOpen ? styles.active : ""}`}
+          onClick={toggleToolsDropdown}
+        >
+          <span>Інструменти</span>
+          <ChevronDown size={16} className={`${styles.dropdownIcon} ${isToolsDropdownOpen ? styles.rotated : ""}`} />
+        </button>
+        {isToolsDropdownOpen && (
           <div className={styles.dropdownContent}>
             {dropdownItems.map((item) => (
               <NavLink
@@ -122,7 +162,10 @@ const Navbar = () => {
         {!isMobile && (
           <ul className={styles.navMenu}>
             <li className={styles.navItem}>
-              <DropdownMenu />
+              <AboutDropdownMenu />
+            </li>
+            <li className={styles.navItem}>
+              <ToolsDropdownMenu />
             </li>
             <li className={styles.navItem}>
               <NavLink to={routes.chat} label="Чат" icon="message-circle" />

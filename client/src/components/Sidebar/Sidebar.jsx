@@ -7,11 +7,18 @@ import { ChevronDown } from "lucide-react";
 
 const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
   const location = useLocation();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
   const sidebarRef = useRef(null);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const toggleAboutDropdown = () => {
+    setIsAboutDropdownOpen(!isAboutDropdownOpen);
+    if (isToolsDropdownOpen) setIsToolsDropdownOpen(false);
+  };
+
+  const toggleToolsDropdown = () => {
+    setIsToolsDropdownOpen(!isToolsDropdownOpen);
+    if (isAboutDropdownOpen) setIsAboutDropdownOpen(false);
   };
 
   React.useEffect(() => {
@@ -49,7 +56,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     );
   };
 
-  const DropdownMenu = () => {
+  const AboutDropdownMenu = () => {
     const dropdownItems = [
       { to: routes.about, label: "Про мене", icon: "user" },
       { to: routes.portfolio, label: "Портфоліо", icon: "folder" },
@@ -61,14 +68,48 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     return (
       <div className={styles.sidebar__dropdown}>
         <button 
-          className={`${styles.sidebar__dropdownButton} ${isDropdownOpen ? styles.active : ""}`}
-          onClick={toggleDropdown}
+          className={`${styles.sidebar__dropdownButton} ${isAboutDropdownOpen ? styles.active : ""}`}
+          onClick={toggleAboutDropdown}
         >
           <i data-feather="user" className={styles.sidebar__icon}></i>
           <span>Про мене</span>
-          <ChevronDown size={16} className={`${styles.sidebar__dropdownIcon} ${isDropdownOpen ? styles.rotated : ""}`} />
+          <ChevronDown size={16} className={`${styles.sidebar__dropdownIcon} ${isAboutDropdownOpen ? styles.rotated : ""}`} />
         </button>
-        {isDropdownOpen && (
+        {isAboutDropdownOpen && (
+          <div className={styles.sidebar__dropdownContent}>
+            {dropdownItems.map((item) => (
+              <SidebarLink
+                key={item.to}
+                to={item.to}
+                label={item.label}
+                icon={item.icon}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const ToolsDropdownMenu = () => {
+    const dropdownItems = [
+      { to: routes.camera, label: "Камера", icon: "camera" },
+      { to: routes.converter, label: "Конвертор", icon: "refresh-cw" },
+      { to: routes.microphone, label: "Микрофон", icon: "mic" },
+      { to: routes.ip, label: "Ваш IP", icon: "globe" }
+    ];
+
+    return (
+      <div className={styles.sidebar__dropdown}>
+        <button 
+          className={`${styles.sidebar__dropdownButton} ${isToolsDropdownOpen ? styles.active : ""}`}
+          onClick={toggleToolsDropdown}
+        >
+          <i data-feather="tool" className={styles.sidebar__icon}></i>
+          <span>Інструменти</span>
+          <ChevronDown size={16} className={`${styles.sidebar__dropdownIcon} ${isToolsDropdownOpen ? styles.rotated : ""}`} />
+        </button>
+        {isToolsDropdownOpen && (
           <div className={styles.sidebar__dropdownContent}>
             {dropdownItems.map((item) => (
               <SidebarLink
@@ -97,7 +138,10 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
       <nav className={styles.sidebar__nav}>
         <ul className={styles.sidebar__list}>
           <li className={styles.sidebar__item}>
-            <DropdownMenu />
+            <AboutDropdownMenu />
+          </li>
+          <li className={styles.sidebar__item}>
+            <ToolsDropdownMenu />
           </li>
           {mainNavLinks.map((link, index) => (
             <li key={index} className={styles.sidebar__item}>

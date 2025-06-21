@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Arabic:wght@100..900&family=Noto+Sans+Bengali:wght@100..900&family=Noto+Sans+Devanagari:wght@100..900&family=Noto+Sans+SC:wght@100..900&display=swap');
+
+.tools {
+  padding: 4% 2%;
+  color: #f8f8f8;
+  border-radius: 0.5%;
+  font-family: 'Noto Sans', 'Noto Sans Arabic', 'Noto Sans Bengali', 'Noto Sans Devanagari', 'Noto Sans SC', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.languageSwitcher {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2%;
+}
+
+span {
+  color: #f8f8f8;
+}
+
+.languageSelect {
+  padding: 0.5%;
+  font-size: 1rem;
+  border: 1px solid #e18145;
+  border-radius: 0.3rem;
+  background: #000000;
+  color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.languageSelect:hover {
+  transform: scale(1.05);
+}
+
+.languageSelect:focus {
+  outline: none;
+  border-color: #d16b3067;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 500;
+  color: #e18145;
+  margin-bottom: 2%;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #f8f8f8;
+  margin: 3% 0 1.5%;
+}
+
+.text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #f8f8f8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.developmentTools,
+.designTools,
+.testingTools,
+.deploymentTools,
+.monitoringTools {
+  margin: 3% 0;
+}
+
+.toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5%;
+  justify-items: center;
+}
+
+.toolItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1%;
+  transition: transform 0.3s ease;
+}
+
+.toolItem:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+.toolIcon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.5%;
+}
+
+.toolItem span {
+  font-size: 0.9rem;
+  color: #f8f8f8;
+  text-align: center;
+}
+
+.description {
+  margin: 3% 0;
+}
+
+/* Мобильная версия (до 768px) */
+@media (max-width: 767px) {
+  .tools {
+    padding: 6% 4%;
+  }
+
+  .languageSelect {
+    width: 100%;
+    padding: 1%;
+  }
+
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1.3rem;
+  }
+
+  .text {
+    font-size: 0.95rem;
+  }
+
+  .toolsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 2%;
+  }
+
+  .toolIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .toolItem span {
+    font-size: 0.85rem;
+  }
+}
+
+/* Планшетная версия (768–1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .tools {
+    padding: 5% 3%;
+  }
+
+  .languageSelect {
+    width: 200px;
+  }
+
+  .title {
+    font-size: 1.9rem;
+  }
+
+  .subtitle {
+    font-size: 1.4rem;
+  }
+
+  .toolsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 1.8%;
+  }
+
+  .toolIcon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .toolItem span {
+    font-size: 0.88rem;
+  }
+}
+
+/* Десктопная версия (1025px и выше) */
+@media (min-width: 1025px) {
+  .tools {
+    padding: 4% 2%;
+  }
+
+  .languageSelect {
+    width: 150px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+  }
+
+  .text {
+    font-size: 1rem;
+  }
+
+  .toolsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5%;
+  }
+
+  .toolIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .toolItem span {
+    font-size: 0.9rem;
+  }
+} 

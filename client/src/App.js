@@ -11,6 +11,11 @@ import News from "./pages/About/News/News";
 import Portfolio from "./pages/About/Portfolio/Portfolio";
 import WhyUs from "./pages/About/WhyUs/WhyUs";
 import Skills from "./pages/About/Skills/Skills";
+import Tools from "./pages/Tools/Tools";
+import Camera from "./pages/Tools/Camera/Camera";
+import Converter from "./pages/Tools/Converter/Converter";
+import Microphone from "./pages/Tools/Microphone/Microphone";
+import IP from "./pages/Tools/IP/IP";
 import Blog from "./pages/Blog/Blog";
 import Profile from "./pages/Profile/Profile";
 
@@ -62,6 +67,11 @@ function App() {
                   <Route path={routes.portfolio} element={<Portfolio />} />
                   <Route path={routes.whyus} element={<WhyUs />} />
                   <Route path={routes.skills} element={<Skills />} />
+                  <Route path={routes.tools} element={<Tools />} />
+                  <Route path={routes.camera} element={<Camera />} />
+                  <Route path={routes.converter} element={<Converter />} />
+                  <Route path={routes.microphone} element={<Microphone />} />
+                  <Route path={routes.ip} element={<IP />} />
                   <Route path={routes.blog} element={<Blog />} />
                   <Route path={routes.filecloud} element={<FileCloud />} />
                   <Route path={routes.fileDetail} element={<FileDetail />} />

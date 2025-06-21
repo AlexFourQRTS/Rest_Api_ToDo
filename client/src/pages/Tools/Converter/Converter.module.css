@@ -1,0 +1,58 @@
+.converter {
+  padding: 4% 2%;
+  color: #f8f8f8;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.intro {
+  margin-bottom: 3%;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.developmentMessage {
+  text-align: center;
+  padding: 3%;
+  background: rgba(225, 129, 69, 0.1);
+  border: 1px solid #e18145;
+  border-radius: 10px;
+  max-width: 600px;
+}
+
+.developmentMessage h2 {
+  font-size: 2rem;
+  color: #e18145;
+  margin-bottom: 2%;
+}
+
+.developmentMessage p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #f8f8f8;
+}
+
+/* Мобильная версия */
+@media (max-width: 767px) {
+  .converter {
+    padding: 6% 4%;
+  }
+  
+  .developmentMessage {
+    padding: 5%;
+  }
+  
+  .developmentMessage h2 {
+    font-size: 1.5rem;
+  }
+  
+  .developmentMessage p {
+    font-size: 1rem;
+  }
+} 
