@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import * as feather from "feather-icons";
 import styles from "./Navbar.module.css";
@@ -13,6 +13,8 @@ const Navbar = () => {
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
   const location = useLocation();
+  const aboutDropdownRef = useRef(null);
+  const toolsDropdownRef = useRef(null);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -32,6 +34,29 @@ const Navbar = () => {
   useEffect(() => {
     feather.replace();
   }, [isOpen]);
+
+  // Обработчик клика вне dropdown'ов
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(event.target)) {
+        setIsAboutDropdownOpen(false);
+      }
+      if (toolsDropdownRef.current && !toolsDropdownRef.current.contains(event.target)) {
+        setIsToolsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Закрытие dropdown'ов при изменении маршрута
+  useEffect(() => {
+    setIsAboutDropdownOpen(false);
+    setIsToolsDropdownOpen(false);
+  }, [location.pathname]);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -53,6 +78,10 @@ const Navbar = () => {
       <Link
         to={to}
         className={`${styles.navLink} ${isActive ? styles.active : ""}`}
+        onClick={() => {
+          setIsAboutDropdownOpen(false);
+          setIsToolsDropdownOpen(false);
+        }}
       >
         {icon && <i data-feather={icon} className={styles.navIcon}></i>}
         <span>{label}</span>
@@ -70,7 +99,7 @@ const Navbar = () => {
     ];
 
     return (
-      <div className={styles.dropdown}>
+      <div className={styles.dropdown} ref={aboutDropdownRef}>
         <button 
           className={`${styles.dropdownButton} ${isAboutDropdownOpen ? styles.active : ""}`}
           onClick={toggleAboutDropdown}
@@ -105,7 +134,7 @@ const Navbar = () => {
     ];
 
     return (
-      <div className={styles.dropdown}>
+      <div className={styles.dropdown} ref={toolsDropdownRef}>
         <button 
           className={`${styles.dropdownButton} ${isToolsDropdownOpen ? styles.active : ""}`}
           onClick={toggleToolsDropdown}

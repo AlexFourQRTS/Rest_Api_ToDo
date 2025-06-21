@@ -18,6 +18,7 @@ import Microphone from "./pages/Tools/Microphone/Microphone";
 import IP from "./pages/Tools/IP/IP";
 import ToneGenerator from "./pages/Tools/ToneGenerator/ToneGenerator";
 import Paint from "./pages/Tools/Paint/Paint";
+import Chat from "./pages/Chat/Chat";
 import Blog from "./pages/Blog/Blog";
 import Profile from "./pages/Profile/Profile";
 
@@ -81,6 +82,7 @@ function App() {
                   <Route path={routes.faq} element={<FAQ />} />
                   <Route path={routes.profile} element={<Profile />} />
                   <Route path={routes.paint} element={<Paint />} />
+                  <Route path={routes.chat} element={<Chat />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </div>

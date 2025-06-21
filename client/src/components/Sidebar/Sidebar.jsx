@@ -10,6 +10,8 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
   const [isToolsDropdownOpen, setIsToolsDropdownOpen] = useState(false);
   const sidebarRef = useRef(null);
+  const aboutDropdownRef = useRef(null);
+  const toolsDropdownRef = useRef(null);
 
   const toggleAboutDropdown = () => {
     setIsAboutDropdownOpen(!isAboutDropdownOpen);
@@ -42,6 +44,29 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     };
   }, [isSidebarOpen, closeSidebar]);
 
+  // Обработчик клика вне dropdown'ов
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(event.target)) {
+        setIsAboutDropdownOpen(false);
+      }
+      if (toolsDropdownRef.current && !toolsDropdownRef.current.contains(event.target)) {
+        setIsToolsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Закрытие dropdown'ов при изменении маршрута
+  useEffect(() => {
+    setIsAboutDropdownOpen(false);
+    setIsToolsDropdownOpen(false);
+  }, [location.pathname]);
+
   const SidebarLink = ({ to, label, icon }) => {
     const isActive = location.pathname === to;
     return (
@@ -66,7 +91,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     ];
 
     return (
-      <div className={styles.sidebar__dropdown}>
+      <div className={styles.sidebar__dropdown} ref={aboutDropdownRef}>
         <button 
           className={`${styles.sidebar__dropdownButton} ${isAboutDropdownOpen ? styles.active : ""}`}
           onClick={toggleAboutDropdown}
@@ -102,7 +127,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     ];
 
     return (
-      <div className={styles.sidebar__dropdown}>
+      <div className={styles.sidebar__dropdown} ref={toolsDropdownRef}>
         <button 
           className={`${styles.sidebar__dropdownButton} ${isToolsDropdownOpen ? styles.active : ""}`}
           onClick={toggleToolsDropdown}
