@@ -233,9 +233,8 @@
 
 .controlButton {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
   padding: 1rem;
   background: #2a2a2a;
   border: 2px solid #333;
@@ -243,7 +242,11 @@
   color: #f8f8f8;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 100px;
+  width: 80px;
+  height: 80px;
+  min-width: 80px;
+  min-height: 80px;
+  box-sizing: border-box;
 }
 
 .controlButton:hover:not(:disabled) {
@@ -275,7 +278,8 @@
 }
 
 .controlButton.photo {
-  border-color: #e18145;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .controlButton.photo:hover:not(:disabled) {
@@ -314,11 +318,6 @@
   border-color: #00bcd4;
 }
 
-.controlButton.filters:hover:not(:disabled) {
-  border-color: #0097a7;
-  background: #2d4a5a;
-}
-
 .controlButton.settings {
   border-color: #9c27b0;
 }
@@ -328,11 +327,16 @@
   background: #4a2d5a;
 }
 
+.controlButton svg {
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
 /* Кнопка фото */
 .photoButton {
-  width: 60px;
-  height: 60px;
-  border: 4px solid #e18145;
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e18145;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -342,8 +346,8 @@
 }
 
 .photoButtonInner {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
   background: #e18145;
   border-radius: 50%;
   border: 2px solid white;
@@ -360,7 +364,7 @@
   border: 1px solid #333;
   border-radius: 12px;
   padding: 1.5rem;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
 }
 
 .filters h3 {
@@ -579,8 +583,12 @@
   }
   
   .controlButton {
-    min-width: 80px;
+    min-width: 60px;
+    min-height: 60px;
+    width: 60px;
+    height: 60px;
     padding: 0.75rem;
+    box-sizing: border-box;
   }
   
   .photoGrid {

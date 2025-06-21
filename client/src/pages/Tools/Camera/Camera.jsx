@@ -143,7 +143,7 @@ const Camera = () => {
       >
         <Hero 
           title="Камера" 
-          subtitle="Съемка фотографий и запись видео" 
+          subtitle="" 
         />
       </motion.section>
       
@@ -226,7 +226,7 @@ const Camera = () => {
             {/* Индикатор поворота */}
             {rotation !== 0 && (
               <div className={styles.rotationIndicator}>
-                <span>Поворот: {rotation}°</span>
+                {/* <span>Поворот: {rotation}°</span> */}
               </div>
             )}
           </div>
@@ -241,11 +241,10 @@ const Camera = () => {
                 disabled={isLoading}
               >
                 {isCameraOn ? <CameraOff size={24} /> : <CameraIcon size={24} />}
-                <span>{isCameraOn ? 'Выключить' : 'Включить'}</span>
               </button>
 
               {/* Кнопка съемки фото */}
-              <button
+              {/* <button
                 onClick={handleTakePhoto}
                 className={`${styles.controlButton} ${styles.photo}`}
                 disabled={!isCameraOn || isLoading}
@@ -253,8 +252,7 @@ const Camera = () => {
                 <div className={styles.photoButton}>
                   <div className={styles.photoButtonInner}></div>
                 </div>
-                <span>Сфотографировать</span>
-              </button>
+              </button> */}
 
               {/* Кнопка поворота */}
               <button
@@ -263,20 +261,18 @@ const Camera = () => {
                 disabled={!isCameraOn || isLoading}
               >
                 <RotateCw size={24} />
-                <span>Повернуть</span>
               </button>
 
               {/* Кнопка смены камеры */}
-              {devices.length > 1 && (
+              {/* {devices.length > 1 && (
                 <button
                   onClick={handleSwitchCamera}
                   className={`${styles.controlButton} ${styles.switch}`}
                   disabled={!isCameraOn || isLoading}
                 >
                   <RotateCcw size={24} />
-                  <span>Сменить камеру</span>
                 </button>
-              )}
+              )} */}
 
               {/* Кнопка полноэкранного режима */}
               <button
@@ -285,7 +281,6 @@ const Camera = () => {
                 disabled={!isCameraOn || isLoading}
               >
                 {isFullscreen ? <Minimize2 size={24} /> : <Maximize2 size={24} />}
-                <span>{isFullscreen ? 'Выйти' : 'Полный экран'}</span>
               </button>
 
               {/* Кнопка фильтров */}
@@ -294,7 +289,6 @@ const Camera = () => {
                 className={`${styles.controlButton} ${styles.filters}`}
               >
                 <Sun size={24} />
-                <span>Фильтры</span>
               </button>
             </div>
           </div>
