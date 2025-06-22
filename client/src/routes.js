@@ -22,5 +22,6 @@ export const routes = {
   fileDetail: '/filecloud/:fileId',
   faq: '/faq',
   profile: '/profile',
+  games: '/games',
   notFound: '*',
 };

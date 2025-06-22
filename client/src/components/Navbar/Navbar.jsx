@@ -202,6 +202,9 @@ const Navbar = () => {
               <NavLink to={routes.chat} label="Чат" icon="message-circle" />
             </li>
             <li className={styles.navItem}>
+              <NavLink to={routes.games} label="Ігри" icon="gamepad" />
+            </li>
+            <li className={styles.navItem}>
               <NavLink to={routes.blog} label="Блог" icon="book-open" />
             </li>
             <li className={styles.navItem}>

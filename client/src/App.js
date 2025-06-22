@@ -21,6 +21,7 @@ import Paint from "./pages/Tools/Paint/Paint";
 import Chat from "./pages/Chat/Chat";
 import Blog from "./pages/Blog/Blog";
 import Profile from "./pages/Profile/Profile";
+import Games from "./pages/Games/Games";
 
 import FileCloud from "./pages/FileCloud/FileCloud";
 import FileDetail from "./pages/FileCloud/components/FileDetail/FileDetail";
@@ -83,6 +84,7 @@ function App() {
                   <Route path={routes.profile} element={<Profile />} />
                   <Route path={routes.paint} element={<Paint />} />
                   <Route path={routes.chat} element={<Chat />} />
+                  <Route path={routes.games} element={<Games />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </div>

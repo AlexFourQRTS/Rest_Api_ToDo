@@ -154,6 +154,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
 
   const mainNavLinks = [
     { to: routes.chat, label: "Чат", icon: "message-circle" },
+    { to: routes.games, label: "Ігри", icon: "gamepad" },
     { to: routes.blog, label: "Блог", icon: "book-open" },
     { to: routes.filecloud, label: "Файли", icon: "cloud" },
     { to: routes.faq, label: "FAQ", icon: "help-circle" },

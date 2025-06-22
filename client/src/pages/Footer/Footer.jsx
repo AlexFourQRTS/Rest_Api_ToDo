@@ -17,6 +17,7 @@ const Footer = () => {
     { name: "Новини", href: "/news" },
     { name: "Портфоліо", href: "/portfolio" },
     { name: "Чат", href: "/chat" },
+    { name: "Ігри", href: "/games" },
     { name: "Навички", href: "/skills" },
     { name: "Блог", href: "/blog" },
     { name: "Файли", href: "/files" },
