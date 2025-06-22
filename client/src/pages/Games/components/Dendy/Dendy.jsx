@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { toast } from 'react-toastify';
 import { loadRomFile } from '../../utils/romApi';
 import styles from './Dendy.module.css';
-import { getAllRoms, searchRoms, filterRomsByCategory } from '../../utils/romApi';
-
-// Импортируем nes-js
+import { getAllRoms, searchRoms } from '../../utils/romApi';
 import 'nes-js';
 
 const Dendy = () => {
@@ -14,47 +12,122 @@ const Dendy = () => {
   const [currentGame, setCurrentGame] = useState('');
   const [showGameList, setShowGameList] = useState(false);
   const [availableRoms, setAvailableRoms] = useState([]);
-  const [filteredRoms, setFilteredRoms] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [showControls, setShowControls] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [fps, setFps] = useState(0);
   const [frameCount, setFrameCount] = useState(0);
   const [lastTime, setLastTime] = useState(0);
+  const [displayCount, setDisplayCount] = useState(50);
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('');
+  const [audioEnabled, setAudioEnabled] = useState(true);
   const canvasRef = useRef(null);
   const audioContextRef = useRef(null);
 
-  // Инициализация эмулятора
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 10);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (nes) {
+      const initEmulator = () => {
+        if (typeof window.NesJs === 'undefined') {
+          console.error('NesJs не загружен');
+          return;
+        }
+        const nesInstance = new window.NesJs.Nes();
+        nesInstance.setDisplay(new window.NesJs.Display(canvasRef.current));
+        if (!audioContextRef.current) {
+          audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)({
+            sampleRate: 44100,
+            latencyHint: 'interactive'
+          });
+          const startAudio = () => {
+            if (audioContextRef.current.state === 'suspended') {
+              audioContextRef.current.resume();
+            }
+            document.removeEventListener('click', startAudio);
+            document.removeEventListener('keydown', startAudio);
+          };
+          document.addEventListener('click', startAudio);
+          document.addEventListener('keydown', startAudio);
+        }
+        try {
+          if (audioEnabled) {
+            const audio = new window.NesJs.Audio();
+            audio.bufferLength = 2192;
+            audio.buffer = new Float32Array(audio.bufferLength);
+            if (audio.scriptProcessor) {
+              audio.scriptProcessor.disconnect();
+            }
+            audio.scriptProcessor = audio.context.createScriptProcessor(audio.bufferLength, 0, 1);
+            audio.scriptProcessor.onaudioprocess = audio.onAudioProcess.bind(audio);
+            audio.scriptProcessor.connect(audio.context.destination);
+            nesInstance.setAudio(audio);
+            console.log('Аудио инициализировано с улучшенными настройками (буфер 8192)');
+          } else {
+            console.log('Аудио отключено');
+          }
+        } catch (error) {
+          console.warn('Ошибка инициализации аудио:', error);
+        }
+        window.onkeydown = (e) => nesInstance.handleKeyDown(e);
+        window.onkeyup = (e) => nesInstance.handleKeyUp(e);
+        setNes(nesInstance);
+      };
+      initEmulator();
+    }
+  }, [audioEnabled]);
+
   useEffect(() => {
     const initEmulator = () => {
-      // Проверяем, что NesJs доступен
       if (typeof window.NesJs === 'undefined') {
         console.error('NesJs не загружен');
         return;
       }
-
       const nesInstance = new window.NesJs.Nes();
-      
-      // Устанавливаем дисплей
       nesInstance.setDisplay(new window.NesJs.Display(canvasRef.current));
-      
-      // Устанавливаем аудио
-      nesInstance.setAudio(new window.NesJs.Audio());
-      
-      // Настраиваем обработчики клавиш
+      if (!audioContextRef.current) {
+        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)({
+          sampleRate: 44100,
+          latencyHint: 'interactive'
+        });
+        const startAudio = () => {
+          if (audioContextRef.current.state === 'suspended') {
+            audioContextRef.current.resume();
+          }
+          document.removeEventListener('click', startAudio);
+          document.removeEventListener('keydown', startAudio);
+        };
+        document.addEventListener('click', startAudio);
+        document.addEventListener('keydown', startAudio);
+      }
+      try {
+        if (audioEnabled) {
+          const audio = new window.NesJs.Audio();
+          audio.bufferLength = 8192;
+          audio.buffer = new Float32Array(audio.bufferLength);
+          if (audio.scriptProcessor) {
+            audio.scriptProcessor.disconnect();
+          }
+          audio.scriptProcessor = audio.context.createScriptProcessor(audio.bufferLength, 0, 1);
+          audio.scriptProcessor.onaudioprocess = audio.onAudioProcess.bind(audio);
+          audio.scriptProcessor.connect(audio.context.destination);
+          nesInstance.setAudio(audio);
+          console.log('Аудио инициализировано с улучшенными настройками (буфер 8192)');
+        } else {
+          console.log('Аудио отключено');
+        }
+      } catch (error) {
+        console.warn('Ошибка инициализации аудио:', error);
+      }
       window.onkeydown = (e) => nesInstance.handleKeyDown(e);
       window.onkeyup = (e) => nesInstance.handleKeyUp(e);
-      
       setNes(nesInstance);
-      
-      // Инициализируем аудио контекст
-      if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
-      }
     };
-
-    // Ждем загрузки NesJs
     const checkNesJs = () => {
       if (typeof window.NesJs !== 'undefined') {
         initEmulator();
@@ -62,105 +135,60 @@ const Dendy = () => {
         setTimeout(checkNesJs, 100);
       }
     };
-    
     checkNesJs();
-    
-    // Загружаем список доступных ROM'ов
     const loadRoms = async () => {
       try {
         const roms = await getAllRoms();
         setAvailableRoms(roms);
-        setFilteredRoms(roms);
         toast.success(`Загружено ${roms.length} игр!`);
       } catch (error) {
         console.error('Ошибка загрузки списка ROM\'ов:', error);
         toast.error('Не удалось загрузить список игр');
       }
     };
-
     loadRoms();
   }, []);
 
-  // Фильтрация игр
-  useEffect(() => {
+  const filteredRoms = useMemo(() => {
     let filtered = availableRoms;
-
-    // Поиск по названию
-    if (searchQuery) {
-      filtered = searchRoms(searchQuery, filtered);
+    if (debouncedSearchQuery.trim()) {
+      console.log('Поиск по запросу:', debouncedSearchQuery);
+      filtered = searchRoms(debouncedSearchQuery, filtered);
+      console.log('Результаты поиска:', filtered.length);
     }
+    return filtered;
+  }, [debouncedSearchQuery, availableRoms]);
 
-    // Фильтр по категории
-    if (selectedCategory !== 'all') {
-      filtered = filterRomsByCategory(selectedCategory, filtered);
-    }
-
-    setFilteredRoms(filtered);
-  }, [searchQuery, selectedCategory, availableRoms]);
-
-  // Отрисовка кадров эмулятора
   useEffect(() => {
     if (!nes || !isPlaying || !currentGame) return;
-
-    // Используем собственную анимацию вместо jsnes
     const renderFrame = () => {
       if (isPlaying && currentGame) {
-        // Анимация уже запущена в loadGame
         requestAnimationFrame(renderFrame);
       }
     };
-
     renderFrame();
   }, [nes, isPlaying, currentGame]);
 
-  // Остановка игры
-  const stopGame = () => {
-    setIsPlaying(false);
-    setCurrentGame('');
-    if (nes) {
-      nes.stop();
-    }
-    toast.info('Игра остановлена');
-  };
-
-  const categories = [
-    { id: 'all', name: 'Все игры' },
-    { id: 'action', name: 'Экшен' },
-    { id: 'puzzle', name: 'Головоломки' },
-    { id: 'sports', name: 'Спорт' },
-    { id: 'rpg', name: 'RPG' },
-    { id: 'platform', name: 'Платформеры' },
-    { id: 'strategy', name: 'Стратегии' },
-    { id: 'other', name: 'Другие' }
-  ];
-
-  const loadRom = async (romData, gameName = 'Unknown ROM') => {
+  const loadRom = useCallback(async (romData, gameName = 'Unknown ROM') => {
     if (!nes) return;
-
     try {
       setIsLoading(true);
-
-      // Создаем ROM объект и загружаем в эмулятор
       const rom = new window.NesJs.Rom(romData);
       nes.setRom(rom);
-      
       setIsPlaying(true);
       setCurrentGame(gameName);
       toast.success('ROM загружен успешно!');
-      
-      // Запускаем эмуляцию
       nes.bootup();
       nes.run();
-      
     } catch (error) {
       console.error('Ошибка загрузки ROM:', error);
       toast.error('Ошибка загрузки ROM');
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [nes]);
 
-  const handleGameSelect = async (rom) => {
+  const handleGameSelect = useCallback(async (rom) => {
     try {
       setIsLoading(true);
       const romData = await loadRomFile(rom.fileName);
@@ -172,7 +200,39 @@ const Dendy = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [loadRom]);
+
+  const stopGame = useCallback(() => {
+    setIsPlaying(false);
+    setCurrentGame('');
+    if (nes) {
+      nes.stop();
+    }
+    toast.info('Игра остановлена');
+  }, [nes]);
+
+  const loadMoreGames = useCallback(() => {
+    setDisplayCount(prev => Math.min(prev + 50, filteredRoms.length));
+  }, [filteredRoms.length]);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+    let frameCount = 0;
+    let lastTime = performance.now();
+    const updateStats = () => {
+      if (!isPlaying) return;
+      frameCount++;
+      const currentTime = performance.now();
+      if (currentTime - lastTime >= 1000) {
+        setFps(Math.round(frameCount * 1000 / (currentTime - lastTime)));
+        setFrameCount(frameCount);
+        frameCount = 0;
+        lastTime = currentTime;
+      }
+      requestAnimationFrame(updateStats);
+    };
+    updateStats();
+  }, [isPlaying]);
 
   return (
     <div className={styles.dendyContainer}>
@@ -180,28 +240,21 @@ const Dendy = () => {
         <h2>🎮 Dendy (NES) Эмулятор</h2>
         <p>Классические игры Nintendo Entertainment System</p>
       </div>
-
       <div className={styles.controls}>
         <div className={styles.searchSection}>
-          <input
-            type="text"
-            placeholder="Поиск игр..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={styles.searchInput}
-          />
-          
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className={styles.categorySelect}
-          >
-            {categories.map(cat => (
-              <option key={cat.id} value={cat.id}>{cat.name}</option>
-            ))}
-          </select>
+          <div className={styles.searchContainer}>
+            <input
+              type="text"
+              placeholder="Поиск игр..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={styles.searchInput}
+            />
+            {searchQuery !== debouncedSearchQuery && (
+              <div className={styles.searchSpinner}></div>
+            )}
+          </div>
         </div>
-
         <div className={styles.gameControls}>
           <button 
             onClick={() => setShowGameList(!showGameList)}
@@ -210,7 +263,12 @@ const Dendy = () => {
           >
             {showGameList ? 'Скрыть список' : 'Выбрать игру'}
           </button>
-          
+          <button 
+            onClick={() => setAudioEnabled(!audioEnabled)}
+            className={`${styles.controlButton} ${!audioEnabled ? styles.controlButtonDisabled : ''}`}
+          >
+            🔊 {audioEnabled ? 'Выкл. звук' : 'Вкл. звук'}
+          </button>
           {isPlaying && (
             <button 
               onClick={stopGame}
@@ -221,16 +279,14 @@ const Dendy = () => {
           )}
         </div>
       </div>
-
       {showGameList && (
         <div className={styles.gameList}>
           <div className={styles.gameListHeader}>
             <h3>Доступные игры ({filteredRoms.length})</h3>
             <p>Найдено игр: {filteredRoms.length} из {availableRoms.length}</p>
           </div>
-          
           <div className={styles.gamesGrid}>
-            {filteredRoms.slice(0, 100).map((rom) => (
+            {filteredRoms.slice(0, displayCount).map((rom) => (
               <div
                 key={rom.id}
                 className={styles.gameItem}
@@ -239,23 +295,24 @@ const Dendy = () => {
                 <div className={styles.gameIcon}>🎮</div>
                 <div className={styles.gameInfo}>
                   <h4>{rom.name}</h4>
-                  <span className={styles.gameCategory}>
-                    {categories.find(cat => cat.id === rom.category)?.name || 'Другое'}
-                  </span>
                 </div>
               </div>
             ))}
           </div>
-          
-          {filteredRoms.length > 100 && (
+          {filteredRoms.length > displayCount && (
             <div className={styles.loadMore}>
-              <p>Показано 100 из {filteredRoms.length} игр</p>
+              <p>Показано {displayCount} из {filteredRoms.length} игр</p>
+              <button 
+                onClick={loadMoreGames}
+                className={styles.loadMoreButton}
+              >
+                Загрузить еще 50 игр
+              </button>
               <p>Используйте поиск для нахождения конкретной игры</p>
             </div>
           )}
         </div>
       )}
-
       <div className={styles.emulatorSection}>
         <div className={styles.canvasContainer}>
           <canvas
@@ -264,7 +321,6 @@ const Dendy = () => {
             height={240}
             className={styles.gameCanvas}
           />
-          
           {!currentGame && !isLoading && (
             <div className={styles.placeholder}>
               <div className={styles.placeholderContent}>
@@ -283,7 +339,6 @@ const Dendy = () => {
               </div>
             </div>
           )}
-          
           {isLoading && (
             <div className={styles.loading}>
               <div className={styles.spinner}></div>
@@ -291,11 +346,14 @@ const Dendy = () => {
             </div>
           )}
         </div>
-
         {currentGame && (
           <div className={styles.gameInfo}>
             <h3>🎮 {currentGame}</h3>
             <p>Статус: {isPlaying ? 'Играется' : 'Приостановлено'}</p>
+            <div className={styles.gameStats}>
+              <span>FPS: {fps}</span>
+              <span>Кадры: {frameCount}</span>
+            </div>
           </div>
         )}
       </div>
@@ -303,4 +361,4 @@ const Dendy = () => {
   );
 };
 
-export default Dendy; 
+export default Dendy;
