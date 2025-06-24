@@ -69,7 +69,6 @@ export const authApi = {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching profile:', error);
       return null;
     }
   },
@@ -77,7 +76,6 @@ export const authApi = {
   async logout() {
     try {
       const token = localStorage.getItem('token');
-      // No need to throw if no token, just clean up client side
       if (token) {
         await fetch(`${API_URL}/auth/logout`, {
           method: 'POST',
@@ -87,19 +85,16 @@ export const authApi = {
         });
       }
     } catch (error) {
-      // Even if server logout fails, log error and proceed with client-side cleanup
-      console.error('Error logging out on server:', error);
     } finally {
-      // Always remove token from local storage
       localStorage.removeItem('token');
     }
   },
 
   async refresh() {
     try {
-      const token = localStorage.getItem('token'); // Assuming refresh might use the old token
+      const token = localStorage.getItem('token');
       if (!token) {
-        return null; // Or handle as an error
+        return null;
       }
       const response = await fetch(`${API_URL}/auth/refresh`, {
         method: 'POST',
@@ -116,8 +111,6 @@ export const authApi = {
       localStorage.setItem('token', data.token);
       return data;
     } catch (error) {
-      console.error('Error refreshing token:', error);
-      // On refresh error, likely need to log out
       authApi.logout();
       return null;
     }
@@ -136,7 +129,7 @@ export const authApi = {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(passwords), // { oldPassword, newPassword }
+        body: JSON.stringify(passwords),
       });
 
       if (!response.ok) {
@@ -169,7 +162,6 @@ export const authApi = {
 
       return await response.json();
     } catch (error) {
-      console.error('Error fetching admin users:', error);
       return null;
     }
   },

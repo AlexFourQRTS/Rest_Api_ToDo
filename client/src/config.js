@@ -4,7 +4,7 @@ export const API_CONFIG = {
   headers: {
     'Content-Type': 'application/json'
   }
-}; 
+};
 
 
 // "id": "f9b83101-c6b7-4426-b899-79e9af0d8709",

@@ -16,7 +16,6 @@ export const getArticles = async (limit = 10, offset = 0, category = 'all', sear
         });
         return response.data;
     } catch (error) {
-        console.error('Error fetching articles:', error);
         throw error;
     }
 };
@@ -26,7 +25,6 @@ export const getArticleById = async (id) => {
         const response = await axios.get(`${API_URL}/blog/${id}`);
         return response.data;
     } catch (error) {
-        console.error('Error fetching article:', error);
         throw error;
     }
 };
@@ -36,7 +34,6 @@ export const addArticle = async (newArticle) => {
         const response = await axios.post(`${API_URL}/blog`, newArticle);
         return response.data;
     } catch (error) {
-        console.error('Error adding article:', error);
         throw error;
     }
 };
@@ -46,7 +43,6 @@ export const updateArticle = async (id, updatedArticle) => {
         const response = await axios.patch(`${API_URL}/blog/${id}`, updatedArticle);
         return response.data;
     } catch (error) {
-        console.error('Error updating article:', error);
         throw error;
     }
 };
@@ -56,7 +52,6 @@ export const deleteArticle = async (id) => {
         await axios.delete(`${API_URL}/blog/${id}`);
         return { success: true };
     } catch (error) {
-        console.error('Error deleting article:', error);
         throw error;
     }
 };

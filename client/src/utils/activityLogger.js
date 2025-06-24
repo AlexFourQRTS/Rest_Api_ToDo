@@ -52,11 +52,8 @@ export const logActivity = async (action, details) => {
   };
 
   try {
-    // В будущем здесь будет отправка на бэкенд
-    // await axios.post(`${BASE_URL}/api/activity/log`, payload);
-    console.log('Activity logged:', payload);
+    await axios.post(`${BASE_URL}/api/activity/log`, payload);
   } catch (error) {
-    console.error('Failed to log activity:', error);
   }
 };
 

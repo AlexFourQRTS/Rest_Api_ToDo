@@ -1,3 +1,12 @@
+.gamesPage {
+  width: 100%;
+  height: 100%;
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
 .games {
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);

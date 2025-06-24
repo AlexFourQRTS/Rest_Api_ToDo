@@ -35,7 +35,6 @@ const Navbar = () => {
     feather.replace();
   }, [isOpen]);
 
-  // Обработчик клика вне dropdown'ов
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(event.target)) {
@@ -52,7 +51,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // Закрытие dropdown'ов при изменении маршрута
   useEffect(() => {
     setIsAboutDropdownOpen(false);
     setIsToolsDropdownOpen(false);
@@ -170,7 +168,6 @@ const Navbar = () => {
           <span>Хаб Розробника</span>
         </div>
 
-        {/* Бургер-кнопка і Sidebar тільки на мобільних/планшетах */}
         {isMobile && (
           <>
             <div className={styles.menuButton}>
@@ -189,7 +186,6 @@ const Navbar = () => {
           </>
         )}
 
-        {/* Меню на десктопі */}
         {!isMobile && (
           <ul className={styles.navMenu}>
             <li className={styles.navItem}>
@@ -202,7 +198,7 @@ const Navbar = () => {
               <NavLink to={routes.chat} label="Чат" icon="message-circle" />
             </li>
             <li className={styles.navItem}>
-              <NavLink to={routes.games} label="Ігри" icon="gamepad" />
+              <NavLink to={routes.games} label="Ігри" icon="play" />
             </li>
             <li className={styles.navItem}>
               <NavLink to={routes.blog} label="Блог" icon="book-open" />

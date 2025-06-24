@@ -29,7 +29,6 @@ const useCamera = () => {
         setSelectedDevice(videoDevices[0].deviceId);
       }
     } catch (err) {
-      console.error('Ошибка при получении списка устройств:', err);
     }
   }, [selectedDevice]);
 
@@ -62,7 +61,6 @@ const useCamera = () => {
         videoRef.current.srcObject = mediaStream;
       }
     } catch (err) {
-      console.error('Ошибка при запуске камеры:', err);
       setError(getErrorMessage(err));
       setIsCameraOn(false);
     } finally {
@@ -72,11 +70,8 @@ const useCamera = () => {
 
   // Выключение камеры
   const stopCamera = useCallback(() => {
-    console.log('stopCamera вызван');
     if (stream) {
-      console.log('Останавливаем поток...');
       stream.getTracks().forEach(track => {
-        console.log('Останавливаем трек:', track.kind);
         track.stop();
       });
       setStream(null);
@@ -87,7 +82,6 @@ const useCamera = () => {
         videoRef.current.srcObject = null;
       }
     } else {
-      console.log('Поток не найден, просто выключаем камеру');
       setIsCameraOn(false);
     }
   }, [stream]);
@@ -102,9 +96,7 @@ const useCamera = () => {
 
   // Смена камеры (фронтальная/задняя)
   const switchCamera = useCallback(async () => {
-    console.log('switchCamera вызван');
     if (!isCameraOn) {
-      console.log('Камера выключена, включаем...');
       await startCamera();
       return;
     }
@@ -119,8 +111,6 @@ const useCamera = () => {
       const currentFacingMode = stream?.getVideoTracks()[0]?.getSettings()?.facingMode;
       const newFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
       
-      console.log('Текущий facingMode:', currentFacingMode, 'Новый:', newFacingMode);
-
       const constraints = {
         video: {
           facingMode: newFacingMode,
@@ -136,10 +126,7 @@ const useCamera = () => {
       if (videoRef.current) {
         videoRef.current.srcObject = mediaStream;
       }
-      
-      console.log('Камера успешно сменена');
     } catch (err) {
-      console.error('Ошибка при смене камеры:', err);
       setError(getErrorMessage(err));
       // Пытаемся вернуться к предыдущему потоку
       if (stream) {
@@ -207,7 +194,7 @@ const useCamera = () => {
         setIsFullscreen(false);
       }
     } catch (err) {
-      console.error('Ошибка при переключении полноэкранного режима:', err);
+      setError('Ошибка при переключении полноэкранного режима');
     }
   }, [isFullscreen]);
 
@@ -292,24 +279,17 @@ const useCamera = () => {
       case 'NotReadableError':
         return 'Камера уже используется другим приложением.';
       case 'OverconstrainedError':
-        return 'Запрошенные настройки камеры не поддерживаются.';
+        return 'Запрошенные параметры камеры не поддерживаются.';
       case 'TypeError':
         return 'Неподдерживаемый тип медиа.';
       default:
-        return 'Произошла ошибка при доступе к камере.';
+        return 'Произошла ошибка при работе с камерой.';
     }
   };
 
   // Инициализация при монтировании компонента
   useEffect(() => {
     getDevices();
-    
-    // Слушатель изменений устройств
-    navigator.mediaDevices.addEventListener('devicechange', getDevices);
-    
-    return () => {
-      navigator.mediaDevices.removeEventListener('devicechange', getDevices);
-    };
   }, [getDevices]);
 
   // Очистка при размонтировании

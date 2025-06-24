@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import translations from "./homeTranslations.json";
 import styles from "./Home.module.css";
 import * as feather from "feather-icons";
-
 import Hero from "../../components/UI/Hero/Hero";
 
 const languages = [
@@ -17,55 +16,47 @@ const languages = [
 ];
 
 const routesInfo = [
-
   {
     path: "/about",
     id: "about",
     title: "about_title",
     description: "about_description",
-    
   },
   {
     path: "/services",
     id: "services",
     title: "services_title",
     description: "services_description",
-    
   },
   {
     path: "/portfolio",
     id: "portfolio",
     title: "portfolio_title",
     description: "portfolio_description",
-    
   },
   {
     path: "/whyus",
     id: "whyus",
     title: "whyus_title",
     description: "whyus_description",
-    
   },
   {
     path: "/skills",
     id: "skills",
     title: "skills_title",
     description: "skills_description",
-    
   },
   {
     path: "/contact",
     id: "contact",
     title: "contact_title",
     description: "contact_description",
-    
   },
   {
     path: "/faq",
     id: "faq",
     title: "faq_title",
     description: "faq_description",
-    
   },
 ];
 
@@ -124,7 +115,6 @@ const Home = () => {
         initial="hidden"
         animate="visible"
       >
-
         <Hero title={t.title}
         subtitle={t.intro} />
         
@@ -139,11 +129,6 @@ const Home = () => {
               transition={{ duration: 0.3, delay: index * 0.1 }}
               whileHover={{ scale: 1.03 }}
             >
-              {/* <img
-                src={`https://cdn.simpleicons.org/${route.icon}`}
-                alt={route.id}
-                className={styles.routeIcon}
-              /> */}
               <h2 className={styles.routeTitle}>{t[route.title]}</h2>
               <p className={styles.routeDescription}>{t[route.description]}</p>
               <Link to={route.path} className={styles.routeLink}>
@@ -173,7 +158,6 @@ const Home = () => {
           </motion.p>
         </motion.div>
       </motion.section>
-
     </div>
   );
 };

@@ -27,7 +27,6 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     feather.replace();
   }, [isSidebarOpen]);
 
-  // Обработчик клика вне сайдбара
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
@@ -44,7 +43,6 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     };
   }, [isSidebarOpen, closeSidebar]);
 
-  // Обработчик клика вне dropdown'ов
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (aboutDropdownRef.current && !aboutDropdownRef.current.contains(event.target)) {
@@ -61,7 +59,6 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     };
   }, []);
 
-  // Закрытие dropdown'ов при изменении маршрута
   useEffect(() => {
     setIsAboutDropdownOpen(false);
     setIsToolsDropdownOpen(false);
@@ -154,7 +151,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
 
   const mainNavLinks = [
     { to: routes.chat, label: "Чат", icon: "message-circle" },
-    { to: routes.games, label: "Ігри", icon: "gamepad" },
+    { to: routes.games, label: "Ігри", icon: "play" },
     { to: routes.blog, label: "Блог", icon: "book-open" },
     { to: routes.filecloud, label: "Файли", icon: "cloud" },
     { to: routes.faq, label: "FAQ", icon: "help-circle" },
