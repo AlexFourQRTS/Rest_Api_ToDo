@@ -82,8 +82,161 @@ const RomSelector = ({
   totalPages,
   onPageChange,
   searchTerm,
-  onSearchChange
+  onSearchChange,
+  isMobile,
+  isModalOpen,
+  onCloseModal
 }) => {
+  // Mobile version: modal with game list
+  if (isMobile) {
+    if (!isModalOpen) return null;
+    
+    return (
+      <div className={styles.modalOverlay} onClick={onCloseModal}>
+        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          {/* Modal header with close button */}
+          <div className={styles.modalHeader}>
+            <h3>{selectedConsole?.name || 'Выберите консоль'}</h3>
+            <button 
+              className={styles.modalCloseButton}
+              onClick={onCloseModal}
+              onTouchStart={(e) => {
+                e.currentTarget.style.transform = 'scale(0.95)';
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.transform = '';
+              }}
+            >
+              ✕
+            </button>
+          </div>
+
+          {/* Search input */}
+          <div className={styles.searchContainer}>
+            <input
+              type="text"
+              placeholder="Поиск игр..."
+              value={searchTerm}
+              onChange={onSearchChange}
+              className={styles.searchInput}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+            />
+          </div>
+
+          {/* Game count */}
+          <div className={styles.modalGameCount}>
+            <span>{games.length} игр</span>
+          </div>
+          
+          {/* Pagination controls */}
+          {totalPages > 1 && (
+            <div className={styles.pagination}>
+              <button 
+                className={styles.paginationButton}
+                onClick={() => onPageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                onTouchStart={(e) => {
+                  if (!e.currentTarget.disabled) {
+                    e.currentTarget.style.transform = 'scale(0.95)';
+                  }
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.transform = '';
+                }}
+              >
+                ←
+              </button>
+              <span className={styles.pageInfo}>
+                {currentPage} / {totalPages}
+              </span>
+              <button 
+                className={styles.paginationButton}
+                onClick={() => onPageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                onTouchStart={(e) => {
+                  if (!e.currentTarget.disabled) {
+                    e.currentTarget.style.transform = 'scale(0.95)';
+                  }
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.transform = '';
+                }}
+              >
+                →
+              </button>
+            </div>
+          )}
+          
+          {/* Game list */}
+          <div className={styles.modalGameList}>
+            {games.map(game => (
+              <div
+                key={game.id}
+                className={`${styles.modalGameItem} ${selectedRom?.id === game.id ? styles.selected : ''}`}
+                onClick={() => {
+                  onRomSelect(game);
+                  onCloseModal(); // Close modal when game is selected
+                }}
+                onTouchStart={(e) => {
+                  e.currentTarget.style.transform = 'scale(0.98)';
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.transform = '';
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onRomSelect(game);
+                    onCloseModal();
+                  }
+                }}
+              >
+                {/* Game thumbnail */}
+                <div className={styles.modalGameThumbnail}>
+                  {
+                  game.hasImage ? (
+                    <img 
+                      src={`${BASE_URL}${game.imagePath}`} 
+                      alt={game.name}
+                      className={styles.modalGameImage}
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'block';
+                      }}
+                    />
+                  ) : null}
+                  <span className={styles.modalThumbnailIcon}>
+                    {game.hasImage ? '' : '🎮'}
+                  </span>
+                </div>
+                
+                {/* Game info */}
+                <div className={styles.modalGameInfo}>
+                  <h4 className={styles.modalGameName}> {game.name}</h4>
+                  <div className={styles.modalGameDetails}>
+                    <span className={styles.modalGameRegion}>Регион : {game.region}</span>
+                  </div>
+                </div>
+                
+                {/* Play indicator */}
+                <div className={styles.modalPlayIcon}>
+                  ▶️
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop version: original sidebar layout
   return (
     <div className={styles.romSelector}>
       {/* Header with console name and game count */}
@@ -190,11 +343,10 @@ const RomSelector = ({
             </div>
             {/* Game information (name, category, region) */}
             <div className={styles.tileInfo}>
-              <h4 className={styles.tileName}>{game.name}</h4>
-              {/* <div className={styles.tileDetails}>
-                <span className={styles.tileCategory}>{game.category}</span>
-                <span className={styles.tileRegion}>{game.region}</span>
-              </div> */}
+              <h4 className={styles.tileName}> {game.name}</h4>
+              <div className={styles.tileDetails}>
+                <span className={styles.tileRegion}>Регион :{game.region}</span>
+              </div>
             </div>
             {/* Play button overlay */}
             <div className={styles.tileOverlay}>
@@ -225,7 +377,8 @@ const ExternalEmulator = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [isMobile, setIsMobile] = useState(false);
-  const gamesPerPage = 50;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const gamesPerPage = 100;
   const iframeRef = useRef(null);
 
   // Detect mobile device and update on window resize
@@ -470,30 +623,35 @@ const ExternalEmulator = () => {
   return (
     <div className={styles.emulatorContainer}>
       <div className={styles.mainContent}>
-        {/* Left sidebar with game list */}
-        <div 
-          className={styles.sidebar}
-          style={{ 
-            width: isMobile ? '100%' : `${sidebarWidth}px`, 
-            minWidth: isMobile ? 'auto' : `${sidebarWidth}px` 
-          }}
-        >
-          {selectedConsole && (
-            <RomSelector 
-              onRomSelect={handleRomSelect} 
-              selectedRom={selectedRom}
-              selectedConsole={selectedConsole}
-              games={games}
-              isLoading={isLoadingGames}
-              error={error}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={handlePageChange}
-              searchTerm={searchTerm}
-              onSearchChange={handleSearchChange}
-            />
-          )}
-        </div>
+        {/* Left sidebar with game list (desktop only) */}
+        {!isMobile && (
+          <div 
+            className={styles.sidebar}
+            style={{ 
+              width: `${sidebarWidth}px`, 
+              minWidth: `${sidebarWidth}px` 
+            }}
+          >
+            {selectedConsole && (
+              <RomSelector 
+                onRomSelect={handleRomSelect} 
+                selectedRom={selectedRom}
+                selectedConsole={selectedConsole}
+                games={games}
+                isLoading={isLoadingGames}
+                error={error}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+                searchTerm={searchTerm}
+                onSearchChange={handleSearchChange}
+                isMobile={isMobile}
+                isModalOpen={isModalOpen}
+                onCloseModal={() => setIsModalOpen(false)}
+              />
+            )}
+          </div>
+        )}
         
         {/* Resizable divider (desktop only) */}
         {!isMobile && (
@@ -535,6 +693,28 @@ const ExternalEmulator = () => {
               </div>
             )}
           </div>
+
+          {/* Mobile: Game selection button */}
+          {isMobile && selectedConsole && (
+            <div className={styles.mobileGameSelector}>
+              <button 
+                className={styles.openGamesButton}
+                onClick={() => setIsModalOpen(true)}
+                onTouchStart={(e) => {
+                  e.currentTarget.style.transform = 'scale(0.95)';
+                }}
+                onTouchEnd={(e) => {
+                  e.currentTarget.style.transform = '';
+                }}
+              >
+                <span className={styles.openGamesIcon}>🎮</span>
+                <span className={styles.openGamesText}>
+                  {selectedRom ? `Игра: ${selectedRom.name}` : 'Выбрать игру'}
+                </span>
+                <span className={styles.openGamesArrow}>▼</span>
+              </button>
+            </div>
+          )}
 
           {/* Selected game information display */}
           {selectedRom && (
@@ -612,6 +792,26 @@ const ExternalEmulator = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile modal for game selection */}
+      {isMobile && selectedConsole && (
+        <RomSelector 
+          onRomSelect={handleRomSelect} 
+          selectedRom={selectedRom}
+          selectedConsole={selectedConsole}
+          games={games}
+          isLoading={isLoadingGames}
+          error={error}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+          searchTerm={searchTerm}
+          onSearchChange={handleSearchChange}
+          isMobile={isMobile}
+          isModalOpen={isModalOpen}
+          onCloseModal={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

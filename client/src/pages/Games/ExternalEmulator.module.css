@@ -763,133 +763,118 @@
 /* Мобильные устройства (до 768px) */
 @media (max-width: 768px) {
   .emulatorContainer {
+    padding-top: 60px;
     height: 100vh;
     overflow: hidden;
-    padding-top: 60px; /* Отступ для навигационной панели */
   }
 
   .mainContent {
     flex-direction: column;
-    gap: 0.5rem;
     padding: 0.5rem;
-    height: calc(100vh - 60px - 1rem); /* Учитываем навигационную панель */
+    height: calc(100vh - 60px - 1rem);
+    gap: 0;
   }
 
   .sidebar {
-    width: 100% !important;
-    min-width: auto !important;
-    max-height: 45vh;
-    border-radius: 12px;
-    border: 1px solid #444;
-    order: 2;
+    display: none; /* Hide sidebar on mobile */
   }
 
   .emulatorArea {
+    flex: 1;
     border-radius: 12px;
     border: 1px solid #444;
-    order: 1;
-    flex: 1;
-    min-height: 50vh;
+    overflow: hidden;
   }
 
   .resizer {
-    display: none;
+    display: none; /* Hide resizer on mobile */
   }
 
-  /* Скрываем блок управления в мобильной версии */
   .accordionSection:has(.controlsGuide) {
-    display: none;
+    display: none; /* Hide controls section on mobile */
   }
 
-  /* Скрываем категорию игры в мобильной версии */
   .gameDetails p:nth-child(2) {
-    display: none;
+    display: none; /* Hide category on mobile */
   }
 
-  /* Стили для селектора консолей в мобильной версии */
   .consoleSelect {
-    padding: 0.6rem;
     font-size: 0.85rem;
-    border-radius: 6px;
+    padding: 0.6rem;
   }
 
   .consoleSelector {
-    padding: 0.6rem;
+    padding: 0.75rem;
   }
 
   .consoleSelector h3 {
-    font-size: 0.9rem;
-    margin-bottom: 0.6rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   .romGrid {
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 0.5rem;
-    max-height: 30vh;
-    overflow-y: auto;
+    padding: 0.5rem;
   }
 
   .romTile {
-    min-height: 90px;
+    min-height: 140px;
     padding: 0.5rem;
-    border-radius: 8px;
   }
 
   .tileThumbnail {
-    height: 40px;
-    border-radius: 6px;
+    height: 60px;
+    margin-bottom: 0.5rem;
   }
 
   .thumbnailIcon {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .tileName {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     line-height: 1.2;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.25rem;
   }
 
   .tileDetails {
-    gap: 0.3rem;
+    display: none; /* Hide details on mobile */
   }
 
   .tileCategory,
   .tileRegion {
-    font-size: 0.6rem;
-    padding: 0.1rem 0.3rem;
+    display: none; /* Hide category and region on mobile */
   }
 
   .consoleGrid {
-    gap: 0.4rem;
-    justify-content: center;
+    gap: 0.5rem;
   }
 
   .consoleButton {
-    padding: 0.4rem 0.6rem;
-    min-width: 100px;
-    max-width: 140px;
-    border-radius: 6px;
+    min-width: 150px;
+    max-width: 150px;
+    padding: 0.6rem 0.8rem;
+    gap: 0.4rem;
   }
 
   .consoleIcon {
-    width: 24px;
-    height: 24px;
-    font-size: 0.55rem;
-    border-radius: 4px;
-  }
-
-  .consoleName {
-    font-size: 0.7rem;
-  }
-
-  .consoleStats {
+    width: 28px;
+    height: 28px;
     font-size: 0.6rem;
   }
 
+  .consoleName {
+    font-size: 0.8rem;
+  }
+
+  .consoleStats {
+    font-size: 0.7rem;
+  }
+
   .accordionHeader {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.85rem;
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
   }
 
   .accordionIcon {
@@ -897,81 +882,79 @@
   }
 
   .controlsGrid {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 0.3rem;
-  }
-
-  .controlItem {
-    padding: 0.3rem;
-    font-size: 0.7rem;
-    border-radius: 3px;
-  }
-
-  .controlItem kbd {
-    font-size: 0.6rem;
-    padding: 0.1rem 0.2rem;
-  }
-
-  .gameInfo {
-    padding: 0.6rem;
-  }
-
-  .gameInfo h3 {
-    font-size: 0.9rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .gameDetails {
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
 
-  .gameDetails p {
+  .controlItem {
+    padding: 0.4rem;
     font-size: 0.75rem;
   }
 
-  .searchContainer {
+  .controlItem kbd {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.3rem;
+  }
+
+  .gameInfo {
+    padding: 0.75rem;
+  }
+
+  .gameInfo h3 {
+    font-size: 1rem;
     margin-bottom: 0.5rem;
   }
 
-  .searchInput {
-    padding: 0.4rem 0.6rem;
+  .gameDetails {
+    gap: 0.25rem;
+  }
+
+  .gameDetails p {
     font-size: 0.8rem;
-    border-radius: 6px;
+  }
+
+  .searchContainer {
+    padding: 0.5rem;
+  }
+
+  .searchInput {
+    font-size: 0.85rem;
+    padding: 0.6rem;
   }
 
   .pagination {
-    padding: 0.4rem;
+    padding: 0.5rem;
     gap: 0.5rem;
   }
 
   .paginationButton {
-    padding: 0.3rem 0.5rem;
+    width: 36px;
+    height: 36px;
     font-size: 0.8rem;
-    border-radius: 4px;
   }
 
   .pageInfo {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
   }
 
   .sidebarHeader {
-    padding: 0.6rem;
+    padding: 0.75rem;
   }
 
   .sidebarHeader h3 {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
   .romCount {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 
   .iframeContainer {
-    height: calc(100vh - 60px - 45vh - 2rem); /* Учитываем навигационную панель и сайдбар */
+    flex: 1;
   }
 
   .emulatorIframe {
-    border-radius: 8px;
+    border-radius: 0;
   }
 
   .placeholderContainer {
@@ -979,11 +962,100 @@
   }
 
   .placeholderContent h3 {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 
   .placeholderContent p {
+    font-size: 0.9rem;
+  }
+
+  /* Modal styles for mobile */
+  .modalOverlay {
+    padding: 0.5rem;
+  }
+
+  .modalContent {
+    max-width: 100%;
+    max-height: 95vh;
+  }
+
+  .modalHeader {
+    padding: 0.75rem;
+  }
+
+  .modalHeader h3 {
+    font-size: 1rem;
+  }
+
+  .modalCloseButton {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9rem;
+  }
+
+  .modalGameCount {
+    padding: 0.4rem 0.75rem;
+  }
+
+  .modalGameCount span {
     font-size: 0.8rem;
+  }
+
+  .modalGameList {
+    padding: 0.4rem;
+    max-height: 65vh;
+  }
+
+  .modalGameItem {
+    padding: 0.6rem;
+    gap: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .modalGameThumbnail {
+    width: 40px;
+    height: 40px;
+  }
+
+  .modalGameName {
+    font-size: 0.9rem;
+  }
+
+  .modalGameDetails {
+    gap: 0.4rem;
+    font-size: 0.7rem;
+  }
+
+  .modalGameCategory,
+  .modalGameRegion {
+    padding: 0.15rem 0.3rem;
+  }
+
+  .modalPlayIcon {
+    font-size: 1rem;
+  }
+
+  /* Mobile game selector button */
+  .mobileGameSelector {
+    padding: 0.75rem;
+  }
+
+  .openGamesButton {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    gap: 0.6rem;
+  }
+
+  .openGamesIcon {
+    font-size: 1.1rem;
+  }
+
+  .openGamesText {
+    font-size: 0.9rem;
+  }
+
+  .openGamesArrow {
+    font-size: 0.7rem;
   }
 }
 
@@ -1055,6 +1127,10 @@
   .tileName {
     font-size: 0.65rem;
     line-height: 1.1;
+  }
+
+  .tileDetails {
+    gap: 0.3rem;
   }
 
   .tileCategory,
@@ -1338,4 +1414,247 @@
   .paginationButton:active {
     background: #4a4a4a;
   }
+}
+
+/* Mobile Game Selector Button */
+.mobileGameSelector {
+  padding: 1rem;
+  border-bottom: 1px solid #444;
+}
+
+.openGamesButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #3a3a3a;
+  border: 1px solid #555;
+  border-radius: 8px;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.openGamesButton:hover {
+  background: #4a4a4a;
+  border-color: #ff6600;
+}
+
+.openGamesIcon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.openGamesText {
+  flex: 1;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.openGamesArrow {
+  font-size: 0.8rem;
+  color: #ff6600;
+  flex-shrink: 0;
+}
+
+/* Modal Styles */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.modalContent {
+  background: #2a2a2a;
+  border-radius: 12px;
+  border: 1px solid #444;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: #333;
+  border-bottom: 1px solid #444;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  color: #ff6600;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.modalCloseButton {
+  width: 32px;
+  height: 32px;
+  background: #3a3a3a;
+  border: 1px solid #555;
+  border-radius: 6px;
+  color: #e0e0e0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.modalCloseButton:hover {
+  background: #4a4a4a;
+  border-color: #ff6600;
+  color: #ff6600;
+}
+
+.modalGameCount {
+  padding: 0.5rem 1rem;
+  background: #333;
+  border-bottom: 1px solid #444;
+  text-align: center;
+}
+
+.modalGameCount span {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.modalGameList {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+  max-height: 60vh;
+}
+
+.modalGameItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: #3a3a3a;
+  border: 1px solid #555;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modalGameItem:hover {
+  background: #4a4a4a;
+  border-color: #ff6600;
+  transform: translateY(-1px);
+}
+
+.modalGameItem.selected {
+  background: rgba(255, 102, 0, 0.2);
+  border-color: #ff6600;
+}
+
+.modalGameThumbnail {
+  width: 48px;
+  height: 48px;
+  background: #555;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.modalGameImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.modalThumbnailIcon {
+  font-size: 1.5rem;
+  display: none;
+}
+
+.modalGameInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.modalGameName {
+  margin: 0 0 0.25rem 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modalGameDetails {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.modalGameCategory {
+  background: #555;
+  color: #e0e0e0;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.modalGameRegion {
+  background: #666;
+  color: #e0e0e0;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.modalPlayIcon {
+  font-size: 1.2rem;
+  color: #ff6600;
+  flex-shrink: 0;
+}
+
+/* Modal scrollbar styles */
+.modalGameList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modalGameList::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 3px;
+}
+
+.modalGameList::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 3px;
+}
+
+.modalGameList::-webkit-scrollbar-thumb:hover {
+  background: #666;
 } 
