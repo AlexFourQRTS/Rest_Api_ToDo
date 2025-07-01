@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.d2d694e1.css",
-    "main.js": "/static/js/main.e820dfb4.js",
+    "main.css": "/static/css/main.e3116c60.css",
+    "main.js": "/static/js/main.cdd7561a.js",
     "static/js/453.419a5d54.chunk.js": "/static/js/453.419a5d54.chunk.js",
+    "static/media/TronTRC.jpg": "/static/media/TronTRC.4ae6758f83e719e72e4a.jpg",
     "static/media/noImg.ico": "/static/media/noImg.8fdde54ee4bbc457c2c9.ico",
     "index.html": "/index.html",
-    "main.d2d694e1.css.map": "/static/css/main.d2d694e1.css.map",
-    "main.e820dfb4.js.map": "/static/js/main.e820dfb4.js.map",
+    "main.e3116c60.css.map": "/static/css/main.e3116c60.css.map",
+    "main.cdd7561a.js.map": "/static/js/main.cdd7561a.js.map",
     "453.419a5d54.chunk.js.map": "/static/js/453.419a5d54.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d2d694e1.css",
-    "static/js/main.e820dfb4.js"
+    "static/css/main.e3116c60.css",
+    "static/js/main.cdd7561a.js"
   ]
 }

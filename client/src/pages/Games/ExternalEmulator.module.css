@@ -5,8 +5,9 @@
   background-color: #2a2a2a; /* Общий фон сайта */
   color: #e0e0e0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding-top: 60px;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 }
 
 .mainContent {
@@ -14,12 +15,14 @@
   flex: 1;
   gap: 0;
   padding: 1rem;
-  height: calc(100vh - 60px - 2rem);
+  min-height: 0; /* Важно для flexbox */
+  position: relative;
 }
 
 .sidebar {
   width: 300px;
   min-width: 300px;
+  max-width: 300px;
   background: #333; /* Более темный фон для сайдбара */
   border-radius: 12px 0 0 12px;
   border: 1px solid #444;
@@ -27,6 +30,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
 /* Accordion Styles */
@@ -193,6 +197,8 @@
   border: 1px solid #444;
   border-left: none;
   overflow: hidden;
+  min-width: 0; /* Важно для flexbox */
+  min-height: 0; /* Важно для flexbox */
 }
 
 .gameInfo {
@@ -240,17 +246,19 @@
 .iframeContainer {
   flex: 1;
   position: relative;
-  overflow: hidden;
-  padding: 1rem;
+  min-height: 0; /* Важно для flexbox */
+  display: flex;
+  flex-direction: column;
 }
 
 .emulatorIframe {
-  width: 90%;
-  height: 80%;
+  width: 100%;
+  height: 100%;
   border: none;
+  border-radius: 0 0 12px 0;
   background: #000;
-  border-radius: 8px;
-  max-height: calc(100vh - 200px);
+  flex: 1;
+  min-height: 0; /* Важно для flexbox */
 }
 
 .placeholderContainer {
@@ -763,16 +771,16 @@
 /* Мобильные устройства (до 768px) */
 @media (max-width: 768px) {
   .emulatorContainer {
-    padding-top: 60px;
     height: 100vh;
     overflow: hidden;
+    padding: 0;
   }
 
   .mainContent {
     flex-direction: column;
     padding: 0.5rem;
-    height: calc(100vh - 60px - 1rem);
     gap: 0;
+    min-height: 0;
   }
 
   .sidebar {
@@ -951,10 +959,15 @@
 
   .iframeContainer {
     flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .emulatorIframe {
     border-radius: 0;
+    flex: 1;
+    min-height: 0;
   }
 
   .placeholderContainer {
@@ -972,11 +985,14 @@
   /* Modal styles for mobile */
   .modalOverlay {
     padding: 0.5rem;
+    align-items: flex-start;
+    padding-top: 2rem;
   }
 
   .modalContent {
     max-width: 100%;
-    max-height: 95vh;
+    max-height: 90vh;
+    width: 100%;
   }
 
   .modalHeader {
@@ -1064,7 +1080,7 @@
   .mainContent {
     padding: 0.3rem;
     gap: 0.3rem;
-    height: calc(100vh - 60px - 0.6rem); /* Учитываем навигационную панель */
+    min-height: 0;
   }
 
   .sidebar {
@@ -1236,7 +1252,8 @@
   }
 
   .iframeContainer {
-    height: calc(100vh - 60px - 40vh - 1.6rem); /* Учитываем навигационную панель и сайдбар */
+    flex: 1;
+    min-height: 300px;
   }
 
   .placeholderContainer {
@@ -1257,7 +1274,7 @@
   .mainContent {
     padding: 0.2rem;
     gap: 0.2rem;
-    height: calc(100vh - 60px - 0.4rem); /* Учитываем навигационную панель */
+    min-height: 0;
   }
 
   .sidebar {
@@ -1346,7 +1363,8 @@
   }
 
   .iframeContainer {
-    height: calc(100vh - 60px - 35vh - 1.2rem); /* Учитываем навигационную панель и сайдбар */
+    flex: 1;
+    min-height: 250px;
   }
 }
 
@@ -1355,7 +1373,7 @@
   .mainContent {
     flex-direction: row;
     gap: 0.5rem;
-    height: calc(100vh - 60px - 1rem); /* Учитываем навигационную панель */
+    min-height: 0;
   }
 
   .sidebar {
@@ -1376,7 +1394,8 @@
   }
 
   .iframeContainer {
-    height: calc(100vh - 60px - 2rem); /* Учитываем навигационную панель */
+    flex: 1;
+    min-height: 400px;
   }
 }
 
@@ -1657,4 +1676,743 @@
 
 .modalGameList::-webkit-scrollbar-thumb:hover {
   background: #666;
+}
+
+/* Donation Button Styles - графитовый фон с оранжевыми акцентами */
+.donationButtonContainer {
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.donationButton {
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+  color: white;
+  border: 1px solid #ff6b35;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgb(59, 59, 59);
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.donationButton:hover {
+
+  background: linear-gradient(135deg, #34495e 0%, #2c3e50 50%, #34495e 100%);
+  border-color: #ff8c42;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(44, 62, 80, 0.5);
+  
+}
+
+.donationButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.4);
+}
+
+.donationButtonIcon {
+  font-size: 16px;
+  color: #ff6b35;
+}
+
+.donationButtonText {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Donation Banner - графитовый фон с оранжевыми акцентами */
+.donationBanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+  color: white;
+  z-index: 9999;
+  box-shadow: 0 4px 20px rgba(44, 62, 80, 0.4);
+  animation: slideDown 0.3s ease-out;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.donationContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.donationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.donationHeader h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+.donationHeader h3::before {
+  content: "";
+  margin-right: 8px;
+  color: #ff6b35;
+}
+
+.closeButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ff6b35;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(255, 107, 53, 0.2);
+  border-color: #ff8c42;
+}
+
+.donationBody {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.donationText {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.donationText p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.donationText p:first-child::before {
+  content: "";
+  margin-right: 8px;
+  color: #ff6b35;
+}
+
+.donationMethods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.qrSection, .cardSection {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.qrSection h4, .cardSection h4 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+}
+
+.qrSection h4::before {
+  content: "";
+  margin-right: 8px;
+  color: #ff6b35;
+}
+
+.cardSection h4::before {
+  content: "";
+  margin-right: 8px;
+  color: #ff6b35;
+}
+
+.qrCode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  /* background: white; */
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  /* border: 2px solid rgba(255, 255, 255, 0.2); */
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.qrCode:hover {
+  transform: scale(1.02);
+  border-color: #ff6600;
+  box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+}
+
+.qrCode::after {
+  content: "🔍";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.qrCode:hover::after {
+  opacity: 1;
+}
+
+.qrImage {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 4px;
+  object-fit: contain;
+  width: auto;
+  height: auto;
+}
+
+.qrPlaceholder {
+  text-align: center;
+  color: #e0e0e0;
+}
+
+.qrPlaceholder span {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.qrPlaceholder p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #b0b0b0;
+}
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cardNumber, .cardHolder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  /* background: rgba(255, 255, 255, 0.1); */
+  border-radius: 8px;
+  /* border: 1px solid rgba(255, 255, 255, 0.2); */
+  font-size: 0.9rem;
+  color: #e0e0e0;
+}
+
+.cardValueContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.copyButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e0e0e0;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copyButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: scale(1.1);
+}
+
+.copyButton:active {
+  transform: scale(0.95);
+}
+
+.cardNumber span, .cardHolder span {
+  color: #b0b0b0;
+  font-weight: 500;
+  min-width: 80px;
+}
+
+.cardNumber code, .cardHolder code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  color: #e0e0e0;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.5px;
+}
+
+.donationBenefits {
+  grid-column: 1 / -1;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+}
+
+.donationBenefits h4 {
+  margin: 0 0 15px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.donationBenefits h4::before {
+  content: "";
+  margin-right: 8px;
+  color: #ff6b35;
+}
+
+.donationBenefits ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.donationBenefits li {
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  font-size: 14px;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.donationBenefits li:hover {
+  background: rgba(255, 107, 53, 0.1);
+  border-color: rgba(255, 107, 53, 0.5);
+}
+
+.br{
+  margin-top: 1%;
+}
+
+.donationBenefits li::before {
+  /* content: "✅"; */
+  margin-right: 8px;
+  color: #ff6b35;
+}
+
+.qrFullscreenOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 1rem;
+  box-sizing: border-box;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.qrFullscreenContent {
+  background: #2a2a2a;
+  border-radius: 12px;
+  border: 1px solid #444;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.qrFullscreenHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.qrFullscreenHeader h3 {
+  margin: 0;
+  color: #ff6600;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.qrFullscreenCloseButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #ff6600;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qrFullscreenCloseButton:hover {
+  background: rgba(255, 102, 0, 0.2);
+  border-color: #ff8c42;
+  transform: scale(1.1);
+}
+
+.qrFullscreenImage {
+  /* background: white; */
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.qrFullscreenImage img {
+  max-width: 100%;
+  max-height: 60vh;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.qrFullscreenText {
+  color: #e0e0e0;
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Mobile responsive for fullscreen QR */
+@media (max-width: 768px) {
+  .qrFullscreenOverlay {
+    padding: 0.5rem;
+  }
+  
+  .qrFullscreenContent {
+    padding: 1.5rem;
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+  
+  .qrFullscreenHeader h3 {
+    font-size: 1.2rem;
+  }
+  
+  .qrFullscreenCloseButton {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  .qrFullscreenImage {
+    padding: 1rem;
+  }
+  
+  .qrFullscreenImage img {
+    max-height: 50vh;
+  }
+  
+  .qrFullscreenText {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .qrFullscreenContent {
+    padding: 1rem;
+  }
+  
+  .qrFullscreenHeader h3 {
+    font-size: 1rem;
+  }
+  
+  .qrFullscreenCloseButton {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .qrFullscreenImage {
+    padding: 0.8rem;
+  }
+  
+  .qrFullscreenImage img {
+    max-height: 40vh;
+  }
+  
+     .qrFullscreenText {
+     font-size: 0.9rem;
+   }
+ }
+
+/* Mobile responsive for donation banner */
+@media (max-width: 768px) {
+  .donationBanner {
+    padding: 10px;
+  }
+  
+  .donationContent {
+    padding: 10px;
+    max-width: 100%;
+  }
+  
+  .donationButton {
+    padding: 8px 16px;
+    font-size: 12px;
+    gap: 6px;
+  }
+  
+  .donationButtonIcon {
+    font-size: 14px;
+  }
+  
+  .donationButtonText {
+    font-size: 13px;
+  }
+  
+  .donationButtonContainer {
+    margin-bottom: 15px;
+    padding: 0 0.5rem;
+  }
+  
+  .donationBody {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .donationMethods {
+    grid-template-columns: 1fr;
+  }
+  
+  .donationBenefits ul {
+    grid-template-columns: 1fr;
+  }
+  
+  .donationHeader h3 {
+    font-size: 16px;
+  }
+  
+  .qrCode {
+    height: 120px;
+  }
+  
+  .cardNumber, .cardHolder {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .cardNumber code, .cardHolder code {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+}
+
+/* Adjust main content when banner is visible */
+.emulatorContainer {
+  padding-top: 0;
+}
+
+.mainContent {
+  margin-top: 0;
+}
+
+/* Additional mobile styles for very small screens */
+@media (max-width: 480px) {
+  .donationBanner {
+    padding: 5px;
+  }
+  
+  .donationContent {
+    padding: 5px;
+  }
+  
+  .donationHeader {
+    margin-bottom: 10px;
+  }
+  
+  .donationHeader h3 {
+    font-size: 14px;
+  }
+  
+  .donationBody {
+    gap: 10px;
+  }
+  
+  .qrCode {
+    height: 100px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .cardNumber, .cardHolder {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  
+  .cardNumber code, .cardHolder code {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+  }
+  
+  .donationBenefits {
+    padding: 15px;
+  }
+  
+  .donationBenefits h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .donationBenefits li {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  .donationButton {
+    padding: 6px 12px;
+    font-size: 11px;
+    gap: 4px;
+  }
+  
+  .donationButtonIcon {
+    font-size: 12px;
+  }
+  
+  .donationButtonText {
+    font-size: 11px;
+  }
+  
+  .donationButtonContainer {
+    margin-bottom: 10px;
+    padding: 0 0.3rem;
+  }
+  
+  .donationBanner {
+    padding: 5px;
+  }
+  
+  .donationContent {
+    padding: 5px;
+  }
+  
+  .donationHeader {
+    margin-bottom: 10px;
+  }
+  
+  .donationHeader h3 {
+    font-size: 14px;
+  }
+  
+  .donationBody {
+    gap: 10px;
+  }
+  
+  .qrCode {
+    height: 100px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .cardNumber, .cardHolder {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.75rem;
+  }
+  
+  .cardNumber code, .cardHolder code {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.3rem;
+  }
+  
+  .donationBenefits {
+    padding: 15px;
+  }
+  
+  .donationBenefits h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .donationBenefits li {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
 } 

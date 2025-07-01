@@ -1,9 +1,187 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ExternalEmulator.module.css';
+import qrCodeImage from './TronTRC.jpg';
 
 // API endpoints for fetching game data
 const API_BASE_URL = 'https://skydishch.fun/api/roms/api/v1';
 const BASE_URL = 'https://skydishch.fun/api/roms/';
+
+// Donation banner component
+const DonationBanner = ({ isVisible, onClose }) => {
+  const [isQrFullscreen, setIsQrFullscreen] = useState(false);
+
+  if (!isVisible) return null;
+
+  const copyToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+
+    } catch (err) {
+      console.error('Ошибка копирования:', err);
+    }
+  };
+
+  const formatCardNumber = (number) => {
+    return number.replace(/(\d{4})(?=\d)/g, '$1 ');
+  };
+
+
+  const handleQrClick = () => {
+    setIsQrFullscreen(true);
+  };
+
+
+  const handleQrFullscreenClose = (e) => {
+    if (e.target === e.currentTarget) {
+      setIsQrFullscreen(false);
+    }
+  };
+
+  return (
+    <>
+      <div className={styles.donationBanner}>
+        <div className={styles.donationContent}>
+          <div className={styles.donationHeader}>
+            <h3>🎮 Поддержите проект!</h3>
+            <button
+              className={styles.closeButton}
+              onClick={onClose}
+              onTouchStart={(e) => {
+                e.currentTarget.style.transform = 'scale(0.95)';
+              }}
+              onTouchEnd={(e) => {
+                e.currentTarget.style.transform = '';
+              }}
+            >
+              ✕
+            </button>
+          </div>
+          <div className={styles.donationBody}>
+            <div className={styles.donationText}>
+              <p>Мы делаем эмуляцию доступной для всех!</p>
+            </div>
+            <div className={styles.donationBenefits}>
+              <h4>Реквизиты карты</h4>
+              <ul>
+                <li>
+                  <div className={styles.qrSection}>
+                    <h4>QR-код для оплаты</h4>
+                    <div className={styles.qrCode} onClick={handleQrClick}>
+                      <img
+                        src={qrCodeImage}
+                        alt="QR-код для оплаты USDT"
+                        className={styles.qrImage}
+                      />
+                    </div>
+                  </div>
+
+                </li>
+                <li>
+
+                  <div className={styles.cardNumber}>
+                    <span>USDT (TRC20):</span>
+                  </div>
+                  <div className={styles.cardValueContainer}>
+                   
+                      <h6>TTa9eFw9VyB64p95sfar5DnLv8P7Vs29Dc</h6>
+                    
+                    <button
+                    className={styles.copyButton}
+                    onClick={() => copyToClipboard('TTa9eFw9VyB64p95sfar5DnLv8P7Vs29Dc')}
+                    title="Копировать"
+                  >
+                    📋
+                  </button>
+                  </div>
+
+                </li>
+
+                <li>
+                  <div className={styles.cardHolder}>
+                    <span>UAH карта:</span>
+                  </div>
+                   <div className={styles.cardValueContainer}>
+                    <code>{formatCardNumber('4441111078249988')}</code>
+                    <button
+                      className={styles.copyButton}
+                      onClick={() => copyToClipboard('4441111078249988')}
+                      title="Копировать"
+                    >
+                      📋
+                    </button>
+                  </div>
+
+                </li>
+                <li>
+                  <div className={styles.cardHolder}>
+                    <span>USD карта:</span>
+                  </div>
+                  <div className={styles.cardValueContainer}>
+                    <code>{formatCardNumber('4441 1144 8905 5093')}</code>
+                    <button
+                      className={styles.copyButton}
+                      onClick={() => copyToClipboard('4441 1144 8905 5093')}
+                      title="Копировать"
+                    >
+                      📋
+                    </button>
+                  </div>
+
+
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Fullscreen QR Code Modal */}
+      {isQrFullscreen && (
+        <div className={styles.qrFullscreenOverlay} onClick={handleQrFullscreenClose}>
+          <div className={styles.qrFullscreenContent}>
+            <div className={styles.qrFullscreenHeader}>
+              <h3>QR-код для оплаты USDT</h3>
+              <button
+                className={styles.qrFullscreenCloseButton}
+                onClick={() => setIsQrFullscreen(false)}
+              >
+                ✕
+              </button>
+            </div>
+            <div className={styles.qrFullscreenImage}>
+              <img
+                src={qrCodeImage}
+                alt="QR-код для оплаты USDT"
+              />
+            </div>
+            <p className={styles.qrFullscreenText}>
+              Отсканируйте QR-код для оплаты USDT (TRC20)
+            </p>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+// Donation button component
+const DonationButton = ({ onClick }) => {
+  return (
+    <button
+      className={styles.donationButton}
+      onClick={onClick}
+      onTouchStart={(e) => {
+        e.currentTarget.style.transform = 'scale(0.95)';
+      }}
+      onTouchEnd={(e) => {
+        e.currentTarget.style.transform = '';
+      }}
+    >
+      <span className={styles.donationButtonIcon}>💸</span>
+      <span className={styles.donationButtonText}>Поддержать проект</span>
+    </button>
+  );
+};
 
 // Component for selecting game consoles (desktop: buttons, mobile: dropdown)
 const ConsoleSelector = ({ consoles, selectedConsole, onConsoleSelect, isMobile }) => {
@@ -39,7 +217,6 @@ const ConsoleSelector = ({ consoles, selectedConsole, onConsoleSelect, isMobile 
     );
   }
 
-  // Desktop version: use button grid with icons for better visual experience
   return (
     <div className={styles.consoleSelector}>
       <h3>Выберите консоль</h3>
@@ -90,14 +267,14 @@ const RomSelector = ({
   // Mobile version: modal with game list
   if (isMobile) {
     if (!isModalOpen) return null;
-    
+
     return (
       <div className={styles.modalOverlay} onClick={onCloseModal}>
         <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
           {/* Modal header with close button */}
           <div className={styles.modalHeader}>
             <h3>{selectedConsole?.name || 'Выберите консоль'}</h3>
-            <button 
+            <button
               className={styles.modalCloseButton}
               onClick={onCloseModal}
               onTouchStart={(e) => {
@@ -130,11 +307,11 @@ const RomSelector = ({
           <div className={styles.modalGameCount}>
             <span>{games.length} игр</span>
           </div>
-          
+
           {/* Pagination controls */}
           {totalPages > 1 && (
             <div className={styles.pagination}>
-              <button 
+              <button
                 className={styles.paginationButton}
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
@@ -152,7 +329,7 @@ const RomSelector = ({
               <span className={styles.pageInfo}>
                 {currentPage} / {totalPages}
               </span>
-              <button 
+              <button
                 className={styles.paginationButton}
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
@@ -169,7 +346,7 @@ const RomSelector = ({
               </button>
             </div>
           )}
-          
+
           {/* Game list */}
           <div className={styles.modalGameList}>
             {games.map(game => (
@@ -199,23 +376,23 @@ const RomSelector = ({
                 {/* Game thumbnail */}
                 <div className={styles.modalGameThumbnail}>
                   {
-                  game.hasImage ? (
-                    <img 
-                      src={`${BASE_URL}${game.imagePath}`} 
-                      alt={game.name}
-                      className={styles.modalGameImage}
-                      loading="lazy"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'block';
-                      }}
-                    />
-                  ) : null}
+                    game.hasImage ? (
+                      <img
+                        src={`${BASE_URL}${game.imagePath}`}
+                        alt={game.name}
+                        className={styles.modalGameImage}
+                        loading="lazy"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'block';
+                        }}
+                      />
+                    ) : null}
                   <span className={styles.modalThumbnailIcon}>
                     {game.hasImage ? '' : '🎮'}
                   </span>
                 </div>
-                
+
                 {/* Game info */}
                 <div className={styles.modalGameInfo}>
                   <h4 className={styles.modalGameName}> {game.name}</h4>
@@ -223,7 +400,7 @@ const RomSelector = ({
                     <span className={styles.modalGameRegion}>Регион : {game.region}</span>
                   </div>
                 </div>
-                
+
                 {/* Play indicator */}
                 <div className={styles.modalPlayIcon}>
                   ▶️
@@ -261,11 +438,11 @@ const RomSelector = ({
           spellCheck="false"
         />
       </div>
-      
+
       {/* Pagination controls for navigating through game pages */}
       {totalPages > 1 && (
         <div className={styles.pagination}>
-          <button 
+          <button
             className={styles.paginationButton}
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
@@ -283,7 +460,7 @@ const RomSelector = ({
           <span className={styles.pageInfo}>
             {currentPage} / {totalPages}
           </span>
-          <button 
+          <button
             className={styles.paginationButton}
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
@@ -300,7 +477,7 @@ const RomSelector = ({
           </button>
         </div>
       )}
-      
+
       {/* Grid of game tiles/cards */}
       <div className={styles.romGrid}>
         {games.map(game => (
@@ -326,8 +503,8 @@ const RomSelector = ({
             {/* Game thumbnail image or icon */}
             <div className={styles.tileThumbnail}>
               {game.hasImage ? (
-                <img 
-                  src={`${BASE_URL}${game.imagePath}`} 
+                <img
+                  src={`${BASE_URL}${game.imagePath}`}
                   alt={game.name}
                   className={styles.gameImage}
                   loading="lazy"
@@ -380,16 +557,35 @@ const ExternalEmulator = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const gamesPerPage = 100;
   const iframeRef = useRef(null);
+  const [showDonation, setShowDonation] = useState(false);
+
+  // Debug: Log dimensions on mount and resize
+  useEffect(() => {
+    const logDimensions = () => {
+      console.log('Window dimensions:', {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        isMobile: window.innerWidth <= 768
+      });
+    };
+
+    logDimensions();
+    window.addEventListener('resize', logDimensions);
+
+    return () => window.removeEventListener('resize', logDimensions);
+  }, []);
 
   // Detect mobile device and update on window resize
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      console.log('Mobile detection:', mobile);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
@@ -402,11 +598,11 @@ const ExternalEmulator = () => {
 
   const handleMouseMove = (e) => {
     if (!isResizing || isMobile) return;
-    
+
     const newWidth = e.clientX;
     const minWidth = 200;
     const maxWidth = window.innerWidth * 0.6;
-    
+
     if (newWidth >= minWidth && newWidth <= maxWidth) {
       setSidebarWidth(newWidth);
     }
@@ -421,7 +617,7 @@ const ExternalEmulator = () => {
     if (isResizing && !isMobile) {
       document.addEventListener('mousemove', handleMouseMove);
       document.addEventListener('mouseup', handleMouseUp);
-      
+
       return () => {
         document.removeEventListener('mousemove', handleMouseMove);
         document.removeEventListener('mouseup', handleMouseUp);
@@ -437,7 +633,7 @@ const ExternalEmulator = () => {
         setError(null);
         const response = await fetch(`${API_BASE_URL}/consoles`);
         const data = await response.json();
-        
+
         if (data.success) {
           setConsoles(data.data);
           if (data.data.length > 0) {
@@ -495,7 +691,7 @@ const ExternalEmulator = () => {
   const handleRomSelect = (rom) => {
     setSelectedRom(rom);
     setError(null);
-    
+
     // Auto-collapse accordions on mobile for better UX
     if (isMobile) {
       setIsConsoleOpen(false);
@@ -517,10 +713,10 @@ const ExternalEmulator = () => {
   // Generate emulator URL based on selected game and console
   const getEmulatorUrl = () => {
     if (!selectedRom) return null;
-    
+
     const romUrl = `${BASE_URL}${selectedRom.path}`;
     const system = selectedRom.console;
-    
+
     // Map console names to emulator cores
     let core = 'nes';
     switch (system.toLowerCase()) {
@@ -576,10 +772,10 @@ const ExternalEmulator = () => {
       case 'colecovision': core = 'coleco'; break;
       case 'vb':
       case 'virtualboy': core = 'vb'; break;
-      case 'nes': 
+      case 'nes':
       default: core = 'nes'; break;
     }
-    
+
     const emulatorUrl = `https://skydishch.fun/api/emul/?core=${core}&gameUrl=${encodeURIComponent(romUrl)}`;
     return emulatorUrl;
   };
@@ -602,7 +798,7 @@ const ExternalEmulator = () => {
           <h2>🚫 Ошибка подключения к серверу</h2>
           <p>Убедитесь, что API сервер запущен на <code>BASE_URL</code></p>
           <p>Ошибка: {error}</p>
-          <button 
+          <button
             className={styles.retryButton}
             onClick={() => window.location.reload()}
             onTouchStart={(e) => {
@@ -622,19 +818,28 @@ const ExternalEmulator = () => {
   // Main emulator interface layout
   return (
     <div className={styles.emulatorContainer}>
+      {/* Donation banner at the top */}
+      <DonationBanner
+        isVisible={showDonation}
+        onClose={() => {
+          console.log('Closing donation banner');
+          setShowDonation(false);
+        }}
+      />
+
       <div className={styles.mainContent}>
         {/* Left sidebar with game list (desktop only) */}
         {!isMobile && (
-          <div 
+          <div
             className={styles.sidebar}
-            style={{ 
-              width: `${sidebarWidth}px`, 
-              minWidth: `${sidebarWidth}px` 
+            style={{
+              width: `${sidebarWidth}px`,
+              minWidth: `${sidebarWidth}px`
             }}
           >
             {selectedConsole && (
-              <RomSelector 
-                onRomSelect={handleRomSelect} 
+              <RomSelector
+                onRomSelect={handleRomSelect}
                 selectedRom={selectedRom}
                 selectedConsole={selectedConsole}
                 games={games}
@@ -652,22 +857,30 @@ const ExternalEmulator = () => {
             )}
           </div>
         )}
-        
+
         {/* Resizable divider (desktop only) */}
         {!isMobile && (
-          <div 
+          <div
             className={`${styles.resizer} ${isResizing ? styles.resizing : ''}`}
             onMouseDown={handleMouseDown}
           >
             <div className={styles.resizerHandle}></div>
           </div>
         )}
-        
+
         {/* Right area with console selector, game info, and emulator */}
         <div className={styles.emulatorArea}>
+          {/* Donation button at the top */}
+          <div className={styles.donationButtonContainer}>
+            <DonationButton onClick={() => {
+              console.log('Opening donation banner');
+              setShowDonation(true);
+            }} />
+          </div>
+
           {/* Collapsible console selector section */}
           <div className={styles.accordionSection}>
-            <button 
+            <button
               className={styles.accordionHeader}
               onClick={() => setIsConsoleOpen(!isConsoleOpen)}
               onTouchStart={(e) => {
@@ -684,7 +897,7 @@ const ExternalEmulator = () => {
             </button>
             {isConsoleOpen && (
               <div className={styles.accordionContent}>
-                <ConsoleSelector 
+                <ConsoleSelector
                   consoles={consoles}
                   selectedConsole={selectedConsole}
                   onConsoleSelect={handleConsoleSelect}
@@ -697,7 +910,7 @@ const ExternalEmulator = () => {
           {/* Mobile: Game selection button */}
           {isMobile && selectedConsole && (
             <div className={styles.mobileGameSelector}>
-              <button 
+              <button
                 className={styles.openGamesButton}
                 onClick={() => setIsModalOpen(true)}
                 onTouchStart={(e) => {
@@ -731,7 +944,7 @@ const ExternalEmulator = () => {
           {/* Controls guide section (desktop only) */}
           {!isMobile && (
             <div className={styles.accordionSection}>
-              <button 
+              <button
                 className={styles.accordionHeader}
                 onClick={() => setIsControlsOpen(!isControlsOpen)}
                 onTouchStart={(e) => {
@@ -767,7 +980,7 @@ const ExternalEmulator = () => {
               )}
             </div>
           )}
-          
+
           {/* Main emulator iframe or placeholder */}
           <div className={styles.iframeContainer}>
             {selectedRom ? (
@@ -780,12 +993,21 @@ const ExternalEmulator = () => {
                 allowFullScreen
                 loading="lazy"
                 sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
+                onLoad={() => {
+                  console.log('Iframe loaded, dimensions:', {
+                    iframe: iframeRef.current?.getBoundingClientRect(),
+                    container: iframeRef.current?.parentElement?.getBoundingClientRect()
+                  });
+                }}
               />
             ) : (
               <div className={styles.placeholderContainer}>
                 <div className={styles.placeholderContent}>
                   <h3>🎮 Выберите игру</h3>
                   <p>Кликните на игру в списке слева, чтобы начать играть</p>
+                  <p style={{ fontSize: '0.8rem', color: '#888' }}>
+                    Debug: {isMobile ? 'Mobile' : 'Desktop'} - {window.innerWidth}x{window.innerHeight}
+                  </p>
                 </div>
               </div>
             )}
@@ -795,8 +1017,8 @@ const ExternalEmulator = () => {
 
       {/* Mobile modal for game selection */}
       {isMobile && selectedConsole && (
-        <RomSelector 
-          onRomSelect={handleRomSelect} 
+        <RomSelector
+          onRomSelect={handleRomSelect}
           selectedRom={selectedRom}
           selectedConsole={selectedConsole}
           games={games}
