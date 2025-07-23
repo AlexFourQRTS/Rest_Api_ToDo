@@ -9,7 +9,7 @@ import Hero from '../../components/UI/Hero/Hero';
 import styles from './Blog.module.css';
 import noImg from './noImg.ico';
 
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const BASE_URL = process.env.REACT_APP_API_URL;
 const ITEMS_PER_PAGE = 5;
 
 const Blog = () => {

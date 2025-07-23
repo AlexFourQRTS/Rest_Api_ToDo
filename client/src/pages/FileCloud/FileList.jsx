@@ -4,7 +4,7 @@ import styles from './style/FileLists.module.css';
 import { FaFileImage, FaFileVideo, FaFileAudio, FaFileAlt, FaFile, FaPlay, FaDownload, FaTrash, FaCopy, FaLink } from 'react-icons/fa'; // Removed unused icons
 
 // Access the API URL from environment variables
-const NestJSAPI = process.env.REACT_APP_API_URL;
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
   const [isDeleting, setIsDeleting] = useState(false);
@@ -25,7 +25,7 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
   const handleDelete = async (fileId) => {
     try {
       setIsDeleting(true);
-      const response = await fetch(`${NestJSAPI}/api/files/number${fileId}`, {
+      const response = await fetch(`${BASE_URL}/api/files/number${fileId}`, {
         method: 'DELETE',
       });
 
@@ -51,7 +51,7 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
         [fileId]: { progress: 0, status: 'starting' }
       }));
 
-      const response = await fetch(`${NestJSAPI}/api/files/number${fileId}/download`);
+      const response = await fetch(`${BASE_URL}/api/files/number${fileId}/download`);
       if (!response.ok) {
         throw new Error('Failed to download file');
       }
@@ -126,11 +126,11 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
 
       if (isVideo) {
         // Для видео используем прямую ссылку для потокового воспроизведения
-        const videoUrl = `${NestJSAPI}/api/files/stream/${file.id}`;
+        const videoUrl = `${BASE_URL}/api/files/stream/${file.id}`;
         setPreviewFile({ ...file, previewUrl: videoUrl });
       } else {
         // Для остальных типов файлов используем старый метод
-        const response = await fetch(`${NestJSAPI}/api/files/number${file.id}/download`);
+        const response = await fetch(`${BASE_URL}/api/files/number${file.id}/download`);
         if (!response.ok) {
           throw new Error('Failed to load preview');
         }
@@ -168,7 +168,7 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
 
   const handleCopyLink = async (fileId) => {
     try {
-      const fileUrl = `${NestJSAPI}/api/files/number${fileId}/download`;
+      const fileUrl = `${BASE_URL}/api/files/number${fileId}/download`;
       await navigator.clipboard.writeText(fileUrl);
       setCopiedFileId(fileId);
       success('Link copied to clipboard');
@@ -237,7 +237,7 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
     const isVideo = file.type === 'video';
     const isAudio = file.type === 'audio';
     const isImage = file.type === 'image';
-    const fileUrl = `${NestJSAPI}/api/files/number${file.id}/download`;
+    const fileUrl = `${BASE_URL}/api/files/number${file.id}/download`;
     const downloadStatus = downloadingFiles[file.id];
 
     return (
