@@ -3,8 +3,9 @@ import styles from './ExternalEmulator.module.css';
 import qrCodeImage from './TronTRC.jpg';
 
 // API endpoints for fetching game data
-const API_BASE_URL = 'https://skydishch.fun/romserv/api/v1';
-const BASE_URL = 'https://skydishch.fun/api/romserv/';
+// ВАЖНО: ROM_SERV должен быть без завершающего слэша
+const ROM_SERV = process.env.REACT_APP_ROMSERV_URL;
+
 
 // Donation banner component
 const DonationBanner = ({ isVisible, onClose }) => {
@@ -378,7 +379,7 @@ const RomSelector = ({
                   {
                     game.hasImage ? (
                       <img
-                        src={`${BASE_URL}${game.imagePath}`}
+                        src={`${ROM_SERV}${game.imagePath}`}
                         alt={game.name}
                         className={styles.modalGameImage}
                         loading="lazy"
@@ -504,7 +505,7 @@ const RomSelector = ({
             <div className={styles.tileThumbnail}>
               {game.hasImage ? (
                 <img
-                  src={`${BASE_URL}${game.imagePath}`}
+                  src={`${ROM_SERV}${game.imagePath}`}
                   alt={game.name}
                   className={styles.gameImage}
                   loading="lazy"
@@ -631,7 +632,7 @@ const ExternalEmulator = () => {
       try {
         setIsLoadingConsoles(true);
         setError(null);
-        const response = await fetch(`${API_BASE_URL}/consoles`);
+        const response = await fetch(`${ROM_SERV}/consoles`);
         const data = await response.json();
 
         if (data.success) {
@@ -660,7 +661,7 @@ const ExternalEmulator = () => {
         setIsLoadingGames(true);
         setError(null);
         setGames([]);
-        const url = `${API_BASE_URL}/consoles/${selectedConsole.id}/games?page=${currentPage}&limit=${gamesPerPage}&search=${encodeURIComponent(searchTerm)}`;
+        const url = `${ROM_SERV}/consoles/${selectedConsole.id}/games?page=${currentPage}&limit=${gamesPerPage}&search=${encodeURIComponent(searchTerm)}`;
         const response = await fetch(url);
         const data = await response.json();
         if (data.success) {
@@ -714,7 +715,7 @@ const ExternalEmulator = () => {
   const getEmulatorUrl = () => {
     if (!selectedRom) return null;
 
-    const romUrl = `${BASE_URL}${selectedRom.path}`;
+    const romUrl = `${ROM_SERV}${selectedRom.path}`;
     const system = selectedRom.console;
 
     // Map console names to emulator cores
@@ -796,7 +797,7 @@ const ExternalEmulator = () => {
       <div className={styles.errorContainer}>
         <div className={styles.errorContent}>
           <h2>🚫 Ошибка подключения к серверу</h2>
-          <p>Убедитесь, что API сервер запущен на <code>BASE_URL</code></p>
+          <p>Убедитесь, что API сервер запущен на <code>ROM_SERV</code></p>
           <p>Ошибка: {error}</p>
           <button
             className={styles.retryButton}
