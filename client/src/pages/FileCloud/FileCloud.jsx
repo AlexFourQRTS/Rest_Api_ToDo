@@ -26,7 +26,7 @@ export const FileCloud = () => {
       setIsLoading(true);
       try {
         // Fetch files
-        const filesResponse = await fetch('https://skydishch.fun/api/files');
+        const filesResponse = await fetch('https://skydishch.fun/api/api/files');
         if (!filesResponse.ok) {
           throw new Error('Failed to fetch files');
         }
@@ -49,7 +49,7 @@ export const FileCloud = () => {
 
   const fetchFiles = async () => {
     try {
-      const response = await fetch('https://skydishch.fun/api/files');
+      const response = await fetch('https://skydishch.fun/api/api/files');
       if (!response.ok) {
         throw new Error('Failed to fetch files');
       }
