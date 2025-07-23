@@ -3,8 +3,8 @@ import styles from './ExternalEmulator.module.css';
 import qrCodeImage from './TronTRC.jpg';
 
 // API endpoints for fetching game data
-const API_BASE_URL = 'https://skydishch.fun/api/roms/api/v1';
-const BASE_URL = 'https://skydishch.fun/api/roms/';
+const API_BASE_URL = 'https://skydishch.fun/romserv/api/v1';
+const BASE_URL = 'https://skydishch.fun/api/romserv/';
 
 // Donation banner component
 const DonationBanner = ({ isVisible, onClose }) => {
