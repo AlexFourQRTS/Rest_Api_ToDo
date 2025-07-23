@@ -5,6 +5,7 @@ import qrCodeImage from './TronTRC.jpg';
 // API endpoints for fetching game data
 // ВАЖНО: ROM_SERV должен быть без завершающего слэша
 const ROM_SERV = process.env.REACT_APP_ROMSERV_URL;
+const EMUL_URL = process.env.EMUL_URL;
 
 
 // Donation banner component
@@ -716,6 +717,7 @@ const ExternalEmulator = () => {
     if (!selectedRom) return null;
 
     const romUrl = `${ROM_SERV}${selectedRom.path}`;
+    console.log("romUrl :", romUrl)
     const system = selectedRom.console;
 
     // Map console names to emulator cores
@@ -777,7 +779,9 @@ const ExternalEmulator = () => {
       default: core = 'nes'; break;
     }
 
-    const emulatorUrl = `https://skydishch.fun/romserv/?core=${core}&gameUrl=${encodeURIComponent(romUrl)}`;
+
+    // EMUL_URL
+    const emulatorUrl = `https://skydishch.fun/emulator/?core=${core}&gameUrl=${encodeURIComponent(romUrl)}`;
     return emulatorUrl;
   };
 
@@ -797,7 +801,7 @@ const ExternalEmulator = () => {
       <div className={styles.errorContainer}>
         <div className={styles.errorContent}>
           <h2>🚫 Ошибка подключения к серверу</h2>
-          <p>Убедитесь, что API сервер запущен на <code>ROM_SERV</code></p>
+          <p>Убедитесь, что API сервер запущен на <code>{ROM_SERV}</code></p>
           <p>Ошибка: {error}</p>
           <button
             className={styles.retryButton}
