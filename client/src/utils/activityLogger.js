@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 // Функция для сбора информации о пользователе
 const getUserInfo = () => {

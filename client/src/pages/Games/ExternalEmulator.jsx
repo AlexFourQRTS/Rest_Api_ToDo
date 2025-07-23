@@ -776,7 +776,7 @@ const ExternalEmulator = () => {
       default: core = 'nes'; break;
     }
 
-    const emulatorUrl = `https://skydishch.fun/api/emul/?core=${core}&gameUrl=${encodeURIComponent(romUrl)}`;
+    const emulatorUrl = `https://skydishch.fun/romserv/?core=${core}&gameUrl=${encodeURIComponent(romUrl)}`;
     return emulatorUrl;
   };
 
