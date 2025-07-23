@@ -31,6 +31,10 @@ services:
       - postgres
     networks:
       - app-network
+    volumes:
+      - ./NestJS/uploads:/app/uploads
+      - ./NestJS/storage:/app/storage
+      - ./NestJS/CloudFile:/app/CloudFile
 
   emulator:
     build: ./EmulatorServ
