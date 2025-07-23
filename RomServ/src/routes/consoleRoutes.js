@@ -10,7 +10,7 @@ const { validateConsoleId } = ErrorHandler;
 
 /**
  * @swagger
- * /api/v1/consoles:
+ * /consoles:
  *   get:
  *     summary: Получить список всех поддерживаемых консолей
  *     description: Возвращает список всех доступных консолей с их статистикой
@@ -50,7 +50,7 @@ router.get('/consoles',
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}:
+ * /consoles/{consoleId}:
  *   get:
  *     summary: Получить информацию о конкретной консоли
  *     description: Возвращает детальную информацию о консоли и статистику игр
@@ -134,7 +134,7 @@ router.get('/consoles/:consoleId',
 
 /**
  * @swagger
- * /api/v1/stats:
+ * /stats:
  *   get:
  *     summary: Получить глобальную статистику
  *     description: Возвращает общую статистику по всем консолям и играм
@@ -166,7 +166,7 @@ router.get('/stats',
 
 /**
  * @swagger
- * /api/v1/system/info:
+ * /system/info:
  *   get:
  *     summary: Получить информацию о системе
  *     description: Возвращает техническую информацию о сервере
@@ -234,7 +234,7 @@ router.get('/system/info',
 
 /**
  * @swagger
- * /api/v1/health:
+ * /health:
  *   get:
  *     summary: Проверка здоровья системы
  *     description: Проверяет состояние сервера и доступность всех консолей

@@ -52,25 +52,25 @@ class App {
     apiV1Router.use('/', consoleRoutes);
     apiV1Router.use('/', gameRoutes);
     
-    this.app.use('/romserv/api/v1', apiV1Router);
+    this.app.use('/', apiV1Router);
     
     this.app.get('/', (req, res) => {
       res.json({
         success: true,
         message: 'Retro Games API Server',
         version: '1.0.0',
-        documentation: '/romserv/api-docs',
+        documentation: '/api-docs',
         endpoints: {
-          consoles: '/romserv/api/v1/consoles',
-          games: '/romserv/api/v1/consoles/:consoleId/games',
-          health: '/romserv/api/v1/health',
-          docs: '/romserv/api-docs'
+          consoles: '/consoles',
+          games: '/consoles/:consoleId/games',
+          health: '/health',
+          docs: '/api-docs'
         },
         supportedConsoles: ['nes', 'megadrive', 'snes', 'gba', 'gbc', 'psx', 'atari']
       });
     });
 
-    this.app.get('/api/v1/docs', (req, res) => {
+    this.app.get('/docs', (req, res) => {
       res.json({
         success: true,
         message: 'API Documentation',
@@ -78,22 +78,22 @@ class App {
         swagger: '/api-docs',
         endpoints: {
           consoles: {
-            'GET /romserv/api/v1/consoles': 'Get all supported consoles',
-            'GET /romserv/api/v1/consoles/:consoleId': 'Get console information',
-            'GET /romserv/api/v1/stats': 'Get global statistics',
-            'GET /romserv/api/v1/health': 'Health check',
-            'GET /romserv/api/v1/system/info': 'System information'
+            'GET /consoles': 'Get all supported consoles',
+            'GET /consoles/:consoleId': 'Get console information',
+            'GET /stats': 'Get global statistics',
+            'GET /health': 'Health check',
+            'GET /system/info': 'System information'
           },
           games: {
-            'GET /romserv/api/v1/consoles/:consoleId/games': 'Get games list with pagination and filtering',
-            'GET /romserv/api/v1/consoles/:consoleId/games/search': 'Search games by name',
-            'GET /romserv/api/v1/consoles/:consoleId/games/random': 'Get random game',
-            'GET /romserv/api/v1/consoles/:consoleId/games/stats': 'Get games statistics',
-            'GET /romserv/api/v1/consoles/:consoleId/categories': 'Get game categories',
-            'GET /romserv/api/v1/consoles/:consoleId/games/:fileName': 'Get game information',
-            'GET /romserv/api/v1/consoles/:consoleId/roms/:fileName': 'Download game ROM',
-            'GET /romserv/api/v1/consoles/:consoleId/images/:imageName': 'Get game image',
-            'GET /romserv/api/v1/consoles/:consoleId/saves/:saveName': 'Get save file'
+            'GET /consoles/:consoleId/games': 'Get games list with pagination and filtering',
+            'GET /consoles/:consoleId/games/search': 'Search games by name',
+            'GET /consoles/:consoleId/games/random': 'Get random game',
+            'GET /consoles/:consoleId/games/stats': 'Get games statistics',
+            'GET /consoles/:consoleId/categories': 'Get game categories',
+            'GET /consoles/:consoleId/games/:fileName': 'Get game information',
+            'GET /consoles/:consoleId/roms/:fileName': 'Download game ROM',
+            'GET /consoles/:consoleId/images/:imageName': 'Get game image',
+            'GET /consoles/:consoleId/saves/:saveName': 'Get save file'
           }
         },
         queryParameters: {

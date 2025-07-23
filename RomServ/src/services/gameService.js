@@ -225,7 +225,7 @@ class GameService {
       for (const ext of ['.png', '.jpg', '.jpeg']) {
         if (fileSet.has(baseName + ext)) {
           game.hasImage = true;
-          game.imagePath = `/romserv/api/v1/consoles/${game.console}/images/${encodeURIComponent(baseName + ext)}`;
+          game.imagePath = `/consoles/${game.console}/images/${encodeURIComponent(baseName + ext)}`;
           break;
         }
       }
@@ -236,7 +236,7 @@ class GameService {
         for (const ext of config.saveExtensions) {
           if (fileSet.has(baseName + ext)) {
             game.hasSave = true;
-            game.savePath = `/romserv/api/v1/consoles/${game.console}/saves/${encodeURIComponent(baseName + ext)}`;
+            game.savePath = `/consoles/${game.console}/saves/${encodeURIComponent(baseName + ext)}`;
             break;
           }
         }

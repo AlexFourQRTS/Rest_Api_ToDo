@@ -10,7 +10,7 @@ const { validateConsoleId, validateFileName } = ErrorHandler;
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}/games:
+ * /consoles/{consoleId}/games:
  *   get:
  *     summary: Получить список игр для консоли
  *     description: Возвращает список игр с поддержкой пагинации, сортировки и фильтрации
@@ -61,7 +61,7 @@ router.get('/consoles/:consoleId/games',
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}/games/search:
+ * /consoles/{consoleId}/games/search:
  *   get:
  *     summary: Поиск игр
  *     description: Поиск игр по названию в рамках конкретной консоли
@@ -120,7 +120,7 @@ router.get('/consoles/:consoleId/games/search',
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}/games/random:
+ * /consoles/{consoleId}/games/random:
  *   get:
  *     summary: Получить случайную игру
  *     description: Возвращает случайную игру для указанной консоли
@@ -167,7 +167,7 @@ router.get('/consoles/:consoleId/games/random',
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}/games/stats:
+ * /consoles/{consoleId}/games/stats:
  *   get:
  *     summary: Получить статистику игр консоли
  *     description: Возвращает статистику игр для конкретной консоли
@@ -208,7 +208,7 @@ router.get('/consoles/:consoleId/games/stats',
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}/categories:
+ * /consoles/{consoleId}/categories:
  *   get:
  *     summary: Получить категории игр
  *     description: Возвращает доступные категории игр для консоли
@@ -263,7 +263,7 @@ router.get('/consoles/:consoleId/categories',
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}/games/{fileName}:
+ * /consoles/{consoleId}/games/{fileName}:
  *   get:
  *     summary: Получить информацию об игре
  *     description: Возвращает детальную информацию о конкретной игре
@@ -322,7 +322,7 @@ router.get('/consoles/:consoleId/games/:fileName',
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}/roms/{fileName}:
+ * /consoles/{consoleId}/roms/{fileName}:
  *   get:
  *     summary: Скачать ROM файл
  *     description: Скачивает ROM файл игры
@@ -366,7 +366,7 @@ router.get('/consoles/:consoleId/roms/:fileName',
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}/images/{imageName}:
+ * /consoles/{consoleId}/images/{imageName}:
  *   get:
  *     summary: Получить изображение игры
  *     description: Возвращает изображение для игры
@@ -416,7 +416,7 @@ router.get('/consoles/:consoleId/images/:imageName',
 
 /**
  * @swagger
- * /api/v1/consoles/{consoleId}/saves/{saveName}:
+ * /consoles/{consoleId}/saves/{saveName}:
  *   get:
  *     summary: Получить файл сохранения
  *     description: Скачивает файл сохранения игры

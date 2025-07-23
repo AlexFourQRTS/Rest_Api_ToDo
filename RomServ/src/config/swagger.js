@@ -93,7 +93,7 @@ const options = {
             path: {
               type: 'string',
               description: 'Путь для скачивания',
-              example: '/api/v1/consoles/nes/roms/Super%20Mario%20Bros.nes'
+              example: '/consoles/nes/roms/Super%20Mario%20Bros.nes'
             },
             category: {
               type: 'string',
@@ -125,12 +125,12 @@ const options = {
             imagePath: {
               type: 'string',
               description: 'Путь к изображению',
-              example: '/api/v1/consoles/nes/images/Super Mario Bros.png'
+              example: '/consoles/nes/images/Super Mario Bros.png'
             },
             savePath: {
               type: 'string',
               description: 'Путь к файлу сохранения',
-              example: '/api/v1/consoles/nes/saves/Super Mario Bros.srm'
+              example: '/consoles/nes/saves/Super Mario Bros.srm'
             }
           }
         },
@@ -204,7 +204,7 @@ const options = {
                 },
                 path: {
                   type: 'string',
-                  example: '/api/v1/consoles/nes/games/unknown.nes'
+                  example: '/consoles/nes/games/unknown.nes'
                 },
                 method: {
                   type: 'string',
