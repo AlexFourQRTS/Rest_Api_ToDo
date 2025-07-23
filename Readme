@@ -1,0 +1,15 @@
+1) Сервер ромов - express
+9999 - npm run start
+
+2) Сервер емулярования - RetroArh
+EmulatorJS-main - npm run serv
+
+3) NestJS - Back-End
+Nest - npm run start / npm run build
+
+4) Клиент - на React
+npm run build
+
+5) База Postgres
+docker-compose up -d
+

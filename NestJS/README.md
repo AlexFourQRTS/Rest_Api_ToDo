@@ -1,2 +1,0 @@
-# NestJS
-NestJS and Postgres
