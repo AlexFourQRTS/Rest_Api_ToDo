@@ -111,7 +111,7 @@ class GameUtils {
       id: fileName,
       name: gameName,
       fileName: fileName,
-      path: `romserv/api/v1/consoles/${consoleId}/roms/${encodeURIComponent(fileName)}`,
+      path: `/romserv/api/v1/consoles/${consoleId}/roms/${encodeURIComponent(fileName)}`,
       category,
       region,
       console: consoleId,
