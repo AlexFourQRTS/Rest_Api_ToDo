@@ -13,3 +13,6 @@ npm run build
 5) База Postgres
 docker-compose up -d
 
+http://192.168.88.17/emulator/
+http://192.168.88.17/romserv/
+
