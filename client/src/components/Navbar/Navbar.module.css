@@ -130,24 +130,35 @@
     background: rgba(249, 115, 22, 0.1);
 }
   
+/* Мобильные элементы управления */
+.mobileControls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .menuButton {
-    display: none;
-    background: transparent;
-    border: none;
-    padding: 0.5rem;
-    cursor: pointer;
-    color: #8b9a9b;
-    transition: color 0.3s ease;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-  
+
 .menuButton:hover {
-    color: #f97316;
+  background: rgba(255, 255, 255, 0.1);
+  color: #f97316;
 }
-  
+
 /* Бургер-кнопка только на мобильных/планшетах */
 @media (max-width: 1024px) {
     .menuButton {
-        display: block;
+        display: flex;
     }
     .navMenu {
         display: none;
@@ -156,13 +167,41 @@
   
 @media (max-width: 768px) {
     .navContainer {
-        padding: 0;
+        padding: 0 0.5rem;
     }
     .navBrand h1 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     .navBrand span {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
     }
+    .mobileControls {
+      gap: 0.5rem;
+    }
+    .menuButton {
+      padding: 0.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 0.5rem;
+  }
+
+  .navBrand h1 {
+    font-size: 1rem;
+  }
+
+  .navBrand span {
+    display: none; /* Скрываем подзаголовок на очень маленьких экранах */
+  }
+
+  .mobileControls {
+    gap: 0.4rem;
+  }
+
+  .menuButton {
+    padding: 0.35rem;
+  }
 }
   

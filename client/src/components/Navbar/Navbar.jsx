@@ -4,8 +4,10 @@ import * as feather from "feather-icons";
 import styles from "./Navbar.module.css";
 import Button from "../UI/Button/Button";
 import Sidebar from "../Sidebar/Sidebar";
+import LanguageSelector from "../LanguageSelector/LanguageSelector";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { routes } from "../../routes";
+import useLocalization from "../../hooks/useLocalization";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +17,9 @@ const Navbar = () => {
   const location = useLocation();
   const aboutDropdownRef = useRef(null);
   const toolsDropdownRef = useRef(null);
+  
+  // Используем хук локализации
+  const { t, isInitialized } = useLocalization();
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -89,11 +94,11 @@ const Navbar = () => {
 
   const AboutDropdownMenu = () => {
     const dropdownItems = [
-      { to: routes.about, label: "Про мене", icon: "user" },
-      { to: routes.portfolio, label: "Портфоліо", icon: "folder" },
-      { to: routes.skills, label: "Навички", icon: "code" },
-      { to: routes.whyus, label: "Сервіси", icon: "briefcase" },
-      { to: routes.news, label: "Новини", icon: "briefcase" }
+      { to: routes.about, label: t('aboutMeItems.about'), icon: "user" },
+      { to: routes.portfolio, label: t('aboutMeItems.portfolio'), icon: "folder" },
+      { to: routes.skills, label: t('aboutMeItems.skills'), icon: "code" },
+      { to: routes.whyus, label: t('aboutMeItems.services'), icon: "briefcase" },
+      { to: routes.news, label: t('aboutMeItems.news'), icon: "briefcase" }
     ];
 
     return (
@@ -102,7 +107,7 @@ const Navbar = () => {
           className={`${styles.dropdownButton} ${isAboutDropdownOpen ? styles.active : ""}`}
           onClick={toggleAboutDropdown}
         >
-          <span>Про мене</span>
+          <span>{t('aboutMeDropdown')}</span>
           <ChevronDown size={16} className={`${styles.dropdownIcon} ${isAboutDropdownOpen ? styles.rotated : ""}`} />
         </button>
         {isAboutDropdownOpen && (
@@ -123,12 +128,12 @@ const Navbar = () => {
 
   const ToolsDropdownMenu = () => {
     const dropdownItems = [
-      { to: routes.camera, label: "Камера", icon: "camera" },
-      { to: routes.microphone, label: "Микрофон", icon: "mic" },
-      { to: routes.converter, label: "Конвертор", icon: "refresh-cw" },
-      { to: routes.ip, label: "Ваш IP", icon: "globe" },
-      { to: routes.tone_generator, label: "Тон-генератор", icon: "bar-chart-2" },
-      { to: routes.paint, label: "Paint", icon: "edit-3" }
+      { to: routes.camera, label: t('toolsItems.camera'), icon: "camera" },
+      { to: routes.microphone, label: t('toolsItems.microphone'), icon: "mic" },
+      { to: routes.converter, label: t('toolsItems.converter'), icon: "refresh-cw" },
+      { to: routes.ip, label: t('toolsItems.ip'), icon: "globe" },
+      { to: routes.tone_generator, label: t('toolsItems.toneGenerator'), icon: "bar-chart-2" },
+      { to: routes.paint, label: t('toolsItems.paint'), icon: "edit-3" }
     ];
 
     return (
@@ -137,7 +142,7 @@ const Navbar = () => {
           className={`${styles.dropdownButton} ${isToolsDropdownOpen ? styles.active : ""}`}
           onClick={toggleToolsDropdown}
         >
-          <span>Інструменти</span>
+          <span>{t('toolsDropdown')}</span>
           <ChevronDown size={16} className={`${styles.dropdownIcon} ${isToolsDropdownOpen ? styles.rotated : ""}`} />
         </button>
         {isToolsDropdownOpen && (
@@ -156,28 +161,49 @@ const Navbar = () => {
     );
   };
 
+  // Показываем загрузку пока локализация не инициализирована
+  if (!isInitialized) {
+    return (
+      <nav className={styles.navbar}>
+        <div className={styles.navContainer}>
+          <div className={styles.navBrand}>
+            <li>
+              <Link to="/" className={styles.navLink}>
+                <h1>🐼 Панда</h1>
+              </Link>
+            </li>
+            <span>Хаб Розробника</span>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.navContainer}>
         <div className={styles.navBrand}>
           <li>
             <Link to="/" className={styles.navLink}>
-              <h1>🐼 Панда</h1>
+              <h1>{t('brand')}</h1>
             </Link>
           </li>
-          <span>Хаб Розробника</span>
+          <span>{t('subtitle')}</span>
         </div>
 
         {isMobile && (
           <>
-            <div className={styles.menuButton}>
-              <Button 
-                onClick={toggleSidebar} 
-                className={styles.menuButton}
-                aria-label={isOpen ? "Закрити меню" : "Відкрити меню"}
-              >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </Button>
+            <div className={styles.mobileControls}>
+              <LanguageSelector />
+              <div className={styles.menuButton}>
+                <Button 
+                  onClick={toggleSidebar} 
+                  className={styles.menuButton}
+                  aria-label={isOpen ? t('closeMenu') : t('openMenu')}
+                >
+                  {isOpen ? <X size={24} /> : <Menu size={24} />}
+                </Button>
+              </div>
             </div>
             <Sidebar 
               isSidebarOpen={isOpen} 
@@ -195,22 +221,25 @@ const Navbar = () => {
               <ToolsDropdownMenu />
             </li>
             <li className={styles.navItem}>
-              <NavLink to={routes.chat} label="Чат" icon="message-circle" />
+              <NavLink to={routes.chat} label={t('chat')} icon="message-circle" />
             </li>
             <li className={styles.navItem}>
-              <NavLink to={routes.games} label="Ігри" icon="play" />
+              <NavLink to={routes.games} label={t('games')} icon="play" />
             </li>
             <li className={styles.navItem}>
-              <NavLink to={routes.blog} label="Блог" icon="book-open" />
+              <NavLink to={routes.blog} label={t('blog')} icon="book-open" />
             </li>
             <li className={styles.navItem}>
-              <NavLink to={routes.filecloud} label="Файли" icon="cloud" />
+              <NavLink to={routes.filecloud} label={t('files')} icon="cloud" />
             </li>
             <li className={styles.navItem}>
-              <NavLink to={routes.faq} label="FAQ" icon="help-circle" />
+              <NavLink to={routes.faq} label={t('faq')} icon="help-circle" />
             </li>
             <li className={styles.navItem}>
-              <NavLink to={routes.profile} label="Мій Профіль" icon="user" />
+              <NavLink to={routes.profile} label={t('profile')} icon="user" />
+            </li>
+            <li className={styles.navItem}>
+              <LanguageSelector />
             </li>
           </ul>
         )}

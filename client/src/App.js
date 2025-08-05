@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { routes } from "./routes";
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";
+import LocalizationProvider from "./components/LocalizationProvider/LocalizationProvider";
 import { ToastProvider } from "./context/ToastContext";
 
 import Home from "./pages/Home/Home";
@@ -55,45 +56,47 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <ToastProvider>
-        <div className={styles.app}>
-          <Navbar onMenuClick={toggleSidebar} />
-          <div className={styles.container}>
-            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-            <main className={styles.content}>
-              <div className={styles.content__wrapper}>
-                <RouteChangeLogger />
-                <Routes>
-                  <Route path={routes.home} element={<Home />} />
-                  <Route path={routes.about} element={<About />} />
-                  <Route path={routes.news} element={<News />} />
-                  <Route path={routes.portfolio} element={<Portfolio />} />
-                  <Route path={routes.whyus} element={<WhyUs />} />
-                  <Route path={routes.skills} element={<Skills />} />
-                  <Route path={routes.tools} element={<Tools />} />
-                  <Route path={routes.camera} element={<Camera />} />
-                  <Route path={routes.converter} element={<Converter />} />
-                  <Route path={routes.microphone} element={<Microphone />} />
-                  <Route path={routes.ip} element={<IP />} />
-                  <Route path={routes.tone_generator} element={<ToneGenerator />} />
-                  <Route path={routes.blog} element={<Blog />} />
-                  <Route path={routes.filecloud} element={<FileCloud />} />
-                  <Route path={routes.fileDetail} element={<FileDetail />} />
-                  <Route path={routes.faq} element={<FAQ />} />
-                  <Route path={routes.profile} element={<Profile />} />
-                  <Route path={routes.paint} element={<Paint />} />
-                  <Route path={routes.chat} element={<Chat />} />
-                  <Route path={routes.games} element={<Games />} />
-                  <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-              </div>
-            </main>
+    <LocalizationProvider>
+      <BrowserRouter>
+        <ToastProvider>
+          <div className={styles.app}>
+            <Navbar onMenuClick={toggleSidebar} />
+            <div className={styles.container}>
+              <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+              <main className={styles.content}>
+                <div className={styles.content__wrapper}>
+                  <RouteChangeLogger />
+                  <Routes>
+                    <Route path={routes.home} element={<Home />} />
+                    <Route path={routes.about} element={<About />} />
+                    <Route path={routes.news} element={<News />} />
+                    <Route path={routes.portfolio} element={<Portfolio />} />
+                    <Route path={routes.whyus} element={<WhyUs />} />
+                    <Route path={routes.skills} element={<Skills />} />
+                    <Route path={routes.tools} element={<Tools />} />
+                    <Route path={routes.camera} element={<Camera />} />
+                    <Route path={routes.converter} element={<Converter />} />
+                    <Route path={routes.microphone} element={<Microphone />} />
+                    <Route path={routes.ip} element={<IP />} />
+                    <Route path={routes.tone_generator} element={<ToneGenerator />} />
+                    <Route path={routes.blog} element={<Blog />} />
+                    <Route path={routes.filecloud} element={<FileCloud />} />
+                    <Route path={routes.fileDetail} element={<FileDetail />} />
+                    <Route path={routes.faq} element={<FAQ />} />
+                    <Route path={routes.profile} element={<Profile />} />
+                    <Route path={routes.paint} element={<Paint />} />
+                    <Route path={routes.chat} element={<Chat />} />
+                    <Route path={routes.games} element={<Games />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                  </Routes>
+                </div>
+              </main>
+            </div>
+            <FooterPage />
           </div>
-          <FooterPage />
-        </div>
-      </ToastProvider>
-    </BrowserRouter>
+        </ToastProvider>
+      </BrowserRouter>
+    </LocalizationProvider>
   );
 }
 

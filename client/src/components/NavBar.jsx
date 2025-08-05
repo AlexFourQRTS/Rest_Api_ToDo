@@ -5,11 +5,15 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import useLocalization from "../hooks/useLocalization";
 
 const NavBar = ({ token, role, onLogout }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
+  
+  // Используем хук локализации
+  const { t, isInitialized } = useLocalization();
 
   const handleLogoutClick = () => {
     onLogout();
@@ -19,6 +23,19 @@ const NavBar = ({ token, role, onLogout }) => {
   const isActive = (path) => {
     return currentPath === path ? "active" : "";
   };
+
+  // Показываем загрузку пока локализация не инициализирована
+  if (!isInitialized) {
+    return (
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container>
+          <Navbar.Brand as={Link} to={routes.home}>
+            Rest ToDo Api
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
+    );
+  }
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -34,7 +51,7 @@ const NavBar = ({ token, role, onLogout }) => {
               to={routes.home}
               className={isActive(routes.home)}
             >
-              Главная
+              {t('home')}
             </Nav.Link>
             {token ? (
               <>
@@ -45,7 +62,7 @@ const NavBar = ({ token, role, onLogout }) => {
                       to={routes.admin}
                       className={isActive(routes.admin)}
                     >
-                      Админ
+                      {t('admin')}
                     </Nav.Link>
                   </>
                 )}
@@ -55,11 +72,11 @@ const NavBar = ({ token, role, onLogout }) => {
                     to={routes.user}
                     className={isActive(routes.user)}
                   >
-                    Пользователь
+                    {t('user')}
                   </Nav.Link>
                 )}
                 <Button variant="outline-danger" onClick={handleLogoutClick}>
-                  Выйти
+                  {t('logout')}
                 </Button>
               </>
             ) : (
@@ -69,14 +86,14 @@ const NavBar = ({ token, role, onLogout }) => {
                   to={routes.login}
                   className={isActive(routes.login)}
                 >
-                  Авторизация
+                  {t('login')}
                 </Nav.Link>
                 <Nav.Link
                   as={Link}
                   to={routes.register}
                   className={isActive(routes.register)}
                 >
-                  Регистрация
+                  {t('register')}
                 </Nav.Link>
               </>
             )}
