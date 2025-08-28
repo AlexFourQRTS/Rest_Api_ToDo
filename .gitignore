@@ -15,3 +15,6 @@ client/build
 client/node_modules
 client/.well-known
 SSL
+client/build/asset-manifest.json
+client/build/index.html
+
