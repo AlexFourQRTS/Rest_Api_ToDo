@@ -1,34 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter, GitlabIcon, GithubIcon } from "lucide-react";
 import styles from "./Footer.module.css";
+import { FaLinkedin, FaTelegram } from "react-icons/fa";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com/AlexFourQRTS", label: "GitHub" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Twitter, href: "#", label: "Twitter" }
+    { icon: GithubIcon, href: "https://github.com/AlexFourQRTS", label: "GitHub" },
+    { icon: FaLinkedin, href: "https://www.linkedin.com/in/oleksandr-maliuk-620206225/", label: "LinkedIn" },
+    { icon: FaTelegram, href: "https://t.me/BrahmaDzen", label: "Telegramm" }
   ];
 
   const quickLinks = [
     { name: "Головна", href: "/" },
-    { name: "Новини", href: "/news" },
     { name: "Портфоліо", href: "/portfolio" },
-    { name: "Чат", href: "/chat" },
+    // { name: "Чат", href: "/chat" },
     { name: "Ігри", href: "/games" },
     { name: "Навички", href: "/skills" },
     { name: "Блог", href: "/blog" },
-    { name: "Файли", href: "/files" },
+    { name: "Файли", href: "/filecloud" },
     { name: "Про нас", href: "/about" },
-    { name: "FAQ", href: "/faq" }
+    // { name: "FAQ", href: "/faq" }
   ];
 
   const services = [
     "Розробка",
-    "Дизайн",
-    "Маркетинг",
     "Консультації",
     "Навчання"
   ];
@@ -41,10 +39,13 @@ const Footer = () => {
         <div className={styles.footer__grid}>
           <div className={styles.footer__company}>
             <h3 className={styles.footer__companyTitle}>
-              <span className={styles.footer__companyTitleGradient}>🐼 Панда</span> Developer Hub
+              <div>
+                <span className={styles.footer__companyTitleGradient}>DEV</span>  Hub
+              </div>
+              
             </h3>
             <p className={styles.footer__companyDescription}>
-              Хаб Розробника - це платформа для розробників, де ви можете знайти корисні ресурси, спілкуватися з іншими розробниками та розвивати свої навички.
+               
             </p>
             <div className={styles.footer__socialLinks}>
               {socialLinks.map((social, index) => {
@@ -94,15 +95,19 @@ const Footer = () => {
             <div className={styles.footer__contactInfo}>
               <div className={styles.footer__contactItem}>
                 <Mail size={18} className={styles.footer__contactIcon} />
-                <span className={styles.footer__contactText}>info@panda.dev</span>
+                <span className={styles.footer__contactText}>xvergox@gmail.com</span>
               </div>
               <div className={styles.footer__contactItem}>
                 <Phone size={18} className={styles.footer__contactIcon} />
-                <span className={styles.footer__contactText}>+380 44 123 4567</span>
+                <span className={styles.footer__contactText}>+380 95 469 96 56</span>
+              </div>
+               <div className={styles.footer__contactItem}>
+                <Phone size={18} className={styles.footer__contactIcon} />
+                <span className={styles.footer__contactText}>+380 97 556 53 71</span>
               </div>
               <div className={styles.footer__contactItem}>
                 <MapPin size={18} className={styles.footer__contactIcon} />
-                <span className={styles.footer__contactText}>Київ, Україна</span>
+                <span className={styles.footer__contactText}>Одесса, Україна</span>
               </div>
             </div>
           </div>
@@ -111,7 +116,7 @@ const Footer = () => {
         <div className={styles.footer__divider}>
           <div className={styles.footer__bottom}>
             <p className={styles.footer__copyright}>
-              © {currentYear} <span className={styles.footer__copyrightName}>Alexander Malyuk</span>. Всі права захищені.
+              © {currentYear} <span className={styles.footer__copyrightName}>Oleksandr Maliuk</span> Всі права захищені.
             </p>
             <div className={styles.footer__legalLinks}>
               <Link to="/privacy" className={styles.footer__legalLink}>Політика конфіденційності</Link>

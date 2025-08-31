@@ -84,7 +84,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
       { to: routes.portfolio, label: "Портфоліо", icon: "folder" },
       { to: routes.skills, label: "Навички", icon: "code" },
       { to: routes.whyus, label: "Сервіси", icon: "briefcase" },
-      { to: routes.news, label: "Новини", icon: "briefcase" }
+      // { to: routes.news, label: "Новини", icon: "briefcase" }
     ];
 
     return (
@@ -117,10 +117,10 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     const dropdownItems = [
       { to: routes.camera, label: "Камера", icon: "camera" },
       { to: routes.microphone, label: "Микрофон", icon: "mic" },
-      { to: routes.converter, label: "Конвертор", icon: "refresh-cw" },
+      // { to: routes.converter, label: "Конвертор", icon: "refresh-cw" },
       { to: routes.ip, label: "Ваш IP", icon: "globe" },
       { to: routes.tone_generator, label: "Тон-генератор", icon: "bar-chart-2" },
-      { to: routes.paint, label: "Paint", icon: "edit-3" }
+      // { to: routes.paint, label: "Paint", icon: "edit-3" }
     ];
 
     return (
@@ -150,12 +150,12 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
   };
 
   const mainNavLinks = [
-    { to: routes.chat, label: "Чат", icon: "message-circle" },
+    // { to: routes.chat, label: "Чат", icon: "message-circle" },
     { to: routes.games, label: "Ігри", icon: "play" },
     { to: routes.blog, label: "Блог", icon: "book-open" },
     { to: routes.filecloud, label: "Файли", icon: "cloud" },
-    { to: routes.faq, label: "FAQ", icon: "help-circle" },
-    { to: routes.profile, label: "Мій Профіль", icon: "user" },
+    // { to: routes.faq, label: "FAQ", icon: "help-circle" },
+    { to: routes.profile, label: "Профіль", icon: "user" },
   ];
 
   return (

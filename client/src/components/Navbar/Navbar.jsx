@@ -98,7 +98,7 @@ const Navbar = () => {
       { to: routes.portfolio, label: t('aboutMeItems.portfolio'), icon: "folder" },
       { to: routes.skills, label: t('aboutMeItems.skills'), icon: "code" },
       { to: routes.whyus, label: t('aboutMeItems.services'), icon: "briefcase" },
-      { to: routes.news, label: t('aboutMeItems.news'), icon: "briefcase" }
+      // { to: routes.news, label: t('aboutMeItems.news'), icon: "briefcase" }
     ];
 
     return (
@@ -130,10 +130,10 @@ const Navbar = () => {
     const dropdownItems = [
       { to: routes.camera, label: t('toolsItems.camera'), icon: "camera" },
       { to: routes.microphone, label: t('toolsItems.microphone'), icon: "mic" },
-      { to: routes.converter, label: t('toolsItems.converter'), icon: "refresh-cw" },
+      // { to: routes.converter, label: t('toolsItems.converter'), icon: "refresh-cw" },
       { to: routes.ip, label: t('toolsItems.ip'), icon: "globe" },
       { to: routes.tone_generator, label: t('toolsItems.toneGenerator'), icon: "bar-chart-2" },
-      { to: routes.paint, label: t('toolsItems.paint'), icon: "edit-3" }
+      // { to: routes.paint, label: t('toolsItems.paint'), icon: "edit-3" }
     ];
 
     return (
@@ -169,10 +169,10 @@ const Navbar = () => {
           <div className={styles.navBrand}>
             <li>
               <Link to="/" className={styles.navLink}>
-                <h1>🐼 Панда</h1>
+                <h1>DEV Hub</h1>
               </Link>
             </li>
-            <span>Хаб Розробника</span>
+            {/* <span>Хаб Розробника</span> */}
           </div>
         </div>
       </nav>
@@ -220,9 +220,9 @@ const Navbar = () => {
             <li className={styles.navItem}>
               <ToolsDropdownMenu />
             </li>
-            <li className={styles.navItem}>
+            {/* <li className={styles.navItem}>
               <NavLink to={routes.chat} label={t('chat')} icon="message-circle" />
-            </li>
+            </li> */}
             <li className={styles.navItem}>
               <NavLink to={routes.games} label={t('games')} icon="play" />
             </li>
@@ -232,9 +232,9 @@ const Navbar = () => {
             <li className={styles.navItem}>
               <NavLink to={routes.filecloud} label={t('files')} icon="cloud" />
             </li>
-            <li className={styles.navItem}>
+            {/* <li className={styles.navItem}>
               <NavLink to={routes.faq} label={t('faq')} icon="help-circle" />
-            </li>
+            </li> */}
             <li className={styles.navItem}>
               <NavLink to={routes.profile} label={t('profile')} icon="user" />
             </li>

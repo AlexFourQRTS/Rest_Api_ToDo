@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './ExternalEmulator.module.css';
 import qrCodeImage from './TronTRC.jpg';
 
-// API endpoints for fetching game data
-// ВАЖНО: ROM_SERV должен быть без завершающего слэша
+
 const ROM_SERV = process.env.REACT_APP_ROMSERV_URL;
 const EMUL_URL = process.env.EMUL_URL;
 
 
-// Donation banner component
 const DonationBanner = ({ isVisible, onClose }) => {
   const [isQrFullscreen, setIsQrFullscreen] = useState(false);
 
@@ -44,7 +42,7 @@ const DonationBanner = ({ isVisible, onClose }) => {
       <div className={styles.donationBanner}>
         <div className={styles.donationContent}>
           <div className={styles.donationHeader}>
-            <h3>🎮 Поддержите проект!</h3>
+
             <button
               className={styles.closeButton}
               onClick={onClose}
@@ -59,41 +57,41 @@ const DonationBanner = ({ isVisible, onClose }) => {
             </button>
           </div>
           <div className={styles.donationBody}>
-            <div className={styles.donationText}>
-              <p>Мы делаем эмуляцию доступной для всех!</p>
-            </div>
             <div className={styles.donationBenefits}>
-              <h4>Реквизиты карты</h4>
+              <h4>Реквизиты </h4>
               <ul>
                 <li>
-                  <div className={styles.qrSection}>
-                    <h4>QR-код для оплаты</h4>
+                 <div className={styles.cardNumber}>
+                   <span>QR-код для удобства криптой</span>
+                </div>
+                   
                     <div className={styles.qrCode} onClick={handleQrClick}>
                       <img
                         src={qrCodeImage}
                         alt="QR-код для оплаты USDT"
                         className={styles.qrImage}
                       />
-                    </div>
+                   
                   </div>
 
                 </li>
+
                 <li>
 
                   <div className={styles.cardNumber}>
                     <span>USDT (TRC20):</span>
                   </div>
                   <div className={styles.cardValueContainer}>
-                   
-                      <h6>TTa9eFw9VyB64p95sfar5DnLv8P7Vs29Dc</h6>
-                    
+
+                    <h6>TTa9eFw9VyB64p95sfar5DnLv8P7Vs29Dc</h6>
+
                     <button
-                    className={styles.copyButton}
-                    onClick={() => copyToClipboard('TTa9eFw9VyB64p95sfar5DnLv8P7Vs29Dc')}
-                    title="Копировать"
-                  >
-                    📋
-                  </button>
+                      className={styles.copyButton}
+                      onClick={() => copyToClipboard('TTa9eFw9VyB64p95sfar5DnLv8P7Vs29Dc')}
+                      title="Копировать"
+                    >
+                      📋
+                    </button>
                   </div>
 
                 </li>
@@ -102,7 +100,7 @@ const DonationBanner = ({ isVisible, onClose }) => {
                   <div className={styles.cardHolder}>
                     <span>UAH карта:</span>
                   </div>
-                   <div className={styles.cardValueContainer}>
+                  <div className={styles.cardValueContainer}>
                     <code>{formatCardNumber('4441111078249988')}</code>
                     <button
                       className={styles.copyButton}
@@ -398,9 +396,9 @@ const RomSelector = ({
                 {/* Game info */}
                 <div className={styles.modalGameInfo}>
                   <h4 className={styles.modalGameName}> {game.name}</h4>
-                  <div className={styles.modalGameDetails}>
+                  {/* <div className={styles.modalGameDetails}>
                     <span className={styles.modalGameRegion}>Регион : {game.region}</span>
-                  </div>
+                  </div> */}
                 </div>
 
                 {/* Play indicator */}
@@ -523,9 +521,9 @@ const RomSelector = ({
             {/* Game information (name, category, region) */}
             <div className={styles.tileInfo}>
               <h4 className={styles.tileName}> {game.name}</h4>
-              <div className={styles.tileDetails}>
+              {/* <div className={styles.tileDetails}>
                 <span className={styles.tileRegion}>Регион :{game.region}</span>
-              </div>
+              </div> */}
             </div>
             {/* Play button overlay */}
             <div className={styles.tileOverlay}>
@@ -940,51 +938,12 @@ const ExternalEmulator = () => {
               <h3>🎮 {selectedRom.name}</h3>
               <div className={styles.gameDetails}>
                 <p>Консоль: {selectedConsole?.name}</p>
-                {!isMobile && <p>Категория: {selectedRom.category}</p>}
-                <p>Регион: {selectedRom.region}</p>
+                {/* {!isMobile && <p>Категория: {selectedRom.category}</p>} */}
+                {/* <p>Регион: {selectedRom.region}</p> */}
               </div>
             </div>
           )}
 
-          {/* Controls guide section (desktop only) */}
-          {!isMobile && (
-            <div className={styles.accordionSection}>
-              <button
-                className={styles.accordionHeader}
-                onClick={() => setIsControlsOpen(!isControlsOpen)}
-                onTouchStart={(e) => {
-                  e.currentTarget.style.transform = 'scale(0.98)';
-                }}
-                onTouchEnd={(e) => {
-                  e.currentTarget.style.transform = '';
-                }}
-              >
-                <span>🕹️ Управление</span>
-                <span className={styles.accordionIcon}>
-                  {isControlsOpen ? '▼' : '▶'}
-                </span>
-              </button>
-              {isControlsOpen && (
-                <div className={styles.accordionContent}>
-                  <div className={styles.controlsGuide}>
-                    <h4 className={styles.controlsTitle}>Управление (клавиатура)</h4>
-                    <div className={styles.controlsGrid}>
-                      <div className={styles.controlItem}><span>Вверх</span><kbd>↑</kbd></div>
-                      <div className={styles.controlItem}><span>Вниз</span><kbd>↓</kbd></div>
-                      <div className={styles.controlItem}><span>Влево</span><kbd>←</kbd></div>
-                      <div className={styles.controlItem}><span>Вправо</span><kbd>→</kbd></div>
-                      <div className={styles.controlItem}><span>Кнопка A</span><kbd>Z</kbd></div>
-                      <div className={styles.controlItem}><span>Кнопка B</span><kbd>X</kbd></div>
-                      <div className={styles.controlItem}><span>Start</span><kbd>Enter</kbd></div>
-                      <div className={styles.controlItem}><span>Select</span><kbd>V</kbd></div>
-                      <div className={styles.controlItem}><span>Сохранить</span><kbd>1</kbd></div>
-                      <div className={styles.controlItem}><span>Загрузить</span><kbd>2</kbd></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
 
           {/* Main emulator iframe or placeholder */}
           <div className={styles.iframeContainer}>
@@ -1009,7 +968,7 @@ const ExternalEmulator = () => {
               <div className={styles.placeholderContainer}>
                 <div className={styles.placeholderContent}>
                   <h3>🎮 Выберите игру</h3>
-                  <p>Кликните на игру в списке слева, чтобы начать играть</p>
+                  <p>Кликните на игру, чтобы начать играть</p>
                   <p style={{ fontSize: '0.8rem', color: '#888' }}>
                     Debug: {isMobile ? 'Mobile' : 'Desktop'} - {window.innerWidth}x{window.innerHeight}
                   </p>

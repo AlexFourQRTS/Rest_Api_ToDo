@@ -8,18 +8,18 @@ import { ToastProvider } from "./context/ToastContext";
 
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
-import News from "./pages/About/News/News";
+// import News from "./pages/About/News/News";
 import Portfolio from "./pages/About/Portfolio/Portfolio";
 import WhyUs from "./pages/About/WhyUs/WhyUs";
 import Skills from "./pages/About/Skills/Skills";
 import Tools from "./pages/Tools/Tools";
 import Camera from "./pages/Tools/Camera/Camera";
-import Converter from "./pages/Tools/Converter/Converter";
+// import Converter from "./pages/Tools/Converter/Converter";
 import Microphone from "./pages/Tools/Microphone/Microphone";
 import IP from "./pages/Tools/IP/IP";
 import ToneGenerator from "./pages/Tools/ToneGenerator/ToneGenerator";
-import Paint from "./pages/Tools/Paint/Paint";
-import Chat from "./pages/Chat/Chat";
+// import Paint from "./pages/Tools/Paint/Paint";
+// import Chat from "./pages/Chat/Chat";
 import Blog from "./pages/Blog/Blog";
 import Profile from "./pages/Profile/Profile";
 import Games from "./pages/Games/Games";
@@ -27,7 +27,7 @@ import Games from "./pages/Games/Games";
 import FileCloud from "./pages/FileCloud/FileCloud";
 import FileDetail from "./pages/FileCloud/components/FileDetail/FileDetail";
 
-import FAQ from "./pages/FQA/FAQ";
+// import FAQ from "./pages/FQA/FAQ";
 
 import FooterPage from "./pages/Footer/Footer";
 
@@ -69,23 +69,23 @@ function App() {
                   <Routes>
                     <Route path={routes.home} element={<Home />} />
                     <Route path={routes.about} element={<About />} />
-                    <Route path={routes.news} element={<News />} />
+                    {/* <Route path={routes.news} element={<News />} /> */}
                     <Route path={routes.portfolio} element={<Portfolio />} />
                     <Route path={routes.whyus} element={<WhyUs />} />
                     <Route path={routes.skills} element={<Skills />} />
                     <Route path={routes.tools} element={<Tools />} />
                     <Route path={routes.camera} element={<Camera />} />
-                    <Route path={routes.converter} element={<Converter />} />
+                    {/* <Route path={routes.converter} element={<Converter />} /> */}
                     <Route path={routes.microphone} element={<Microphone />} />
                     <Route path={routes.ip} element={<IP />} />
                     <Route path={routes.tone_generator} element={<ToneGenerator />} />
                     <Route path={routes.blog} element={<Blog />} />
                     <Route path={routes.filecloud} element={<FileCloud />} />
                     <Route path={routes.fileDetail} element={<FileDetail />} />
-                    <Route path={routes.faq} element={<FAQ />} />
+                    {/* <Route path={routes.faq} element={<FAQ />} /> */}
                     <Route path={routes.profile} element={<Profile />} />
-                    <Route path={routes.paint} element={<Paint />} />
-                    <Route path={routes.chat} element={<Chat />} />
+                    {/* <Route path={routes.paint} element={<Paint />} /> */}
+                    {/* <Route path={routes.chat} element={<Chat />} /> */}
                     <Route path={routes.games} element={<Games />} />
                     <Route path="*" element={<NotFoundPage />} />
                   </Routes>

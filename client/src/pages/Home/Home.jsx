@@ -52,12 +52,12 @@ const routesInfo = [
     title: "contact_title",
     description: "contact_description",
   },
-  {
-    path: "/faq",
-    id: "faq",
-    title: "faq_title",
-    description: "faq_description",
-  },
+  // {
+  //   path: "/faq",
+  //   id: "faq",
+  //   title: "faq_title",
+  //   description: "faq_description",
+  // },
 ];
 
 const Home = () => {
@@ -147,7 +147,7 @@ const Home = () => {
             className={styles.pandaText}
             variants={textVariants}
           >
-            Panda
+           DEV Hub
           </motion.h2>
           <motion.p
             className={styles.buildText}

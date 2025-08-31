@@ -6,8 +6,8 @@ const translations = {
   // Украинский
   uk: {
     // Основные элементы навбара
-    brand: '🐼 Панда',
-    subtitle: 'Хаб Розробника',
+    brand: 'DEV Hub',
+    subtitle: ' ',
     
     // Меню "Про мене"
     aboutMe: 'Про мене',
@@ -17,7 +17,7 @@ const translations = {
       portfolio: 'Портфоліо',
       skills: 'Навички',
       services: 'Сервіси',
-      news: 'Новини'
+      // news: 'Новини'
     },
     
     // Меню "Інструменти"
@@ -26,10 +26,10 @@ const translations = {
     toolsItems: {
       camera: 'Камера',
       microphone: 'Микрофон',
-      converter: 'Конвертор',
+      // converter: 'Конвертор',
       ip: 'Ваш IP',
       toneGenerator: 'Тон-генератор',
-      paint: 'Paint'
+      // paint: 'Paint'
     },
     
     // Остальные пункты меню
@@ -37,8 +37,8 @@ const translations = {
     games: 'Ігри',
     blog: 'Блог',
     files: 'Файли',
-    faq: 'FAQ',
-    profile: 'Мій Профіль',
+    // faq: 'FAQ',
+    profile: 'Профіль',
     
     // Кнопки
     openMenu: 'Відкрити меню',
@@ -55,8 +55,8 @@ const translations = {
   
   // Русский
   ru: {
-    brand: '🐼 Панда',
-    subtitle: 'Хаб Разработчика',
+    brand: 'DEV Hub',
+    subtitle: ' ',
     
     aboutMe: 'Обо мне',
     aboutMeDropdown: 'Обо мне',
@@ -65,7 +65,7 @@ const translations = {
       portfolio: 'Портфолио',
       skills: 'Навыки',
       services: 'Сервисы',
-      news: 'Новости'
+      // news: 'Новости'
     },
     
     tools: 'Инструменты',
@@ -73,18 +73,18 @@ const translations = {
     toolsItems: {
       camera: 'Камера',
       microphone: 'Микрофон',
-      converter: 'Конвертер',
+      // converter: 'Конвертер',
       ip: 'Ваш IP',
       toneGenerator: 'Тон-генератор',
-      paint: 'Paint'
+      // paint: 'Paint'
     },
     
     chat: 'Чат',
     games: 'Игры',
     blog: 'Блог',
     files: 'Файлы',
-    faq: 'FAQ',
-    profile: 'Мой Профиль',
+    // faq: 'FAQ',
+    profile: 'Профиль',
     
     openMenu: 'Открыть меню',
     closeMenu: 'Закрыть меню',
@@ -99,8 +99,8 @@ const translations = {
   
   // Английский
   en: {
-    brand: '🐼 Panda',
-    subtitle: 'Developer Hub',
+    brand: 'DEV Hub',
+    subtitle: ' ',
     
     aboutMe: 'About Me',
     aboutMeDropdown: 'About Me',
@@ -109,7 +109,7 @@ const translations = {
       portfolio: 'Portfolio',
       skills: 'Skills',
       services: 'Services',
-      news: 'News'
+      // news: 'News'
     },
     
     tools: 'Tools',
@@ -117,18 +117,18 @@ const translations = {
     toolsItems: {
       camera: 'Camera',
       microphone: 'Microphone',
-      converter: 'Converter',
+      // converter: 'Converter',
       ip: 'Your IP',
       toneGenerator: 'Tone Generator',
-      paint: 'Paint'
+      // paint: 'Paint'
     },
     
     chat: 'Chat',
     games: 'Games',
     blog: 'Blog',
     files: 'Files',
-    faq: 'FAQ',
-    profile: 'My Profile',
+    // faq: 'FAQ',
+    profile: 'Profile',
     
     openMenu: 'Open Menu',
     closeMenu: 'Close Menu',
@@ -143,8 +143,8 @@ const translations = {
   
   // Французский
   fr: {
-    brand: '🐼 Panda',
-    subtitle: 'Hub Développeur',
+   brand: 'DEV Hub',
+    subtitle: ' ',
     
     aboutMe: 'À propos',
     aboutMeDropdown: 'À propos',
@@ -153,7 +153,7 @@ const translations = {
       portfolio: 'Portfolio',
       skills: 'Compétences',
       services: 'Services',
-      news: 'Actualités'
+      // news: 'Actualités'
     },
     
     tools: 'Outils',
@@ -161,18 +161,18 @@ const translations = {
     toolsItems: {
       camera: 'Caméra',
       microphone: 'Microphone',
-      converter: 'Convertisseur',
+      // converter: 'Convertisseur',
       ip: 'Votre IP',
       toneGenerator: 'Générateur de tons',
-      paint: 'Paint'
+      // paint: 'Paint'
     },
     
     chat: 'Chat',
     games: 'Jeux',
     blog: 'Blog',
     files: 'Fichiers',
-    faq: 'FAQ',
-    profile: 'Mon Profil',
+    // faq: 'FAQ',
+    profile: 'Profil',
     
     openMenu: 'Ouvrir le menu',
     closeMenu: 'Fermer le menu',
@@ -187,8 +187,8 @@ const translations = {
   
   // Испанский
   es: {
-    brand: '🐼 Panda',
-    subtitle: 'Hub de Desarrollador',
+    brand: 'DEV Hub',
+    subtitle: ' ',
     
     aboutMe: 'Sobre mí',
     aboutMeDropdown: 'Sobre mí',
@@ -197,7 +197,7 @@ const translations = {
       portfolio: 'Portafolio',
       skills: 'Habilidades',
       services: 'Servicios',
-      news: 'Noticias'
+      // news: 'Noticias'
     },
     
     tools: 'Herramientas',
@@ -205,18 +205,18 @@ const translations = {
     toolsItems: {
       camera: 'Cámara',
       microphone: 'Micrófono',
-      converter: 'Convertidor',
+      // converter: 'Convertidor',
       ip: 'Tu IP',
       toneGenerator: 'Generador de tonos',
-      paint: 'Paint'
+      // paint: 'Paint'
     },
     
     chat: 'Chat',
     games: 'Juegos',
     blog: 'Blog',
     files: 'Archivos',
-    faq: 'FAQ',
-    profile: 'Mi Perfil',
+    // faq: 'FAQ',
+    profile: 'Perfil',
     
     openMenu: 'Abrir menú',
     closeMenu: 'Cerrar menú',
@@ -231,8 +231,8 @@ const translations = {
   
   // Португальский
   pt: {
-    brand: '🐼 Panda',
-    subtitle: 'Hub do Desenvolvedor',
+    brand: 'DEV Hub',
+    subtitle: ' ',
     
     aboutMe: 'Sobre mim',
     aboutMeDropdown: 'Sobre mim',
@@ -241,7 +241,7 @@ const translations = {
       portfolio: 'Portfólio',
       skills: 'Habilidades',
       services: 'Serviços',
-      news: 'Notícias'
+      // news: 'Notícias'
     },
     
     tools: 'Ferramentas',
@@ -249,18 +249,18 @@ const translations = {
     toolsItems: {
       camera: 'Câmera',
       microphone: 'Microfone',
-      converter: 'Conversor',
+      // converter: 'Conversor',
       ip: 'Seu IP',
       toneGenerator: 'Gerador de tons',
-      paint: 'Paint'
+      // paint: 'Paint'
     },
     
     chat: 'Chat',
     games: 'Jogos',
     blog: 'Blog',
     files: 'Arquivos',
-    faq: 'FAQ',
-    profile: 'Meu Perfil',
+    // faq: 'FAQ',
+    profile: 'Perfil',
     
     openMenu: 'Abrir menu',
     closeMenu: 'Fechar menu',

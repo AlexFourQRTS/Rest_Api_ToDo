@@ -16,7 +16,7 @@ import {
 export const ProfileSidebar = ({ userData, selectedItem, onSelectItem, isOpen, onClose }) => {
   const menuItems = [
     { id: 'overview', label: 'Особистий кабінет', icon: <FaHome /> },
-    { id: 'messages', label: 'Особисті повідомлення', icon: <FaEnvelope /> },
+    { id: 'messages', label: 'Повідомлення', icon: <FaEnvelope /> },
     { id: 'files', label: 'Особисті файли', icon: <FaCloud /> },
     { id: 'saved', label: 'Збережені матеріали', icon: <FaSave /> },
     { id: 'friends', label: 'Друзі', icon: <FaUserFriends /> },
