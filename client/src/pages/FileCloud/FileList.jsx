@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { useToast } from '../../context/ToastContext';
 import styles from './style/FileLists.module.css';
-import { FaFileImage, FaFileVideo, FaFileAudio, FaFileAlt, FaFile, FaPlay, FaDownload, FaTrash, FaCopy, FaLink } from 'react-icons/fa'; // Removed unused icons
+import { FaFileImage, FaFileVideo, FaFileAudio, 
+  FaFileAlt, FaFile, FaPlay, FaDownload, 
+  FaTrash, FaCopy, FaLink } from 'react-icons/fa'; // Removed unused icons
 
 // Access the API URL from environment variables
 const BASE_URL = process.env.REACT_APP_API_URL;
@@ -25,7 +27,7 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
   const handleDelete = async (fileId) => {
     try {
       setIsDeleting(true);
-      const response = await fetch(`${BASE_URL}/api/api/files/number${fileId}`, {
+      const response = await fetch(`${BASE_URL}/api/files/number${fileId}`, {
         method: 'DELETE',
       });
 
