@@ -79,9 +79,6 @@ export const NotFoundPage = () => {
 
         <div className={styles.errorContent}>
           <h1>Oops! Страница не найдена</h1>
-          <p className={styles.errorMessage}>
-            Кажется, страница, которую вы ищете, заблудилась в цифровом бамбуковом лесу. Не волнуйтесь, даже лучшие разработчики иногда теряются!
-          </p>
 
           <div className={styles.errorSuggestions}>
             <h3>Что произошло?</h3>
@@ -94,7 +91,7 @@ export const NotFoundPage = () => {
           </div>
 
           <div className={styles.errorActions}>
-            <h3>Что можно сделать?</h3>
+           
             <div className={styles.actionButtons}>
               <Link to={routes.home} className={`${styles.actionBtn} ${styles.primary}`}>
                 <span className={styles.btnIcon}>🏠</span>
@@ -108,11 +105,11 @@ export const NotFoundPage = () => {
                 Назад
               </button>
               <Link
-                to={routes.contact}
+                to={routes.games}
                 className={`${styles.actionBtn} ${styles.secondary}`}
               >
-                <span className={styles.btnIcon}>📧</span>
-                Сообщить о проблеме
+                <span className={styles.btnIcon}>🎮</span>
+                Эмуляторы
               </Link>
             </div>
           </div>
@@ -120,30 +117,16 @@ export const NotFoundPage = () => {
           <div className={styles.quickLinks}>
             <h3>Быстрая навигация</h3>
             <div className={styles.navGrid}>
+
               <Link
-                to={routes.about}
-                className={styles.quickNavItem}
-                onClick={handleQuickNavClick}
-              >
-                <div className={styles.navIcon}>👤</div>
-                <span>Обо мне</span>
-              </Link>
-              <Link
-                to={routes.testimonials}
+                to={routes.blog}
                 className={styles.quickNavItem}
                 onClick={handleQuickNavClick}
               >
                 <div className={styles.navIcon}>📖</div>
                 <span>Блог</span>
               </Link>
-              <Link
-                to={routes.portfolio}
-                className={styles.quickNavItem}
-                onClick={handleQuickNavClick}
-              >
-                <div className={styles.navIcon}>🎬</div>
-                <span>Портфолио</span>
-              </Link>
+
               <Link
                 to={routes.filecloud}
                 className={styles.quickNavItem}
@@ -152,21 +135,21 @@ export const NotFoundPage = () => {
                 <div className={styles.navIcon}>📊</div>
                 <span>FileCloud</span>
               </Link>
-              <Link
+              {/* <Link
                 to={routes.experiments}
                 className={styles.quickNavItem}
                 onClick={handleQuickNavClick}
               >
                 <div className={styles.navIcon}>🧪</div>
                 <span>Эксперименты</span>
-              </Link>
+              </Link> */}
               <Link
-                to={routes.whyus}
+                to={routes.chat}
                 className={styles.quickNavItem}
                 onClick={handleQuickNavClick}
               >
                 <div className={styles.navIcon}>💬</div>
-                <span>Чат</span>
+                <span>Обсуждение</span>
               </Link>
             </div>
           </div>

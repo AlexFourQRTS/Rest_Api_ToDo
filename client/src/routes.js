@@ -4,23 +4,25 @@ export const routes = {
   register: '/register',
   user: '/user',
   admin: '/admin',
+
   about: '/about',
-  // news: '/news',
+  news: '/news',
   portfolio: '/portfolio',
   whyus: '/whyus',
   skills: '/skills',
+
   tools: '/tools',
   camera: '/tools/camera',
-  // converter: '/tools/converter',
+
   microphone: '/tools/microphone',
   ip: '/tools/ip',
   tone_generator: '/tools/tone_generator',
-  // paint: '/tools/paint',
-  // chat: '/chat',
+
+  chat: '/chat',
   blog: '/blog',
   filecloud: '/filecloud',
   fileDetail: '/filecloud/:fileId',
-  // faq: '/faq',
+
   profile: '/profile',
   games: '/games',
   notFound: '*',

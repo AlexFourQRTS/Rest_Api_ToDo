@@ -94,7 +94,7 @@ const Profile = () => {
         icon: <FaVideo />
       },
       chat: {
-        title: 'Чат',
+        title: 'Беседка',
         description: 'Миттєвий обмін повідомленнями з друзями та колегами. Групові чати та обмін файлами.',
         icon: <FaComments />
       },

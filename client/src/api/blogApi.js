@@ -1,12 +1,10 @@
-// src/api/blogApi.js
-
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL ;
 
 export const getArticles = async (limit = 10, offset = 0, category = 'all', searchTerm = '') => {
     try {
-        const response = await axios.get(`${API_URL}/blog`, {
+        const response = await axios.get(`${API_URL}/api/api/blog`, {
             params: {
                 limit,
                 page: Math.floor(offset / limit) + 1,
@@ -22,7 +20,7 @@ export const getArticles = async (limit = 10, offset = 0, category = 'all', sear
 
 export const getArticleById = async (id) => {
     try {
-        const response = await axios.get(`${API_URL}/blog/${id}`);
+        const response = await axios.get(`${API_URL}/api/api/blog/${id}`);
         return response.data;
     } catch (error) {
         throw error;
@@ -31,7 +29,7 @@ export const getArticleById = async (id) => {
 
 export const addArticle = async (newArticle) => {
     try {
-        const response = await axios.post(`${API_URL}/blog`, newArticle);
+        const response = await axios.post(`${API_URL}/api/api/blog`, newArticle);
         return response.data;
     } catch (error) {
         throw error;
@@ -40,7 +38,7 @@ export const addArticle = async (newArticle) => {
 
 export const updateArticle = async (id, updatedArticle) => {
     try {
-        const response = await axios.patch(`${API_URL}/blog/${id}`, updatedArticle);
+        const response = await axios.patch(`${API_URL}/api/api/blog/${id}`, updatedArticle);
         return response.data;
     } catch (error) {
         throw error;
@@ -49,7 +47,7 @@ export const updateArticle = async (id, updatedArticle) => {
 
 export const deleteArticle = async (id) => {
     try {
-        await axios.delete(`${API_URL}/blog/${id}`);
+        await axios.delete(`${API_URL}/api/api/blog/${id}`);
         return { success: true };
     } catch (error) {
         throw error;

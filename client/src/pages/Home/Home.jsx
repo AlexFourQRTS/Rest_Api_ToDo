@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import translations from "./homeTranslations.json";
@@ -10,59 +10,66 @@ const languages = [
   { code: "en", name: "English" },
   { code: "ru", name: "Русский" },
   { code: "uk", name: "Українська" },
-  { code: "es", name: "Español" },
-  { code: "fr", name: "Français" },
-  { code: "pt", name: "Português" },
 ];
 
 const routesInfo = [
   {
-    path: "/about",
-    id: "about",
-    title: "about_title",
-    description: "about_description",
-  },
-  {
-    path: "/services",
-    id: "services",
-    title: "services_title",
-    description: "services_description",
-  },
-  {
-    path: "/portfolio",
-    id: "portfolio",
-    title: "portfolio_title",
-    description: "portfolio_description",
-  },
-  {
-    path: "/whyus",
-    id: "whyus",
-    title: "whyus_title",
-    description: "whyus_description",
-  },
-  {
     path: "/skills",
-    id: "skills",
     title: "skills_title",
     description: "skills_description",
+    iconKey: "skills_icon",
   },
   {
-    path: "/contact",
-    id: "contact",
-    title: "contact_title",
-    description: "contact_description",
+    path: "/filecloud",
+    title: "filecloud",
+    description: "filecloud_description",
+    iconKey: "filecloud_icon",
   },
-  // {
-  //   path: "/faq",
-  //   id: "faq",
-  //   title: "faq_title",
-  //   description: "faq_description",
-  // },
+  {
+    path: "/games",
+    title: "emul_page",
+    description: "emul_page_description",
+    iconKey: "emul_icon",
+  },
+  {
+    path: "/alavar",
+    title: "alavar_page",
+    description: "alavar_page_description",
+    iconKey: "alavar_icon",
+  },
+  {
+    path: "/programs",
+    title: "programm_page",
+    description: "programm_page_description",
+    iconKey: "programm_icon",
+  },
+  {
+    path: "/forum",
+    title: "forum_page",
+    description: "forum_page_description",
+    iconKey: "forum_icon",
+  },
+  {
+    path: "/blog",
+    title: "blog_page",
+    description: "blog_description",
+    iconKey: "blog_icon",
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    title: "err_page",
+    description: "err_page_description",
+    iconKey: "err_icon",
+  },
 ];
 
 const Home = () => {
   const [language, setLanguage] = useState("en");
   const t = translations[language];
+
+  useEffect(() => {
+    feather.replace();
+  }, [language]);
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -74,19 +81,9 @@ const Home = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  const pathVariants = {
-    hidden: { pathLength: 0, opacity: 0 },
-    visible: { pathLength: 1, opacity: 1, transition: { duration: 1, ease: "easeInOut" } },
-  };
-
   const textVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: 1.2 } },
-  };
-
-  const personVariants = {
-    hidden: { opacity: 0, x: 20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5, delay: 1.5 } },
   };
 
   return (
@@ -115,48 +112,44 @@ const Home = () => {
         initial="hidden"
         animate="visible"
       >
-        <Hero title={t.title}
-        subtitle={t.intro} />
-        
+        <Hero title={t.title} subtitle={t.intro} />
+
         <div className={styles.routes}>
-          {routesInfo.map((route, index) => (
+          {routesInfo.map((route) => (
             <motion.div
-              key={route.id}
+              key={route.path}
               className={styles.routeCard}
               variants={cardVariants}
               initial="hidden"
               animate="visible"
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
               whileHover={{ scale: 1.03 }}
             >
-              <h2 className={styles.routeTitle}>{t[route.title]}</h2>
-              <p className={styles.routeDescription}>{t[route.description]}</p>
+
+
+              {t[route.iconKey] && (
+                <div
+                  className={styles.routeIcon}
+                  dangerouslySetInnerHTML={{
+                    __html: feather.icons[t[route.iconKey]].toSvg({
+                      strokeWidth: 2,
+                      width: 40,
+                      height: 40,
+                    }),
+                  }}
+                />
+              )}
+              <h2 className={styles.routeTitle}>
+                <p className={styles.routeDescription}>{t[route.description]}</p>
+              </h2>
+
               <Link to={route.path} className={styles.routeLink}>
-                {t.explore}
+                {t[route.title]}
               </Link>
             </motion.div>
           ))}
         </div>
 
-        <motion.div
-          className={styles.animationSection}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.h2
-            className={styles.pandaText}
-            variants={textVariants}
-          >
-           DEV Hub
-          </motion.h2>
-          <motion.p
-            className={styles.buildText}
-            variants={textVariants}
-            transition={{ delay: 1.8 }}
-          >
-            {t.build_message}
-          </motion.p>
-        </motion.div>
       </motion.section>
     </div>
   );

@@ -15,20 +15,20 @@ const Footer = () => {
 
   const quickLinks = [
     { name: "Головна", href: "/" },
-    { name: "Портфоліо", href: "/portfolio" },
-    // { name: "Чат", href: "/chat" },
+    // { name: "Портфоліо", href: "/portfolio" },
+    { name: "Обсуждение", href: "/chat" },
     { name: "Ігри", href: "/games" },
-    { name: "Навички", href: "/skills" },
+    // { name: "Навички", href: "/skills" },
     { name: "Блог", href: "/blog" },
     { name: "Файли", href: "/filecloud" },
-    { name: "Про нас", href: "/about" },
+    // { name: "Про нас", href: "/about" },
     // { name: "FAQ", href: "/faq" }
   ];
 
   const services = [
-    "Розробка",
-    "Консультації",
-    "Навчання"
+    // "Розробка",
+    // "Консультації",
+    // "Навчання"
   ];
 
   return (
@@ -77,7 +77,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className={styles.footer__services}>
+          {/* <div className={styles.footer__services}>
             <h3 className={styles.footer__servicesTitle}>Сервіси</h3>
             <ul className={styles.footer__servicesList}>
               {services.map((service, index) => (
@@ -88,7 +88,7 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
 
           <div className={styles.footer__contact}>
             <h3 className={styles.footer__contactTitle}>Контакти</h3>
@@ -114,6 +114,7 @@ const Footer = () => {
         </div>
 
         <div className={styles.footer__divider}>
+
           <div className={styles.footer__bottom}>
             <p className={styles.footer__copyright}>
               © {currentYear} <span className={styles.footer__copyrightName}>Oleksandr Maliuk</span> Всі права захищені.
@@ -123,7 +124,9 @@ const Footer = () => {
               <Link to="/terms" className={styles.footer__legalLink}>Умови використання</Link>
             </div>
           </div>
+
         </div>
+
       </div>
     </footer>
   );

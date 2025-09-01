@@ -98,7 +98,7 @@ const Navbar = () => {
       { to: routes.portfolio, label: t('aboutMeItems.portfolio'), icon: "folder" },
       { to: routes.skills, label: t('aboutMeItems.skills'), icon: "code" },
       { to: routes.whyus, label: t('aboutMeItems.services'), icon: "briefcase" },
-      // { to: routes.news, label: t('aboutMeItems.news'), icon: "briefcase" }
+      { to: routes.news, label: t('aboutMeItems.news'), icon: "briefcase" }
     ];
 
     return (
@@ -214,15 +214,15 @@ const Navbar = () => {
 
         {!isMobile && (
           <ul className={styles.navMenu}>
-            <li className={styles.navItem}>
+            {/* <li className={styles.navItem}>
               <AboutDropdownMenu />
-            </li>
+            </li> */}
             <li className={styles.navItem}>
               <ToolsDropdownMenu />
             </li>
-            {/* <li className={styles.navItem}>
+            <li className={styles.navItem}>
               <NavLink to={routes.chat} label={t('chat')} icon="message-circle" />
-            </li> */}
+            </li>
             <li className={styles.navItem}>
               <NavLink to={routes.games} label={t('games')} icon="play" />
             </li>

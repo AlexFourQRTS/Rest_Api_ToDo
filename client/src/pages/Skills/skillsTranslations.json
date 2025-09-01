@@ -1,0 +1,68 @@
+{
+  "en": {
+    "title": "My Skills",
+    "servicesSection": "Services",
+    "skillsSection": "Technologies",
+    "toolsSection": "Tools",
+    "cta": "Contact Me",
+    "services": [
+      {
+        "name": "Parsers Development",
+        "description": "Building parsers using Puppeteer for WebSocket-based admin panels, desktop apps for remote servers, and scripts for data processing."
+      },
+      {
+        "name": "Mini Servers",
+        "description": "Developing servers for database interaction via web or desktop interfaces, managing images."
+      },
+      {
+        "name": "Blog Creation",
+        "description": "Creating blogs from scratch with an admin panel editor for adding, editing, and deleting content."
+      },
+      {
+        "name": "API Integration",
+        "description": "Integrating external APIs into websites or applications based on client requirements."
+      },
+      {
+        "name": "SEO Metadata",
+        "description": "Automatic generation of SEO metadata, adding tags to the database when products are uploaded."
+      },
+      {
+        "name": "Data Processing",
+        "description": "Scripts for processing data arrays, finding duplicates, transferring data to Excel, and updating sitemaps."
+      }
+    ]
+  }, 
+  "ru": {
+    "title": "Мои Навыки",
+    "servicesSection": "Услуги",
+    "skillsSection": "Технологии",
+    "toolsSection": "Инструменты",
+    "cta": "Связаться со мной",
+    "services": [
+      {
+        "name": "Разработка Парсеров",
+        "description": "Создание парсеров с использованием Puppeteer для веб-сокетов в админке, десктопных приложений для удаленных серверов, скриптов для обработки данных."
+      },
+      {
+        "name": "Мини-Серверы",
+        "description": "Разработка серверов для работы с базами данных через веб или десктопный интерфейс, управление изображениями."
+      },
+      {
+        "name": "Создание Блогов",
+        "description": "Разработка блогов с нуля с редактором в админке для добавления, редактирования и удаления контента."
+      },
+      {
+        "name": "Интеграция API",
+        "description": "Интеграция внешних API в веб-сайты или приложения по требованиям заказчика."
+      },
+      {
+        "name": "SEO Метаданные",
+        "description": "Автоматическая генерация метаданных для SEO, добавление тегов в базу данных при загрузке товаров."
+      },
+      {
+        "name": "Обработка Данных",
+        "description": "Скрипты для обработки массивов данных, поиска дубликатов, переноса данных в Excel, обновления карт сайта."
+      }
+    ]
+  }
+}

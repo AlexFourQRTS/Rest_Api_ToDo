@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import translations from "./skillsTranslations.json";
 import styles from "./Skills.module.css";
-import Hero from "../../../components/UI/Hero/Hero";
+import Hero from "../../components/UI/Hero/Hero";
 
 const servicesIcons = [
   { name: "Parsers Development", icon: "https://cdn.simpleicons.org/puppeteer/40c4ff" },
@@ -38,9 +38,7 @@ const languages = [
   
   { code: "en", name: "English" },
   { code: "ru", name: "Русский" },
-  { code: "es", name: "Español" },
-  { code: "fr", name: "Français" },
-  { code: "pt", name: "Português" },
+
 ];
 
 const Skills = () => {
@@ -116,11 +114,6 @@ const Skills = () => {
         </div>
       </section>
 
-      <section className={styles.cta}>
-        <a href="/contact" className={styles.ctaButton}>
-          {t.cta}
-        </a>
-      </section>
     </div>
   );
 };

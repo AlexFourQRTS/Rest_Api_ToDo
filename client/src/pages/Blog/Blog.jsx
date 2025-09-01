@@ -51,7 +51,7 @@ const Blog = () => {
         setUser(userData);
 
         // Fetch articles
-        const response = await axios.get(`${BASE_URL}/api/blog`, {
+        const response = await axios.get(`${BASE_URL}/api/api/blog`, {
           params: {
             limit: ITEMS_PER_PAGE,
             page: page,
@@ -94,7 +94,7 @@ const Blog = () => {
 
   const handleDeleteConfirm = async () => {
     try {
-      await axios.delete(`${BASE_URL}/api/blog/${articleToDelete}`);
+      await axios.delete(`${BASE_URL}/api/api/blog/${articleToDelete}`);
       setArticles(articles.filter(article => article.id !== articleToDelete));
       toast.success('Статья успешно удалена');
     } catch (err) {
@@ -113,7 +113,7 @@ const Blog = () => {
 
   const handleCreateArticle = async (articleData) => {
     try {
-      const response = await axios.post(`${BASE_URL}/api/blog`, articleData);
+      const response = await axios.post(`${BASE_URL}/api/api/blog`, articleData);
       setArticles([...articles, response.data]);
       setIsCreating(false);
       toast.success('Статья успешно создана');
