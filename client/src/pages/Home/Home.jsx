@@ -7,9 +7,10 @@ import * as feather from "feather-icons";
 import Hero from "../../components/UI/Hero/Hero";
 
 const languages = [
+  { code: "uk", name: "Українська" },
   { code: "en", name: "English" },
   { code: "ru", name: "Русский" },
-  { code: "uk", name: "Українська" },
+  
 ];
 
 const routesInfo = [

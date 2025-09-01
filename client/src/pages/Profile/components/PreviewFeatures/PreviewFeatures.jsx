@@ -14,11 +14,6 @@ const PreviewFeatures = () => {
       description: 'Доступ до чату та особистих повідомлень'
     },
     {
-      icon: 'cloud',
-      title: 'Особисті файли',
-      description: 'Зберігання та керування вашими файлами'
-    },
-    {
       icon: 'bookmark',
       title: 'Збережені матеріали',
       description: 'Доступ до збережених статей та матеріалів'

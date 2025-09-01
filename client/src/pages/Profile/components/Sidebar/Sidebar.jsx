@@ -20,31 +20,7 @@ const Sidebar = () => {
       title: "Друзі",
       path: "/friends",
     },
-    {
-      icon: "image",
-      title: "Фотографії",
-      path: "/photos",
-    },
-    {
-      icon: "music",
-      title: "Музика",
-      path: "/music",
-    },
-    {
-      icon: "video",
-      title: "Відео",
-      path: "/videos",
-    },
-    {
-      icon: "file",
-      title: "Файли",
-      path: routes.filecloud,
-    },
-    {
-      icon: "bookmark",
-      title: "Збережені матеріали",
-      path: "/saved",
-    },
+
     {
       icon: "settings",
       title: "Налаштування",

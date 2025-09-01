@@ -17,13 +17,8 @@ export const ProfileSidebar = ({ userData, selectedItem, onSelectItem, isOpen, o
   const menuItems = [
     { id: 'overview', label: 'Особистий кабінет', icon: <FaHome /> },
     { id: 'messages', label: 'Повідомлення', icon: <FaEnvelope /> },
-    { id: 'files', label: 'Особисті файли', icon: <FaCloud /> },
-    { id: 'saved', label: 'Збережені матеріали', icon: <FaSave /> },
     { id: 'friends', label: 'Друзі', icon: <FaUserFriends /> },
-    { id: 'photos', label: 'Фото', icon: <FaImages /> },
-    { id: 'videos', label: 'Відео', icon: <FaVideo /> },
-    { id: 'chat', label: 'Чат', icon: <FaComments /> },
-    { id: 'settings', label: 'Налаштування', icon: <FaCog /> },
+    { id: 'chat', label: 'Беседка', icon: <FaComments /> },
   ];
 
   if (userData && userData.role === 'admin') {

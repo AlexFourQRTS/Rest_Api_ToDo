@@ -4,7 +4,7 @@ const API_URL = `${BASE_URL}/api`;
 export const authApi = {
   async login(credentials) {
     try {
-      const response = await fetch(`${API_URL}/auth/login`, {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,7 +28,7 @@ export const authApi = {
 
   async register(userData) {
     try {
-      const response = await fetch(`${API_URL}/auth/register`, {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export const authApi = {
         return null;
       }
 
-      const response = await fetch(`${API_URL}/auth/profile`, {
+      const response = await fetch(`${API_URL}/api/auth/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -77,7 +77,7 @@ export const authApi = {
     try {
       const token = localStorage.getItem('token');
       if (token) {
-        await fetch(`${API_URL}/auth/logout`, {
+        await fetch(`${API_URL}/api/auth/logout`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -96,7 +96,7 @@ export const authApi = {
       if (!token) {
         return null;
       }
-      const response = await fetch(`${API_URL}/auth/refresh`, {
+      const response = await fetch(`${API_URL}/api/auth/refresh`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -123,7 +123,7 @@ export const authApi = {
         throw new Error('Не авторизовано');
       }
 
-      const response = await fetch(`${API_URL}/auth/change-password`, {
+      const response = await fetch(`${API_URL}/api/auth/change-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -150,7 +150,7 @@ export const authApi = {
         throw new Error('Не авторизовано');
       }
 
-      const response = await fetch(`${API_URL}/auth/admin/users`, {
+      const response = await fetch(`${API_URL}/api/auth/admin/users`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

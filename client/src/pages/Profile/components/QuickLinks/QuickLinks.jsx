@@ -8,11 +8,11 @@ export const QuickLinks = () => {
     {
       to: '/chat',
       icon: <FaComments />,
-      title: 'Чат',
+      title: 'Беседка',
       description: 'Спілкування з друзями та колегами'
     },
     {
-      to: '/files',
+      to: '/filecloud',
       icon: <FaCloud />,
       title: 'Файли',
       description: 'Доступ до ваших файлів'
@@ -24,11 +24,26 @@ export const QuickLinks = () => {
       description: 'Останні новини та статті'
     },
     {
-      to: '/faq',
-      icon: <FaQuestionCircle />,
-      title: 'FAQ',
-      description: 'Часті питання та відповіді'
-    }
+      to: '/games',
+      icon: <FaBook />,
+      title: 'Емулятор',
+      description: 'Эмулятор - тут наш олдскул'
+    },
+
+    {
+      to: '/games',
+      icon: <FaBook />,
+      title: 'Программы',
+      description: 'Программы для win7 / 10 / 11'
+    },
+
+        {
+      to: '/games',
+      icon: <FaBook />,
+      title: 'Алавар',
+      description: 'Внезапно игры от алавар'
+    },
+
   ];
 
   return (

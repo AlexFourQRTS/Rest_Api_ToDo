@@ -5,8 +5,10 @@ import noImg from '../../pages/Blog/noImg.ico';
 
 const ArticleCard = ({ article, onViewClick, onDeleteClick }) => {
   // Универсальный рендер изображения
+
   const renderImage = () => {
-    const img = article.image;
+    const img = article.image_url;
+    console.log("img", img)
     if (!img) {
       // Нет изображения
       return <img src={noImg} alt="no-img" className={styles.image} />;
@@ -38,9 +40,11 @@ const ArticleCard = ({ article, onViewClick, onDeleteClick }) => {
 
   return (
     <div className={styles.articleCard}>
+
       <div className={styles.imageContainer}>
         {renderImage()}
       </div>
+
       <div className={styles.content}>
         <div className={styles.category}>{article.category}</div>
         <h3 className={styles.title}>{article.name}</h3>

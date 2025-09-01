@@ -7,7 +7,7 @@ import { authApi } from 'api/authApi';
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import Hero from '../../components/UI/Hero/Hero';
 import styles from './Blog.module.css';
-import noImg from './noImg.ico';
+
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 const ITEMS_PER_PAGE = 5;

@@ -6,9 +6,7 @@ import Hero from "../../../components/UI/Hero/Hero";
 import IPInfo from "../../../components/IPInfo/IPInfo";
 import BrowserInfo from "../../../components/BrowserInfo/BrowserInfo";
 import PerformanceInfo from "../../../components/PerformanceInfo/PerformanceInfo";
-import GraphicsInfo from "../../../components/GraphicsInfo/GraphicsInfo";
 import WebAPIInfo from "../../../components/WebAPIInfo/WebAPIInfo";
-import SecurityTips from "../../../components/SecurityTips/SecurityTips";
 import browserInfoService from "../../../utils/browserInfo";
 
 
@@ -417,13 +415,7 @@ const IP = () => {
           />
         )}
 
-        {/* Графические возможности */}
-        {browserData && (
-          <GraphicsInfo 
-            webglInfo={browserData.webgl}
-            canvasInfo={browserData.canvas}
-          />
-        )}
+
 
         {/* Web APIs */}
         {browserData && (
@@ -437,7 +429,7 @@ const IP = () => {
         )}
 
         {/* Советы по безопасности */}
-        <SecurityTips />
+       
       </motion.section>
     </div>
   );

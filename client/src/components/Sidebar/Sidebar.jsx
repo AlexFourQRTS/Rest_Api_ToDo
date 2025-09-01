@@ -13,10 +13,7 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
   const aboutDropdownRef = useRef(null);
   const toolsDropdownRef = useRef(null);
 
-  const toggleAboutDropdown = () => {
-    setIsAboutDropdownOpen(!isAboutDropdownOpen);
-    if (isToolsDropdownOpen) setIsToolsDropdownOpen(false);
-  };
+
 
   const toggleToolsDropdown = () => {
     setIsToolsDropdownOpen(!isToolsDropdownOpen);
@@ -78,49 +75,14 @@ const Sidebar = ({ isSidebarOpen, closeSidebar }) => {
     );
   };
 
-  // const AboutDropdownMenu = () => {
-  //   const dropdownItems = [
-  //     { to: routes.about, label: "Про мене", icon: "user" },
-  //     { to: routes.portfolio, label: "Портфоліо", icon: "folder" },
-  //     { to: routes.skills, label: "Навички", icon: "code" },
-  //     { to: routes.whyus, label: "Сервіси", icon: "briefcase" },
-  //     // { to: routes.news, label: "Новини", icon: "briefcase" }
-  //   ];
 
-  //   return (
-  //     <div className={styles.sidebar__dropdown} ref={aboutDropdownRef}>
-  //       <button 
-  //         className={`${styles.sidebar__dropdownButton} ${isAboutDropdownOpen ? styles.active : ""}`}
-  //         onClick={toggleAboutDropdown}
-  //       >
-  //         <i data-feather="user" className={styles.sidebar__icon}></i>
-  //         <span>Про мене</span>
-  //         <ChevronDown size={16} className={`${styles.sidebar__dropdownIcon} ${isAboutDropdownOpen ? styles.rotated : ""}`} />
-  //       </button>
-  //       {isAboutDropdownOpen && (
-  //         <div className={styles.sidebar__dropdownContent}>
-  //           {dropdownItems.map((item) => (
-  //             <SidebarLink
-  //               key={item.to}
-  //               to={item.to}
-  //               label={item.label}
-  //               icon={item.icon}
-  //             />
-  //           ))}
-  //         </div>
-  //       )}
-  //     </div>
-  //   );
-  // };
 
   const ToolsDropdownMenu = () => {
     const dropdownItems = [
       { to: routes.camera, label: "Камера", icon: "camera" },
       { to: routes.microphone, label: "Микрофон", icon: "mic" },
-      // { to: routes.converter, label: "Конвертор", icon: "refresh-cw" },
       { to: routes.ip, label: "Ваш IP", icon: "globe" },
       { to: routes.tone_generator, label: "Тон-генератор", icon: "bar-chart-2" },
-      // { to: routes.paint, label: "Paint", icon: "edit-3" }
     ];
 
     return (
