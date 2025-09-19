@@ -64,6 +64,8 @@ services:
       - emulator
     ports:
       - "80:80"
+    volumes:
+      - ./SSL/certbot:/var/www/certbot
     networks:
       - app-network
 
