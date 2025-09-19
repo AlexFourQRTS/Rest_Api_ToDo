@@ -30,21 +30,6 @@ services:
       - frontend-builder
     command: ["nginx", "-g", "daemon off;"]
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-webroot:/var/www/certbot
-      - certbot-certs:/etc/letsencrypt
-    command: >
-      certonly --webroot -w /var/www/certbot 
-      --email xvergox@gmail.com --agree-tos 
-      --no-eff-email -d skydishch.fun
-    networks:
-      - app-network
-    depends_on:
-      - nginx
-
   postgres:
     image: postgres:15
     container_name: Database
@@ -59,7 +44,7 @@ services:
     networks:
       - app-network
     depends_on:
-      - certbot
+      - nginx
 
   backend:
     build: ./NestJS
@@ -101,7 +86,6 @@ services:
       - app-network
     depends_on:
       - romserv
-
 
 volumes:
   certbot-webroot:
