@@ -20,7 +20,7 @@ FROM nginx:stable-alpine
 
 # Copy the build configuration from the host
 # The path is adjusted to find the file from the build context.
-COPY ../Nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./client/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy the built files from the 'build' stage to the Nginx public directory
 COPY --from=build /app/build /usr/share/nginx/html
