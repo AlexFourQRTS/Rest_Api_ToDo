@@ -1,25 +1,16 @@
 version: '3.8'
 
 services:
-  nginx:
-    # Build the image using the Dockerfile in the client directory.
-    # This will handle the build of the React app and serving it with Nginx.
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    container_name: nginx
-    ports:
-      - "80:80"
-      - "443:443"
+  frontend-builder:
+    image: node:18-alpine
+    container_name: frontend-builder
     volumes:
-      # Mount the Let's Encrypt certificates.
-      - certbot-webroot:/var/www/certbot
-      - certbot-certs:/etc/letsencrypt
-    depends_on:
-      - backend
-      - emulator
-      - romserv
-    restart: always
+      - ./client:/app
+    working_dir: /app
+    command: >
+      /bin/bash -c "npm install && npm run build"
+    networks:
+      - app-network
 
   postgres:
     image: postgres:15
@@ -76,22 +67,6 @@ services:
     depends_on:
       - romserv
   
-  # Certbot service for automated certificate renewal
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-webroot:/var/www/certbot
-      - certbot-certs:/etc/letsencrypt
-    command: certonly --webroot -w /var/www/certbot --force-renewal -d skydishch.fun --email your-email@example.com --agree-tos --no-eff-email
-    restart: unless-stopped
-    networks:
-      - app-network
-
-volumes:
-  certbot-webroot:
-  certbot-certs:
-
 networks:
   app-network:
     driver: bridge
