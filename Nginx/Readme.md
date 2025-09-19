@@ -20,4 +20,11 @@ sudo nginx -t
 
 sudo systemctl reload nginx
 
+<!-- Чтобы запустить Nginx, используйте команду start вместо reload. -->
 
+sudo systemctl start nginx
+
+<!-- После запуска сервиса вы можете проверить его статус: -->
+
+
+sudo systemctl status nginx
