@@ -1,3 +1,6 @@
+// DEPRECATED: Этот файл устарел. Используйте новый AuthApi класс.
+// Импортируйте: import { authApi } from './api';
+
 const BASE_URL = process.env.REACT_APP_API_URL;
 const API_URL = `${BASE_URL}/api`;
 

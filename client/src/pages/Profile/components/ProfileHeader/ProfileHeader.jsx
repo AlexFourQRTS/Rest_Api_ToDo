@@ -1,23 +1,23 @@
 import React from 'react';
 import { FaUserFriends } from 'react-icons/fa';
-import styles from './ProfileHeader.module.css';
+// Removed CSS module import
 
 export const ProfileHeader = ({ userData, onLogout }) => {
   return (
-    <div className={styles.profileHeader}>
-      <div className={styles.profileHeaderContent}>
-        <div className={styles.avatar}>
-          <FaUserFriends className={styles.avatarIcon} />
+    <div className="bg-gray-800/50 p-6 rounded-lg mb-6">
+      <div className="flex items-center justify-between">
+        <div className="w-16 h-16 bg-slate-600 rounded-full flex items-center justify-center">
+          <FaUserFriends className="text-white text-2xl" />
         </div>
-        <div className={styles.profileHeaderInfo}>
-          <h1>
+        <div className="flex-1 ml-4">
+          <h1 className="text-2xl font-bold text-white">
             {userData.email}
-            {userData.role === 'admin' && <span className={styles.adminBadge}>Адміністратор</span>}
+            {userData.role === 'admin' && <span className="ml-2 px-2 py-1 bg-purple-600 text-white text-xs rounded-full">Адміністратор</span>}
           </h1>
-          <span className={styles.status}>Онлайн</span>
+          <span className="text-gray-300 text-sm">Онлайн</span>
         </div>
       </div>
-      <button onClick={onLogout} className={styles.logoutButton}>
+      <button onClick={onLogout} className="btn-primary bg-red-600 hover:bg-red-700">
         Вийти
       </button>
     </div>

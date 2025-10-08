@@ -1,126 +1,197 @@
-:root {
-  /* Colors */
-  --primary-color: #006eff;
-  --error-color: #ff4444;
-  --success-color: #00C851;
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  --text-muted: #999999;
-  --bg-primary: #ffffff;
-  --bg-lighter: #f8f9fa;
-  --bg-darker: #e9ecef;
-  --border-color: #dee2e6;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 1.5rem;
-  --spacing-xl: 2rem;
-
-  /* Border Radius */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
-  --radius-full: 9999px;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  --shadow-md: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
-  --shadow-lg: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
-
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-medium: 0.3s ease;
-  --transition-slow: 0.5s ease;
+/* Ensure Tailwind CSS is working */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-gray-950 via-purple-950 to-purple-900 text-white min-h-screen;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+  }
 }
 
-body {
-  min-height: 100vh;
-  background-color: #383838; /* Настоящий графитовый цвет */
-  color: white;
-  text-align: left;
-  overflow-x: hidden;
-  width: 100%;
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-slate-500 to-purple-600 hover:from-slate-600 hover:to-purple-700 text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 focus:ring-offset-gray-900 shadow-lg hover:shadow-xl;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-800/80 hover:bg-gray-700/80 text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-900 backdrop-blur-sm border border-gray-600/50;
+  }
+  
+  .btn-accent {
+    @apply bg-gradient-to-r from-purple-500 to-slate-500 hover:from-purple-600 hover:to-slate-600 text-white font-medium py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900 shadow-lg hover:shadow-xl;
+  }
+  
+  .card {
+    @apply bg-gray-800/60 backdrop-blur-sm rounded-lg shadow-lg border border-gray-700/50;
+  }
+  
+  .card-hover {
+    @apply card hover:shadow-2xl hover:border-slate-500/50 hover:bg-gray-800/80;
+  }
+  
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-600/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent bg-gray-800/60 text-white placeholder-gray-400 backdrop-blur-sm;
+  }
+  
+  .nav-link {
+    @apply text-gray-300 hover:text-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-md text-sm font-medium hover:bg-gray-800/50;
+  }
+  
+  .nav-link-active {
+    @apply bg-gradient-to-r from-slate-600/20 to-purple-600/20 text-white border border-slate-500/30;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-3 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-12 lg:py-16;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-slate-400 via-purple-400 to-slate-400 bg-clip-text text-transparent;
+  }
+  
+  .glass-effect {
+    @apply bg-gray-800/30 backdrop-blur-md border border-gray-700/30 shadow-xl;
+  }
+  
+  .slate-gradient {
+    @apply bg-gradient-to-r from-slate-500 to-slate-700;
+  }
+  
+  .purple-gradient {
+    @apply bg-gradient-to-r from-purple-500 to-purple-700;
+  }
+  
+  .slate-purple-gradient {
+    @apply bg-gradient-to-r from-slate-500 via-purple-500 to-slate-500;
+  }
 }
 
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Mobile-specific utilities */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+  
+  .desktop-only {
+    @apply hidden sm:block;
+  }
+  
+  .mobile-text {
+    @apply text-sm sm:text-base;
+  }
+  
+  .mobile-text-lg {
+    @apply text-base sm:text-lg;
+  }
+  
+  .mobile-text-xl {
+    @apply text-lg sm:text-xl;
+  }
+  
+  .mobile-padding {
+    @apply px-3 sm:px-6;
+  }
+  
+  .mobile-margin {
+    @apply mx-3 sm:mx-6;
+  }
+  
+  .mobile-spacing {
+    @apply space-y-2 sm:space-y-4;
+  }
+  
+  .mobile-grid {
+    @apply grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+  }
+  
+  .mobile-flex-col {
+    @apply flex-col sm:flex-row;
+  }
+  
+  .mobile-center {
+    @apply text-center sm:text-left;
+  }
+}
+
+/* Legacy classes for backward compatibility */
 .wrap {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  @apply container-custom;
 }
 
 .user-list-task-row {
-  margin: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  border-radius: 5px;
-  color: #000;
-  flex-wrap: wrap;
-  gap: 10px;
+  @apply flex flex-row justify-around rounded-lg text-black flex-wrap gap-2.5 m-1;
 }
 
 .user-list-task-colomn {
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  color: #000;
-  width: 100%;
-  max-width: 500px;
-  margin: 15px;
+  @apply flex flex-col rounded-lg text-black w-full max-w-lg m-4;
 }
 
 .todo-admin-check {
-  background-color: rgb(255, 255, 255);
-  padding: 5px;
-  margin: 15px;
-  border-radius: 10px;
-  width: 100%;
-  max-width: 500px;
+  @apply bg-white p-1.5 m-4 rounded-lg w-full max-w-lg;
 }
 
 .user-name-check-admin {
-  background-color: #006eff9d;
+  @apply bg-primary-600/60;
 }
 
-/* Медиа-запросы для адаптивности */
-@media (max-width: 1200px) {
-  .wrap {
-    padding: 15px;
-  }
-}
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .wrap {
-    padding: 10px;
-  }
-  
   .user-list-task-colomn,
   .todo-admin-check {
-    margin: 10px 0;
+    @apply m-2.5;
   }
 }
 
 @media (max-width: 480px) {
-  .wrap {
-    padding: 5px;
-  }
-  
   .user-list-task-row {
-    flex-direction: column;
-    margin: 0;
+    @apply flex-col m-0;
   }
   
   .user-list-task-colomn,
   .todo-admin-check {
-    margin: 5px 0;
+    @apply m-1;
   }
 }

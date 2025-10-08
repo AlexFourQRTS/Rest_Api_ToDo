@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from "framer-motion";
 import { Mic } from "lucide-react";
 
 const MicrophoneSelector = ({ devices, activeDevices, onToggleDevice, styles }) => {
@@ -12,10 +11,8 @@ const MicrophoneSelector = ({ devices, activeDevices, onToggleDevice, styles }) 
   }
 
   return (
-    <motion.div 
+    <div 
       className={styles.toolCard}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.1 } }}
     >
       <div className={styles.cardHeader}>
         <h4><Mic size={20} /> Выбор микрофона</h4>
@@ -32,7 +29,7 @@ const MicrophoneSelector = ({ devices, activeDevices, onToggleDevice, styles }) 
           </label>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 };
 

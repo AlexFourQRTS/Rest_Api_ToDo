@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styles from "./style/FileCloud.module.css";
-import { authApi } from '../../api/authApi';
+// Removed CSS module import
+import { authApi } from '../../api';
 import Hero from "../../components/UI/Hero/Hero";
 import FileLists from "./FileLists";
 import FileUploader from "./FileUploader";
@@ -54,12 +54,14 @@ export const FileCloud = () => {
   };
 
   return (
-    <div className={styles.fileCloudContainer}>
+    <div className="min-h-screen">
       <Hero title="Upload and Manage Files" />
-      <div className={styles.contactCard}>
-        <FileUploader onUploadSuccess={handleUploadSuccess} />
+      <div className="container-custom py-8">
+        <div className="card p-6 mb-6">
+          <FileUploader onUploadSuccess={handleUploadSuccess} />
+        </div>
+        <FileList files={files} isLoading={isLoading} onFilesUpdate={fetchFiles} user={user} />
       </div>
-      <FileList files={files} isLoading={isLoading} onFilesUpdate={fetchFiles} user={user} />
     </div>
   );
 };

@@ -1,15 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Globe } from 'lucide-react';
 import useLocalization from '../../hooks/useLocalization';
-import styles from './LanguageSelector.module.css';
+import useLanguage from '../../hooks/useLanguage';
+// Removed CSS module import
 
 const LanguageSelector = () => {
-  const { t, setLanguage, getCurrentLanguage, getSupportedLanguages } = useLocalization();
+  const { t } = useLocalization();
+  const { currentLanguage, setLanguage, supportedLanguages } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-
-  const currentLanguage = getCurrentLanguage();
-  const supportedLanguages = getSupportedLanguages();
 
   // Закрытие дропдауна при клике вне его
   useEffect(() => {
@@ -38,9 +37,11 @@ const LanguageSelector = () => {
   const currentLangData = supportedLanguages.find(lang => lang.code === currentLanguage);
 
   return (
-    <div className={styles.languageSelector} ref={dropdownRef}>
+    <div className="relative" ref={dropdownRef}>
       <button
-        className={`${styles.languageButton} ${isOpen ? styles.active : ''}`}
+        className={`flex items-center space-x-2 px-3 py-2 bg-gray-800/50 border border-gray-600 rounded-lg text-white hover:bg-gray-700/50 transition-all ${
+          isOpen ? 'bg-gray-700/50' : ''
+        }`}
         onClick={() => setIsOpen(!isOpen)}
         aria-label={t('openMenu')}
         onTouchStart={(e) => {
@@ -50,22 +51,22 @@ const LanguageSelector = () => {
           e.currentTarget.style.transform = '';
         }}
       >
-        <Globe size={16} className={styles.globeIcon} />
-        <span className={styles.languageFlag}>{currentLangData?.flag || '🌐'}</span>
-        <span className={styles.languageCode}>{currentLanguage.toUpperCase()}</span>
+        <Globe size={16} className="text-gray-300" />
+        <span className="text-lg">{currentLangData?.flag || '🌐'}</span>
+        <span className="text-sm font-medium">{currentLanguage.toUpperCase()}</span>
         <ChevronDown 
           size={14} 
-          className={`${styles.dropdownIcon} ${isOpen ? styles.rotated : ''}`} 
+          className={`text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} 
         />
       </button>
 
       {isOpen && (
-        <div className={styles.dropdownContent}>
+        <div className="absolute top-full left-0 mt-1 bg-gray-800 border border-gray-600 rounded-lg shadow-lg z-50 min-w-[200px]">
           {supportedLanguages.map((language) => (
             <button
               key={language.code}
-              className={`${styles.languageOption} ${
-                language.code === currentLanguage ? styles.active : ''
+              className={`w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-700/50 transition-all first:rounded-t-lg last:rounded-b-lg ${
+                language.code === currentLanguage ? 'bg-slate-600/20 text-gray-300' : 'text-white'
               }`}
               onClick={() => handleLanguageSelect(language.code)}
               onTouchStart={(e) => {
@@ -75,10 +76,12 @@ const LanguageSelector = () => {
                 e.currentTarget.style.transform = '';
               }}
             >
-              <span className={styles.optionFlag}>{language.flag}</span>
-              <span className={styles.optionName}>{language.name}</span>
+              <div className="flex items-center space-x-3">
+                <span className="text-lg">{language.flag}</span>
+                <span className="text-sm font-medium">{language.name}</span>
+              </div>
               {language.code === currentLanguage && (
-                <span className={styles.checkmark}>✓</span>
+                <span className="text-gray-300">✓</span>
               )}
             </button>
           ))}

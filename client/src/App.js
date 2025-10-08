@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 import { routes } from "./routes";
 import Navbar from "./components/Navbar/Navbar";
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -29,7 +31,6 @@ import FileDetail from "./pages/FileCloud/components/FileDetail/FileDetail";
 import FooterPage from "./pages/Footer/Footer";
 import {NotFoundPage} from "./pages/NotFoundPage/NotFoundPage";
 
-import styles from "./App.module.css";
 import './utils/activityLogger';
 import { logActivity } from './utils/activityLogger';
 
@@ -52,44 +53,45 @@ function App() {
   };
 
   return (
-    <LocalizationProvider>
-      <BrowserRouter>
-        <ToastProvider>
-          <div className={styles.app}>
-            <Navbar onMenuClick={toggleSidebar} />
-            <div className={styles.container}>
+    <Provider store={store}>
+      <LocalizationProvider>
+        <BrowserRouter>
+          <ToastProvider>
+            <div className="min-h-screen bg-gradient-to-br from-gray-950 via-purple-950 to-purple-900">
+              <Navbar onMenuClick={toggleSidebar} isSidebarOpen={isSidebarOpen} />
               <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
-              <main className={styles.content}>
-                <div className={styles.content__wrapper}>
-                  <RouteChangeLogger />
-                  <Routes>
-                    <Route path={routes.home} element={<Home />} />
-                    <Route path={routes.skills} element={<Skills />} />
-
-                    <Route path={routes.tools} element={<Tools />} />
-                    <Route path={routes.camera} element={<Camera />} />
-                    {/* <Route path={routes.converter} element={<Converter />} /> */}
-                    <Route path={routes.microphone} element={<Microphone />} />
-                    <Route path={routes.ip} element={<IP />} />
-                    <Route path={routes.tone_generator} element={<ToneGenerator />} />
-                    <Route path={routes.blog} element={<Blog />} />
-                    <Route path={routes.filecloud} element={<FileCloud />} />
-                    <Route path={routes.fileDetail} element={<FileDetail />} />
-                    {/* <Route path={routes.faq} element={<FAQ />} /> */}
-                    <Route path={routes.profile} element={<Profile />} />
-                    {/* <Route path={routes.paint} element={<Paint />} /> */}
-                    <Route path={routes.chat} element={<Chat />} />
-                    <Route path={routes.games} element={<Games />} />
-                    <Route path="*" element={<NotFoundPage />} />
-                  </Routes>
-                </div>
+              {/* Mobile overlay */}
+              {isSidebarOpen && (
+                <div 
+                  className="fixed inset-0 bg-black/50 z-20 md:hidden"
+                  onClick={() => setIsSidebarOpen(false)}
+                />
+              )}
+              <main className="min-h-screen">
+                <RouteChangeLogger />
+                <Routes>
+                  <Route path={routes.home} element={<Home />} />
+                  <Route path={routes.skills} element={<Skills />} />
+                  <Route path={routes.tools} element={<Tools />} />
+                  <Route path={routes.camera} element={<Camera />} />
+                  <Route path={routes.microphone} element={<Microphone />} />
+                  <Route path={routes.ip} element={<IP />} />
+                  <Route path={routes.tone_generator} element={<ToneGenerator />} />
+                  <Route path={routes.blog} element={<Blog />} />
+                  <Route path={routes.filecloud} element={<FileCloud />} />
+                  <Route path={routes.fileDetail} element={<FileDetail />} />
+                  <Route path={routes.profile} element={<Profile />} />
+                  <Route path={routes.chat} element={<Chat />} />
+                  <Route path={routes.games} element={<Games />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                </Routes>
               </main>
+              <FooterPage />
             </div>
-            <FooterPage />
-          </div>
-        </ToastProvider>
-      </BrowserRouter>
-    </LocalizationProvider>
+          </ToastProvider>
+        </BrowserRouter>
+      </LocalizationProvider>
+    </Provider>
   );
 }
 

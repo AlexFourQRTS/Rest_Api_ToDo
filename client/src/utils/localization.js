@@ -22,6 +22,15 @@ const translations = {
     files: 'Файли',
     profile: 'Профіль',
     
+    profileItems: {
+      overview: 'Особистий кабінет',
+      messages: 'Повідомлення',
+      friends: 'Друзі',
+      admin: 'Адмін-панель',
+    },
+    
+    settings: 'Налаштування',
+    
     // Кнопки
     openMenu: 'Відкрити меню',
     closeMenu: 'Закрити меню',
@@ -58,6 +67,15 @@ const translations = {
     // faq: 'FAQ',
     profile: 'Профиль',
     
+    profileItems: {
+      overview: 'Личный кабинет',
+      messages: 'Сообщения',
+      friends: 'Друзья',
+      admin: 'Админ-панель',
+    },
+    
+    settings: 'Настройки',
+    
     openMenu: 'Открыть меню',
     closeMenu: 'Закрыть меню',
     
@@ -90,6 +108,15 @@ const translations = {
     files: 'Files',
     // faq: 'FAQ',
     profile: 'Profile',
+    
+    profileItems: {
+      overview: 'My Profile',
+      messages: 'Messages',
+      friends: 'Friends',
+      admin: 'Admin Panel',
+    },
+    
+    settings: 'Settings',
     
     openMenu: 'Open Menu',
     closeMenu: 'Close Menu',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './Auth.module.css';
+// Removed CSS module import
 import Button from 'components/UI/Button/Button';
 import { authApi } from 'api/authApi';
 
@@ -28,12 +28,12 @@ const Register = ({ onRegisterSuccess, onLoginClick }) => {
   };
 
   return (
-    <div className={styles.authForm}>
-      <h2>Реєстрація</h2>
-      {error && <div className={styles.error}>{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className={styles.formGroup}>
-          <label htmlFor="name">Ім'я</label>
+    <div className="card p-8 w-full max-w-md">
+      <h2 className="text-2xl font-bold text-white mb-6 text-center">Реєстрація</h2>
+      {error && <div className="bg-red-900/20 border border-red-500 text-red-400 p-3 rounded-lg mb-4">{error}</div>}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block text-white mb-2">Ім'я</label>
           <input
             type="text"
             id="name"
@@ -41,10 +41,11 @@ const Register = ({ onRegisterSuccess, onLoginClick }) => {
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="Введіть ваше ім'я"
+            className="input-field w-full"
           />
         </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="email">Email</label>
+        <div>
+          <label htmlFor="email" className="block text-white mb-2">Email</label>
           <input
             type="email"
             id="email"
@@ -52,10 +53,11 @@ const Register = ({ onRegisterSuccess, onLoginClick }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="Введіть ваш email"
+            className="input-field w-full"
           />
         </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="password">Пароль</label>
+        <div>
+          <label htmlFor="password" className="block text-white mb-2">Пароль</label>
           <input
             type="password"
             id="password"
@@ -63,10 +65,11 @@ const Register = ({ onRegisterSuccess, onLoginClick }) => {
             onChange={(e) => setPassword(e.target.value)}
             required
             placeholder="Введіть ваш пароль"
+            className="input-field w-full"
           />
         </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="confirmPassword">Підтвердіть пароль</label>
+        <div>
+          <label htmlFor="confirmPassword" className="block text-white mb-2">Підтвердіть пароль</label>
           <input
             type="password"
             id="confirmPassword"
@@ -74,15 +77,16 @@ const Register = ({ onRegisterSuccess, onLoginClick }) => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
             placeholder="Підтвердіть ваш пароль"
+            className="input-field w-full"
           />
         </div>
-        <Button type="submit" className={styles.submitButton}>
+        <Button type="submit" className="btn-primary w-full">
           Зареєструватися
         </Button>
       </form>
-      <p className={styles.switchAuth}>
+      <p className="text-center text-gray-300 mt-4">
         Вже маєте акаунт?{' '}
-        <button onClick={onLoginClick} className={styles.switchButton}>
+        <button onClick={onLoginClick} className="text-gray-300 hover:text-gray-300 underline">
           Увійти
         </button>
       </p>

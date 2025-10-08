@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styles from './ExternalEmulator.module.css';
+// Removed CSS module import
 import qrCodeImage from './TronTRC.jpg';
 
 
@@ -39,12 +39,12 @@ const DonationBanner = ({ isVisible, onClose }) => {
 
   return (
     <>
-      <div className={styles.donationBanner}>
-        <div className={styles.donationContent}>
-          <div className={styles.donationHeader}>
+      <div className="fixed top-0 left-0 right-0 bg-gradient-to-r from-slate-600 to-purple-600 text-white p-4 z-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex justify-between items-center">
 
             <button
-              className={styles.closeButton}
+              className="text-white hover:text-gray-300 text-2xl font-bold transition-colors"
               onClick={onClose}
               onTouchStart={(e) => {
                 e.currentTarget.style.transform = 'scale(0.95)';
@@ -56,20 +56,20 @@ const DonationBanner = ({ isVisible, onClose }) => {
               ✕
             </button>
           </div>
-          <div className={styles.donationBody}>
-            <div className={styles.donationBenefits}>
-              <h4>Реквизиты </h4>
-              <ul>
+          <div className="mt-4">
+            <div className="space-y-4">
+              <h4 className="text-lg font-semibold">Реквизиты</h4>
+              <ul className="space-y-2">
                 <li>
-                 <div className={styles.cardNumber}>
+                 <div className="flex items-center space-x-2">
                    <span>QR-код для удобства криптой</span>
                 </div>
                    
-                    <div className={styles.qrCode} onClick={handleQrClick}>
+                    <div className="cursor-pointer" onClick={handleQrClick}>
                       <img
                         src={qrCodeImage}
                         alt="QR-код для оплаты USDT"
-                        className={styles.qrImage}
+                        className="w-32 h-32 mx-auto"
                       />
                    
                   </div>
@@ -78,15 +78,15 @@ const DonationBanner = ({ isVisible, onClose }) => {
 
                 <li>
 
-                  <div className={styles.cardNumber}>
+                  <div className="flex items-center space-x-2">
                     <span>USDT (TRC20):</span>
                   </div>
-                  <div className={styles.cardValueContainer}>
+                  <div className="mt-2">
 
                     <h6>TTa9eFw9VyB64p95sfar5DnLv8P7Vs29Dc</h6>
 
                     <button
-                      className={styles.copyButton}
+                      className="btn-secondary p-2"
                       onClick={() => copyToClipboard('TTa9eFw9VyB64p95sfar5DnLv8P7Vs29Dc')}
                       title="Копировать"
                     >
@@ -97,13 +97,13 @@ const DonationBanner = ({ isVisible, onClose }) => {
                 </li>
 
                 <li>
-                  <div className={styles.cardHolder}>
+                  <div className="flex items-center space-x-2">
                     <span>UAH карта:</span>
                   </div>
-                  <div className={styles.cardValueContainer}>
+                  <div className="mt-2">
                     <code>{formatCardNumber('4441111078249988')}</code>
                     <button
-                      className={styles.copyButton}
+                      className="btn-secondary p-2"
                       onClick={() => copyToClipboard('4441111078249988')}
                       title="Копировать"
                     >
@@ -113,13 +113,13 @@ const DonationBanner = ({ isVisible, onClose }) => {
 
                 </li>
                 <li>
-                  <div className={styles.cardHolder}>
+                  <div className="flex items-center space-x-2">
                     <span>USD карта:</span>
                   </div>
-                  <div className={styles.cardValueContainer}>
+                  <div className="mt-2">
                     <code>{formatCardNumber('4441 1144 8905 5093')}</code>
                     <button
-                      className={styles.copyButton}
+                      className="btn-secondary p-2"
                       onClick={() => copyToClipboard('4441 1144 8905 5093')}
                       title="Копировать"
                     >
@@ -137,24 +137,24 @@ const DonationBanner = ({ isVisible, onClose }) => {
 
       {/* Fullscreen QR Code Modal */}
       {isQrFullscreen && (
-        <div className={styles.qrFullscreenOverlay} onClick={handleQrFullscreenClose}>
-          <div className={styles.qrFullscreenContent}>
-            <div className={styles.qrFullscreenHeader}>
-              <h3>QR-код для оплаты USDT</h3>
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" onClick={handleQrFullscreenClose}>
+          <div className="bg-gray-800 p-6 rounded-lg max-w-md w-full mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-white text-lg font-semibold">QR-код для оплаты USDT</h3>
               <button
-                className={styles.qrFullscreenCloseButton}
+                className="text-white hover:text-gray-300 text-2xl font-bold"
                 onClick={() => setIsQrFullscreen(false)}
               >
                 ✕
               </button>
             </div>
-            <div className={styles.qrFullscreenImage}>
+            <div className="flex justify-center">
               <img
                 src={qrCodeImage}
                 alt="QR-код для оплаты USDT"
               />
             </div>
-            <p className={styles.qrFullscreenText}>
+            <p className="text-gray-300 text-center mt-4">
               Отсканируйте QR-код для оплаты USDT (TRC20)
             </p>
           </div>
@@ -168,7 +168,7 @@ const DonationBanner = ({ isVisible, onClose }) => {
 const DonationButton = ({ onClick }) => {
   return (
     <button
-      className={styles.donationButton}
+      className="btn-primary flex items-center space-x-2"
       onClick={onClick}
       onTouchStart={(e) => {
         e.currentTarget.style.transform = 'scale(0.95)';
@@ -177,8 +177,8 @@ const DonationButton = ({ onClick }) => {
         e.currentTarget.style.transform = '';
       }}
     >
-      <span className={styles.donationButtonIcon}>💸</span>
-      <span className={styles.donationButtonText}>Поддержать проект</span>
+      <span>💸</span>
+      <span>Поддержать проект</span>
     </button>
   );
 };
@@ -196,15 +196,15 @@ const ConsoleSelector = ({ consoles, selectedConsole, onConsoleSelect, isMobile 
   // Mobile version: use dropdown select for better space usage
   if (isMobile) {
     return (
-      <div className={styles.consoleSelector}>
-        <h3>Выберите консоль</h3>
+      <div className="space-y-4">
+        <h3 className="text-white font-semibold">Выберите консоль</h3>
         <select
           value={selectedConsole?.id || ''}
           onChange={(e) => {
             const selected = consoles.find(console => console.id === e.target.value);
             if (selected) onConsoleSelect(selected);
           }}
-          className={styles.consoleSelect}
+          className="input-field"
         >
           <option value="">Выберите консоль...</option>
           {consoles.map(consoleData => (
@@ -218,13 +218,15 @@ const ConsoleSelector = ({ consoles, selectedConsole, onConsoleSelect, isMobile 
   }
 
   return (
-    <div className={styles.consoleSelector}>
-      <h3>Выберите консоль</h3>
-      <div className={styles.consoleGrid}>
+    <div className="space-y-4">
+      <h3 className="text-white font-semibold">Выберите консоль</h3>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {consoles.map(consoleData => (
           <button
             key={consoleData.id}
-            className={`${styles.consoleButton} ${selectedConsole?.id === consoleData.id ? styles.active : ''}`}
+            className={`card p-4 text-center hover:shadow-lg transition-all ${
+              selectedConsole?.id === consoleData.id ? 'ring-2 ring-slate-500 bg-slate-600/20' : ''
+            }`}
             onClick={() => onConsoleSelect(consoleData)}
             onTouchStart={(e) => {
               e.currentTarget.style.transform = 'scale(0.95)';
@@ -233,12 +235,12 @@ const ConsoleSelector = ({ consoles, selectedConsole, onConsoleSelect, isMobile 
               e.currentTarget.style.transform = '';
             }}
           >
-            <div className={styles.consoleIcon}>
+            <div className="text-3xl mb-2">
               {getShort(consoleData)}
             </div>
-            <div className={styles.consoleInfo}>
-              <span className={styles.consoleName}>{consoleData.name}</span>
-              <span className={styles.consoleStats}>{consoleData.stats} игр</span>
+            <div>
+              <span className="text-white font-medium block">{consoleData.name}</span>
+              <span className="text-gray-400 text-sm">{consoleData.stats} игр</span>
             </div>
           </button>
         ))}
@@ -269,13 +271,13 @@ const RomSelector = ({
     if (!isModalOpen) return null;
 
     return (
-      <div className={styles.modalOverlay} onClick={onCloseModal}>
-        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+      <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" onClick={onCloseModal}>
+        <div className="bg-gray-800 p-6 rounded-lg max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
           {/* Modal header with close button */}
-          <div className={styles.modalHeader}>
-            <h3>{selectedConsole?.name || 'Выберите консоль'}</h3>
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-white font-semibold text-lg">{selectedConsole?.name || 'Выберите консоль'}</h3>
             <button
-              className={styles.modalCloseButton}
+              className="text-white hover:text-gray-300 text-2xl font-bold"
               onClick={onCloseModal}
               onTouchStart={(e) => {
                 e.currentTarget.style.transform = 'scale(0.95)';
@@ -289,13 +291,13 @@ const RomSelector = ({
           </div>
 
           {/* Search input */}
-          <div className={styles.searchContainer}>
+          <div className="mb-4">
             <input
               type="text"
               placeholder="Поиск игр..."
               value={searchTerm}
               onChange={onSearchChange}
-              className={styles.searchInput}
+              className="input-field w-full"
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
@@ -304,15 +306,15 @@ const RomSelector = ({
           </div>
 
           {/* Game count */}
-          <div className={styles.modalGameCount}>
+          <div className="text-gray-400 text-sm mb-4">
             <span>{games.length} игр</span>
           </div>
 
           {/* Pagination controls */}
           {totalPages > 1 && (
-            <div className={styles.pagination}>
+            <div className="flex justify-center items-center space-x-2 mb-4">
               <button
-                className={styles.paginationButton}
+                className="btn-secondary p-2"
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
                 onTouchStart={(e) => {
@@ -326,11 +328,11 @@ const RomSelector = ({
               >
                 ←
               </button>
-              <span className={styles.pageInfo}>
+              <span className="text-white px-4">
                 {currentPage} / {totalPages}
               </span>
               <button
-                className={styles.paginationButton}
+                className="btn-secondary p-2"
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
                 onTouchStart={(e) => {
@@ -348,11 +350,13 @@ const RomSelector = ({
           )}
 
           {/* Game list */}
-          <div className={styles.modalGameList}>
+          <div className="space-y-2 max-h-96 overflow-y-auto">
             {games.map(game => (
               <div
                 key={game.id}
-                className={`${styles.modalGameItem} ${selectedRom?.id === game.id ? styles.selected : ''}`}
+                className={`p-3 rounded-lg cursor-pointer transition-all ${
+                  selectedRom?.id === game.id ? 'bg-slate-600 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'
+                }`}
                 onClick={() => {
                   onRomSelect(game);
                   onCloseModal(); // Close modal when game is selected
@@ -374,13 +378,13 @@ const RomSelector = ({
                 }}
               >
                 {/* Game thumbnail */}
-                <div className={styles.modalGameThumbnail}>
+                <div className="w-12 h-12 bg-gray-600 rounded flex items-center justify-center text-2xl">
                   {
                     game.hasImage ? (
                       <img
                         src={`${ROM_SERV}${game.imagePath}`}
                         alt={game.name}
-                        className={styles.modalGameImage}
+                        className="w-full h-full object-cover rounded"
                         loading="lazy"
                         onError={(e) => {
                           e.target.style.display = 'none';
@@ -388,21 +392,21 @@ const RomSelector = ({
                         }}
                       />
                     ) : null}
-                  <span className={styles.modalThumbnailIcon}>
+                  <span className="text-gray-400">
                     {game.hasImage ? '' : '🎮'}
                   </span>
                 </div>
 
                 {/* Game info */}
-                <div className={styles.modalGameInfo}>
-                  <h4 className={styles.modalGameName}> {game.name}</h4>
+                <div className="flex-1 ml-3">
+                  <h4 className="text-white font-medium"> {game.name}</h4>
                   {/* <div className={styles.modalGameDetails}>
                     <span className={styles.modalGameRegion}>Регион : {game.region}</span>
                   </div> */}
                 </div>
 
                 {/* Play indicator */}
-                <div className={styles.modalPlayIcon}>
+                <div className="text-gray-300 text-xl">
                   ▶️
                 </div>
               </div>
@@ -415,23 +419,23 @@ const RomSelector = ({
 
   // Desktop version: original sidebar layout
   return (
-    <div className={styles.romSelector}>
+    <div className="space-y-4">
       {/* Header with console name and game count */}
-      <div className={styles.sidebarHeader}>
+      <div className="flex justify-between items-center">
         <h3>{selectedConsole?.name || 'Выберите консоль'}</h3>
-        <span className={styles.romCount}>
+        <span className="text-gray-400 text-sm">
           {games.length} игр
         </span>
       </div>
 
       {/* Search input for filtering games */}
-      <div className={styles.searchContainer}>
+      <div>
         <input
           type="text"
           placeholder="Поиск игр..."
           value={searchTerm}
           onChange={onSearchChange}
-          className={styles.searchInput}
+          className="input-field w-full"
           autoComplete="off"
           autoCorrect="off"
           autoCapitalize="off"
@@ -441,9 +445,9 @@ const RomSelector = ({
 
       {/* Pagination controls for navigating through game pages */}
       {totalPages > 1 && (
-        <div className={styles.pagination}>
+        <div className="flex justify-center items-center space-x-2">
           <button
-            className={styles.paginationButton}
+            className="btn-secondary p-2"
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
             onTouchStart={(e) => {
@@ -457,11 +461,11 @@ const RomSelector = ({
           >
             ←
           </button>
-          <span className={styles.pageInfo}>
+          <span className="text-white px-4">
             {currentPage} / {totalPages}
           </span>
           <button
-            className={styles.paginationButton}
+            className="btn-secondary p-2"
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
             onTouchStart={(e) => {
@@ -479,11 +483,13 @@ const RomSelector = ({
       )}
 
       {/* Grid of game tiles/cards */}
-      <div className={styles.romGrid}>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {games.map(game => (
           <div
             key={game.id}
-            className={`${styles.romTile} ${selectedRom?.id === game.id ? styles.selected : ''}`}
+            className={`card p-4 text-center hover:shadow-lg transition-all cursor-pointer ${
+              selectedRom?.id === game.id ? 'ring-2 ring-slate-500 bg-slate-600/20' : ''
+            }`}
             onClick={() => onRomSelect(game)}
             onTouchStart={(e) => {
               e.currentTarget.style.transform = 'scale(0.95)';
@@ -501,12 +507,12 @@ const RomSelector = ({
             }}
           >
             {/* Game thumbnail image or icon */}
-            <div className={styles.tileThumbnail}>
+            <div className="w-16 h-16 bg-gray-600 rounded mx-auto mb-2 flex items-center justify-center text-2xl">
               {game.hasImage ? (
                 <img
                   src={`${ROM_SERV}${game.imagePath}`}
                   alt={game.name}
-                  className={styles.gameImage}
+                  className="w-full h-full object-cover rounded"
                   loading="lazy"
                   onError={(e) => {
                     e.target.style.display = 'none';
@@ -514,20 +520,20 @@ const RomSelector = ({
                   }}
                 />
               ) : null}
-              <span className={styles.thumbnailIcon}>
+              <span className="text-gray-400">
                 {game.hasImage ? '' : '🎮'}
               </span>
             </div>
             {/* Game information (name, category, region) */}
-            <div className={styles.tileInfo}>
-              <h4 className={styles.tileName}> {game.name}</h4>
+            <div>
+              <h4 className="text-white font-medium text-sm"> {game.name}</h4>
               {/* <div className={styles.tileDetails}>
                 <span className={styles.tileRegion}>Регион :{game.region}</span>
               </div> */}
             </div>
             {/* Play button overlay */}
-            <div className={styles.tileOverlay}>
-              <span className={styles.playIcon}>▶️</span>
+            <div className="text-gray-300 text-xl mt-2">
+              <span>▶️</span>
             </div>
           </div>
         ))}
@@ -786,9 +792,9 @@ const ExternalEmulator = () => {
   // Loading state while fetching consoles
   if (isLoadingConsoles) {
     return (
-      <div className={styles.loadingContainer}>
-        <div className={styles.spinner}></div>
-        <p>Загрузка консолей...</p>
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-500"></div>
+        <p className="text-white mt-4">Загрузка консолей...</p>
       </div>
     );
   }
@@ -796,13 +802,13 @@ const ExternalEmulator = () => {
   // Error state when API is not available
   if (error && !selectedConsole) {
     return (
-      <div className={styles.errorContainer}>
-        <div className={styles.errorContent}>
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
           <h2>🚫 Ошибка подключения к серверу</h2>
           <p>Убедитесь, что API сервер запущен на <code>{ROM_SERV}</code></p>
           <p>Ошибка: {error}</p>
           <button
-            className={styles.retryButton}
+            className="btn-primary mt-4"
             onClick={() => window.location.reload()}
             onTouchStart={(e) => {
               e.currentTarget.style.transform = 'scale(0.95)';
@@ -820,7 +826,7 @@ const ExternalEmulator = () => {
 
   // Main emulator interface layout
   return (
-    <div className={styles.emulatorContainer}>
+    <div className="min-h-screen">
       {/* Donation banner at the top */}
       <DonationBanner
         isVisible={showDonation}
@@ -830,11 +836,11 @@ const ExternalEmulator = () => {
         }}
       />
 
-      <div className={styles.mainContent}>
+      <div className="flex h-screen">
         {/* Left sidebar with game list (desktop only) */}
         {!isMobile && (
           <div
-            className={styles.sidebar}
+            className="bg-gray-800/50 border-r border-gray-700/50 overflow-y-auto"
             style={{
               width: `${sidebarWidth}px`,
               minWidth: `${sidebarWidth}px`
@@ -864,17 +870,19 @@ const ExternalEmulator = () => {
         {/* Resizable divider (desktop only) */}
         {!isMobile && (
           <div
-            className={`${styles.resizer} ${isResizing ? styles.resizing : ''}`}
+            className={`w-1 bg-gray-600 hover:bg-gray-500 cursor-col-resize transition-colors ${
+              isResizing ? 'bg-gray-500' : ''
+            }`}
             onMouseDown={handleMouseDown}
           >
-            <div className={styles.resizerHandle}></div>
+            <div className="w-full h-full"></div>
           </div>
         )}
 
         {/* Right area with console selector, game info, and emulator */}
-        <div className={styles.emulatorArea}>
+        <div className="flex-1 flex flex-col">
           {/* Donation button at the top */}
-          <div className={styles.donationButtonContainer}>
+          <div className="p-4">
             <DonationButton onClick={() => {
               console.log('Opening donation banner');
               setShowDonation(true);
@@ -882,9 +890,9 @@ const ExternalEmulator = () => {
           </div>
 
           {/* Collapsible console selector section */}
-          <div className={styles.accordionSection}>
+          <div className="mb-4">
             <button
-              className={styles.accordionHeader}
+              className="w-full flex justify-between items-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
               onClick={() => setIsConsoleOpen(!isConsoleOpen)}
               onTouchStart={(e) => {
                 e.currentTarget.style.transform = 'scale(0.98)';
@@ -894,12 +902,12 @@ const ExternalEmulator = () => {
               }}
             >
               <span>🎮 Выбор консоли</span>
-              <span className={styles.accordionIcon}>
+              <span className="text-gray-300">
                 {isConsoleOpen ? '▼' : '▶'}
               </span>
             </button>
             {isConsoleOpen && (
-              <div className={styles.accordionContent}>
+              <div className="mt-2">
                 <ConsoleSelector
                   consoles={consoles}
                   selectedConsole={selectedConsole}
@@ -912,9 +920,9 @@ const ExternalEmulator = () => {
 
           {/* Mobile: Game selection button */}
           {isMobile && selectedConsole && (
-            <div className={styles.mobileGameSelector}>
+            <div className="mb-4">
               <button
-                className={styles.openGamesButton}
+                className="w-full flex items-center justify-between p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
                 onClick={() => setIsModalOpen(true)}
                 onTouchStart={(e) => {
                   e.currentTarget.style.transform = 'scale(0.95)';
@@ -923,20 +931,20 @@ const ExternalEmulator = () => {
                   e.currentTarget.style.transform = '';
                 }}
               >
-                <span className={styles.openGamesIcon}>🎮</span>
-                <span className={styles.openGamesText}>
+                <span className="text-gray-300 text-xl">🎮</span>
+                <span className="text-white font-medium">
                   {selectedRom ? `Игра: ${selectedRom.name}` : 'Выбрать игру'}
                 </span>
-                <span className={styles.openGamesArrow}>▼</span>
+                <span className="text-gray-300">▼</span>
               </button>
             </div>
           )}
 
           {/* Selected game information display */}
           {selectedRom && (
-            <div className={styles.gameInfo}>
+            <div className="card p-4 mb-4">
               <h3>🎮 {selectedRom.name}</h3>
-              <div className={styles.gameDetails}>
+              <div className="mt-2 text-gray-300">
                 <p>Консоль: {selectedConsole?.name}</p>
                 {/* {!isMobile && <p>Категория: {selectedRom.category}</p>} */}
                 {/* <p>Регион: {selectedRom.region}</p> */}
@@ -946,14 +954,14 @@ const ExternalEmulator = () => {
 
 
           {/* Main emulator iframe or placeholder */}
-          <div className={styles.iframeContainer}>
+          <div className="w-full h-96 md:h-[600px]">
             {selectedRom ? (
               <iframe
                 key={getEmulatorUrl()}
                 ref={iframeRef}
                 src={getEmulatorUrl()}
                 title="Emulator"
-                className={styles.emulatorIframe}
+                className="w-full h-full border-0 rounded-lg"
                 allowFullScreen
                 loading="lazy"
                 sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
@@ -965,8 +973,8 @@ const ExternalEmulator = () => {
                 }}
               />
             ) : (
-              <div className={styles.placeholderContainer}>
-                <div className={styles.placeholderContent}>
+              <div className="flex items-center justify-center h-full">
+                <div className="text-center">
                   <h3>🎮 Выберите игру</h3>
                   <p>Кликните на игру, чтобы начать играть</p>
                   <p style={{ fontSize: '0.8rem', color: '#888' }}>

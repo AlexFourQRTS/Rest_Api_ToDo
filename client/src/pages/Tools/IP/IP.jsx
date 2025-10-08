@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { RefreshCw, Download, Share2 } from "lucide-react";
-import styles from "./IP.module.css";
+// Removed CSS module import
 import Hero from "../../../components/UI/Hero/Hero";
 import IPInfo from "../../../components/IPInfo/IPInfo";
 import BrowserInfo from "../../../components/BrowserInfo/BrowserInfo";
@@ -338,56 +337,50 @@ const IP = () => {
   }, []);
 
   return (
-    <div className={styles.ip}>
-      <motion.section
-        className={styles.intro}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
+    <div className="min-h-screen">
+      <section
+        className="section-padding"
       >
         <Hero 
           title="Ваш IP адрес" 
           subtitle="Подробная информация о вашем IP адресе, геолокации и браузере" 
         />
-      </motion.section>
+      </section>
       
-      <motion.section
-        className={styles.content}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
+      <section
+        className="container-custom py-8"
       >
         {/* Кнопки управления */}
-        <div className={styles.controls}>
+        <div className="flex gap-4 mb-8">
           <button 
-            className={styles.controlButton}
+            className="btn-primary flex items-center space-x-2"
             onClick={refreshData}
             disabled={isLoading}
           >
             <RefreshCw size={16} />
-            Обновить
+            <span>Обновить</span>
           </button>
           <button 
-            className={styles.controlButton}
+            className="btn-secondary flex items-center space-x-2"
             onClick={exportData}
             disabled={!ipData || !browserData}
           >
             <Download size={16} />
-            Экспорт
+            <span>Экспорт</span>
           </button>
           <button 
-            className={styles.controlButton}
+            className="btn-accent flex items-center space-x-2"
             onClick={shareData}
             disabled={!ipData || !browserData}
           >
             <Share2 size={16} />
-            Поделиться
+            <span>Поделиться</span>
           </button>
         </div>
 
         {/* Время последнего обновления */}
         {lastUpdate && (
-          <div className={styles.lastUpdate}>
+          <div className="text-gray-400 text-sm mb-4">
             Последнее обновление: {lastUpdate.toLocaleString('ru-RU')}
           </div>
         )}
@@ -430,7 +423,7 @@ const IP = () => {
 
         {/* Советы по безопасности */}
        
-      </motion.section>
+      </section>
     </div>
   );
 };

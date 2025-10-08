@@ -6,6 +6,7 @@
     "@emulatorjs/emulatorjs": "^4.2.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@reduxjs/toolkit": "^2.9.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.8.4",
@@ -27,6 +28,7 @@
     "react-dom": "^19.0.0",
     "react-dropzone": "^14.3.8",
     "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
     "react-router-dom": "^7.4.0",
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.5",
@@ -60,6 +62,8 @@
     "@babel/core": "^7.27.4",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.19",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "autoprefixer": "^10.4.21",
@@ -67,9 +71,9 @@
     "css-loader": "^7.1.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.5.1",
-    "postcss": "^8.5.4",
+    "postcss": "^8.5.6",
     "postcss-loader": "^8.1.1",
     "style-loader": "^4.0.0",
-    "tailwindcss": "^4.1.8"
+    "tailwindcss": "^3.4.18"
   }
 }

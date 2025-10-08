@@ -1,7 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { MapPin, Globe, Wifi, Clock, Copy, Check } from 'lucide-react';
-import styles from './IPInfo.module.css';
+// Removed CSS module import
 
 const IPInfo = ({ ipData, isLoading, error }) => {
   const [copied, setCopied] = React.useState(false);
@@ -31,122 +30,115 @@ const IPInfo = ({ ipData, isLoading, error }) => {
 
   if (isLoading) {
     return (
-      <motion.div 
-        className={styles.ipInfo}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+      <div 
+        className="card p-6"
       >
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>Получение информации об IP адресе...</p>
+        <div className="flex items-center justify-center space-x-3">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-slate-500"></div>
+          <p className="text-gray-300">Получение информации об IP адресе...</p>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <motion.div 
-        className={styles.ipInfo}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+      <div 
+        className="card p-6"
       >
-        <div className={styles.error}>
-          <h3>❌ Ошибка загрузки</h3>
-          <p>{error}</p>
+        <div className="text-center">
+          <h3 className="text-red-400 text-lg font-semibold mb-2">❌ Ошибка загрузки</h3>
+          <p className="text-gray-300">{error}</p>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
   return (
-    <motion.div 
-      className={styles.ipInfo}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div 
+      className="card p-6"
     >
       {/* Основная информация об IP */}
-      <div className={styles.mainSection}>
-        <h3 className={styles.sectionTitle}>
-          <Globe size={20} />
-          Ваш IP адрес
+      <div className="mb-6">
+        <h3 className="flex items-center space-x-2 text-xl font-semibold text-white mb-4">
+          <Globe size={20} className="text-gray-300" />
+          <span>Ваш IP адрес</span>
         </h3>
-        <div className={styles.ipDisplay}>
-          <span className={styles.ipAddress}>{ipData.ip}</span>
+        <div className="flex items-center space-x-3">
+          <span className="text-gray-300 font-mono text-2xl">{ipData.ip}</span>
           <button 
-            className={styles.copyButton}
+            className="p-2 bg-gray-700/50 hover:bg-gray-600/50 rounded-lg transition-colors"
             onClick={() => copyToClipboard(ipData.ip)}
             title="Копировать IP"
           >
-            {copied ? <Check size={16} /> : <Copy size={16} />}
+            {copied ? <Check size={16} className="text-green-400" /> : <Copy size={16} className="text-gray-300" />}
           </button>
         </div>
       </div>
 
       {/* Геолокация */}
-      <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>
-          <MapPin size={20} />
-          Геолокация
+      <div className="mb-6">
+        <h3 className="flex items-center space-x-2 text-lg font-semibold text-white mb-4">
+          <MapPin size={20} className="text-gray-300" />
+          <span>Геолокация</span>
         </h3>
-        <div className={styles.infoGrid}>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Страна:</span>
-            <span className={styles.value}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Страна:</span>
+            <span className="text-white">
               {ipData.country} {ipData.countryFlag}
             </span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Регион:</span>
-            <span className={styles.value}>{ipData.region || 'Unknown'}</span>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Регион:</span>
+            <span className="text-white">{ipData.region || 'Unknown'}</span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Город:</span>
-            <span className={styles.value}>{ipData.city || 'Unknown'}</span>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Город:</span>
+            <span className="text-white">{ipData.city || 'Unknown'}</span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Почтовый индекс:</span>
-            <span className={styles.value}>{ipData.postal || 'Unknown'}</span>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Почтовый индекс:</span>
+            <span className="text-white">{ipData.postal || 'Unknown'}</span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Координаты:</span>
-            <span className={styles.value}>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Координаты:</span>
+            <span className="text-white">
               {ipData.latitude && ipData.longitude 
                 ? `${ipData.latitude}, ${ipData.longitude}`
                 : 'Unknown'
               }
             </span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Часовой пояс:</span>
-            <span className={styles.value}>{ipData.timezone || 'Unknown'}</span>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Часовой пояс:</span>
+            <span className="text-white">{ipData.timezone || 'Unknown'}</span>
           </div>
         </div>
       </div>
 
       {/* Сетевая информация */}
-      <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>
-          <Wifi size={20} />
-          Сетевая информация
+      <div className="mb-6">
+        <h3 className="flex items-center space-x-2 text-lg font-semibold text-white mb-4">
+          <Wifi size={20} className="text-gray-300" />
+          <span>Сетевая информация</span>
         </h3>
-        <div className={styles.infoGrid}>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Провайдер:</span>
-            <span className={styles.value}>{ipData.org || 'Unknown'}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Провайдер:</span>
+            <span className="text-white">{ipData.org || 'Unknown'}</span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>ASN:</span>
-            <span className={styles.value}>{ipData.asn || 'Unknown'}</span>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">ASN:</span>
+            <span className="text-white">{ipData.asn || 'Unknown'}</span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Хост:</span>
-            <span className={styles.value}>{ipData.hostname || 'Unknown'}</span>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Хост:</span>
+            <span className="text-white">{ipData.hostname || 'Unknown'}</span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Тип IP:</span>
-            <span className={styles.value}>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Тип IP:</span>
+            <span className="text-white">
               {ipData.ip?.includes(':') ? 'IPv6' : 'IPv4'}
             </span>
           </div>
@@ -154,21 +146,21 @@ const IPInfo = ({ ipData, isLoading, error }) => {
       </div>
 
       {/* Время запроса */}
-      <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>
-          <Clock size={20} />
-          Время запроса
+      <div className="mb-6">
+        <h3 className="flex items-center space-x-2 text-lg font-semibold text-white mb-4">
+          <Clock size={20} className="text-gray-300" />
+          <span>Время запроса</span>
         </h3>
-        <div className={styles.infoGrid}>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Дата и время:</span>
-            <span className={styles.value}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Дата и время:</span>
+            <span className="text-white">
               {formatDate(new Date().toISOString())}
             </span>
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

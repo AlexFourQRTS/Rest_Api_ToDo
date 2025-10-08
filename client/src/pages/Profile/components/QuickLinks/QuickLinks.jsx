@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaComments, FaCloud, FaBook, FaQuestionCircle } from 'react-icons/fa';
-import styles from './QuickLinks.module.css';
+// Removed CSS module import
 
 export const QuickLinks = () => {
   const links = [
@@ -47,21 +47,23 @@ export const QuickLinks = () => {
   ];
 
   return (
-    <div className={styles.section}>
-      <h2>Швидкий доступ</h2>
-      <div className={styles.linksGrid}>
+    <div className="mb-8">
+      <h2 className="text-2xl font-bold text-white mb-6">Швидкий доступ</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {links.map((link, index) => (
           <Link
             key={index}
             to={link.to}
-            className={styles.quickLink}
+            className="card p-4 hover:shadow-2xl hover:scale-105 group"
           >
-            <div className={styles.quickLinkIcon}>
-              {link.icon}
-            </div>
-            <div className={styles.quickLinkContent}>
-              <h3>{link.title}</h3>
-              <p>{link.description}</p>
+            <div className="flex items-center space-x-4">
+              <div className="text-gray-300 text-2xl group-hover:text-gray-300 transition-colors">
+                {link.icon}
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-white mb-1">{link.title}</h3>
+                <p className="text-gray-300 text-sm">{link.description}</p>
+              </div>
             </div>
           </Link>
         ))}

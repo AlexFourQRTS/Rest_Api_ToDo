@@ -1,6 +1,6 @@
 // src/components/ArticleCard/ArticleCard.jsx
 import React from 'react';
-import styles from './ArticleCard.module.css';
+// Removed CSS module import
 import noImg from '../../pages/Blog/noImg.ico';
 
 const ArticleCard = ({ article, onViewClick, onDeleteClick }) => {
@@ -11,14 +11,14 @@ const ArticleCard = ({ article, onViewClick, onDeleteClick }) => {
     console.log("img", img)
     if (!img) {
       // Нет изображения
-      return <img src={noImg} alt="no-img" className={styles.image} />;
+      return <img src={noImg} alt="no-img" className="w-full h-32 object-cover rounded-lg" />;
     }
     if (typeof img === 'string') {
       // SVG-код
       if (img.trim().startsWith('<svg')) {
         return (
           <div
-            className={styles.image}
+            className="w-full h-32 object-cover rounded-lg"
             style={{padding:0,background:'none'}}
             dangerouslySetInnerHTML={{ __html: img }}
             aria-label={article.name}
@@ -31,30 +31,30 @@ const ArticleCard = ({ article, onViewClick, onDeleteClick }) => {
         img.startsWith('data:image') ||
         img.startsWith('/')
       ) {
-        return <img src={img} alt={article.name} className={styles.image} />;
+        return <img src={img} alt={article.name} className="w-full h-32 object-cover rounded-lg" />;
       }
     }
     // fallback
-    return <img src={noImg} alt="no-img" className={styles.image} />;
+    return <img src={noImg} alt="no-img" className="w-full h-32 object-cover rounded-lg" />;
   };
 
   return (
-    <div className={styles.articleCard}>
+    <div className="card p-6 hover:shadow-2xl">
 
-      <div className={styles.imageContainer}>
+      <div className="mb-4">
         {renderImage()}
       </div>
 
-      <div className={styles.content}>
-        <div className={styles.category}>{article.category}</div>
-        <h3 className={styles.title}>{article.name}</h3>
-        <p className={styles.excerpt}>{article.content}</p>
-        <div className={styles.actions}>
-          <button className={styles.viewButton} onClick={onViewClick}>
+      <div className="space-y-4">
+        <div className="text-gray-300 text-sm font-medium">{article.category}</div>
+        <h3 className="text-xl font-semibold text-white">{article.name}</h3>
+        <p className="text-gray-300 text-sm line-clamp-3">{article.content}</p>
+        <div className="flex gap-3">
+          <button className="btn-primary flex-1" onClick={onViewClick}>
             Просмотр
           </button>
           {onDeleteClick && (
-            <button className={styles.deleteButton} onClick={onDeleteClick}>
+            <button className="btn-primary bg-red-600 hover:bg-red-700 flex-1" onClick={onDeleteClick}>
               Удалить
             </button>
           )}

@@ -1,10 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import localizationService from '../utils/localization.js';
+import { 
+  initializeLanguage, 
+  setLanguage as setLanguageAction,
+  selectCurrentLanguage, 
+  selectIsInitialized 
+} from '../store/slices/languageSlice';
 
 // Хук для использования локализации в React компонентах
+// Теперь синхронизирован с Redux
 export const useLocalization = () => {
-  const [currentLanguage, setCurrentLanguage] = useState(localizationService.getCurrentLanguage());
-  const [isInitialized, setIsInitialized] = useState(false);
+  const dispatch = useDispatch();
+  const currentLanguage = useSelector(selectCurrentLanguage);
+  const isInitialized = useSelector(selectIsInitialized);
 
   useEffect(() => {
     // Инициализация локализации при первом рендере
@@ -18,36 +27,42 @@ export const useLocalization = () => {
           await localizationService.initialize();
         }
         
-        setIsInitialized(true);
+        // Синхронизируем с Redux
+        const finalLanguage = localizationService.getCurrentLanguage();
+        dispatch(initializeLanguage(finalLanguage));
       } catch (error) {
         console.warn('Failed to initialize localization:', error);
-        setIsInitialized(true);
+        dispatch(initializeLanguage());
       }
     };
 
-    initializeLocalization();
+    if (!isInitialized) {
+      initializeLocalization();
+    }
 
-    // Подписываемся на изменения языка
+    // Подписываемся на изменения языка из localizationService
     const unsubscribe = localizationService.subscribe((language) => {
-      setCurrentLanguage(language);
+      // Обновления теперь идут через Redux, не нужно локальное состояние
     });
 
     return unsubscribe;
-  }, []);
+  }, [dispatch, isInitialized]);
 
   // Функция для перевода
   const t = (key, fallback = '') => {
     return localizationService.t(key, fallback);
   };
 
-  // Функция для смены языка
+  // Функция для смены языка (теперь через Redux)
   const setLanguage = (language) => {
-    localizationService.setLanguage(language);
+    // Redux обновит состояние и синхронизирует с localizationService
+    // через languageSlice reducer
+    dispatch(setLanguageAction(language));
   };
 
-  // Получение текущего языка
+  // Получение текущего языка (из Redux)
   const getCurrentLanguage = () => {
-    return localizationService.getCurrentLanguage();
+    return currentLanguage;
   };
 
   // Получение списка поддерживаемых языков

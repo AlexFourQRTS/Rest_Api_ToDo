@@ -1,34 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { 
-  FaBars, 
   FaHome, 
   FaEnvelope, 
-  FaCloud, 
-  FaSave, 
   FaUserFriends, 
-  FaImages, 
-  FaVideo, 
   FaComments, 
   FaCog 
 } from 'react-icons/fa';
-import { authApi } from 'api/authApi';
+import { authApi } from '../../api';
 import { routes } from '../../routes';
-import { ProfileSidebar } from 'pages/Profile/components/ProfileSidebar/ProfileSidebar';
 import { ProfileHeader } from 'pages/Profile/components/ProfileHeader/ProfileHeader';
 import { QuickLinks } from 'pages/Profile/components/QuickLinks/QuickLinks';
 import AuthPage from 'pages/Profile/auth/AuthPage';
 import Chat from 'pages/Profile/components/Chat/Chat';
 import ChangePasswordForm from 'pages/Profile/components/ChangePasswordForm/ChangePasswordForm';
 import AdminPage from 'pages/Profile/Admin/AdminPage';
-import styles from './Profile.module.css';
+// Removed CSS module import
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedItem, setSelectedItem] = useState('overview');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedItem = searchParams.get('tab') || 'overview';
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -53,7 +47,6 @@ const Profile = () => {
 
   const handleLoginSuccess = (data) => {
     setUserData(data);
-    setIsSidebarOpen(false);
   };
 
   const renderGuestContent = () => {
@@ -92,17 +85,17 @@ const Profile = () => {
     const feature = featureDescriptions[selectedItem];
 
     return (
-      <div className={styles.featurePage}>
-        <div className={styles.featureHeader}>
-          <div className={styles.featureIcon}>
+      <div className="p-6">
+        <div className="flex items-center space-x-4 mb-6">
+          <div className="text-gray-300 text-3xl">
             {feature.icon}
           </div>
-          <h2>{feature.title}</h2>
+          <h2 className="text-2xl font-bold text-white">{feature.title}</h2>
         </div>
-        <div className={styles.featureContent}>
-          <p className={styles.featureDescription}>{feature.description}</p>
-          <div className={styles.authSection}>
-            <h3>Увійдіть для доступу до всіх функцій</h3>
+        <div className="space-y-6">
+          <p className="text-gray-300">{feature.description}</p>
+          <div className="bg-gray-800/50 p-6 rounded-lg">
+            <h3 className="text-xl font-semibold text-white mb-4">Увійдіть для доступу до всіх функцій</h3>
             <AuthPage onAuthSuccess={handleLoginSuccess} />
           </div>
         </div>
@@ -139,25 +132,8 @@ const Profile = () => {
   }
 
   return (
-    <div className={styles.profileContainer}>
-      <button 
-        className={styles.menuToggle}
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        aria-label="Toggle menu"
-      >
-        <FaBars />
-      </button>
-      <ProfileSidebar
-        userData={userData}
-        selectedItem={selectedItem}
-        onSelectItem={(item) => {
-          setSelectedItem(item);
-          setIsSidebarOpen(false);
-        }}
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-      />
-      <main className={styles.mainContent}>
+    <div className="min-h-screen">
+      <main className="p-6">
         {renderContent()}
       </main>
     </div>

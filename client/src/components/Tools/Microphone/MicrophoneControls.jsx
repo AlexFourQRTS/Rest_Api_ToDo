@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from "framer-motion";
 import { Mic, MicOff, X } from "lucide-react";
 import AudioVisualizer from './AudioVisualizer';
 
@@ -16,10 +15,8 @@ const MicrophoneControls = ({
   const canRecord = activeStreamValues.length === 1;
 
   return (
-    <motion.section
+    <section
       className={styles.micContainer}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } }}
     >
       <div className={styles.visualizerContainer}>
         {hasActiveStreams ? (
@@ -52,7 +49,7 @@ const MicrophoneControls = ({
       </div>
       
       {error && <div className={styles.error}><X size={16}/> {error}</div>}
-    </motion.section>
+    </section>
   );
 };
 

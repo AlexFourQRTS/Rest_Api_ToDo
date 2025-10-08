@@ -1,10 +1,10 @@
 import React from 'react';
 import { FileList } from './FileList';
-import styles from './style/FileLists.module.css';
+// Removed CSS module import
 
 const FileLists = () => {
   return (
-    <div className={styles.fileListsContainer}>
+    <div className="space-y-6">
       <FileList />
     </div>
   );

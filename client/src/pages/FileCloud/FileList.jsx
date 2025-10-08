@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useToast } from '../../context/ToastContext';
-import styles from './style/FileLists.module.css';
+// Removed CSS module import
 import { FaFileImage, FaFileVideo, FaFileAudio, 
   FaFileAlt, FaFile, FaPlay, FaDownload, 
   FaTrash, FaCopy, FaLink } from 'react-icons/fa'; // Removed unused icons
@@ -188,9 +188,9 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
     const isAudio = previewFile.mime_type.startsWith('audio/');
 
     return (
-      <div className={styles.previewOverlay} onClick={closePreview}>
-        <div className={styles.previewContent} onClick={e => e.stopPropagation()}>
-          <button className={styles.closePreview} onClick={closePreview}>×</button>
+      <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50" onClick={closePreview}>
+        <div className="bg-gray-800 p-6 rounded-lg max-w-4xl w-full mx-4 relative" onClick={e => e.stopPropagation()}>
+          <button className="absolute top-4 right-4 text-white hover:text-gray-300 text-2xl font-bold" onClick={closePreview}>×</button>
           {isImage && (
             <img src={previewFile.previewUrl} alt={previewFile.original_name} />
           )}
@@ -199,7 +199,7 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
               ref={videoRef}
               controls 
               src={previewFile.previewUrl}
-              className={styles.videoPlayer}
+              className="w-full h-auto"
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
             >
@@ -212,18 +212,19 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
               src={previewFile.previewUrl}
               onTimeUpdate={handleTimeUpdate}
               onLoadedMetadata={handleLoadedMetadata}
+              className="w-full"
             >
               Your browser does not support the audio tag.
             </audio>
           )}
-          <div className={styles.previewInfo}>
-            <h3>{previewFile.original_name}</h3>
-            <p>{(previewFile.size / (1024 * 1024)).toFixed(2)} MB</p>
+          <div className="mt-4">
+            <h3 className="text-white font-semibold">{previewFile.original_name}</h3>
+            <p className="text-gray-300">{(previewFile.size / (1024 * 1024)).toFixed(2)} MB</p>
             {isVideo && (
-              <div className={styles.videoControls}>
+              <div className="mt-2">
                 <button 
                   onClick={() => videoRef.current?.requestFullscreen()}
-                  className={styles.fullscreenButton}
+                  className="btn-primary"
                 >
                   Fullscreen
                 </button>
@@ -243,29 +244,33 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
     const downloadStatus = downloadingFiles[file.id];
 
     return (
-      <div key={file.id} className={styles.fileItem}>
-        <div className={styles.fileInfo}>
-          <div className={styles.fileIcon}>
+      <div key={file.id} className="card p-4 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+        <div className="flex items-center space-x-4 flex-1">
+          <div className="text-gray-300 text-2xl">
             {isImage && <FaFileImage />}
             {isVideo && <FaFileVideo />}
             {isAudio && <FaFileAudio />}
             {file.type === 'document' && <FaFileAlt />}
             {file.type === 'other' && <FaFile />}
           </div>
-          <div className={styles.fileDetails}>
-            <span className={styles.fileName}>{file.original_name}</span>
-            <span className={styles.fileSize}>{(file.size / 1024 / 1024).toFixed(2)} MB</span>
-            <div className={styles.fileUrl}>
-              <FaLink className={styles.linkIcon} />
-              <span className={styles.urlText}>{fileUrl}</span>
+          <div className="flex-1">
+            <span className="text-white font-medium block">{file.original_name}</span>
+            <span className="text-gray-400 text-sm">{(file.size / 1024 / 1024).toFixed(2)} MB</span>
+            <div className="flex items-center space-x-2 text-gray-400 text-xs mt-1">
+              <FaLink />
+              <span className="truncate max-w-xs">{fileUrl}</span>
             </div>
             {downloadStatus && (
-              <div className={styles.downloadProgress}>
+              <div className="mt-2">
                 <div 
-                  className={`${styles.progressBar} ${styles[downloadStatus.status]}`}
+                  className={`h-2 rounded ${
+                    downloadStatus.status === 'downloading' ? 'bg-slate-600' :
+                    downloadStatus.status === 'completed' ? 'bg-green-600' :
+                    'bg-red-600'
+                  }`}
                   style={{ width: `${downloadStatus.progress}%` }}
                 />
-                <span className={styles.progressText}>
+                <span className="text-xs text-gray-400">
                   {downloadStatus.status === 'downloading' && `${downloadStatus.progress}%`}
                   {downloadStatus.status === 'completed' && 'Downloaded!'}
                   {downloadStatus.status === 'error' && 'Error!'}
@@ -275,18 +280,18 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
           </div>
         </div>
 
-        <div className={styles.fileActions}>
+        <div className="flex space-x-2">
           <button
-            className={styles.actionButton}
+            className="btn-secondary p-2 relative"
             onClick={() => handleCopyLink(file.id)}
             title="Copy Link"
             disabled={!!downloadStatus}
           >
             <FaCopy />
-            {copiedFileId === file.id && <span className={styles.copiedTooltip}>Copied!</span>}
+            {copiedFileId === file.id && <span className="absolute -top-6 left-1/2 -translate-x-1/2 bg-gray-700 px-2 py-1 rounded text-xs text-white">Copied!</span>}
           </button>
           <button
-            className={styles.actionButton}
+            className="btn-secondary p-2"
             onClick={() => handlePreview(file)}
             title="Preview"
             disabled={!!downloadStatus}
@@ -294,7 +299,7 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
             <FaPlay />
           </button>
           <button
-            className={`${styles.actionButton} ${downloadStatus ? styles.downloading : ''}`}
+            className={`btn-secondary p-2 ${downloadStatus ? 'opacity-50' : ''}`}
             onClick={() => handleDownload(file.id, file.original_name)}
             title="Download"
             disabled={!!downloadStatus}
@@ -303,7 +308,7 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
           </button>
           {user && user.role === 'admin' && (
             <button
-              className={styles.actionButton}
+              className="btn-primary bg-red-600 hover:bg-red-700 p-2"
               onClick={() => showDeleteConfirmation(file)}
               title="Delete"
               disabled={!!downloadStatus}
@@ -318,104 +323,114 @@ const FileList = ({ files, isLoading, onFilesUpdate, user }) => {
 
   const renderFileList = (files) => {
     if (!files || files.length === 0) {
-      return <div className={styles.noFiles}>No files found</div>;
+      return <div className="text-center text-gray-300 p-6">No files found</div>;
     }
 
     return (
-      <div className={styles.fileList}>
+      <div className="space-y-4">
         {files.map((file) => renderFileItem(file))}
       </div>
     );
   };
 
   if (isLoading) {
-    return <div className={styles.loading}>Loading files...</div>;
+    return <div className="text-center text-gray-300 p-6">Loading files...</div>;
   }
 
   return (
-    <div className={styles.fileListsContainer}>
-      <div className={styles.tabs}>
+    <div className="space-y-6">
+      <div className="flex flex-wrap gap-2">
         <button
-          className={`${styles.tab} ${activeTab === 'images' ? styles.activeTab : ''}`}
+          className={`px-4 py-2 rounded flex items-center space-x-2 ${
+            activeTab === 'images' ? 'bg-slate-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
           onClick={() => setActiveTab('images')}
         >
-          <span className={styles.tabIcon}>
+          <span>
             <svg viewBox="0 0 24 24" width="24" height="24">
               <path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
             </svg>
           </span>
-          <span className={styles.tabText}>Images</span>
-          <span className={styles.tabCount}>({files.images.length})</span>
+          <span>Images</span>
+          <span>({files.images.length})</span>
         </button>
         <button
-          className={`${styles.tab} ${activeTab === 'videos' ? styles.activeTab : ''}`}
+          className={`px-4 py-2 rounded flex items-center space-x-2 ${
+            activeTab === 'videos' ? 'bg-slate-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
           onClick={() => setActiveTab('videos')}
         >
-          <span className={styles.tabIcon}>
+          <span>
             <svg viewBox="0 0 24 24" width="24" height="24">
               <path fill="currentColor" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
             </svg>
           </span>
-          <span className={styles.tabText}>Videos</span>
-          <span className={styles.tabCount}>({files.videos.length})</span>
+          <span>Videos</span>
+          <span>({files.videos.length})</span>
         </button>
         <button
-          className={`${styles.tab} ${activeTab === 'audio' ? styles.activeTab : ''}`}
+          className={`px-4 py-2 rounded flex items-center space-x-2 ${
+            activeTab === 'audio' ? 'bg-slate-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
           onClick={() => setActiveTab('audio')}
         >
-          <span className={styles.tabIcon}>
+          <span>
             <svg viewBox="0 0 24 24" width="24" height="24">
               <path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
             </svg>
           </span>
-          <span className={styles.tabText}>Audio</span>
-          <span className={styles.tabCount}>({files.audio.length})</span>
+          <span>Audio</span>
+          <span>({files.audio.length})</span>
         </button>
         <button
-          className={`${styles.tab} ${activeTab === 'documents' ? styles.activeTab : ''}`}
+          className={`px-4 py-2 rounded flex items-center space-x-2 ${
+            activeTab === 'documents' ? 'bg-slate-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
           onClick={() => setActiveTab('documents')}
         >
-          <span className={styles.tabIcon}>
+          <span>
             <svg viewBox="0 0 24 24" width="24" height="24">
               <path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
             </svg>
           </span>
-          <span className={styles.tabText}>Docs</span>
-          <span className={styles.tabCount}>({files.documents.length})</span>
+          <span>Docs</span>
+          <span>({files.documents.length})</span>
         </button>
         <button
-          className={`${styles.tab} ${activeTab === 'other' ? styles.activeTab : ''}`}
+          className={`px-4 py-2 rounded flex items-center space-x-2 ${
+            activeTab === 'other' ? 'bg-slate-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+          }`}
           onClick={() => setActiveTab('other')}
         >
-          <span className={styles.tabIcon}>
+          <span>
             <svg viewBox="0 0 24 24" width="24" height="24">
               <path fill="currentColor" d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
             </svg>
           </span>
-          <span className={styles.tabText}>Other</span>
-          <span className={styles.tabCount}>({files.other.length})</span>
+          <span>Other</span>
+          <span>({files.other.length})</span>
         </button>
       </div>
-      <div className={styles.fileGroup}>
+      <div>
         {renderFileList(files[activeTab])}
       </div>
       {renderPreview()}
 
       {deleteConfirmFile && (
-        <div className={styles.deleteConfirmOverlay}>
-          <div className={styles.deleteConfirmDialog}>
-            <h3>Підтвердження видалення</h3>
-            <p>Ви впевнені, що хочете видалити файл "{deleteConfirmFile.original_name}"?</p>
-            <div className={styles.deleteConfirmActions}>
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+          <div className="bg-gray-800 p-6 rounded-lg max-w-md w-full mx-4">
+            <h3 className="text-white font-semibold text-lg mb-4">Підтвердження видалення</h3>
+            <p className="text-gray-300 mb-6">Ви впевнені, що хочете видалити файл "{deleteConfirmFile.original_name}"?</p>
+            <div className="flex space-x-4">
               <button
-                className={styles.cancelButton}
+                className="btn-secondary flex-1"
                 onClick={cancelDelete}
                 disabled={isDeleting}
               >
                 Скасувати
               </button>
               <button
-                className={styles.confirmDeleteButton}
+                className="btn-primary bg-red-600 hover:bg-red-700 flex-1"
                 onClick={() => handleDelete(deleteConfirmFile.id)}
                 disabled={isDeleting}
               >

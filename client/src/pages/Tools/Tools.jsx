@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import translations from "./translations.json";
-import styles from "./Tools.module.css";
 import Hero from "../../components/UI/Hero/Hero";
 
 const developmentTools = [
@@ -56,29 +54,13 @@ const Tools = () => {
   const [language, setLanguage] = useState("en");
   const t = translations[language];
 
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
-    hover: { scale: 1.05, y: -5, transition: { duration: 0.2 } },
-  };
-
   return (
-    <div className={styles.tools}>
-      <motion.div
-        className={styles.languageSwitcher}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-      >
+    <div className="min-h-screen">
+      <div className="fixed top-20 right-4 z-30">
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className={styles.languageSelect}
+          className="bg-gray-800/80 border border-slate-500/30 text-white rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-slate-500 backdrop-blur-sm"
         >
           {languages.map((lang) => (
             <option key={lang.code} value={lang.code}>
@@ -86,168 +68,113 @@ const Tools = () => {
             </option>
           ))}
         </select>
-      </motion.div>
+      </div>
 
-      <motion.section
-        className={styles.intro}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
-      >
+      <section className="section-padding">
         <Hero title={t.title} subtitle={t.intro} />
-      </motion.section>
+      </section>
 
-      <motion.section
-        className={styles.developmentTools}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <h2 className={styles.subtitle}>{t.developmentTools}</h2>
-        <div className={styles.toolsGrid}>
+      <section className="container-custom pb-16">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">{t.developmentTools}</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {developmentTools.map((tool) => (
-            <motion.div
+            <div
               key={tool.name}
-              className={styles.toolItem}
-              variants={itemVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover="hover"
+              className="card-hover p-4 text-center"
             >
               <img
                 src={tool.icon}
                 alt={`${tool.name} icon`}
-                className={styles.toolIcon}
+                className="w-12 h-12 mx-auto mb-2"
               />
-              <span>{t.toolNames[tool.name]}</span>
-            </motion.div>
+              <span className="text-sm text-white">{t.toolNames[tool.name]}</span>
+            </div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section
-        className={styles.designTools}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <h2 className={styles.subtitle}>{t.designTools}</h2>
-        <div className={styles.toolsGrid}>
+      <section className="container-custom pb-16">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">{t.designTools}</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {designTools.map((tool) => (
-            <motion.div
+            <div
               key={tool.name}
-              className={styles.toolItem}
-              variants={itemVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover="hover"
+              className="card-hover p-4 text-center"
             >
               <img
                 src={tool.icon}
                 alt={`${tool.name} icon`}
-                className={styles.toolIcon}
+                className="w-12 h-12 mx-auto mb-2"
               />
-              <span>{t.toolNames[tool.name]}</span>
-            </motion.div>
+              <span className="text-sm text-white">{t.toolNames[tool.name]}</span>
+            </div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section
-        className={styles.testingTools}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <h2 className={styles.subtitle}>{t.testingTools}</h2>
-        <div className={styles.toolsGrid}>
+      <section className="container-custom pb-16">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">{t.testingTools}</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {testingTools.map((tool) => (
-            <motion.div
+            <div
               key={tool.name}
-              className={styles.toolItem}
-              variants={itemVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover="hover"
+              className="card-hover p-4 text-center"
             >
               <img
                 src={tool.icon}
                 alt={`${tool.name} icon`}
-                className={styles.toolIcon}
+                className="w-12 h-12 mx-auto mb-2"
               />
-              <span>{t.toolNames[tool.name]}</span>
-            </motion.div>
+              <span className="text-sm text-white">{t.toolNames[tool.name]}</span>
+            </div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section
-        className={styles.deploymentTools}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <h2 className={styles.subtitle}>{t.deploymentTools}</h2>
-        <div className={styles.toolsGrid}>
+      <section className="container-custom pb-16">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">{t.deploymentTools}</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {deploymentTools.map((tool) => (
-            <motion.div
+            <div
               key={tool.name}
-              className={styles.toolItem}
-              variants={itemVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover="hover"
+              className="card-hover p-4 text-center"
             >
               <img
                 src={tool.icon}
                 alt={`${tool.name} icon`}
-                className={styles.toolIcon}
+                className="w-12 h-12 mx-auto mb-2"
               />
-              <span>{t.toolNames[tool.name]}</span>
-            </motion.div>
+              <span className="text-sm text-white">{t.toolNames[tool.name]}</span>
+            </div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section
-        className={styles.monitoringTools}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <h2 className={styles.subtitle}>{t.monitoringTools}</h2>
-        <div className={styles.toolsGrid}>
+      <section className="container-custom pb-16">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">{t.monitoringTools}</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {monitoringTools.map((tool) => (
-            <motion.div
+            <div
               key={tool.name}
-              className={styles.toolItem}
-              variants={itemVariants}
-              initial="hidden"
-              animate="visible"
-              whileHover="hover"
+              className="card-hover p-4 text-center"
             >
               <img
                 src={tool.icon}
                 alt={`${tool.name} icon`}
-                className={styles.toolIcon}
+                className="w-12 h-12 mx-auto mb-2"
               />
-              <span>{t.toolNames[tool.name]}</span>
-            </motion.div>
+              <span className="text-sm text-white">{t.toolNames[tool.name]}</span>
+            </div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section
-        className={styles.description}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <h2 className={styles.subtitle}>{t.description}</h2>
-        <p className={styles.text}>{t.descriptionText}</p>
-      </motion.section>
+      <section className="container-custom pb-16">
+        <h2 className="text-3xl font-bold text-white mb-8 text-center">{t.description}</h2>
+        <p className="text-gray-400 text-center max-w-4xl mx-auto leading-relaxed">{t.descriptionText}</p>
+      </section>
     </div>
   );
 };
 
-export default Tools; 
+export default Tools;

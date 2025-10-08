@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { authApi } from 'api/authApi';
+import { authApi } from '../../api';
 import ArticleCard from '../../components/ArticleCard/ArticleCard';
 import Hero from '../../components/UI/Hero/Hero';
-import styles from './Blog.module.css';
+// Removed CSS module import
 
 
 const BASE_URL = process.env.REACT_APP_API_URL;
@@ -130,7 +130,7 @@ const Blog = () => {
     pages.push(
       <button
         key="1"
-        className={`${styles.pageButton} ${page === 1 ? styles.active : ''}`}
+        className={`px-3 py-1 rounded ${page === 1 ? 'bg-slate-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
         onClick={() => handlePageChange(1)}
       >
         1
@@ -143,7 +143,7 @@ const Blog = () => {
 
     // Добавляем многоточие после первой страницы, если есть пропуск
     if (startPage > 2) {
-      pages.push(<span key="ellipsis1" className={styles.ellipsis}>...</span>);
+      pages.push(<span key="ellipsis1" className="px-2 text-gray-400">...</span>);
     }
 
     // Добавляем страницы вокруг текущей
@@ -151,7 +151,7 @@ const Blog = () => {
       pages.push(
         <button
           key={i}
-          className={`${styles.pageButton} ${page === i ? styles.active : ''}`}
+          className={`px-3 py-1 rounded ${page === i ? 'bg-slate-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
           onClick={() => handlePageChange(i)}
         >
           {i}
@@ -161,7 +161,7 @@ const Blog = () => {
 
     // Добавляем многоточие перед последней страницей, если есть пропуск
     if (endPage < totalPages - 1) {
-      pages.push(<span key="ellipsis2" className={styles.ellipsis}>...</span>);
+      pages.push(<span key="ellipsis2" className="px-2 text-gray-400">...</span>);
     }
 
     // Всегда показываем последнюю страницу, если она не первая
@@ -169,7 +169,7 @@ const Blog = () => {
       pages.push(
         <button
           key={totalPages}
-          className={`${styles.pageButton} ${page === totalPages ? styles.active : ''}`}
+          className={`px-3 py-1 rounded ${page === totalPages ? 'bg-slate-600 text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
           onClick={() => handlePageChange(totalPages)}
         >
           {totalPages}
@@ -181,7 +181,7 @@ const Blog = () => {
   };
 
   return (
-    <div className={styles.blogContainer}>
+    <div className="min-h-screen">
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -196,39 +196,38 @@ const Blog = () => {
       />
       <Hero title="Блог">
         {user && user.role === 'admin' && (
-          <button className={styles.createButton} onClick={() => setIsCreating(true)}>
+          <button className="btn-primary" onClick={() => setIsCreating(true)}>
             Создать статью
           </button>
         )}
       </Hero>
       {error && toast.error(error)}
-      <div className={styles.actions}>
-        <div className={styles.searchContainer}>
+      <div className="container-custom py-8">
+        <div className="mb-6">
           <input
             type="text"
             placeholder="Поиск статей..."
-            className={styles.searchInput}
+            className="input-field w-full max-w-md"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-      </div>
 
       {isDeleting && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <div className={styles.modalHeader}>
-              <h2>Подтверждение удаления</h2>
-              <button onClick={handleDeleteCancel} className={styles.closeButton}>×</button>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold text-white">Подтверждение удаления</h2>
+              <button onClick={handleDeleteCancel} className="text-gray-400 hover:text-white text-2xl">×</button>
             </div>
-            <div className={styles.modalBody}>
-              <p>Вы уверены, что хотите удалить эту статью?</p>
+            <div className="mb-6">
+              <p className="text-gray-300">Вы уверены, что хотите удалить эту статью?</p>
             </div>
-            <div className={styles.modalFooter}>
-              <button onClick={handleDeleteCancel} className={styles.cancelButton}>
+            <div className="flex gap-4">
+              <button onClick={handleDeleteCancel} className="btn-secondary flex-1">
                 Отмена
               </button>
-              <button onClick={handleDeleteConfirm} className={styles.deleteButton}>
+              <button onClick={handleDeleteConfirm} className="btn-primary bg-red-600 hover:bg-red-700 flex-1">
                 Удалить
               </button>
             </div>
@@ -237,20 +236,20 @@ const Blog = () => {
       )}
 
       {selectedArticle && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <div className={styles.modalHeader}>
-              <h2>{selectedArticle.name}</h2>
-              <button onClick={handleCloseModal} className={styles.closeButton}>×</button>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-gray-800 rounded-lg p-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-semibold text-white">{selectedArticle.name}</h2>
+              <button onClick={handleCloseModal} className="text-gray-400 hover:text-white text-2xl">×</button>
             </div>
-            <div className={styles.modalBody}>
+            <div className="mb-6">
               {selectedArticle.image && (
                 <div
-                  className="svg-container"
+                  className="svg-container mb-4"
                   dangerouslySetInnerHTML={{ __html: selectedArticle.image }}
                 />
               )}
-              <div className={styles.modalText}>
+              <div className="text-gray-300 leading-relaxed">
                 {selectedArticle.content}
               </div>
             </div>
@@ -259,79 +258,87 @@ const Blog = () => {
       )}
 
       {isCreating && (
-        <div className={styles.createForm}>
-          <h2>Создать новую статью</h2>
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            handleCreateArticle(newArticle);
-          }}>
-            <div className={styles.formGroup}>
-              <label htmlFor="name">Название</label>
-              <input
-                type="text"
-                id="name"
-                value={newArticle.name}
-                onChange={(e) => setNewArticle({...newArticle, name: e.target.value})}
-                required
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="excerpt">Краткое описание</label>
-              <textarea
-                id="excerpt"
-                value={newArticle.excerpt}
-                onChange={(e) => setNewArticle({...newArticle, excerpt: e.target.value})}
-                required
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="content">Содержание</label>
-              <textarea
-                id="content"
-                value={newArticle.content}
-                onChange={(e) => setNewArticle({...newArticle, content: e.target.value})}
-                required
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="category">Категория</label>
-              <input
-                type="text"
-                id="category"
-                value={newArticle.category}
-                onChange={(e) => setNewArticle({...newArticle, category: e.target.value})}
-                required
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label htmlFor="image">URL изображения</label>
-              <input
-                type="text"
-                id="image"
-                value={newArticle.image_url}
-                onChange={(e) => setNewArticle({...newArticle, image_url: e.target.value})}
-              />
-            </div>
-            <div className={styles.formActions}>
-              <button type="button" onClick={() => setIsCreating(false)}>Отмена</button>
-              <button type="submit">Создать</button>
-            </div>
-          </form>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-gray-800 rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <h2 className="text-2xl font-semibold text-white mb-6">Создать новую статью</h2>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              handleCreateArticle(newArticle);
+            }} className="space-y-4">
+              <div>
+                <label htmlFor="name" className="block text-white mb-2">Название</label>
+                <input
+                  type="text"
+                  id="name"
+                  value={newArticle.name}
+                  onChange={(e) => setNewArticle({...newArticle, name: e.target.value})}
+                  required
+                  className="input-field w-full"
+                />
+              </div>
+              <div>
+                <label htmlFor="excerpt" className="block text-white mb-2">Краткое описание</label>
+                <textarea
+                  id="excerpt"
+                  value={newArticle.excerpt}
+                  onChange={(e) => setNewArticle({...newArticle, excerpt: e.target.value})}
+                  required
+                  className="input-field w-full h-20"
+                />
+              </div>
+              <div>
+                <label htmlFor="content" className="block text-white mb-2">Содержание</label>
+                <textarea
+                  id="content"
+                  value={newArticle.content}
+                  onChange={(e) => setNewArticle({...newArticle, content: e.target.value})}
+                  required
+                  className="input-field w-full h-32"
+                />
+              </div>
+              <div>
+                <label htmlFor="category" className="block text-white mb-2">Категория</label>
+                <input
+                  type="text"
+                  id="category"
+                  value={newArticle.category}
+                  onChange={(e) => setNewArticle({...newArticle, category: e.target.value})}
+                  required
+                  className="input-field w-full"
+                />
+              </div>
+              <div>
+                <label htmlFor="image" className="block text-white mb-2">URL изображения</label>
+                <input
+                  type="text"
+                  id="image"
+                  value={newArticle.image_url}
+                  onChange={(e) => setNewArticle({...newArticle, image_url: e.target.value})}
+                  className="input-field w-full"
+                />
+              </div>
+              <div className="flex gap-4 pt-4">
+                <button type="button" onClick={() => setIsCreating(false)} className="btn-secondary flex-1">Отмена</button>
+                <button type="submit" className="btn-primary flex-1">Создать</button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
 
-      <div className={styles.blogList}>
-        {articles.map(article => (
-          <ArticleCard
-            key={article.id}
-            article={article}
-            onViewClick={() => handleViewClick(article)}
-            onDeleteClick={user && user.role === 'admin' ? () => handleDeleteClick(article.id) : null}
-          />
-        ))}
-      </div>
-      <div className={styles.pagination}>
-        {renderPagination()}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {articles.map(article => (
+            <ArticleCard
+              key={article.id}
+              article={article}
+              onViewClick={() => handleViewClick(article)}
+              onDeleteClick={user && user.role === 'admin' ? () => handleDeleteClick(article.id) : null}
+            />
+          ))}
+        </div>
+        <div className="flex justify-center mt-8">
+          {renderPagination()}
+        </div>
       </div>
     </div>
   );

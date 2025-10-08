@@ -1,157 +1,97 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import translations from "./homeTranslations.json";
-import styles from "./Home.module.css";
-import * as feather from "feather-icons";
 import Hero from "../../components/UI/Hero/Hero";
-
-const languages = [
-  { code: "uk", name: "Українська" },
-  { code: "en", name: "English" },
-  { code: "ru", name: "Русский" },
-  
-];
+import useLanguage from "../../hooks/useLanguage";
+import { 
+  Code, 
+  Cloud, 
+  Gamepad2, 
+  Users, 
+  BookOpen
+} from "lucide-react";
 
 const routesInfo = [
   {
     path: "/skills",
     title: "skills_title",
     description: "skills_description",
-    iconKey: "skills_icon",
+    icon: Code,
   },
   {
     path: "/filecloud",
     title: "filecloud",
     description: "filecloud_description",
-    iconKey: "filecloud_icon",
+    icon: Cloud,
   },
   {
     path: "/games",
     title: "emul_page",
     description: "emul_page_description",
-    iconKey: "emul_icon",
+    icon: Gamepad2,
   },
   {
-    path: "/alavar",
-    title: "alavar_page",
-    description: "alavar_page_description",
-    iconKey: "alavar_icon",
-  },
-  {
-    path: "/programs",
-    title: "programm_page",
-    description: "programm_page_description",
-    iconKey: "programm_icon",
-  },
-  {
-    path: "/forum",
+    path: "/chat",
     title: "forum_page",
     description: "forum_page_description",
-    iconKey: "forum_icon",
+    icon: Users,
   },
   {
     path: "/blog",
     title: "blog_page",
     description: "blog_description",
-    iconKey: "blog_icon",
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    title: "err_page",
-    description: "err_page_description",
-    iconKey: "err_icon",
+    icon: BookOpen,
   },
 ];
 
 const Home = () => {
-  const [language, setLanguage] = useState("en");
-  const t = translations[language];
-
-  useEffect(() => {
-    feather.replace();
-  }, [language]);
-
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, delay: 1.2 } },
-  };
+  const { currentLanguage: language } = useLanguage();
+  const t = translations[language] || translations['en'];
 
   return (
-    <div className={styles.home}>
-      <motion.div
-        className={styles.languageSwitcher}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.4 }}
-      >
-        <select
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-          className={styles.languageSelect}
-        >
-          {languages.map((lang) => (
-            <option key={lang.code} value={lang.code}>
-              {lang.name}
-            </option>
-          ))}
-        </select>
-      </motion.div>
-
-      <motion.section
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
-      >
+    <div className="min-h-screen">
+      <section>
         <Hero title={t.title} subtitle={t.intro} />
 
-        <div className={styles.routes}>
-          {routesInfo.map((route) => (
-            <motion.div
-              key={route.path}
-              className={styles.routeCard}
-              variants={cardVariants}
-              initial="hidden"
-              animate="visible"
-              transition={{ duration: 0.3, delay: 0.1 }}
-              whileHover={{ scale: 1.03 }}
-            >
-
-
-              {t[route.iconKey] && (
+        {/* Routes Grid */}
+        <div className="container-custom pb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {routesInfo.map((route) => {
+              const Icon = route.icon;
+              return (
                 <div
-                  className={styles.routeIcon}
-                  dangerouslySetInnerHTML={{
-                    __html: feather.icons[t[route.iconKey]].toSvg({
-                      strokeWidth: 2,
-                      width: 40,
-                      height: 40,
-                    }),
-                  }}
-                />
-              )}
-              <h2 className={styles.routeTitle}>
-                <p className={styles.routeDescription}>{t[route.description]}</p>
-              </h2>
-
-              <Link to={route.path} className={styles.routeLink}>
-                {t[route.title]}
-              </Link>
-            </motion.div>
-          ))}
+                  key={route.path}
+                  className="card-hover p-6 group cursor-pointer"
+                >
+                  <div className="flex items-center mb-4">
+                    <div className="p-3 bg-gradient-to-r from-slate-600/20 to-purple-600/20 rounded-lg group-hover:from-slate-600/40 group-hover:to-purple-600/40 border border-slate-500/20 group-hover:border-slate-400/40">
+                      <Icon size={32} className="text-gray-300 group-hover:text-gray-300" />
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {t[route.title]}
+                  </h3>
+                  
+                  <p className="text-gray-400 mb-4 leading-relaxed">
+                    {t[route.description]}
+                  </p>
+                  
+                  <Link 
+                    to={route.path} 
+                    className="inline-flex items-center text-gray-300 hover:text-gray-300 font-medium"
+                  >
+                    Перейти
+                    <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
         </div>
-
-      </motion.section>
+      </section>
     </div>
   );
 };

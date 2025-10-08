@@ -1,21 +1,18 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Activity, HardDrive, Clock, Navigation } from 'lucide-react';
-import styles from './PerformanceInfo.module.css';
+// Removed CSS module import
 
 const PerformanceInfo = ({ performanceInfo }) => {
   if (!performanceInfo) {
     return (
-      <motion.div 
-        className={styles.performanceInfo}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+      <div 
+        className="card p-6"
       >
-        <div className={styles.error}>
-          <h3>❌ Информация недоступна</h3>
-          <p>Данные о производительности не могут быть получены в этом браузере.</p>
+        <div className="text-center">
+          <h3 className="text-red-400 text-lg font-semibold mb-2">❌ Информация недоступна</h3>
+          <p className="text-gray-300">Данные о производительности не могут быть получены в этом браузере.</p>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
@@ -39,72 +36,69 @@ const PerformanceInfo = ({ performanceInfo }) => {
   };
 
   return (
-    <motion.div 
-      className={styles.performanceInfo}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div 
+      className="card p-6"
     >
       {/* Информация о памяти */}
       {performanceInfo.memory && (
-        <div className={styles.section}>
-                  <h3 className={styles.sectionTitle}>
-          <HardDrive size={20} />
-          Использование памяти
-        </h3>
-          <div className={styles.infoGrid}>
-            <div className={styles.infoItem}>
-              <span className={styles.label}>Используется:</span>
-              <span className={styles.value}>{performanceInfo.memory.usedJSHeapSize}</span>
+        <div className="mb-6">
+          <h3 className="flex items-center space-x-2 text-lg font-semibold text-white mb-4">
+            <HardDrive size={20} className="text-gray-300" />
+            <span>Использование памяти</span>
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+              <span className="text-gray-300">Используется:</span>
+              <span className="text-white">{performanceInfo.memory.usedJSHeapSize}</span>
             </div>
-            <div className={styles.infoItem}>
-              <span className={styles.label}>Всего выделено:</span>
-              <span className={styles.value}>{performanceInfo.memory.totalJSHeapSize}</span>
+            <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+              <span className="text-gray-300">Всего выделено:</span>
+              <span className="text-white">{performanceInfo.memory.totalJSHeapSize}</span>
             </div>
-            <div className={styles.infoItem}>
-              <span className={styles.label}>Лимит:</span>
-              <span className={styles.value}>{performanceInfo.memory.jsHeapSizeLimit}</span>
+            <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+              <span className="text-gray-300">Лимит:</span>
+              <span className="text-white">{performanceInfo.memory.jsHeapSizeLimit}</span>
             </div>
           </div>
         </div>
       )}
 
       {/* Время загрузки */}
-      <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>
-          <Clock size={20} />
-          Время загрузки
+      <div className="mb-6">
+        <h3 className="flex items-center space-x-2 text-lg font-semibold text-white mb-4">
+          <Clock size={20} className="text-gray-300" />
+          <span>Время загрузки</span>
         </h3>
-        <div className={styles.infoGrid}>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Полная загрузка:</span>
-            <span className={styles.value}>{calculateLoadTime()}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Полная загрузка:</span>
+            <span className="text-white">{calculateLoadTime()}</span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>DOM готов:</span>
-            <span className={styles.value}>{calculateDOMReadyTime()}</span>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">DOM готов:</span>
+            <span className="text-white">{calculateDOMReadyTime()}</span>
           </div>
           {performanceInfo.timing && (
             <>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Начало навигации:</span>
-                <span className={styles.value}>{formatTime(performanceInfo.timing.navigationStart)}</span>
+              <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+                <span className="text-gray-300">Начало навигации:</span>
+                <span className="text-white">{formatTime(performanceInfo.timing.navigationStart)}</span>
               </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>DNS запрос:</span>
-                <span className={styles.value}>
+              <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+                <span className="text-gray-300">DNS запрос:</span>
+                <span className="text-white">
                   {performanceInfo.timing.domainLookupEnd - performanceInfo.timing.domainLookupStart}ms
                 </span>
               </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Подключение:</span>
-                <span className={styles.value}>
+              <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+                <span className="text-gray-300">Подключение:</span>
+                <span className="text-white">
                   {performanceInfo.timing.connectEnd - performanceInfo.timing.connectStart}ms
                 </span>
               </div>
-              <div className={styles.infoItem}>
-                <span className={styles.label}>Ответ сервера:</span>
-                <span className={styles.value}>
+              <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+                <span className="text-gray-300">Ответ сервера:</span>
+                <span className="text-white">
                   {performanceInfo.timing.responseEnd - performanceInfo.timing.responseStart}ms
                 </span>
               </div>
@@ -115,58 +109,58 @@ const PerformanceInfo = ({ performanceInfo }) => {
 
       {/* Информация о навигации */}
       {performanceInfo.navigation && (
-        <div className={styles.section}>
-          <h3 className={styles.sectionTitle}>
-            <Navigation size={20} />
-            Навигация
+        <div className="mb-6">
+          <h3 className="flex items-center space-x-2 text-lg font-semibold text-white mb-4">
+            <Navigation size={20} className="text-gray-300" />
+            <span>Навигация</span>
           </h3>
-          <div className={styles.infoGrid}>
-            <div className={styles.infoItem}>
-              <span className={styles.label}>Тип навигации:</span>
-              <span className={styles.value}>{performanceInfo.navigation.type}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+              <span className="text-gray-300">Тип навигации:</span>
+              <span className="text-white">{performanceInfo.navigation.type}</span>
             </div>
-            <div className={styles.infoItem}>
-              <span className={styles.label}>Количество редиректов:</span>
-              <span className={styles.value}>{performanceInfo.navigation.redirectCount}</span>
+            <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+              <span className="text-gray-300">Количество редиректов:</span>
+              <span className="text-white">{performanceInfo.navigation.redirectCount}</span>
             </div>
           </div>
         </div>
       )}
 
       {/* Общая производительность */}
-      <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>
-          <Activity size={20} />
-          Общая производительность
+      <div className="mb-6">
+        <h3 className="flex items-center space-x-2 text-lg font-semibold text-white mb-4">
+          <Activity size={20} className="text-gray-300" />
+          <span>Общая производительность</span>
         </h3>
-        <div className={styles.infoGrid}>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Performance API:</span>
-            <span className={styles.value}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Performance API:</span>
+            <span className="text-white">
               {window.performance ? '✅ Поддерживается' : '❌ Не поддерживается'}
             </span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Memory API:</span>
-            <span className={styles.value}>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Memory API:</span>
+            <span className="text-white">
               {performanceInfo.memory ? '✅ Поддерживается' : '❌ Не поддерживается'}
             </span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Timing API:</span>
-            <span className={styles.value}>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Timing API:</span>
+            <span className="text-white">
               {performanceInfo.timing ? '✅ Поддерживается' : '❌ Не поддерживается'}
             </span>
           </div>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Navigation API:</span>
-            <span className={styles.value}>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Navigation API:</span>
+            <span className="text-white">
               {performanceInfo.navigation ? '✅ Поддерживается' : '❌ Не поддерживается'}
             </span>
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

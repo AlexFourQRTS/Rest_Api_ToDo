@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import styles from './FileDetail.module.css';
+// Removed CSS module import
 
 const FileDetail = () => {
   const { fileId } = useParams();
@@ -61,9 +61,9 @@ const FileDetail = () => {
 
   if (loading) {
     return (
-      <div className={styles.container}>
-        <div className={styles.fileCard}>
-          <div className={styles.loading}>Завантаження...</div>
+      <div className="p-6">
+        <div className="card p-6">
+          <div className="text-center text-gray-300">Завантаження...</div>
         </div>
       </div>
     );
@@ -71,10 +71,10 @@ const FileDetail = () => {
 
   if (error) {
     return (
-      <div className={styles.container}>
-        <div className={styles.fileCard}>
-          <div className={styles.error}>{error}</div>
-          <button className={styles.backButton} onClick={() => navigate('/filecloud')}>
+      <div className="p-6">
+        <div className="card p-6">
+          <div className="bg-red-900/20 border border-red-500 text-red-400 p-4 rounded-lg mb-4">{error}</div>
+          <button className="btn-primary" onClick={() => navigate('/filecloud')}>
             Повернутися назад
           </button>
         </div>
@@ -84,10 +84,10 @@ const FileDetail = () => {
 
   if (!file) {
     return (
-      <div className={styles.container}>
-        <div className={styles.fileCard}>
-          <div className={styles.error}>Файл не знайдено</div>
-          <button className={styles.backButton} onClick={() => navigate('/filecloud')}>
+      <div className="p-6">
+        <div className="card p-6">
+          <div className="bg-red-900/20 border border-red-500 text-red-400 p-4 rounded-lg mb-4">Файл не знайдено</div>
+          <button className="btn-primary" onClick={() => navigate('/filecloud')}>
             Повернутися назад
           </button>
         </div>
@@ -96,44 +96,46 @@ const FileDetail = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.fileCard}>
-        <h1 className={styles.fileName}>{file.originalName}</h1>
-        
-        <div className={styles.fileInfo}>
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Розмір:</span>
-            <span className={styles.value}>
-              {file.size >= 1000000000
-                ? `${(file.size / 1000000000).toFixed(2)} ГБ`
-                : file.size >= 1000000
-                ? `${(file.size / 1000000).toFixed(2)} МБ`
-                : file.size >= 1000
-                ? `${(file.size / 1000).toFixed(2)} КБ`
-                : `${file.size} байт`}
-            </span>
-          </div>
+    <div className="min-h-screen">
+      <div className="container-custom py-8">
+        <div className="card p-6 max-w-2xl mx-auto">
+          <h1 className="text-3xl font-bold text-white mb-6">{file.originalName}</h1>
           
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Тип:</span>
-            <span className={styles.value}>{file.mimetype || 'Невідомий'}</span>
+          <div className="space-y-4 mb-6">
+            <div className="flex justify-between">
+              <span className="text-gray-300">Розмір:</span>
+              <span className="text-white">
+                {file.size >= 1000000000
+                  ? `${(file.size / 1000000000).toFixed(2)} ГБ`
+                  : file.size >= 1000000
+                  ? `${(file.size / 1000000).toFixed(2)} МБ`
+                  : file.size >= 1000
+                  ? `${(file.size / 1000).toFixed(2)} КБ`
+                  : `${file.size} байт`}
+              </span>
+            </div>
+            
+            <div className="flex justify-between">
+              <span className="text-gray-300">Тип:</span>
+              <span className="text-white">{file.mimetype || 'Невідомий'}</span>
+            </div>
+            
+            <div className="flex justify-between">
+              <span className="text-gray-300">Завантажено:</span>
+              <span className="text-white">
+                {new Date(file.uploadedAt).toLocaleString()}
+              </span>
+            </div>
           </div>
-          
-          <div className={styles.infoItem}>
-            <span className={styles.label}>Завантажено:</span>
-            <span className={styles.value}>
-              {new Date(file.uploadedAt).toLocaleString()}
-            </span>
-          </div>
-        </div>
 
-        <div className={styles.actions}>
-          <button className={styles.downloadButton} onClick={handleDownload}>
-            Скачати файл
-          </button>
-          <button className={styles.backButton} onClick={() => navigate('/filecloud')}>
-            Повернутися назад
-          </button>
+          <div className="flex gap-4">
+            <button className="btn-primary" onClick={handleDownload}>
+              Скачати файл
+            </button>
+            <button className="btn-secondary" onClick={() => navigate('/filecloud')}>
+              Повернутися назад
+            </button>
+          </div>
         </div>
       </div>
     </div>

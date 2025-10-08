@@ -1,10 +1,10 @@
 import React from 'react';
 import ExternalEmulator from './ExternalEmulator';
-import styles from './Games.module.css';
+// Removed CSS module import
 
 const Games = () => {
   return (
-    <div className={styles.gamesPage}>
+    <div className="min-h-screen">
       <ExternalEmulator />
     </div>
   );

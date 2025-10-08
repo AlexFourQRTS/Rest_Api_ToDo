@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from "framer-motion";
 import { Download, Trash2 } from "lucide-react";
 import AudioPlayer from './AudioPlayer';
 
@@ -9,10 +8,8 @@ const RecordingsList = ({ recordings, activePlayer, onTogglePlay, onDownload, on
   }
 
   return (
-    <motion.section
+    <section
       className={styles.recordingsList}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
     >
       <h3>Записи</h3>
       <ul>
@@ -38,7 +35,7 @@ const RecordingsList = ({ recordings, activePlayer, onTogglePlay, onDownload, on
           </li>
         ))}
       </ul>
-    </motion.section>
+    </section>
   );
 };
 

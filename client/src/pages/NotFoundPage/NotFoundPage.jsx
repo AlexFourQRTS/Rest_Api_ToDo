@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { routes } from "../../routes"
-import styles from "./NotFoundPage.module.css";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { routes } from "../../routes";
+import { Home, ArrowLeft } from "lucide-react";
 
 export const NotFoundPage = () => {
-  const navigate = useNavigate();
-  const [easterEggContent, setEasterEggContent] = useState(null);
-  const statsRef = useRef(null);
-
-
   useEffect(() => {
     console.log("404 Error Page visited:", {
       url: window.location.href,
@@ -18,159 +13,50 @@ export const NotFoundPage = () => {
     });
   }, []);
 
-  useEffect(() => {
-    const floatingCodes = document.querySelectorAll(`.${styles.floatingCode}`);
-    const handleMouseEnter = (e) => {
-      e.target.style.color = "rgba(249, 115, 22, 0.3)";
-      e.target.style.transform = "scale(1.2)";
-    };
-    const handleMouseLeave = (e) => {
-      e.target.style.color = "rgba(249, 115, 22, 0.1)";
-      e.target.style.transform = "scale(1)";
-    };
-
-    floatingCodes.forEach((code) => {
-      code.addEventListener("mouseenter", handleMouseEnter);
-      code.addEventListener("mouseleave", handleMouseLeave);
-    });
-
-    return () => {
-      floatingCodes.forEach((code) => {
-        code.removeEventListener("mouseenter", handleMouseEnter);
-        code.removeEventListener("mouseleave", handleMouseLeave);
-      });
-    };
-  }, []);
-
-
-  const handleQuickNavClick = (e) => {
-    const item = e.currentTarget;
-    const ripple = document.createElement("div");
-    ripple.style.cssText = `
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(249, 115, 22, 0.3);
-      pointer-events: none;
-      transform: scale(0);
-      animation: ${styles.ripple} 0.6s linear;
-      width: 100px;
-      height: 100px;
-      left: ${e.nativeEvent.offsetX - 50}px;
-      top: ${e.nativeEvent.offsetY - 50}px;
-    `;
-    item.appendChild(ripple);
-    setTimeout(() => {
-      if (ripple.parentNode) {
-        ripple.parentNode.removeChild(ripple);
-      }
-    }, 600);
-  };
-
   return (
-    <main className={styles.mainContent}>
-    
-        <div className={styles.errorAnimation}>
-          <div >
-            <div className={styles.errorCode}>404</div>
-            <div className={styles.errorPanda}>🐼</div>
-            <div className={styles.errorGlitch}></div>
-          </div>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-purple-950 to-purple-900">
+      <div className="text-center max-w-2xl mx-auto px-4">
+        {/* 404 Number */}
+        <div className="mb-8">
+          <h1 className="text-9xl font-bold gradient-text">404</h1>
         </div>
 
-        <div className={styles.errorContent}>
-          <h1>Oops! Страница не найдена</h1>
+        {/* Error Message */}
+        <div className="mb-8">
+          <h2 className="text-3xl font-semibold text-white mb-4">
+            Страница не найдена
+          </h2>
+          <p className="text-gray-400 text-lg leading-relaxed">
+            К сожалению, запрашиваемая страница не существует или была перемещена.
+          </p>
+        </div>
 
-          <div className={styles.errorSuggestions}>
-            <h3>Что произошло?</h3>
-            <ul className={styles.errorReasons}>
-              <li>URL мог быть введён неправильно</li>
-              <li>Страница могла быть перемещена или удалена</li>
-              <li>Вы могли перейти по устаревшей ссылке</li>
-              <li>Страница ещё в разработке</li>
-            </ul>
-          </div>
-
-          <div className={styles.errorActions}>
-           
-            <div className={styles.actionButtons}>
-              <Link to={routes.home} className={`${styles.actionBtn} ${styles.primary}`}>
-                <span className={styles.btnIcon}>🏠</span>
-                На главную
-              </Link>
-              <button
-                onClick={() => navigate(-1)}
-                className={`${styles.actionBtn} ${styles.secondary}`}
-              >
-                <span className={styles.btnIcon}>⬅️</span>
-                Назад
-              </button>
-              <Link
-                to={routes.games}
-                className={`${styles.actionBtn} ${styles.secondary}`}
-              >
-                <span className={styles.btnIcon}>🎮</span>
-                Эмуляторы
-              </Link>
-            </div>
-          </div>
-
-          <div className={styles.quickLinks}>
-            <h3>Быстрая навигация</h3>
-            <div className={styles.navGrid}>
-
-              <Link
-                to={routes.blog}
-                className={styles.quickNavItem}
-                onClick={handleQuickNavClick}
-              >
-                <div className={styles.navIcon}>📖</div>
-                <span>Блог</span>
-              </Link>
-
-              <Link
-                to={routes.filecloud}
-                className={styles.quickNavItem}
-                onClick={handleQuickNavClick}
-              >
-                <div className={styles.navIcon}>📊</div>
-                <span>FileCloud</span>
-              </Link>
-              {/* <Link
-                to={routes.experiments}
-                className={styles.quickNavItem}
-                onClick={handleQuickNavClick}
-              >
-                <div className={styles.navIcon}>🧪</div>
-                <span>Эксперименты</span>
-              </Link> */}
-              <Link
-                to={routes.chat}
-                className={styles.quickNavItem}
-                onClick={handleQuickNavClick}
-              >
-                <div className={styles.navIcon}>💬</div>
-                <span>Обсуждение</span>
-              </Link>
-            </div>
-          </div>
-
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            to={routes.home}
+            className="btn-primary inline-flex items-center justify-center space-x-2"
+          >
+            <Home size={20} />
+            <span>На главную</span>
+          </Link>
           
+          <button
+            onClick={() => window.history.back()}
+            className="btn-secondary inline-flex items-center justify-center space-x-2"
+          >
+            <ArrowLeft size={20} />
+            <span>Назад</span>
+          </button>
+        </div>
 
-          <div className={styles.easterEgg}>
-
-
-          <div className={styles.floatingElements}>
-            <div className={styles.floatingCode}>{`{ }`}</div>
-            <div className={styles.floatingCode}>{`</>`}</div>
-            <div className={styles.floatingCode}>console.log();</div>
-            <div className={styles.floatingCode}>async/await</div>
-            <div className={styles.floatingCode}>React.js</div>
-            <div className={styles.floatingCode}>404</div>
-          </div>
+        {/* Additional Info */}
+        <div className="mt-12 text-gray-500 text-sm">
+          <p>Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами.</p>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 
-
+export default NotFoundPage;

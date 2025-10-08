@@ -1,3 +1,6 @@
+// DEPRECATED: Этот файл устарел. Используйте новый BlogApi класс.
+// Импортируйте: import { blogApi } from './api';
+
 import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL ;

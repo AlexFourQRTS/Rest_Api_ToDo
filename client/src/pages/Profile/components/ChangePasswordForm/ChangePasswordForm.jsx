@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { authApi } from '../../../../api/authApi';
-import styles from './ChangePasswordForm.module.css';
+// Removed CSS module import
 
 const ChangePasswordForm = () => {
   const [passwords, setPasswords] = useState({
@@ -29,11 +29,11 @@ const ChangePasswordForm = () => {
   };
 
   return (
-    <div className={styles.changePasswordContainer}>
-      <h3>Зміна пароля</h3>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.formGroup}>
-          <label htmlFor="oldPassword">Старий пароль</label>
+    <div className="card p-6">
+      <h3 className="text-xl font-bold text-white mb-6">Зміна пароля</h3>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="oldPassword" className="block text-white mb-2">Старий пароль</label>
           <input
             type="password"
             id="oldPassword"
@@ -41,10 +41,11 @@ const ChangePasswordForm = () => {
             value={passwords.oldPassword}
             onChange={handleChange}
             required
+            className="input-field w-full"
           />
         </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="newPassword">Новий пароль</label>
+        <div>
+          <label htmlFor="newPassword" className="block text-white mb-2">Новий пароль</label>
           <input
             type="password"
             id="newPassword"
@@ -52,12 +53,13 @@ const ChangePasswordForm = () => {
             value={passwords.newPassword}
             onChange={handleChange}
             required
+            className="input-field w-full"
           />
         </div>
-        <button type="submit" className={styles.submitButton}>Змінити пароль</button>
+        <button type="submit" className="btn-primary w-full">Змінити пароль</button>
       </form>
-      {message && <div className={styles.successMessage}>{message}</div>}
-      {error && <div className={styles.errorMessage}>{error}</div>}
+      {message && <div className="bg-green-900/20 border border-green-500 text-green-400 p-3 rounded-lg mt-4">{message}</div>}
+      {error && <div className="bg-red-900/20 border border-red-500 text-red-400 p-3 rounded-lg mt-4">{error}</div>}
     </div>
   );
 };

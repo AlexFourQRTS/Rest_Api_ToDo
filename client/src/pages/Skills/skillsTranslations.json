@@ -1,6 +1,6 @@
 {
   "en": {
-    "title": "My Skills",
+    "title": "Target Technologies",
     "servicesSection": "Services",
     "skillsSection": "Technologies",
     "toolsSection": "Tools",
@@ -33,7 +33,7 @@
     ]
   }, 
   "ru": {
-    "title": "Мои Навыки",
+    "title": "Таргет технологии",
     "servicesSection": "Услуги",
     "skillsSection": "Технологии",
     "toolsSection": "Инструменты",

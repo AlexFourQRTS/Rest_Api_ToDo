@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { Volume2, VolumeX, Play, Square, Triangle, Zap, RotateCcw, Settings } from "lucide-react";
-import styles from "./ToneGenerator.module.css";
+// Removed CSS module import
 import Hero from "../../../components/UI/Hero/Hero";
 import useToneGenerator from "../../../hooks/useToneGenerator";
 
@@ -174,86 +173,92 @@ const ToneGenerator = () => {
   };
 
   return (
-    <div className={styles.toneGenerator}>
-      <motion.section
-        className={styles.intro}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
+    <div className="min-h-screen">
+      <section
+        className="section-padding"
       >
         <Hero 
           title="Тон-генератор" 
           subtitle="Создание звуковых волн различной частоты и формы" 
         />
-      </motion.section>
+      </section>
 
-      <motion.section
-        className={styles.content}
-        variants={sectionVariants}
-        initial="hidden"
-        animate="visible"
+      <section
+        className="container-custom py-8"
       >
         {/* Основные элементы управления */}
-        <div className={styles.mainControls}>
+        <div className="bg-gray-800/50 rounded-lg p-6 mb-6">
           {/* Кнопка воспроизведения */}
-          <div className={styles.playSection}>
+          <div className="text-center">
             <button
               onClick={handlePlayStop}
-              className={`${styles.playButton} ${isPlaying ? styles.playing : ''}`}
+              className={`w-20 h-20 rounded-full flex items-center justify-center text-white transition-all mb-4 ${
+                isPlaying ? 'bg-red-600 hover:bg-red-700' : 'bg-slate-600 hover:bg-slate-700'
+              }`}
               disabled={!!error}
             >
               {isPlaying ? <VolumeX size={32} /> : <Play size={32} />}
             </button>
-            <div className={styles.playInfo}>
-              <span className={styles.frequencyDisplay}>
+            <div className="space-y-2">
+              <div className="text-2xl font-bold text-white">
                 {formatFrequency(frequency)}
-              </span>
-              <span className={styles.waveformDisplay}>
+              </div>
+              <div className="text-gray-300">
                 {waveforms.find(w => w.value === waveform)?.label}
-              </span>
-              <span className={styles.bandDisplay}>
+              </div>
+              <div className="text-gray-400">
                 {frequencyBands[activeBand]?.label}
-              </span>
+              </div>
               {isLooping && (
-                <span className={styles.loopingIndicator}>
+                <div className="text-gray-300">
                   🔄 Зацикливание ({cycleCount}/{maxCycles})
-                </span>
+                </div>
               )}
             </div>
           </div>
 
           {/* Режим воспроизведения */}
-          <div className={styles.modeToggle}>
-            <label className={styles.toggleLabel}>
+          <div className="flex justify-center mt-4">
+            <label className="flex items-center space-x-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={isContinuous}
                 onChange={handleContinuousToggle}
-                className={styles.toggleInput}
+                className="sr-only"
               />
-              <span className={styles.toggleSlider}></span>
-              Непрерывное воспроизведение
+              <div className={`relative w-12 h-6 rounded-full transition-colors ${
+                isContinuous ? 'bg-slate-600' : 'bg-gray-600'
+              }`}>
+                <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform ${
+                  isContinuous ? 'transform translate-x-6' : ''
+                }`}></div>
+              </div>
+              <span className="text-white">Непрерывное воспроизведение</span>
             </label>
           </div>
         </div>
 
         {/* Панель настроек */}
-        <div className={styles.settingsPanel}>
+        <div className="bg-gray-800/50 rounded-lg p-6 mb-6">
           {/* Управление частотой - три полосы */}
-          <div className={styles.controlGroup}>
-            <label className={styles.controlLabel}>
+          <div className="mb-6">
+            <label className="block text-white text-lg font-semibold mb-4">
               Частота: {formatFrequency(frequency)}
             </label>
             
             {/* Три полосы частот */}
-            <div className={styles.frequencyBands}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Низкие частоты */}
-              <div className={`${styles.frequencyBand} ${activeBand === 'low' ? styles.active : ''}`}>
-                <div className={styles.bandHeader}>
-                  <span className={styles.bandLabel} style={{ color: frequencyBands.low.color }}>
+              <div className={`p-4 rounded-lg border transition-all ${
+                activeBand === 'low' 
+                  ? 'bg-slate-600/20 border-slate-500' 
+                  : 'bg-gray-700/50 border-gray-600'
+              }`}>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-medium" style={{ color: frequencyBands.low.color }}>
                     {frequencyBands.low.label}
                   </span>
-                  <span className={styles.bandFreq}>
+                  <span className="text-gray-300 font-mono">
                     {formatFrequency(lowFreq)}
                   </span>
                 </div>
@@ -263,22 +268,26 @@ const ToneGenerator = () => {
                   max={frequencyBands.low.max}
                   value={lowFreq}
                   onChange={(e) => handleBandFrequencyChange('low', e)}
-                  className={`${styles.frequencySlider} ${styles.lowSlider}`}
+                  className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
                   style={{ '--slider-color': frequencyBands.low.color }}
                 />
-                <div className={styles.rangeLabels}>
+                <div className="flex justify-between text-xs text-gray-400 mt-1">
                   <span>{frequencyBands.low.min} Гц</span>
                   <span>{frequencyBands.low.max} Гц</span>
                 </div>
               </div>
 
               {/* Средние частоты */}
-              <div className={`${styles.frequencyBand} ${activeBand === 'mid' ? styles.active : ''}`}>
-                <div className={styles.bandHeader}>
-                  <span className={styles.bandLabel} style={{ color: frequencyBands.mid.color }}>
+              <div className={`p-4 rounded-lg border transition-all ${
+                activeBand === 'mid' 
+                  ? 'bg-slate-600/20 border-slate-500' 
+                  : 'bg-gray-700/50 border-gray-600'
+              }`}>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-medium" style={{ color: frequencyBands.mid.color }}>
                     {frequencyBands.mid.label}
                   </span>
-                  <span className={styles.bandFreq}>
+                  <span className="text-gray-300 font-mono">
                     {formatFrequency(midFreq)}
                   </span>
                 </div>
@@ -288,22 +297,26 @@ const ToneGenerator = () => {
                   max={frequencyBands.mid.max}
                   value={midFreq}
                   onChange={(e) => handleBandFrequencyChange('mid', e)}
-                  className={`${styles.frequencySlider} ${styles.midSlider}`}
+                  className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
                   style={{ '--slider-color': frequencyBands.mid.color }}
                 />
-                <div className={styles.rangeLabels}>
+                <div className="flex justify-between text-xs text-gray-400 mt-1">
                   <span>{frequencyBands.mid.min} Гц</span>
                   <span>{frequencyBands.mid.max} Гц</span>
                 </div>
               </div>
 
               {/* Высокие частоты */}
-              <div className={`${styles.frequencyBand} ${activeBand === 'high' ? styles.active : ''}`}>
-                <div className={styles.bandHeader}>
-                  <span className={styles.bandLabel} style={{ color: frequencyBands.high.color }}>
+              <div className={`p-4 rounded-lg border transition-all ${
+                activeBand === 'high' 
+                  ? 'bg-slate-600/20 border-slate-500' 
+                  : 'bg-gray-700/50 border-gray-600'
+              }`}>
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-medium" style={{ color: frequencyBands.high.color }}>
                     {frequencyBands.high.label}
                   </span>
-                  <span className={styles.bandFreq}>
+                  <span className="text-gray-300 font-mono">
                     {formatFrequency(highFreq)}
                   </span>
                 </div>
@@ -313,10 +326,10 @@ const ToneGenerator = () => {
                   max={frequencyBands.high.max}
                   value={highFreq}
                   onChange={(e) => handleBandFrequencyChange('high', e)}
-                  className={`${styles.frequencySlider} ${styles.highSlider}`}
+                  className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
                   style={{ '--slider-color': frequencyBands.high.color }}
                 />
-                <div className={styles.rangeLabels}>
+                <div className="flex justify-between text-xs text-gray-400 mt-1">
                   <span>{frequencyBands.high.min} Гц</span>
                   <span>{formatFrequency(frequencyBands.high.max)}</span>
                 </div>
@@ -324,22 +337,21 @@ const ToneGenerator = () => {
             </div>
 
             {/* Точный ввод частоты */}
-            <div className={styles.frequencyInput}>
+            <div className="mt-4">
               <button
                 onClick={() => setShowCustomInput(!showCustomInput)}
-                className={styles.customFreqButton}
+                className="btn-secondary flex items-center space-x-2"
                 title="Точный ввод частоты"
               >
                 <Settings size={16} />
+                <span>Точный ввод</span>
               </button>
             </div>
 
             {/* Поле точного ввода */}
             {showCustomInput && (
-              <motion.form
-                className={styles.customFreqForm}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
+              <form
+                className="mt-2"
                 onSubmit={handleCustomFrequencySubmit}
               >
                 <input
@@ -350,18 +362,18 @@ const ToneGenerator = () => {
                   placeholder="Введите точную частоту (например: 17.5)"
                   value={tempCustomFreq}
                   onChange={(e) => setTempCustomFreq(e.target.value)}
-                  className={styles.customFreqInput}
+                  className="input-field w-full"
                 />
-                <button type="submit" className={styles.customFreqSubmit}>
+                <button type="submit" className="btn-primary mt-2">
                   Установить
                 </button>
-              </motion.form>
+              </form>
             )}
           </div>
 
           {/* Управление амплитудой */}
-          <div className={styles.controlGroup}>
-            <label className={styles.controlLabel}>
+          <div className="mb-6">
+            <label className="block text-white text-lg font-semibold mb-4">
               Громкость: {Math.round(amplitude * 100)}%
             </label>
             <input
@@ -371,24 +383,26 @@ const ToneGenerator = () => {
               step="0.01"
               value={amplitude}
               onChange={handleAmplitudeChange}
-              className={styles.amplitudeSlider}
+              className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
             />
-            <div className={styles.rangeLabels}>
+            <div className="flex justify-between text-xs text-gray-400 mt-1">
               <span>0%</span>
               <span>100%</span>
             </div>
           </div>
 
           {/* Выбор формы волны */}
-          <div className={styles.controlGroup}>
-            <label className={styles.controlLabel}>Форма волны</label>
-            <div className={styles.waveformButtons}>
+          <div className="mb-6">
+            <label className="block text-white text-lg font-semibold mb-4">Форма волны</label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
               {waveforms.map((wave) => (
                 <button
                   key={wave.value}
                   onClick={() => changeWaveform(wave.value)}
-                  className={`${styles.waveformButton} ${
-                    waveform === wave.value ? styles.active : ''
+                  className={`p-3 rounded-lg border transition-all ${
+                    waveform === wave.value 
+                      ? 'bg-slate-600/20 border-slate-500 text-white' 
+                      : 'bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-gray-600/50'
                   }`}
                   title={wave.description}
                 >
@@ -396,7 +410,7 @@ const ToneGenerator = () => {
                   {wave.value === 'square' && <Square size={20} />}
                   {wave.value === 'sawtooth' && <Zap size={20} />}
                   {wave.value === 'triangle' && <Triangle size={20} />}
-                  <span>{wave.label}</span>
+                  <span className="block text-sm mt-1">{wave.label}</span>
                 </button>
               ))}
             </div>
@@ -404,61 +418,63 @@ const ToneGenerator = () => {
         </div>
 
         {/* Басовые пресеты */}
-        <div className={styles.bassPresets}>
-          <div className={styles.presetsHeader}>
-            <h3>Частотные пресеты</h3>
+        <div className="bg-gray-800/50 rounded-lg p-6 mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-xl font-semibold text-white">Частотные пресеты</h3>
             {isLooping && (
               <button
                 onClick={handleStopLooping}
-                className={styles.stopLoopButton}
+                className="btn-secondary flex items-center space-x-2"
                 title="Остановить зацикливание"
               >
                 <RotateCcw size={16} />
-                Остановить ({maxCycles - cycleCount} осталось)
+                <span>Остановить ({maxCycles - cycleCount} осталось)</span>
               </button>
             )}
           </div>
           
           {/* Группировка пресетов по категориям */}
-          <div className={styles.presetCategories}>
+          <div className="space-y-2">
             {/* Ультра низкие частоты */}
-            <div className={styles.presetCategory}>
+            <div className="border border-gray-600 rounded-lg">
               <button 
-                className={styles.categoryHeader}
+                className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-700/50 transition-colors"
                 onClick={() => toggleCategory('ultra-low')}
               >
-                <h4 className={styles.categoryTitle}>Ультра низкие (1-20 Гц)</h4>
-                <span className={`${styles.accordionIcon} ${openCategories['ultra-low'] ? styles.open : ''}`}>
+                <h4 className="text-white font-medium">Ультра низкие (1-20 Гц)</h4>
+                <span className={`text-white transition-transform ${
+                  openCategories['ultra-low'] ? 'rotate-180' : ''
+                }`}>
                   ▼
                 </span>
               </button>
               {openCategories['ultra-low'] && (
-                <motion.div 
-                  className={styles.categoryContent}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="p-4 border-t border-gray-600"
                 >
-                  <div className={styles.presetGrid}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                     {bassPresets
                       .filter(preset => preset.category === 'ultra-low')
                       .map((preset) => (
-                        <div key={preset.frequency} className={styles.presetContainer}>
+                        <div key={preset.frequency} className="space-y-1">
                           <button
                             onClick={() => handleBassPreset(preset)}
-                            className={`${styles.presetButton} ${
-                              currentPreset?.frequency === preset.frequency && !isLooping ? styles.active : ''
+                            className={`w-full p-2 rounded-lg border transition-all ${
+                              currentPreset?.frequency === preset.frequency && !isLooping 
+                                ? 'bg-slate-600/20 border-slate-500 text-white' 
+                                : 'bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-gray-600/50'
                             }`}
                             title={preset.description}
                           >
-                            <div className={styles.presetName}>{preset.name}</div>
-                            <div className={styles.presetFreq}>{preset.frequency} Гц</div>
+                            <div className="text-sm font-medium">{preset.name}</div>
+                            <div className="text-xs text-gray-300">{preset.frequency} Гц</div>
                           </button>
                           <button
                             onClick={() => handleBassLoop(preset)}
-                            className={`${styles.loopButton} ${
-                              currentPreset?.frequency === preset.frequency && isLooping ? styles.active : ''
+                            className={`w-full p-1 rounded border text-xs transition-all ${
+                              currentPreset?.frequency === preset.frequency && isLooping 
+                                ? 'bg-purple-600/20 border-purple-500 text-white' 
+                                : 'bg-gray-600/50 border-gray-500 text-gray-300 hover:bg-gray-500/50'
                             }`}
                             title={`Зациклить ${preset.name}`}
                           >
@@ -467,48 +483,50 @@ const ToneGenerator = () => {
                         </div>
                       ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
 
             {/* Очень низкие частоты */}
-            <div className={styles.presetCategory}>
+            <div className="border border-gray-600 rounded-lg">
               <button 
-                className={styles.categoryHeader}
+                className="w-full p-4 text-left flex justify-between items-center hover:bg-gray-700/50 transition-colors"
                 onClick={() => toggleCategory('very-low')}
               >
-                <h4 className={styles.categoryTitle}>Очень низкие (25-40 Гц)</h4>
-                <span className={`${styles.accordionIcon} ${openCategories['very-low'] ? styles.open : ''}`}>
+                <h4 className="text-white font-medium">Очень низкие (25-40 Гц)</h4>
+                <span className={`text-white transition-transform ${
+                  openCategories['very-low'] ? 'rotate-180' : ''
+                }`}>
                   ▼
                 </span>
               </button>
               {openCategories['very-low'] && (
-                <motion.div 
-                  className={styles.categoryContent}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="p-4 border-t border-gray-600"
                 >
-                  <div className={styles.presetGrid}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                     {bassPresets
                       .filter(preset => preset.category === 'very-low')
                       .map((preset) => (
-                        <div key={preset.frequency} className={styles.presetContainer}>
+                        <div key={preset.frequency} className="space-y-1">
                           <button
                             onClick={() => handleBassPreset(preset)}
-                            className={`${styles.presetButton} ${
-                              currentPreset?.frequency === preset.frequency && !isLooping ? styles.active : ''
+                            className={`w-full p-2 rounded-lg border transition-all ${
+                              currentPreset?.frequency === preset.frequency && !isLooping 
+                                ? 'bg-slate-600/20 border-slate-500 text-white' 
+                                : 'bg-gray-700/50 border-gray-600 text-gray-300 hover:bg-gray-600/50'
                             }`}
                             title={preset.description}
                           >
-                            <div className={styles.presetName}>{preset.name}</div>
-                            <div className={styles.presetFreq}>{preset.frequency} Гц</div>
+                            <div className="text-sm font-medium">{preset.name}</div>
+                            <div className="text-xs text-gray-300">{preset.frequency} Гц</div>
                           </button>
                           <button
                             onClick={() => handleBassLoop(preset)}
-                            className={`${styles.loopButton} ${
-                              currentPreset?.frequency === preset.frequency && isLooping ? styles.active : ''
+                            className={`w-full p-1 rounded border text-xs transition-all ${
+                              currentPreset?.frequency === preset.frequency && isLooping 
+                                ? 'bg-purple-600/20 border-purple-500 text-white' 
+                                : 'bg-gray-600/50 border-gray-500 text-gray-300 hover:bg-gray-500/50'
                             }`}
                             title={`Зациклить ${preset.name}`}
                           >
@@ -517,48 +535,44 @@ const ToneGenerator = () => {
                         </div>
                       ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
 
             {/* Низкие частоты */}
-            <div className={styles.presetCategory}>
+            <div className="mb-4">
               <button 
-                className={styles.categoryHeader}
+                className="w-full flex justify-between items-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
                 onClick={() => toggleCategory('low')}
               >
-                <h4 className={styles.categoryTitle}>Низкие (45-80 Гц)</h4>
-                <span className={`${styles.accordionIcon} ${openCategories['low'] ? styles.open : ''}`}>
+                <h4 className="text-white font-semibold">Низкие (45-80 Гц)</h4>
+                <span className={`text-gray-300 transition-transform ${openCategories['low'] ? 'rotate-180' : ''}`}>
                   ▼
                 </span>
               </button>
               {openCategories['low'] && (
-                <motion.div 
-                  className={styles.categoryContent}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="mt-2"
                 >
-                  <div className={styles.presetGrid}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {bassPresets
                       .filter(preset => preset.category === 'low')
                       .map((preset) => (
-                        <div key={preset.frequency} className={styles.presetContainer}>
+                        <div key={preset.frequency} className="flex space-x-1">
                           <button
                             onClick={() => handleBassPreset(preset)}
-                            className={`${styles.presetButton} ${
-                              currentPreset?.frequency === preset.frequency && !isLooping ? styles.active : ''
+                            className={`btn-secondary flex-1 text-xs ${
+                              currentPreset?.frequency === preset.frequency && !isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={preset.description}
                           >
-                            <div className={styles.presetName}>{preset.name}</div>
-                            <div className={styles.presetFreq}>{preset.frequency} Гц</div>
+                            <div className="font-medium">{preset.name}</div>
+                            <div className="text-xs opacity-75">{preset.frequency} Гц</div>
                           </button>
                           <button
                             onClick={() => handleBassLoop(preset)}
-                            className={`${styles.loopButton} ${
-                              currentPreset?.frequency === preset.frequency && isLooping ? styles.active : ''
+                            className={`btn-secondary p-2 ${
+                              currentPreset?.frequency === preset.frequency && isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={`Зациклить ${preset.name}`}
                           >
@@ -567,48 +581,44 @@ const ToneGenerator = () => {
                         </div>
                       ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
 
             {/* Средние низкие частоты */}
-            <div className={styles.presetCategory}>
+            <div className="mb-4">
               <button 
-                className={styles.categoryHeader}
+                className="w-full flex justify-between items-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
                 onClick={() => toggleCategory('mid-low')}
               >
-                <h4 className={styles.categoryTitle}>Средние низкие (100-200 Гц)</h4>
-                <span className={`${styles.accordionIcon} ${openCategories['mid-low'] ? styles.open : ''}`}>
+                <h4 className="text-white font-semibold">Средние низкие (100-200 Гц)</h4>
+                <span className={`text-gray-300 transition-transform ${openCategories['mid-low'] ? 'rotate-180' : ''}`}>
                   ▼
                 </span>
               </button>
               {openCategories['mid-low'] && (
-                <motion.div 
-                  className={styles.categoryContent}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="mt-2"
                 >
-                  <div className={styles.presetGrid}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {bassPresets
                       .filter(preset => preset.category === 'mid-low')
                       .map((preset) => (
-                        <div key={preset.frequency} className={styles.presetContainer}>
+                        <div key={preset.frequency} className="flex space-x-1">
                           <button
                             onClick={() => handleBassPreset(preset)}
-                            className={`${styles.presetButton} ${
-                              currentPreset?.frequency === preset.frequency && !isLooping ? styles.active : ''
+                            className={`btn-secondary flex-1 text-xs ${
+                              currentPreset?.frequency === preset.frequency && !isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={preset.description}
                           >
-                            <div className={styles.presetName}>{preset.name}</div>
-                            <div className={styles.presetFreq}>{preset.frequency} Гц</div>
+                            <div className="font-medium">{preset.name}</div>
+                            <div className="text-xs opacity-75">{preset.frequency} Гц</div>
                           </button>
                           <button
                             onClick={() => handleBassLoop(preset)}
-                            className={`${styles.loopButton} ${
-                              currentPreset?.frequency === preset.frequency && isLooping ? styles.active : ''
+                            className={`btn-secondary p-2 ${
+                              currentPreset?.frequency === preset.frequency && isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={`Зациклить ${preset.name}`}
                           >
@@ -617,48 +627,44 @@ const ToneGenerator = () => {
                         </div>
                       ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
 
             {/* Средние частоты */}
-            <div className={styles.presetCategory}>
+            <div className="mb-4">
               <button 
-                className={styles.categoryHeader}
+                className="w-full flex justify-between items-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
                 onClick={() => toggleCategory('mid')}
               >
-                <h4 className={styles.categoryTitle}>Средние (250-500 Гц)</h4>
-                <span className={`${styles.accordionIcon} ${openCategories['mid'] ? styles.open : ''}`}>
+                <h4 className="text-white font-semibold">Средние (250-500 Гц)</h4>
+                <span className={`text-gray-300 transition-transform ${openCategories['mid'] ? 'rotate-180' : ''}`}>
                   ▼
                 </span>
               </button>
               {openCategories['mid'] && (
-                <motion.div 
-                  className={styles.categoryContent}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="mt-2"
                 >
-                  <div className={styles.presetGrid}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {bassPresets
                       .filter(preset => preset.category === 'mid')
                       .map((preset) => (
-                        <div key={preset.frequency} className={styles.presetContainer}>
+                        <div key={preset.frequency} className="flex space-x-1">
                           <button
                             onClick={() => handleBassPreset(preset)}
-                            className={`${styles.presetButton} ${
-                              currentPreset?.frequency === preset.frequency && !isLooping ? styles.active : ''
+                            className={`btn-secondary flex-1 text-xs ${
+                              currentPreset?.frequency === preset.frequency && !isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={preset.description}
                           >
-                            <div className={styles.presetName}>{preset.name}</div>
-                            <div className={styles.presetFreq}>{preset.frequency} Гц</div>
+                            <div className="font-medium">{preset.name}</div>
+                            <div className="text-xs opacity-75">{preset.frequency} Гц</div>
                           </button>
                           <button
                             onClick={() => handleBassLoop(preset)}
-                            className={`${styles.loopButton} ${
-                              currentPreset?.frequency === preset.frequency && isLooping ? styles.active : ''
+                            className={`btn-secondary p-2 ${
+                              currentPreset?.frequency === preset.frequency && isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={`Зациклить ${preset.name}`}
                           >
@@ -667,48 +673,44 @@ const ToneGenerator = () => {
                         </div>
                       ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
 
             {/* Высокие средние частоты */}
-            <div className={styles.presetCategory}>
+            <div className="mb-4">
               <button 
-                className={styles.categoryHeader}
+                className="w-full flex justify-between items-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
                 onClick={() => toggleCategory('mid-high')}
               >
-                <h4 className={styles.categoryTitle}>Высокие средние (630-2000 Гц)</h4>
-                <span className={`${styles.accordionIcon} ${openCategories['mid-high'] ? styles.open : ''}`}>
+                <h4 className="text-white font-semibold">Высокие средние (630-2000 Гц)</h4>
+                <span className={`text-gray-300 transition-transform ${openCategories['mid-high'] ? 'rotate-180' : ''}`}>
                   ▼
                 </span>
               </button>
               {openCategories['mid-high'] && (
-                <motion.div 
-                  className={styles.categoryContent}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="mt-2"
                 >
-                  <div className={styles.presetGrid}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {bassPresets
                       .filter(preset => preset.category === 'mid-high')
                       .map((preset) => (
-                        <div key={preset.frequency} className={styles.presetContainer}>
+                        <div key={preset.frequency} className="flex space-x-1">
                           <button
                             onClick={() => handleBassPreset(preset)}
-                            className={`${styles.presetButton} ${
-                              currentPreset?.frequency === preset.frequency && !isLooping ? styles.active : ''
+                            className={`btn-secondary flex-1 text-xs ${
+                              currentPreset?.frequency === preset.frequency && !isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={preset.description}
                           >
-                            <div className={styles.presetName}>{preset.name}</div>
-                            <div className={styles.presetFreq}>{preset.frequency} Гц</div>
+                            <div className="font-medium">{preset.name}</div>
+                            <div className="text-xs opacity-75">{preset.frequency} Гц</div>
                           </button>
                           <button
                             onClick={() => handleBassLoop(preset)}
-                            className={`${styles.loopButton} ${
-                              currentPreset?.frequency === preset.frequency && isLooping ? styles.active : ''
+                            className={`btn-secondary p-2 ${
+                              currentPreset?.frequency === preset.frequency && isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={`Зациклить ${preset.name}`}
                           >
@@ -717,48 +719,44 @@ const ToneGenerator = () => {
                         </div>
                       ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
 
             {/* Высокие частоты */}
-            <div className={styles.presetCategory}>
+            <div className="mb-4">
               <button 
-                className={styles.categoryHeader}
+                className="w-full flex justify-between items-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
                 onClick={() => toggleCategory('high')}
               >
-                <h4 className={styles.categoryTitle}>Высокие (2500-8000 Гц)</h4>
-                <span className={`${styles.accordionIcon} ${openCategories['high'] ? styles.open : ''}`}>
+                <h4 className="text-white font-semibold">Высокие (2500-8000 Гц)</h4>
+                <span className={`text-gray-300 transition-transform ${openCategories['high'] ? 'rotate-180' : ''}`}>
                   ▼
                 </span>
               </button>
               {openCategories['high'] && (
-                <motion.div 
-                  className={styles.categoryContent}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="mt-2"
                 >
-                  <div className={styles.presetGrid}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {bassPresets
                       .filter(preset => preset.category === 'high')
                       .map((preset) => (
-                        <div key={preset.frequency} className={styles.presetContainer}>
+                        <div key={preset.frequency} className="flex space-x-1">
                           <button
                             onClick={() => handleBassPreset(preset)}
-                            className={`${styles.presetButton} ${
-                              currentPreset?.frequency === preset.frequency && !isLooping ? styles.active : ''
+                            className={`btn-secondary flex-1 text-xs ${
+                              currentPreset?.frequency === preset.frequency && !isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={preset.description}
                           >
-                            <div className={styles.presetName}>{preset.name}</div>
-                            <div className={styles.presetFreq}>{preset.frequency} Гц</div>
+                            <div className="font-medium">{preset.name}</div>
+                            <div className="text-xs opacity-75">{preset.frequency} Гц</div>
                           </button>
                           <button
                             onClick={() => handleBassLoop(preset)}
-                            className={`${styles.loopButton} ${
-                              currentPreset?.frequency === preset.frequency && isLooping ? styles.active : ''
+                            className={`btn-secondary p-2 ${
+                              currentPreset?.frequency === preset.frequency && isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={`Зациклить ${preset.name}`}
                           >
@@ -767,48 +765,44 @@ const ToneGenerator = () => {
                         </div>
                       ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
 
             {/* Очень высокие частоты */}
-            <div className={styles.presetCategory}>
+            <div className="mb-4">
               <button 
-                className={styles.categoryHeader}
+                className="w-full flex justify-between items-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
                 onClick={() => toggleCategory('very-high')}
               >
-                <h4 className={styles.categoryTitle}>Очень высокие (10-21 кГц)</h4>
-                <span className={`${styles.accordionIcon} ${openCategories['very-high'] ? styles.open : ''}`}>
+                <h4 className="text-white font-semibold">Очень высокие (10-21 кГц)</h4>
+                <span className={`text-gray-300 transition-transform ${openCategories['very-high'] ? 'rotate-180' : ''}`}>
                   ▼
                 </span>
               </button>
               {openCategories['very-high'] && (
-                <motion.div 
-                  className={styles.categoryContent}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="mt-2"
                 >
-                  <div className={styles.presetGrid}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {bassPresets
                       .filter(preset => preset.category === 'very-high')
                       .map((preset) => (
-                        <div key={preset.frequency} className={styles.presetContainer}>
+                        <div key={preset.frequency} className="flex space-x-1">
                           <button
                             onClick={() => handleBassPreset(preset)}
-                            className={`${styles.presetButton} ${
-                              currentPreset?.frequency === preset.frequency && !isLooping ? styles.active : ''
+                            className={`btn-secondary flex-1 text-xs ${
+                              currentPreset?.frequency === preset.frequency && !isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={preset.description}
                           >
-                            <div className={styles.presetName}>{preset.name}</div>
-                            <div className={styles.presetFreq}>{formatFrequency(preset.frequency)}</div>
+                            <div className="font-medium">{preset.name}</div>
+                            <div className="text-xs opacity-75">{formatFrequency(preset.frequency)}</div>
                           </button>
                           <button
                             onClick={() => handleBassLoop(preset)}
-                            className={`${styles.loopButton} ${
-                              currentPreset?.frequency === preset.frequency && isLooping ? styles.active : ''
+                            className={`btn-secondary p-2 ${
+                              currentPreset?.frequency === preset.frequency && isLooping ? 'bg-slate-600 text-white' : ''
                             }`}
                             title={`Зациклить ${preset.name}`}
                           >
@@ -817,46 +811,42 @@ const ToneGenerator = () => {
                         </div>
                       ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
 
             {/* Кастомный пресет */}
-            <div className={styles.presetCategory}>
+            <div className="mb-4">
               <button 
-                className={styles.categoryHeader}
+                className="w-full flex justify-between items-center p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors"
                 onClick={() => toggleCategory('custom')}
               >
-                <h4 className={styles.categoryTitle}>Кастомные</h4>
-                <span className={`${styles.accordionIcon} ${openCategories['custom'] ? styles.open : ''}`}>
+                <h4 className="text-white font-semibold">Кастомные</h4>
+                <span className={`text-gray-300 transition-transform ${openCategories['custom'] ? 'rotate-180' : ''}`}>
                   ▼
                 </span>
               </button>
               {openCategories['custom'] && (
-                <motion.div 
-                  className={styles.categoryContent}
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
+                <div 
+                  className="mt-2"
                 >
-                  <div className={styles.presetGrid}>
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                     {bassPresets
                       .filter(preset => preset.category === 'custom')
                       .map((preset) => (
-                        <div key="custom" className={styles.presetContainer}>
+                        <div key="custom" className="flex space-x-1">
                           <button
                             onClick={() => handleBassPreset(preset)}
-                            className={`${styles.presetButton} ${styles.customPreset}`}
+                            className="btn-secondary flex-1 text-xs bg-purple-600 hover:bg-purple-700"
                             title={preset.description}
                           >
-                            <div className={styles.presetName}>{preset.name}</div>
-                            <div className={styles.presetFreq}>Ввести частоту</div>
+                            <div className="font-medium">{preset.name}</div>
+                            <div className="text-xs opacity-75">Ввести частоту</div>
                           </button>
                         </div>
                       ))}
                   </div>
-                </motion.div>
+                </div>
               )}
             </div>
           </div>
@@ -864,19 +854,15 @@ const ToneGenerator = () => {
 
         {/* Модальное окно для кастомной басовой частоты */}
         {showCustomBassInput && (
-          <motion.div
-            className={styles.modalOverlay}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+          <div
+            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
             onClick={() => setShowCustomBassInput(false)}
           >
-            <motion.div
-              className={styles.modal}
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
+            <div
+              className="bg-gray-800 p-6 rounded-lg max-w-md w-full mx-4"
               onClick={(e) => e.stopPropagation()}
             >
-              <h3>Кастомная басовая частота</h3>
+              <h3 className="text-white font-semibold text-lg mb-4">Кастомная басовая частота</h3>
               <form onSubmit={handleCustomBassSubmit}>
                 <input
                   type="number"
@@ -886,37 +872,35 @@ const ToneGenerator = () => {
                   placeholder="Введите частоту (например: 17.5)"
                   value={customBassFreq}
                   onChange={(e) => setCustomBassFreq(e.target.value)}
-                  className={styles.modalInput}
+                  className="input-field w-full mb-4"
                   autoFocus
                 />
-                <div className={styles.modalButtons}>
-                  <button type="submit" className={styles.modalSubmit}>
+                <div className="flex space-x-4">
+                  <button type="submit" className="btn-primary flex-1">
                     Воспроизвести
                   </button>
                   <button
                     type="button"
                     onClick={() => setShowCustomBassInput(false)}
-                    className={styles.modalCancel}
+                    className="btn-secondary flex-1"
                   >
                     Отмена
                   </button>
                 </div>
               </form>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         )}
 
         {/* Отображение ошибок */}
         {error && (
-          <motion.div
-            className={styles.error}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
+          <div
+            className="bg-red-900/20 border border-red-500 text-red-400 p-4 rounded-lg mb-4"
           >
             <p>{error}</p>
-          </motion.div>
+          </div>
         )}
-      </motion.section>
+      </section>
     </div>
   );
 };

@@ -1,10 +1,10 @@
 import React from 'react';
 import AuthForm from './components/AuthForm/AuthForm';
-import styles from './AuthPage.module.css';
+// Removed CSS module import
 
 const AuthPage = ({ onAuthSuccess }) => {
   return (
-    <div className={styles.authPage}>
+    <div className="min-h-screen flex items-center justify-center">
       <AuthForm onLoginSuccess={onAuthSuccess} onRegisterSuccess={onAuthSuccess} />
     </div>
   );

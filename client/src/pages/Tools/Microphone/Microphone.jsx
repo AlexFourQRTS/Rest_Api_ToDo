@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import styles from "./Microphone.module.css";
+// Removed CSS module import
 import Hero from "../../../components/UI/Hero/Hero";
 import useMicrophone from "../../../hooks/useMicrophone";
 
@@ -62,19 +61,17 @@ const Microphone = () => {
   }, [error, clearError]);
 
   return (
-    <div className={styles.microphone}>
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
+    <div className="min-h-screen">
+      <section
+        className="section-padding"
       >
         <Hero title="Микрофон" subtitle="Запись и анализ звука с вашего устройства" />
-      </motion.section>
+      </section>
 
       <MicrophoneSelector
         devices={devices}
         activeDevices={activeStreams}
         onToggleDevice={toggleDevice}
-        styles={styles}
       />
 
       <MicrophoneControls
@@ -83,7 +80,6 @@ const Microphone = () => {
         onToggleRecording={handleToggleRecording}
         isLoading={isLoading}
         error={error}
-        styles={styles}
       />
 
       <MicrophoneTools
@@ -97,7 +93,6 @@ const Microphone = () => {
         isMeasuringNoise={isMeasuringNoise}
         noiseLevel={noiseLevel}
         devices={devices}
-        styles={styles}
       />
 
       <RecordingsList
@@ -106,7 +101,6 @@ const Microphone = () => {
         onTogglePlay={togglePlay}
         onDownload={downloadRecording}
         onDelete={deleteRecording}
-        styles={styles}
       />
     </div>
   );

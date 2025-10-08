@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { authApi } from 'api/authApi';
-import styles from './UsersList.module.css';
+// Removed CSS module import
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
@@ -32,21 +32,21 @@ const UsersList = () => {
   }, []);
 
   if (loading) {
-    return <div className={styles.message}>Завантаження...</div>;
+    return <div className="text-center text-gray-300">Завантаження...</div>;
   }
 
   if (error) {
-    return <div className={styles.error}>{error}</div>;
+    return <div className="bg-red-900/20 border border-red-500 text-red-400 p-4 rounded-lg">{error}</div>;
   }
 
   return (
-    <div className={styles.usersListContainer}>
-      <h2>Список користувачів</h2>
-      <ul className={styles.usersList}>
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-white">Список користувачів</h2>
+      <ul className="space-y-2">
         {users.map((user) => (
-          <li key={user.id} className={styles.userItem}>
-            <span className={styles.userEmail}>{user.email}</span>
-            <span className={styles.userRole}>{user.role}</span>
+          <li key={user.id} className="flex justify-between items-center p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-white font-medium">{user.email}</span>
+            <span className="px-2 py-1 bg-slate-600 text-white text-xs rounded-full">{user.role}</span>
           </li>
         ))}
       </ul>

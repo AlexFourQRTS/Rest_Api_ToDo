@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { 
   Wifi, 
   Database, 
@@ -20,7 +19,7 @@ import {
   Presentation,
   CreditCard
 } from 'lucide-react';
-import styles from './WebAPIInfo.module.css';
+// Removed CSS module import
 
 const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsInfo }) => {
   const getIcon = (apiName) => {
@@ -54,19 +53,21 @@ const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsI
 
   const renderAPISection = (title, icon, apis, data) => {
     return (
-      <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>
+      <div className="mb-6">
+        <h3 className="flex items-center space-x-2 text-lg font-semibold text-white mb-4">
           {icon}
-          {title}
+          <span>{title}</span>
         </h3>
-        <div className={styles.infoGrid}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {apis.map(api => (
-            <div key={api} className={styles.infoItem}>
-              <span className={styles.label}>
+            <div key={api} className="flex justify-between items-center p-3 bg-gray-700/30 rounded-lg">
+              <span className="flex items-center space-x-2 text-gray-300">
                 {getIcon(api)}
-                {api}
+                <span>{api}</span>
               </span>
-              <span className={`${styles.value} ${data[api] ? styles.supported : styles.notSupported}`}>
+              <span className={`text-sm font-medium ${
+                data[api] ? 'text-green-400' : 'text-red-400'
+              }`}>
                 {data[api] ? '✅ Поддерживается' : '❌ Не поддерживается'}
               </span>
             </div>
@@ -77,16 +78,13 @@ const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsI
   };
 
   return (
-    <motion.div 
-      className={styles.webAPIInfo}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div 
+      className="card p-6"
     >
       {/* Основные Web APIs */}
       {renderAPISection(
         'Основные Web APIs',
-        <Zap size={20} />,
+        <Zap size={20} className="text-gray-300" />,
         ['fetch', 'promises', 'asyncAwait', 'webWorkers', 'sharedWorkers', 'webSockets', 'serverSentEvents', 'webRTC'],
         webAPIInfo
       )}
@@ -94,7 +92,7 @@ const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsI
       {/* Медиа APIs */}
       {renderAPISection(
         'Медиа APIs',
-        <Smartphone size={20} />,
+        <Smartphone size={20} className="text-gray-300" />,
         ['mediaDevices', 'getUserMedia', 'mediaSession', 'mediaCapabilities', 'mediaRecorder', 'webAudio'],
         mediaInfo
       )}
@@ -102,7 +100,7 @@ const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsI
       {/* Хранилище */}
       {renderAPISection(
         'Хранилище',
-        <Database size={20} />,
+        <Database size={20} className="text-gray-300" />,
         ['localStorage', 'sessionStorage', 'indexedDB', 'webSQL', 'cookies', 'cacheStorage', 'serviceWorker'],
         storageInfo
       )}
@@ -110,7 +108,7 @@ const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsI
       {/* Безопасность */}
       {renderAPISection(
         'Безопасность',
-        <Shield size={20} />,
+        <Shield size={20} className="text-gray-300" />,
         ['isSecureContext', 'origin', 'protocol', 'hostname', 'port', 'pathname', 'search', 'hash', 'referrer'],
         securityInfo
       )}
@@ -118,7 +116,7 @@ const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsI
       {/* Датчики */}
       {renderAPISection(
         'Датчики',
-        <Smartphone size={20} />,
+        <Smartphone size={20} className="text-gray-300" />,
         ['accelerometer', 'gyroscope', 'magnetometer', 'absoluteOrientation', 'relativeOrientation', 'geolocation', 'vibration', 'battery', 'proximity', 'ambientLight'],
         sensorsInfo
       )}
@@ -126,27 +124,27 @@ const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsI
       {/* Дополнительные APIs */}
       {renderAPISection(
         'Дополнительные APIs',
-        <FileText size={20} />,
+        <FileText size={20} className="text-gray-300" />,
         ['pushManager', 'notifications', 'clipboard', 'share', 'contacts', 'credentials', 'permissions', 'wakeLock', 'bluetooth', 'usb', 'serial', 'hid', 'gamepad', 'presentation', 'payment'],
         webAPIInfo
       )}
 
       {/* Статистика поддержки */}
-      <div className={styles.section}>
-        <h3 className={styles.sectionTitle}>
-          <FileText size={20} />
-          Статистика поддержки
+      <div className="mb-6">
+        <h3 className="flex items-center space-x-2 text-lg font-semibold text-white mb-4">
+          <FileText size={20} className="text-gray-300" />
+          <span>Статистика поддержки</span>
         </h3>
-        <div className={styles.statsGrid}>
-          <div className={styles.statItem}>
-            <span className={styles.statLabel}>Всего APIs:</span>
-            <span className={styles.statValue}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Всего APIs:</span>
+            <span className="text-white font-semibold">
               {Object.keys(webAPIInfo).length + Object.keys(mediaInfo).length + Object.keys(storageInfo).length + Object.keys(securityInfo).length + Object.keys(sensorsInfo).length}
             </span>
           </div>
-          <div className={styles.statItem}>
-            <span className={styles.statLabel}>Поддерживается:</span>
-            <span className={styles.statValue}>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Поддерживается:</span>
+            <span className="text-green-400 font-semibold">
               {Object.values(webAPIInfo).filter(Boolean).length + 
                Object.values(mediaInfo).filter(Boolean).length + 
                Object.values(storageInfo).filter(Boolean).length + 
@@ -154,9 +152,9 @@ const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsI
                Object.values(sensorsInfo).filter(Boolean).length}
             </span>
           </div>
-          <div className={styles.statItem}>
-            <span className={styles.statLabel}>Процент поддержки:</span>
-            <span className={styles.statValue}>
+          <div className="flex justify-between p-3 bg-gray-700/30 rounded-lg">
+            <span className="text-gray-300">Процент поддержки:</span>
+            <span className="text-gray-300 font-semibold">
               {Math.round(
                 ((Object.values(webAPIInfo).filter(Boolean).length + 
                   Object.values(mediaInfo).filter(Boolean).length + 
@@ -169,7 +167,7 @@ const WebAPIInfo = ({ webAPIInfo, mediaInfo, storageInfo, securityInfo, sensorsI
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

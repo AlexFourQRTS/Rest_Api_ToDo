@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import styles from './style/FileUploader.module.css';
+// Removed CSS module import
 import { useToast } from '../../context/ToastContext';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL;
@@ -137,17 +137,19 @@ const FileUploader = ({ onUploadSuccess }) => {
   };
 
   return (
-    <div className={styles.fileUploaderContainer}>
+    <div className="space-y-6">
       <div
-        className={`${styles.uploadSection} ${isDragging ? styles.dragging : ''}`}
+        className={`border-2 border-dashed border-gray-600 rounded-lg p-8 text-center transition-colors ${
+          isDragging ? 'border-slate-500 bg-slate-500/10' : 'hover:border-slate-500'
+        }`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <h3>Завантаження файлів</h3>
-        <div className={styles.uploadArea}>
-          <div className={styles.uploadContent}>
-            <p>Перетягніть файли сюди або</p>
+        <h3 className="text-xl font-semibold text-white mb-4">Завантаження файлів</h3>
+        <div className="space-y-4">
+          <div className="text-center">
+            <p className="text-gray-300 mb-4">Перетягніть файли сюди або</p>
             <input
               type="file"
               multiple
@@ -158,7 +160,7 @@ const FileUploader = ({ onUploadSuccess }) => {
               id="fileInput"
             />
             <button
-              className={styles.uploadButton}
+              className="btn-primary"
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploading}
             >
@@ -168,11 +170,11 @@ const FileUploader = ({ onUploadSuccess }) => {
         </div>
 
         {selectedFiles.length > 0 && !isUploading && !uploadComplete && (
-          <div className={styles.fileInfo}>
-            <p>Вибрано файл: {selectedFiles[0].name}</p>
-            <p>Розмір: {formatFileSize(selectedFiles[0].size)}</p>
+          <div className="mt-6 p-4 bg-gray-700/30 rounded-lg">
+            <p className="text-white mb-2">Вибрано файл: {selectedFiles[0].name}</p>
+            <p className="text-gray-300 mb-4">Розмір: {formatFileSize(selectedFiles[0].size)}</p>
             <button 
-              className={styles.startUploadButton}
+              className="btn-primary w-full"
               onClick={handleUpload}
             >
               Завантажити файл
@@ -181,31 +183,31 @@ const FileUploader = ({ onUploadSuccess }) => {
         )}
 
         {isUploading && (
-          <div className={styles.uploadProgress}>
-            <div className={styles.progressBar}>
+          <div className="mt-6 p-4 bg-gray-700/30 rounded-lg">
+            <div className="w-full bg-gray-600 rounded-full h-2 mb-4">
               <div
-                className={styles.progressBarFill}
+                className="bg-slate-500 h-2 rounded-full"
                 style={{ width: `${uploadProgress}%` }}
               />
             </div>
-            <div className={styles.progressInfo}>
-              <p>Прогрес: {uploadProgress.toFixed(1)}%</p>
-              <p>Завантажено: {formatFileSize(uploadedSize)} з {formatFileSize(selectedFiles[0]?.size || 0)}</p>
-              <p>Швидкість: {formatSpeed(uploadSpeed)}</p>
+            <div className="text-center">
+              <p className="text-white mb-2">Прогрес: {uploadProgress.toFixed(1)}%</p>
+              <p className="text-gray-300 mb-2">Завантажено: {formatFileSize(uploadedSize)} з {formatFileSize(selectedFiles[0]?.size || 0)}</p>
+              <p className="text-gray-300">Швидкість: {formatSpeed(uploadSpeed)}</p>
             </div>
           </div>
         )}
 
         {uploadComplete && uploadedFile && (
-          <div className={styles.uploadComplete}>
-            <div className={styles.successIcon}>✓</div>
-            <h4>Файл успішно завантажено!</h4>
-            <div className={styles.uploadedFileInfo}>
-              <p>Назва: {uploadedFile.name}</p>
-              <p>Розмір: {formatFileSize(uploadedFile.size)}</p>
+          <div className="mt-6 p-4 bg-green-900/20 border border-green-500 rounded-lg text-center">
+            <div className="text-green-400 text-4xl mb-4">✓</div>
+            <h4 className="text-green-400 text-lg font-semibold mb-2">Файл успішно завантажено!</h4>
+            <div className="text-center">
+              <p className="text-white mb-2">Назва: {uploadedFile.name}</p>
+              <p className="text-gray-300 mb-4">Розмір: {formatFileSize(uploadedFile.size)}</p>
             </div>
             <button 
-              className={styles.newUploadButton}
+              className="btn-primary w-full"
               onClick={() => {
                 setUploadComplete(false);
                 setUploadedFile(null);
