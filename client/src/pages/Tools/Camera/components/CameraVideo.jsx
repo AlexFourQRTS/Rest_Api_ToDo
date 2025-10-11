@@ -56,7 +56,7 @@ const CameraVideo = ({
         style={videoStyles}
         className={`w-full ${
           isFullscreen 
-            ? "h-screen object-contain" 
+            ? "min-h-screen h-full object-contain" 
             : "h-48 sm:h-64 object-cover"
         } ${isCameraOn ? "block" : "hidden"}`}
       />

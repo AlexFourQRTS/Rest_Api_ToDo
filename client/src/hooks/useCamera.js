@@ -7,6 +7,7 @@ const useCamera = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [devices, setDevices] = useState([]);
   const [selectedDevice, setSelectedDevice] = useState(null);
+  const [isScanning, setIsScanning] = useState(false);
   
   // Новые состояния для дополнительных функций
   const [rotation, setRotation] = useState(0);
@@ -19,18 +20,44 @@ const useCamera = () => {
   const videoContainerRef = useRef(null);
 
   // Получение списка доступных устройств
-  const getDevices = useCallback(async () => {
+  const getDevices = useCallback(async (forceRescan = false) => {
+    setIsScanning(true);
     try {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const videoDevices = devices.filter(device => device.kind === 'videoinput');
+      // Для полного сканирования сначала запрашиваем разрешение
+      if (forceRescan || devices.length === 0) {
+        try {
+          // Запрашиваем разрешение для получения полных меток устройств
+          const tempStream = await navigator.mediaDevices.getUserMedia({ video: true });
+          tempStream.getTracks().forEach(track => track.stop());
+        } catch (err) {
+          console.log('Разрешение на камеру не получено, показываем доступные устройства');
+        }
+      }
+      
+      // Получаем все устройства
+      const allDevices = await navigator.mediaDevices.enumerateDevices();
+      const videoDevices = allDevices.filter(device => device.kind === 'videoinput');
+      
+      console.log(`Найдено ${videoDevices.length} видеоустройств:`, videoDevices);
       setDevices(videoDevices);
       
+      // Выбираем первое устройство, если еще не выбрано
       if (videoDevices.length > 0 && !selectedDevice) {
         setSelectedDevice(videoDevices[0].deviceId);
       }
     } catch (err) {
+      console.error('Ошибка при сканировании устройств:', err);
+      setError('Не удалось получить список камер');
+    } finally {
+      setIsScanning(false);
     }
-  }, [selectedDevice]);
+  }, [selectedDevice, devices.length]);
+
+  // Повторное сканирование устройств
+  const rescanDevices = useCallback(async () => {
+    console.log('Повторное сканирование камер...');
+    await getDevices(true);
+  }, [getDevices]);
 
   // Включение камеры
   const startCamera = useCallback(async (deviceId = null) => {
@@ -309,6 +336,7 @@ const useCamera = () => {
     isLoading,
     devices,
     selectedDevice,
+    isScanning,
     rotation,
     brightness,
     contrast,
@@ -332,6 +360,7 @@ const useCamera = () => {
     adjustSharpness,
     resetFilters,
     toggleFullscreen,
+    rescanDevices,
     
     // Утилиты
     clearError: () => setError(null)

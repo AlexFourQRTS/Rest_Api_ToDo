@@ -24,6 +24,7 @@ const Camera = () => {
     isLoading,
     devices,
     selectedDevice,
+    isScanning,
     rotation,
     brightness,
     contrast,
@@ -44,6 +45,7 @@ const Camera = () => {
     toggleFullscreen,
     clearError,
     switchDevice,
+    rescanDevices,
   } = useCamera();
 
   // Локальное состояние компонента
@@ -131,7 +133,9 @@ const Camera = () => {
           devices={devices}
           selectedDevice={selectedDevice}
           isLoading={isLoading}
+          isScanning={isScanning}
           onDeviceChange={switchDevice}
+          onRescan={rescanDevices}
         />
 
         {/* Основная область камеры */}
