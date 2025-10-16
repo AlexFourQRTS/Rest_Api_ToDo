@@ -39,28 +39,12 @@ async function bootstrap() {
     exclude: ['/'],
   });
 
-  // Настройка Swagger документации
-  const config = new DocumentBuilder()
-    .setTitle('NestJS API')
-    .setDescription('API документация для NestJS приложения')
-    .setVersion('1.0')
-    .addTag('auth', 'Авторизация и регистрация')
-    .addTag('ddos-monitor', 'Мониторинг DDoS защиты')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Введите JWT токен',
-        in: 'header',
-      },
-      'JWT-auth',
-    )
+  const swaggerConfig = new DocumentBuilder()
+    .addBearerAuth({ type: 'http', scheme: 'bearer' }, 'JWT-auth')
     .build();
   
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document);
+  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('api/docs', app, swaggerDocument);
 
 
   app.useGlobalFilters(new HttpExceptionFilter(), new NotFoundFilter());

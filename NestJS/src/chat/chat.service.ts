@@ -1,18 +1,20 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { Op } from 'sequelize';
-import { Chat, ChatType } from './entities/chat.model';
-import { CreateChatDto, UpdateChatDto } from './dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, ArrayContains } from 'typeorm';
+import { Chat, ChatType } from './entities/chat.entity';
+import { CreateChatDto, UpdateChatDto, CreateEncryptedChatDto } from './dto';
+import { ChatKeyService } from './services/chat-key.service';
 
 @Injectable()
 export class ChatService {
   constructor(
-    @InjectModel(Chat)
-    private chatModel: typeof Chat,
+    @InjectRepository(Chat)
+    private chatRepository: Repository<Chat>,
+    private chatKeyService: ChatKeyService,
   ) {}
 
   async create(createChatDto: CreateChatDto, userId: string): Promise<Chat> {
-    const chat = await this.chatModel.create({
+    const chat = this.chatRepository.create({
       ...createChatDto,
       createdBy: userId,
       participants: createChatDto.participants 
@@ -21,29 +23,51 @@ export class ChatService {
       chatType: createChatDto.chatType || ChatType.PRIVATE,
     });
 
-    return chat;
+    return await this.chatRepository.save(chat);
+  }
+
+  async createEncrypted(dto: CreateEncryptedChatDto, userId: string) {
+    const createdChat = await this.create({
+      name: dto.name,
+      description: dto.description,
+      chatType: dto.chatType,
+      participants: dto.participants,
+      metadata: {
+        ...dto.metadata,
+        isEncrypted: true,
+      },
+    }, userId);
+
+    await this.chatKeyService.storeKeys(
+      createdChat.id,
+      dto.encryptedKeys,
+      { algorithm: 'AES-256-GCM' }
+    );
+
+    return {
+      ...createdChat,
+      message: '🔐 E2E encrypted chat created. Server cannot read messages!',
+    };
   }
 
   async findAll(userId: string, query: any = {}): Promise<{ chats: Chat[]; total: number; page: number; totalPages: number }> {
     const { type, page = 1, limit = 10 } = query;
-    const offset = (page - 1) * limit;
+    const skip = (page - 1) * limit;
 
     const where: any = {
       isActive: true,
-      participants: {
-        [Op.contains]: [userId]
-      }
+      participants: ArrayContains([userId])
     };
 
     if (type && Object.values(ChatType).includes(type)) {
       where.chatType = type;
     }
 
-    const { rows: chats, count: total } = await this.chatModel.findAndCountAll({
+    const [chats, total] = await this.chatRepository.findAndCount({
       where,
-      offset,
-      limit: parseInt(limit),
-      order: [['updatedAt', 'DESC']],
+      skip,
+      take: parseInt(limit),
+      order: { updatedAt: 'DESC' },
     });
 
     return {
@@ -55,13 +79,11 @@ export class ChatService {
   }
 
   async findOne(id: string, userId: string): Promise<Chat> {
-    const chat = await this.chatModel.findOne({
+    const chat = await this.chatRepository.findOne({
       where: {
         id,
         isActive: true,
-        participants: {
-          [Op.contains]: [userId]
-        }
+        participants: ArrayContains([userId])
       }
     });
 
@@ -80,8 +102,8 @@ export class ChatService {
       throw new ForbiddenException('Нет прав на редактирование этого чата');
     }
 
-    await chat.update(updateChatDto);
-    return chat;
+    Object.assign(chat, updateChatDto);
+    return await this.chatRepository.save(chat);
   }
 
   async remove(id: string, userId: string): Promise<{ message: string; status: string }> {
@@ -92,7 +114,8 @@ export class ChatService {
       throw new ForbiddenException('Нет прав на удаление этого чата');
     }
 
-    await chat.update({ isActive: false });
+    chat.isActive = false;
+    await this.chatRepository.save(chat);
     
     return {
       message: 'Чат успешно удален',
@@ -110,7 +133,8 @@ export class ChatService {
     const participants = chat.participants || [];
     if (!participants.includes(participantId)) {
       participants.push(participantId);
-      await chat.update({ participants });
+      chat.participants = participants;
+      await this.chatRepository.save(chat);
     }
 
     return chat;
@@ -126,7 +150,8 @@ export class ChatService {
     const participants = chat.participants || [];
     const updatedParticipants = participants.filter(id => id !== participantId);
     
-    await chat.update({ participants: updatedParticipants });
+    chat.participants = updatedParticipants;
+    await this.chatRepository.save(chat);
 
     return chat;
   }

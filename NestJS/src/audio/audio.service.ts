@@ -2,7 +2,7 @@ import { Injectable, HttpException, HttpStatus, OnModuleDestroy } from '@nestjs/
 import { v4 as uuidv4 } from 'uuid';
 import { ensureDir, writeFile, readFile, unlink } from 'fs-extra';
 import { join, extname } from 'path';
-import { MulterFile } from '../interface/files.interface'
+import { MulterFile } from '../file/interfaces'
 import { Client } from 'pg';
 import { ConfigService } from '@nestjs/config';
 

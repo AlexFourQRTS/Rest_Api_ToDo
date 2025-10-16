@@ -5,11 +5,11 @@ services:
     image: postgres:15
     container_name: Database
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}" 
     environment:
-      POSTGRES_USER: xsanderadmin
-      POSTGRES_PASSWORD: qweasdrtyfghvbnjklyuiospgmrj
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - ./data/postgres:/var/lib/postgresql/data
     networks:
@@ -19,13 +19,14 @@ services:
     build: ./NestJS
     container_name: backend
     environment:
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_USERNAME: xsanderadmin
-      DB_PASSWORD: qweasdrtyfghvbnjklyuiospgmrj
-      DB_DATABASE: postgres
+     
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
     ports:
-      - "5000:5000"
+      - "${BACKEND_PORT}:${BACKEND_PORT}" 
     depends_on:
       - postgres
     networks:
@@ -39,7 +40,7 @@ services:
     build: ./EmulatorServ
     container_name: emulator
     ports:
-      - "8080:8080"
+      - "${EMULATOR_PORT}:${EMULATOR_PORT}" 
     networks:
       - app-network
 
@@ -47,7 +48,7 @@ services:
     build: ./RomServ
     container_name: romserv
     ports:
-      - "9999:9999"
+      - "${ROMSERV_PORT}:${ROMSERV_PORT}" 
     volumes:
       - ./RomServ/Games:/app/Games
     networks:

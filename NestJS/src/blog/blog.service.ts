@@ -1,85 +1,105 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { Op } from 'sequelize';
-import { Blog } from './entities/blog.model';
-import { CreateBlogDto, UpdateBlogDto, IBlogQuery } from './blog.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, ILike } from 'typeorm';
+import { IBlogQuery } from './interfaces';
+
+import { Blog } from './entities/blog.entity';
+import { CreateBlogDto, UpdateBlogDto } from './dto';
 
 @Injectable()
 export class BlogService {
   constructor(
-    @InjectModel(Blog)
-    private blogModel: typeof Blog,
-  ) {}
+    @InjectRepository(Blog)
+    private blogRepository: Repository<Blog>,
+  ) { }
 
-  async findAll(query: IBlogQuery) {
-    const { search, category, page = 1, limit = 10 } = query;
-    const offset = (page - 1) * limit;
+  async findAll(queryParams: IBlogQuery) {
+    const { search, category, page = 1, limit = 10 } = queryParams;
+    const skipCount = (page - 1) * limit;
 
-    const where: any = {};
+    const whereClause: any = {};
 
     if (search) {
-      where.name = { [Op.iLike]: `%${search}%` };
+      whereClause.name = ILike(`%${search}%`);
     }
 
     if (category && category !== 'all') {
-      where.category = category;
+      whereClause.category = category;
     }
 
-    const { rows: blogs, count: total } = await this.blogModel.findAndCountAll({
-      where,
-      offset,
-      limit,
-      order: [['created_at', 'DESC']],
+    const [blogsList, totalCount] = await this.blogRepository.findAndCount({
+      where: whereClause,
+      skip: skipCount,
+      take: limit,
+      order: { created_at: 'DESC' },
     });
 
     return {
-      articles: blogs,
-      totalCount: total,
+      articles: blogsList,
+      totalCount: totalCount,
       page,
-      totalPages: Math.ceil(total / limit),
+      totalPages: Math.ceil(totalCount / limit),
     };
   }
 
-  async findOne(id: string) {
-    const blog = await this.blogModel.findByPk(id);
+  async findOne(blogId: string) {
+    const blogData = await this.blogRepository.findOne({ where: { id: blogId } });
 
-    if (!blog) {
+    if (!blogData) {
       throw new NotFoundException('Blog not found');
     }
 
-    return blog;
+    return blogData;
+  }
+
+  async update(blogId: string, updateBlogDto: UpdateBlogDto) {
+    const blogData = await this.blogRepository.findOne({ where: { id: blogId } });
+
+    if (!blogData) {
+      throw new NotFoundException('Blog not found');
+    }
+
+    const updateData = {
+      name: updateBlogDto.blogName,
+      content: updateBlogDto.blogContent,
+      image: updateBlogDto.blogImage,
+      image_url: updateBlogDto.imageUrl,
+      category: updateBlogDto.blogCategory,
+      excerpt: updateBlogDto.blogExcerpt,
+      tags: updateBlogDto.blogTags,
+      featured: updateBlogDto.blogFeatured,
+      canEdit: updateBlogDto.canEdit,
+      readTime: updateBlogDto.readTime,
+    };
+
+    Object.assign(blogData, updateData);
+    return await this.blogRepository.save(blogData);
+  }
+
+  async remove(blogId: string) {
+    const blogData = await this.blogRepository.findOne({ where: { id: blogId } });
+
+    if (!blogData) {
+      throw new NotFoundException('Blog not found');
+    }
+
+    await this.blogRepository.remove(blogData);
+    return { removeSuccess: true };
   }
 
   async create(createBlogDto: CreateBlogDto) {
-    const blog = await this.blogModel.create({
-      ...createBlogDto,
-      image: createBlogDto.image || 'No',
-      featured: createBlogDto.featured || false,
+    const blogData = this.blogRepository.create({
+      name: createBlogDto.blogName,
+      content: createBlogDto.blogContent,
+      image: createBlogDto.blogImage || 'No',
+      image_url: createBlogDto.imageUrl,
+      category: createBlogDto.blogCategory,
+      excerpt: createBlogDto.blogExcerpt,
+      tags: createBlogDto.blogTags,
+      featured: createBlogDto.blogFeatured || false,
       canEdit: createBlogDto.canEdit ?? true,
       readTime: createBlogDto.readTime || 5,
     });
-    return blog;
+    return await this.blogRepository.save(blogData);
   }
-
-  async update(id: string, updateBlogDto: UpdateBlogDto) {
-    const blog = await this.blogModel.findByPk(id);
-
-    if (!blog) {
-      throw new NotFoundException('Blog not found');
-    }
-
-    await blog.update(updateBlogDto);
-    return blog;
-  }
-
-  async remove(id: string) {
-    const blog = await this.blogModel.findByPk(id);
-
-    if (!blog) {
-      throw new NotFoundException('Blog not found');
-    }
-
-    await blog.destroy();
-    return { success: true };
-  }
-} 
+}

@@ -1,77 +1,34 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { BlogService } from './blog.service';
-import { CreateBlogDto, UpdateBlogDto } from './blog.dto';
-import { IBlogQuery } from './blog.interface';
+import { CreateBlogDto, UpdateBlogDto } from './dto';
+import { IBlogQuery } from './interfaces';
 
 @Controller('blog')
 export class BlogController {
   constructor(private readonly blogService: BlogService) {}
 
   @Get()
-  async findAll(@Query() query: IBlogQuery) {
-    try {
-      const result = await this.blogService.findAll(query);
-      return result;
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Failed to fetch blogs',
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
+  async findAll(@Query() queryParams: IBlogQuery) {
+    return this.blogService.findAll(queryParams);
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    try {
-      const blog = await this.blogService.findOne(id);
-      return blog;
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Blog not found',
-        error.status || HttpStatus.NOT_FOUND
-      );
-    }
+  async findOne(@Param('id') blogId: string) {
+    return this.blogService.findOne(blogId);
   }
 
   @Post()
   async create(@Body() createBlogDto: CreateBlogDto) {
-    try {
-      const blog = await this.blogService.create(createBlogDto);
-      return blog;
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Failed to create blog',
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
+    return this.blogService.create(createBlogDto);
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateBlogDto: UpdateBlogDto,
-  ) {
-    try {
-      const blog = await this.blogService.update(id, updateBlogDto);
-      return blog;
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Failed to update blog',
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
+  async update(@Param('id') blogId: string, @Body() updateBlogDto: UpdateBlogDto) {
+    return this.blogService.update(blogId, updateBlogDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    try {
-      const result = await this.blogService.remove(id);
-      return result;
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Failed to delete blog',
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
+  async remove(@Param('id') blogId: string) {
+    return this.blogService.remove(blogId);
   }
-} 
+}

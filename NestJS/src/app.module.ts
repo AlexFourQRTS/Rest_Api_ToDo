@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { SequelizeModule } from '@nestjs/sequelize';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { getTypeOrmConfig } from './config/typeorm.config';
+import configuration from './config/configuration';
+import { validate } from './config/env.validation';
 
 import { FilesModule } from './file/files.module'
 import { PhotoModule } from './photo/photo.module';
@@ -15,46 +16,44 @@ import { GlobalMiddleware } from './middleware/globalMiddleware';
 import { DdosMonitorController } from './middleware/ddos-monitor.controller';
 
 import { AuthModule } from './auth/auth.module';
-import { ThinkModule } from './think/think.module';
 import { ChatModule } from './chat/chat.module';
-import { NestFrameModule } from './nest-frame/nest-frame.module';
+
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      load: [configuration], 
+      validate,              
+      cache: true,          
+      expandVariables: true,
     }),
-    ThrottlerModule.forRoot([{
-      ttl: 60000, 
-      limit: 100, 
-    }]),
-    SequelizeModule.forRootAsync({
+
+    ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        dialect: 'postgres',
-        host: configService.get('DB_HOST'),
-        port: configService.get('DB_PORT'),
-        username: configService.get('DB_USERNAME'),
-        password: configService.get('DB_PASSWORD'),
-        database: configService.get('DB_DATABASE'),
-        models: [__dirname + '/**/*.model{.ts,.js}'],
-        autoLoadModels: true,
-        synchronize: true,
-        logging: false,
-      }),
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => [{
+        ttl: config.get('throttle.ttl'),
+        limit: config.get('throttle.limit'),
+      }],
+    }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => getTypeOrmConfig(configService),
       inject: [ConfigService],
     }),
     FilesModule,
     PhotoModule,
     VideoModule,
     AudioModule,
+
     BlogModule,
+
     AuthModule,
-    ThinkModule,
+
     ChatModule,
-    NestFrameModule
   ],
-  controllers: [AppController, DdosMonitorController],
-  providers: [AppService, GlobalMiddleware],
+  controllers: [DdosMonitorController],
+  providers: [GlobalMiddleware],
 })
 export class AppModule {}

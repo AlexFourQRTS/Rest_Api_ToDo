@@ -1,7 +1,8 @@
 import { Injectable, UnauthorizedException, ConflictException, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { InjectModel } from '@nestjs/sequelize';
-import { User, UserRole } from './entities/User.model';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User, UserRole } from './entities/User.entity';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
@@ -9,19 +10,13 @@ import { JwtPayload, Tokens } from './interfaces/jwt-payload.interface';
 import { ConfigService } from '@nestjs/config';
 import * as crypto from 'crypto';
 
-
-// enum UserRole {
-//   USER = 'user',
-//   ADMIN = 'admin'
-// }
-
 @Injectable()
 export class AuthService {
   private readonly revokedTokens = new Set<string>();
 
   constructor(
-    @InjectModel(User)
-    private userModel: typeof User,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
     private jwtService: JwtService,
     private configService: ConfigService,
   ) {}
@@ -33,7 +28,7 @@ export class AuthService {
     }
 
     // Проверяем существование пользователя
-    const existingUser = await this.userModel.findOne({
+    const existingUser = await this.userRepository.findOne({
       where: { email: registerDto.email }
     });
 
@@ -42,13 +37,15 @@ export class AuthService {
     }
 
     // Создаем пользователя
-    const user = await this.userModel.create({
+    const user = this.userRepository.create({
       email: registerDto.email,
       name: registerDto.name,
-      password: registerDto.password,
       role: UserRole.USER,
       emailVerificationToken: crypto.randomBytes(32).toString('hex'),
     });
+
+    user.setPassword(registerDto.password);
+    await this.userRepository.save(user);
 
     const tokens = await this.generateTokens(user);
 
@@ -87,10 +84,9 @@ export class AuthService {
     }
 
     // Обновляем информацию о последнем входе
-    await user.update({
-      lastLoginAt: new Date(),
-      lastLoginIp: clientIp,
-    });
+    user.lastLoginAt = new Date();
+    user.lastLoginIp = clientIp;
+    await this.userRepository.save(user);
 
     const tokens = await this.generateTokens(user, loginDto.rememberMe === 'true');
 
@@ -106,7 +102,7 @@ export class AuthService {
       return null;
     }
 
-    const user = await this.userModel.findOne({
+    const user = await this.userRepository.findOne({
       where: { email }
     });
 
@@ -126,7 +122,9 @@ export class AuthService {
         throw new UnauthorizedException('Token revoked');
       }
 
-      const user = await this.userModel.findByPk(payload.sub);
+      const user = await this.userRepository.findOne({
+        where: { id: payload.sub }
+      });
 
       if (!user || !user.isActive) {
         throw new UnauthorizedException('User not found or inactive');
@@ -180,7 +178,9 @@ export class AuthService {
   }
 
   async getProfile(userId: string): Promise<Partial<User>> {
-    const user = await this.userModel.findByPk(userId);
+    const user = await this.userRepository.findOne({
+      where: { id: userId }
+    });
 
     if (!user) {
       throw new UnauthorizedException('User not found');
@@ -190,7 +190,9 @@ export class AuthService {
   }
 
   async changePassword(userId: string, oldPassword: string, newPassword: string): Promise<void> {
-    const user = await this.userModel.findByPk(userId);
+    const user = await this.userRepository.findOne({
+      where: { id: userId }
+    });
 
     if (!user) {
       throw new UnauthorizedException('User not found');
@@ -201,6 +203,7 @@ export class AuthService {
       throw new BadRequestException('Неверный текущий пароль');
     }
 
-    await user.update({ password: newPassword });
+    user.setPassword(newPassword);
+    await this.userRepository.save(user);
   }
 }

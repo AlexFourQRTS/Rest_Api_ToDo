@@ -1,32 +1,16 @@
-import { Controller, Post, UseInterceptors, UploadedFile, BadRequestException, Get, Param, Res, HttpStatus, HttpException } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFile, BadRequestException, Get, Param, Res } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { MulterFile } from '../interface/files.interface';
+import { MulterFile } from '../file/interfaces';
 import { VideoService } from './video.service';
 import { Response } from 'express';
+import { multerConfig, videoLimits } from '../common/config/multer.config';
 
 @Controller('video')
 export class VideoController {
   constructor(private readonly videoService: VideoService) {}
 
   @Post('upload')
-  @UseInterceptors(
-    FileInterceptor('video', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, callback) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          const ext = extname(file.originalname);
-          const filename = `${file.originalname.replace(ext, '')}-${uniqueSuffix}${ext}`;
-          callback(null, filename);
-        },
-      }),
-      limits: {
-        fileSize: 2 * 6000 * 1024 * 1024,
-      },
-    }),
-  )
+  @UseInterceptors(FileInterceptor('video', { ...multerConfig, limits: videoLimits }))
   async uploadVideo(@UploadedFile() video: MulterFile) {
     if (!video) {
       throw new BadRequestException('Пожалуйста, загрузите видео!');
@@ -37,22 +21,12 @@ export class VideoController {
 
   @Get()
   async getVideos() {
-    return await this.videoService.getAllVideos();
+    return this.videoService.getAllVideos();
   }
 
   @Get(':id')
-  async downloadVideo(@Param('id') id: string, @Res() res: Response) {
-    try {
-      const videoInfo = await this.videoService.getVideoById(id);
-      if (!videoInfo) {
-        throw new HttpException('Видео не найдено', HttpStatus.NOT_FOUND);
-      }
-      res.sendFile(videoInfo.path);
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException('Ошибка сервера при скачивании видео', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+  async downloadVideo(@Param('id') videoId: string, @Res() responseFile: Response) {
+    const videoInfo = await this.videoService.getVideoById(videoId);
+    responseFile.sendFile(videoInfo.path);
   }
 }

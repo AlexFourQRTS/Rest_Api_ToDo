@@ -2,11 +2,12 @@ import { Injectable, OnModuleDestroy, BadRequestException, NotFoundException, Ht
 import { v4 as uuidv4 } from 'uuid';
 import { ensureDir, writeFile, readFile, unlink } from 'fs-extra';
 import { join, extname } from 'path';
-import { MulterFile } from '../interface/files.interface';
+import { MulterFile } from './interfaces';
 import { Client } from 'pg';
 import { ConfigService } from '@nestjs/config';
-import { InjectModel } from '@nestjs/sequelize';
-import { File } from './entities/file.model';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { File } from './entities/file.entity';
 
 @Injectable()
 export class FilesService implements OnModuleDestroy {
@@ -28,8 +29,8 @@ export class FilesService implements OnModuleDestroy {
 
   constructor(
     private readonly configService: ConfigService,
-    @InjectModel(File)
-    private fileModel: typeof File,
+    @InjectRepository(File)
+    private fileRepository: Repository<File>,
   ) {
     this.client = new Client({
       host: this.configService.get<string>('DB_HOST'),
@@ -110,7 +111,7 @@ export class FilesService implements OnModuleDestroy {
 
   async getAllFiles(): Promise<{ [key: string]: any[] }> {
     try {
-      const files = await this.fileModel.findAll();
+      const files = await this.fileRepository.find();
       const groupedFiles = {
         images: files.filter(file => file.file_type === 'images'),
         videos: files.filter(file => file.file_type === 'videos'),
@@ -122,31 +123,31 @@ export class FilesService implements OnModuleDestroy {
       const result = {
 
         images: groupedFiles.images.map(file => ({
-          ...file.toJSON(),
+          ...file,
           url: `/api/files/${file.file_type}/${file.filename}`,
           downloadUrl: `/api/files/number${file.id}/download`
         })),
 
         videos: groupedFiles.videos.map(file => ({
-          ...file.toJSON(),
+          ...file,
           url: `/api/files/${file.file_type}/${file.filename}`,
           downloadUrl: `/api/files/number${file.id}/download`
         })),
 
         audio: groupedFiles.audio.map(file => ({
-          ...file.toJSON(),
+          ...file,
           url: `/api/files/${file.file_type}/${file.filename}`,
           downloadUrl: `/api/files/number${file.id}/download`
         })),
 
         documents: groupedFiles.documents.map(file => ({
-          ...file.toJSON(),
+          ...file,
           url: `/api/files/${file.file_type}/${file.filename}`,
           downloadUrl: `/api/files/number${file.id}/download`
         })),
 
         other: groupedFiles.other.map(file => ({
-          ...file.toJSON(),
+          ...file,
           url: `/api/files/${file.file_type}/${file.filename}`,
           downloadUrl: `/api/files/number${file.id}/download`
         }))
@@ -159,7 +160,7 @@ export class FilesService implements OnModuleDestroy {
   }
 
   async getFileById(id: string): Promise<File> {
-    const file = await this.fileModel.findByPk(id);
+    const file = await this.fileRepository.findOne({ where: { id: parseInt(id) } });
     if (!file) {
       throw new HttpException('File not found', HttpStatus.NOT_FOUND);
     }
@@ -182,16 +183,16 @@ export class FilesService implements OnModuleDestroy {
         // Перемещаем файл в соответствующую директорию
         await writeFile(uploadPath, file.buffer);
 
-        const fileData = {
+        const fileData = this.fileRepository.create({
           filename: filename,
           original_name: file.originalname,
           mime_type: file.mimetype,
           size: file.size,
           path: uploadPath,
           file_type: fileType,
-        };
+        });
 
-        const savedFile = await this.fileModel.create(fileData);
+        const savedFile = await this.fileRepository.save(fileData);
         savedFiles.push(savedFile);
       }
 
@@ -218,7 +219,7 @@ export class FilesService implements OnModuleDestroy {
       }
 
       // Удаляем запись из базы данных
-      await file.destroy();
+      await this.fileRepository.remove(file);
     } catch (error) {
       if (error instanceof NotFoundException) {
         throw error;

@@ -8,20 +8,12 @@ import {
   Delete, 
   Query, 
   UseGuards,
-  Request,
-  HttpStatus,
-  HttpException
+  Request
 } from '@nestjs/common';
-import { 
-  ApiTags, 
-  ApiOperation, 
-  ApiResponse, 
-  ApiBearerAuth,
-  ApiQuery,
-  ApiParam
-} from '@nestjs/swagger';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { ChatService } from './chat.service';
-import { CreateChatDto, UpdateChatDto } from './dto';
+import { ChatKeyService } from './services/chat-key.service';
+import { CreateChatDto, UpdateChatDto, CreateEncryptedChatDto } from './dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('chat')
@@ -29,176 +21,67 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth('JWT-auth')
 export class ChatController {
-  constructor(private readonly chatService: ChatService) {}
+  constructor(
+    private readonly chatService: ChatService,
+    private readonly chatKeyService: ChatKeyService,
+  ) {}
 
   @Post()
-  @ApiOperation({ summary: 'Создать новый чат' })
-  @ApiResponse({ 
-    status: 201, 
-    description: 'Чат успешно создан',
-    schema: {
-      example: {
-        id: 'uuid',
-        name: 'Мой чат',
-        description: 'Описание чата',
-        chatType: 'private',
-        createdBy: 'user-uuid',
-        participants: ['user-uuid'],
-        isActive: true,
-        createdAt: '2025-06-20T01:00:00.000Z',
-        updatedAt: '2025-06-20T01:00:00.000Z'
-      }
-    }
-  })
-  @ApiResponse({ status: 400, description: 'Неверные данные' })
-  @ApiResponse({ status: 401, description: 'Не авторизован' })
   async create(@Body() createChatDto: CreateChatDto, @Request() req) {
-    try {
-      return await this.chatService.create(createChatDto, req.user.id);
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Ошибка при создании чата',
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
+    return this.chatService.create(createChatDto, req.user.id);
+  }
+
+  @Post('encrypted')
+  async createEncrypted(@Body() dto: CreateEncryptedChatDto, @Request() req) {
+    return this.chatService.createEncrypted(dto, req.user.id);
+  }
+
+  @Get(':chatId/key')
+  async getChatKey(@Param('chatId') chatId: string, @Request() req) {
+    const encryptedKey = await this.chatKeyService.getKeyForUser(chatId, req.user.id);
+    return {
+      chatId,
+      encryptedKey,
+      message: 'Decrypt this key with your private key on the client',
+    };
+  }
+
+  @Post(':chatId/key/participant')
+  async addKeyForParticipant(
+    @Param('chatId') chatId: string,
+    @Body() body: { userId: string; encryptedKey: string },
+    @Request() req
+  ) {
+    const chatKey = await this.chatKeyService.addKeyForParticipant(
+      chatId,
+      body.userId,
+      body.encryptedKey,
+      req.user.id,
+    );
+    return {
+      chatSuccess: true,
+      message: 'Ключ добавлен для нового участника',
+      chatKey,
+    };
   }
 
   @Get()
-  @ApiOperation({ summary: 'Получить все чаты пользователя' })
-  @ApiQuery({ name: 'type', required: false, enum: ['private', 'group', 'channel'] })
-  @ApiQuery({ name: 'page', required: false, type: Number })
-  @ApiQuery({ name: 'limit', required: false, type: Number })
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Список чатов получен',
-    schema: {
-      example: {
-        chats: [
-          {
-            id: 'uuid',
-            name: 'Мой чат',
-            description: 'Описание чата',
-            chatType: 'private',
-            createdBy: 'user-uuid',
-            participants: ['user-uuid'],
-            isActive: true,
-            createdAt: '2025-06-20T01:00:00.000Z',
-            updatedAt: '2025-06-20T01:00:00.000Z'
-          }
-        ],
-        total: 1,
-        page: 1,
-        totalPages: 1
-      }
-    }
-  })
-  @ApiResponse({ status: 401, description: 'Не авторизован' })
-  async findAll(@Query() query: any, @Request() req) {
-    try {
-      return await this.chatService.findAll(req.user.id, query);
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Ошибка при получении чатов',
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
+  async findAll(@Query() queryParams: any, @Request() req) {
+    return this.chatService.findAll(req.user.id, queryParams);
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Получить чат по ID' })
-  @ApiParam({ name: 'id', description: 'ID чата' })
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Чат найден',
-    schema: {
-      example: {
-        id: 'uuid',
-        name: 'Мой чат',
-        description: 'Описание чата',
-        chatType: 'private',
-        createdBy: 'user-uuid',
-        participants: ['user-uuid'],
-        isActive: true,
-        createdAt: '2025-06-20T01:00:00.000Z',
-        updatedAt: '2025-06-20T01:00:00.000Z'
-      }
-    }
-  })
-  @ApiResponse({ status: 404, description: 'Чат не найден' })
-  @ApiResponse({ status: 401, description: 'Не авторизован' })
-  async findOne(@Param('id') id: string, @Request() req) {
-    try {
-      return await this.chatService.findOne(id, req.user.id);
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Ошибка при получении чата',
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
+  async findOne(@Param('id') chatId: string, @Request() req) {
+    return this.chatService.findOne(chatId, req.user.id);
   }
 
   @Patch(':id')
-  @ApiOperation({ summary: 'Обновить чат' })
-  @ApiParam({ name: 'id', description: 'ID чата' })
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Чат обновлен',
-    schema: {
-      example: {
-        id: 'uuid',
-        name: 'Обновленный чат',
-        description: 'Новое описание',
-        chatType: 'group',
-        createdBy: 'user-uuid',
-        participants: ['user-uuid'],
-        isActive: true,
-        createdAt: '2025-06-20T01:00:00.000Z',
-        updatedAt: '2025-06-20T01:00:00.000Z'
-      }
-    }
-  })
-  @ApiResponse({ status: 404, description: 'Чат не найден' })
-  @ApiResponse({ status: 401, description: 'Не авторизован' })
-  @ApiResponse({ status: 403, description: 'Нет прав на редактирование' })
-  async update(
-    @Param('id') id: string,
-    @Body() updateChatDto: UpdateChatDto,
-    @Request() req
-  ) {
-    try {
-      return await this.chatService.update(id, updateChatDto, req.user.id);
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Ошибка при обновлении чата',
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
+  async update(@Param('id') chatId: string, @Body() updateChatDto: UpdateChatDto, @Request() req) {
+    return this.chatService.update(chatId, updateChatDto, req.user.id);
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Удалить чат' })
-  @ApiParam({ name: 'id', description: 'ID чата' })
-  @ApiResponse({ 
-    status: 200, 
-    description: 'Чат удален',
-    schema: {
-      example: {
-        message: 'Чат успешно удален',
-        status: 'success'
-      }
-    }
-  })
-  @ApiResponse({ status: 404, description: 'Чат не найден' })
-  @ApiResponse({ status: 401, description: 'Не авторизован' })
-  @ApiResponse({ status: 403, description: 'Нет прав на удаление' })
-  async remove(@Param('id') id: string, @Request() req) {
-    try {
-      return await this.chatService.remove(id, req.user.id);
-    } catch (error) {
-      throw new HttpException(
-        error.message || 'Ошибка при удалении чата',
-        error.status || HttpStatus.INTERNAL_SERVER_ERROR
-      );
-    }
+  async remove(@Param('id') chatId: string, @Request() req) {
+    return this.chatService.remove(chatId, req.user.id);
   }
-} 
+}

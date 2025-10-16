@@ -5,7 +5,7 @@ import { extname, join } from 'path';
 
 import { Response, Request } from 'express'; 
 
-import { MulterFile } from '../interface/files.interface';
+import { MulterFile } from './interfaces';
 import { FilesService } from './files.service';
 
 import * as fs from 'fs'; 

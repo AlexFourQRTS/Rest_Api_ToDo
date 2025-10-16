@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { SequelizeModule } from '@nestjs/sequelize';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { FilesController } from './files.controller';
 import { FilesService } from './files.service';
-import { File } from './entities/file.model';
+import { File } from './entities/file.entity';
 
 @Module({
-  imports: [SequelizeModule.forFeature([File])],
+  imports: [TypeOrmModule.forFeature([File])],
   controllers: [FilesController],
   providers: [FilesService],
   exports: [FilesService],
