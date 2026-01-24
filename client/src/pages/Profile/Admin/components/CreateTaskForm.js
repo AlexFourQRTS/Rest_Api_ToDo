@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { DOMEN_Brahma } from "common/constant";
 
 const CreateTaskForm = ({ users, onCreateTask }) => {
   const [title, setTitle] = useState("Название Задания");
@@ -13,7 +14,7 @@ const CreateTaskForm = ({ users, onCreateTask }) => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "https://skydishch.fun/api/admin/tasksCreate",
+        `${DOMEN_Brahma}/api/admin/tasksCreate`,
         {
           title,
           description,

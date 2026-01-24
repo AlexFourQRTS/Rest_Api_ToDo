@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 // Removed CSS module import
+import { DOMEN_Brahma } from 'common/constant';
 
 const FileDetail = () => {
   const { fileId } = useParams();
@@ -14,7 +15,7 @@ const FileDetail = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`https://skydishch.fun/api/files/${fileId}`);
+        const response = await fetch(`${DOMEN_Brahma}/api/files/${fileId}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -40,7 +41,7 @@ const FileDetail = () => {
 
   const handleDownload = async () => {
     try {
-      const response = await fetch(`https://skydishch.fun/api/files/${fileId}/download`);
+      const response = await fetch(`${DOMEN_Brahma}/api/files/${fileId}/download`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

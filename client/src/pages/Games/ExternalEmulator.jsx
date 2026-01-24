@@ -5,6 +5,7 @@ import qrCodeImage from './TronTRC.jpg';
 
 const ROM_SERV = process.env.REACT_APP_ROMSERV_URL;
 const EMUL_URL = process.env.EMUL_URL;
+import { DOMEN_Brahma } from 'common/constant';
 
 
 const DonationBanner = ({ isVisible, onClose }) => {
@@ -785,7 +786,7 @@ const ExternalEmulator = () => {
 
 
     // EMUL_URL
-    const emulatorUrl = `https://skydishch.fun/emulator/?core=${core}&gameUrl=${encodeURIComponent(romUrl)}`;
+    const emulatorUrl = `${DOMEN_Brahma}/emulator/?core=${core}&gameUrl=${encodeURIComponent(romUrl)}`;
     return emulatorUrl;
   };
 

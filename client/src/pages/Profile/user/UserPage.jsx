@@ -4,6 +4,7 @@ import { Container, ListGroup, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { ToastContainer, toast } from "react-toastify";
+import { DOMEN_Brahma } from "common/constant";
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -27,7 +28,7 @@ const UserPage = () => {
     if (!userId) return;
     try {
       const response = await axios.get(
-        `https://skydishch.fun/api/users/${userId}/tasks`,
+        `${DOMEN_Brahma}/api/users/${userId}/tasks`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -63,7 +64,7 @@ const UserPage = () => {
     }
     try {
       const response = await axios.post(
-        `https://skydishch.fun/api/users/${userId}/tasks`,
+        `${DOMEN_Brahma}/api/users/${userId}/tasks`,
         newTask,
         {
           headers: {
@@ -99,7 +100,7 @@ const UserPage = () => {
         <Button variant="danger" size="sm" onClick={async () => {
           try {
             await axios.delete(
-              `https://skydishch.fun/api/users/${userId}/tasks/${taskId}`,
+              `${DOMEN_Brahma}/api/users/${userId}/tasks/${taskId}`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -154,7 +155,7 @@ const UserPage = () => {
   const saveTask = async (taskId) => {
     try {
       await axios.put(
-        `https://skydishch.fun/api/users/${userId}/tasks/${taskId}`,
+        `${DOMEN_Brahma}/api/users/${userId}/tasks/${taskId}`,
         editedTask,
         {
           headers: {

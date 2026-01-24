@@ -8,13 +8,13 @@ nano  /etc/nginx/sites-enabled/react-app
    GNU nano 7.2                       /etc/nginx/sites-enabled/react-app *                               
 server {
     listen 80;
-    server_name skydishch.fun;
-    return 301 https://skydishch.fun$request_uri;
+    server_name brahmadzen.space;
+    return 301 https://brahmadzen.space$request_uri;
 }
 
 server {
     listen 443 ssl;
-    server_name skydishch.fun;
+    server_name brahmadzen.space;
     client_max_body_size 10000M;
 
     ssl_certificate /mnt/sda/FrontEnd/Rest_Api_ToDo/client/.well-known/pki-validation/certificate.crt;
