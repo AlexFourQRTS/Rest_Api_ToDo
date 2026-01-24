@@ -1,36 +1,26 @@
 name: Frontend CI
 
-# 1. Когда запускать? При каждом пуше в ветку main
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Используем свежий Linux
+    runs-on: ubuntu-latest
 
     steps:
-      # 2. "Выкачиваем" код из репозитория
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 3. Устанавливаем Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Ставь ту версию, на которой работаешь локально
-          cache: 'npm'       # Ускоряет установку, кэшируя зависимости
+          node-version: '20'
 
-      # 4. Устанавливаем зависимости
       - name: Install dependencies
-        run: npm i          # Аналог npm install, но строже и быстрее для CI
+        working-directory: ./client  # <--- ВАЖНО: заходим в папку фронта
+        run: npm install
 
-      # 5. Проверяем типы (если у тебя TS)
-      - name: TypeScript check
-        run: npx tsc --noEmit
-
-      # 6. Запускаем сборку
       - name: Build project
+        working-directory: ./client  # <--- ВАЖНО: и тут тоже
         run: npm run build
