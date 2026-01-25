@@ -18,7 +18,7 @@ jobs:
             HostKeyAlgorithms +ssh-rsa
             PubkeyAcceptedAlgorithms +ssh-rsa
           script: |
-            cd /home/dzen/app
+            cd /home/dzen/GIT_PET
             git fetch --all
             git reset --hard origin/main
             
