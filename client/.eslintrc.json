@@ -18,10 +18,11 @@
   },
   "plugins": ["react"],
   "rules": {
-    "no-unused-vars": "warn",
+
     "no-constant-condition": ["warn", { "checkLoops": false }],
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "no-unused-vars": "off"
   }
 }

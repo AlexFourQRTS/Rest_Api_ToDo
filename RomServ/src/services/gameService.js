@@ -64,7 +64,7 @@ class GameService {
 
     } catch (error) {
       logger.gameError(consoleId, 'list', error);
-      throw new Error(error)
+      throw error;
     }
   }
 
@@ -109,7 +109,7 @@ class GameService {
 
     } catch (error) {
       logger.gameError(consoleId, 'get', error, fileName);
-      throw new Error(error)
+      throw error;
     }
   }
 
@@ -149,7 +149,7 @@ class GameService {
 
     } catch (error) {
       logger.gameError(consoleId, 'download', error, fileName);
-      throw new Error(error)
+      throw error;
     }
   }
 
@@ -181,7 +181,7 @@ class GameService {
 
     } catch (error) {
       logger.error('Failed to get game stats', { error: error.message });
-      throw new Error(error)
+      throw error;
     }
   }
 
@@ -208,7 +208,7 @@ class GameService {
 
     } catch (error) {
       logger.error('Failed to get game categories', { error: error.message });
-      throw new Error(error)
+      throw error;
     }
   }
 
@@ -268,7 +268,7 @@ class GameService {
 
     } catch (error) {
       logger.error('Failed to search games', { error: error.message });
-      throw new Error(error)
+      throw error;
     }
   }
 
@@ -293,7 +293,7 @@ class GameService {
 
     } catch (error) {
       logger.error('Failed to get random game', { error: error.message });
-      throw new Error(error)
+      throw error;
     }
   }
 }

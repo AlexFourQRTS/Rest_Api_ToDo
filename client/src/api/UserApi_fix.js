@@ -1,4 +1,4 @@
-import BaseApi from './BaseApi.js';
+import BaseApi from './BaseApi_fix.js';
 
 class UserApi extends BaseApi {
   constructor() {

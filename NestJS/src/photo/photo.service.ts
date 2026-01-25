@@ -59,7 +59,7 @@ export class PhotoService implements OnModuleDestroy {
     } catch (error) {
       console.error('Ошибка при подключении или проверке/создании таблицы (PhotoService):', error);
       await this.client.end();
-      throw new Error(error)
+      throw error;
     }
   }
 

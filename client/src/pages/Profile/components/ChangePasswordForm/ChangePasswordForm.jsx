@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { authApi } from '../../../../api/AuthApi';
+import { authApi } from '../../../../api/AuthApi_fix';
 // Removed CSS module import
 
 const ChangePasswordForm = () => {

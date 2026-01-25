@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './SidebarBlog.module.css';
 import { FaFolder, FaTags, FaClock } from 'react-icons/fa';
-import { getArticles } from '../../api/BlogApi';
+import { getArticles } from '../../api/BlogApi_fix';
 
 export const SidebarBlog = ({ selectedTag, onTagSelect }) => {
   const [categories, setCategories] = useState([]);

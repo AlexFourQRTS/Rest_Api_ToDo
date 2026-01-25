@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL ;
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const getArticles = async (limit = 10, offset = 0, category = 'all', searchTerm = '') => {
     try {
@@ -56,30 +56,30 @@ export const deleteArticle = async (id) => {
 };
 
 export const BlogApi = {
-  getPosts: async () => {
-    return [];
-  },
-  createPost: async (post) => {
-    return { id: 1, ...post };
-  },
-  updatePost: async (id, post) => {
-    return { id, ...post };
-  },
-  deletePost: async (id) => {
-    return { success: true };
-  },
-  likePost: async (id) => {
-    return { success: true };
-  },
-  unlikePost: async (id) => {
-    return { success: true };
-  },
-  addComment: async (postId, comment) => {
-    return { id: 1, postId, ...comment };
-  },
-  deleteComment: async (id) => {
-    return { success: true };
-  },
+    getPosts: async () => {
+        return [];
+    },
+    createPost: async (post) => {
+        return { id: 1, ...post };
+    },
+    updatePost: async (id, post) => {
+        return { id, ...post };
+    },
+    deletePost: async (id) => {
+        return { success: true };
+    },
+    likePost: async (id) => {
+        return { success: true };
+    },
+    unlikePost: async (id) => {
+        return { success: true };
+    },
+    addComment: async (postId, comment) => {
+        return { id: 1, postId, ...comment };
+    },
+    deleteComment: async (id) => {
+        return { success: true };
+    },
 };
 
 export default BlogApi;

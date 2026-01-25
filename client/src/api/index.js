@@ -1,7 +1,7 @@
-import AuthApi from './AuthApi';
-import BlogApi from './BlogApi';
-import FileApi from './FileApi';
-import UserApi from './UserApi';
+import AuthApi from './AuthApi_fix';
+import BlogApi from './BlogApi_fix';
+import FileApi from './FileApi_fix';
+import UserApi from './UserApi_fix';
 
 // 1. Собираем всё в один именованный объект
 export const authApi = AuthApi;
