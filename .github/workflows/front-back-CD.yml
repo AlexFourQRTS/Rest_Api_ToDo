@@ -18,10 +18,10 @@ jobs:
             HostKeyAlgorithms +ssh-rsa
             PubkeyAcceptedAlgorithms +ssh-rsa
           script: |
-            cd /home/dzen/GIT_PET
+            cd /home/dzen/GIT_PET/Rest_Api_ToDo/
             git fetch --all
             git reset --hard origin/main
-            
+
             git pull
             cd client && npm install && npm run build && cd ..
             
