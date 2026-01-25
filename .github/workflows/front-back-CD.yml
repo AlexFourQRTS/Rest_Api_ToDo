@@ -1,4 +1,4 @@
-name: Deploy Static Front + Docker Back
+name: Fast Git Pull Deploy
 
 on:
   push:
@@ -8,31 +8,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # 1. Сборка фронтенда (создаем статику)
-      - name: Build Frontend
-        run: |
-          cd client
-          npm install
-          npm run build
-
-      # 2. Копирование файлов на сервер
-      - name: Copy Project Files
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          use_insecure_cipher: true
-          # Копируем всё: и готовую папку client/build, и файлы для докера
-          source: "./*"
-          target: "/home/dzen/app"
-          strip_components: 0
-
-      # 3. Управление Docker (Бэкенд + БД)
-      - name: Run Docker Services
+      - name: SSH Deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -43,7 +19,19 @@ jobs:
             PubkeyAcceptedAlgorithms +ssh-rsa
           script: |
             cd /home/dzen/app
-            # Поднимаем только бэкенд и базу
+            
+            # 1. Затягиваем изменения из GitHub
+            git pull origin main
+            
+            # 2. Собираем фронтенд прямо на мощном сервере
+            cd client
+            npm install
+            npm run build
+            cd ..
+            
+            # 3. Поднимаем Docker (бэк, база и остальное)
+            # --build заставит докер пересобрать бэк, если код изменился
             docker-compose up -d --build postgres backend emulator romserv
-            # Чистим старые образы, чтобы не забивать диск
+            
+            # 4. Чистим мусор
             docker image prune -f
