@@ -19,19 +19,12 @@ jobs:
             PubkeyAcceptedAlgorithms +ssh-rsa
           script: |
             cd /home/dzen/app
+            git fetch --all
+            git reset --hard origin/main
             
-            # 1. Затягиваем изменения из GitHub
-            git pull origin main
+            # Собираем фронт
+            cd client && npm install && npm run build && cd ..
             
-            # 2. Собираем фронтенд прямо на мощном сервере
-            cd client
-            npm install
-            npm run build
-            cd ..
-            
-            # 3. Поднимаем Docker (бэк, база и остальное)
-            # --build заставит докер пересобрать бэк, если код изменился
-            docker-compose up -d --build postgres backend emulator romserv
-            
-            # 4. Чистим мусор
-            docker image prune -f
+            # Используем новую команду docker compose (без тире)
+            # Если не сработает, оставь с тире, но обнови права (см. пункт 1)
+            docker compose up -d --build postgres backend emulator romserv
