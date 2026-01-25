@@ -1,5 +1,3 @@
-// DEPRECATED: Этот файл устарел. Используйте новый BlogApi класс.
-// Импортируйте: import { blogApi } from './api';
 
 import axios from 'axios';
 
@@ -17,7 +15,7 @@ export const getArticles = async (limit = 10, offset = 0, category = 'all', sear
         });
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error(error)
     }
 };
 
@@ -26,7 +24,7 @@ export const getArticleById = async (id) => {
         const response = await axios.get(`${API_URL}/api/api/blog/${id}`);
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error(error)
     }
 };
 
@@ -35,7 +33,7 @@ export const addArticle = async (newArticle) => {
         const response = await axios.post(`${API_URL}/api/api/blog`, newArticle);
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error(error)
     }
 };
 
@@ -44,7 +42,7 @@ export const updateArticle = async (id, updatedArticle) => {
         const response = await axios.patch(`${API_URL}/api/api/blog/${id}`, updatedArticle);
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error(error)
     }
 };
 
@@ -53,11 +51,11 @@ export const deleteArticle = async (id) => {
         await axios.delete(`${API_URL}/api/api/blog/${id}`);
         return { success: true };
     } catch (error) {
-        throw error;
+        throw new Error(error)
     }
 };
 
-export const blogApi = {
+export const BlogApi = {
   getPosts: async () => {
     return [];
   },
@@ -83,3 +81,5 @@ export const blogApi = {
     return { success: true };
   },
 };
+
+export default BlogApi;

@@ -1,26 +1,20 @@
-/**
- * Главный файл для экспорта всех API классов
- * Централизованный импорт всех API для удобства использования
- */
+import AuthApi from './AuthApi';
+import BlogApi from './BlogApi';
+import FileApi from './FileApi';
+import UserApi from './UserApi';
 
-// Импортируем все API классы
-import authApi from './AuthApi.js';
-import blogApi from './BlogApi.js';
-import fileApi from './FileApi.js';
-import userApi from './UserApi.js';
+// 1. Собираем всё в один именованный объект
+export const authApi = AuthApi;
+export const blogApi = BlogApi;
+export const fileApi = FileApi;
+export const userApi = UserApi;
 
-// Экспортируем все API
-export {
-  authApi,
-  blogApi,
-  fileApi,
-  userApi
+const api = {
+  auth: AuthApi,
+  blog: BlogApi,
+  file: FileApi,
+  user: UserApi
 };
 
-// Экспортируем по умолчанию объект со всеми API
-export default {
-  auth: authApi,
-  blog: blogApi,
-  file: fileApi,
-  user: userApi
-};
+export default api;
+

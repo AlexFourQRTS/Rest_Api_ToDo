@@ -1,18 +1,11 @@
 import BaseApi from './BaseApi.js';
 
-/**
- * API класс для работы с пользователями и профилями
- * Наследует от BaseApi и добавляет методы для управления пользователями
- */
 class UserApi extends BaseApi {
   constructor() {
     super();
   }
 
-  /**
-   * Получить профиль текущего пользователя
-   * @returns {Promise<Object|null>} Данные профиля или null
-   */
+
   async getCurrentUser() {
     try {
       if (!this.isAuthenticated()) {
@@ -25,15 +18,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Обновить профиль текущего пользователя
-   * @param {Object} userData - Новые данные пользователя
-   * @param {string} userData.name - Имя пользователя
-   * @param {string} userData.email - Email пользователя
-   * @param {string} userData.avatar - URL аватара
-   * @param {string} userData.bio - Биография пользователя
-   * @returns {Promise<Object>} Обновленные данные пользователя
-   */
+
   async updateProfile(userData) {
     try {
       if (!this.isAuthenticated()) {
@@ -46,11 +31,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Загрузить аватар пользователя
-   * @param {File} avatarFile - Файл аватара
-   * @returns {Promise<Object>} Данные загруженного аватара
-   */
+
   async uploadAvatar(avatarFile) {
     try {
       if (!this.isAuthenticated()) {
@@ -80,10 +61,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Удалить аватар пользователя
-   * @returns {Promise<Object>} Результат операции
-   */
+
   async deleteAvatar() {
     try {
       if (!this.isAuthenticated()) {
@@ -96,10 +74,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить настройки пользователя
-   * @returns {Promise<Object>} Настройки пользователя
-   */
+
   async getUserSettings() {
     try {
       if (!this.isAuthenticated()) {
@@ -126,11 +101,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Обновить настройки пользователя
-   * @param {Object} settings - Новые настройки
-   * @returns {Promise<Object>} Обновленные настройки
-   */
+
   async updateUserSettings(settings) {
     try {
       if (!this.isAuthenticated()) {
@@ -143,14 +114,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить активность пользователя
-   * @param {Object} options - Параметры запроса
-   * @param {number} options.limit - Количество записей
-   * @param {number} options.offset - Смещение для пагинации
-   * @param {string} options.type - Тип активности
-   * @returns {Promise<Object>} Активность пользователя
-   */
+
   async getUserActivity(options = {}) {
     try {
       if (!this.isAuthenticated()) {
@@ -175,10 +139,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить статистику пользователя
-   * @returns {Promise<Object>} Статистика пользователя
-   */
+
   async getUserStats() {
     try {
       if (!this.isAuthenticated()) {
@@ -197,14 +158,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить список друзей/подписчиков
-   * @param {Object} options - Параметры запроса
-   * @param {number} options.limit - Количество пользователей
-   * @param {number} options.offset - Смещение для пагинации
-   * @param {string} options.type - Тип связи (friends, followers, following)
-   * @returns {Promise<Object>} Список пользователей
-   */
+
   async getUserConnections(options = {}) {
     try {
       if (!this.isAuthenticated()) {
@@ -225,11 +179,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Добавить пользователя в друзья
-   * @param {string|number} userId - ID пользователя
-   * @returns {Promise<Object>} Результат операции
-   */
+
   async addFriend(userId) {
     try {
       if (!this.isAuthenticated()) {
@@ -242,11 +192,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Удалить пользователя из друзей
-   * @param {string|number} userId - ID пользователя
-   * @returns {Promise<Object>} Результат операции
-   */
+
   async removeFriend(userId) {
     try {
       if (!this.isAuthenticated()) {
@@ -259,11 +205,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Подписаться на пользователя
-   * @param {string|number} userId - ID пользователя
-   * @returns {Promise<Object>} Результат операции
-   */
+
   async followUser(userId) {
     try {
       if (!this.isAuthenticated()) {
@@ -276,11 +218,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Отписаться от пользователя
-   * @param {string|number} userId - ID пользователя
-   * @returns {Promise<Object>} Результат операции
-   */
+
   async unfollowUser(userId) {
     try {
       if (!this.isAuthenticated()) {
@@ -293,11 +231,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить публичный профиль пользователя
-   * @param {string|number} userId - ID пользователя
-   * @returns {Promise<Object>} Публичный профиль
-   */
+
   async getPublicProfile(userId) {
     try {
       return await this.get(`/api/user/public/${userId}`);
@@ -306,12 +240,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Поиск пользователей
-   * @param {string} query - Поисковый запрос
-   * @param {number} limit - Количество результатов
-   * @returns {Promise<Array>} Результаты поиска
-   */
+
   async searchUsers(query, limit = 20) {
     try {
       const users = await this.get('/api/user/search', { 
@@ -324,14 +253,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить уведомления пользователя
-   * @param {Object} options - Параметры запроса
-   * @param {number} options.limit - Количество уведомлений
-   * @param {number} options.offset - Смещение для пагинации
-   * @param {boolean} options.unreadOnly - Только непрочитанные
-   * @returns {Promise<Object>} Уведомления пользователя
-   */
+
   async getNotifications(options = {}) {
     try {
       if (!this.isAuthenticated()) {
@@ -356,11 +278,7 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Отметить уведомление как прочитанное
-   * @param {string|number} notificationId - ID уведомления
-   * @returns {Promise<Object>} Результат операции
-   */
+ 
   async markNotificationAsRead(notificationId) {
     try {
       if (!this.isAuthenticated()) {
@@ -373,10 +291,6 @@ class UserApi extends BaseApi {
     }
   }
 
-  /**
-   * Отметить все уведомления как прочитанные
-   * @returns {Promise<Object>} Результат операции
-   */
   async markAllNotificationsAsRead() {
     try {
       if (!this.isAuthenticated()) {

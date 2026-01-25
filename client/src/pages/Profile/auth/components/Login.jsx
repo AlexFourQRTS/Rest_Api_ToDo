@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // Removed CSS module import
 import Button from 'components/UI/Button/Button';
-import { authApi } from 'api/authApi';
+import { authApi } from 'api/AuthApi';
 
 const Login = ({ onLoginSuccess, onRegisterClick }) => {
   const [email, setEmail] = useState('');

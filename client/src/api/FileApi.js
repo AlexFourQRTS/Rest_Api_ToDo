@@ -1,23 +1,12 @@
 import BaseApi from './BaseApi.js';
 
-/**
- * API класс для работы с файлами и файловым хранилищем
- * Наследует от BaseApi и добавляет методы для управления файлами
- */
+
 class FileApi extends BaseApi {
   constructor() {
     super();
   }
 
-  /**
-   * Получить список файлов пользователя
-   * @param {Object} options - Параметры запроса
-   * @param {number} options.limit - Количество файлов на странице
-   * @param {number} options.offset - Смещение для пагинации
-   * @param {string} options.type - Тип файла для фильтрации
-   * @param {string} options.search - Поисковый запрос
-   * @returns {Promise<Object>} Объект с данными файлов и пагинацией
-   */
+
   async getFiles(options = {}) {
     try {
       if (!this.isAuthenticated()) {
@@ -50,13 +39,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Загрузить файл на сервер
-   * @param {File} file - Файл для загрузки
-   * @param {Object} metadata - Метаданные файла
-   * @param {Function} onProgress - Callback для отслеживания прогресса
-   * @returns {Promise<Object>} Данные загруженного файла
-   */
+ 
   async uploadFile(file, metadata = {}, onProgress = null) {
     try {
       if (!this.isAuthenticated()) {
@@ -96,13 +79,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Загрузить несколько файлов одновременно
-   * @param {FileList|Array} files - Список файлов
-   * @param {Object} metadata - Метаданные для всех файлов
-   * @param {Function} onProgress - Callback для отслеживания прогресса
-   * @returns {Promise<Array>} Массив загруженных файлов
-   */
+
   async uploadMultipleFiles(files, metadata = {}, onProgress = null) {
     try {
       const uploadPromises = Array.from(files).map((file, index) => {
@@ -119,11 +96,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Скачать файл
-   * @param {string|number} fileId - ID файла
-   * @returns {Promise<Blob>} Файл в виде Blob
-   */
+
   async downloadFile(fileId) {
     try {
       if (!this.isAuthenticated()) {
@@ -147,11 +120,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить информацию о файле
-   * @param {string|number} fileId - ID файла
-   * @returns {Promise<Object>} Информация о файле
-   */
+
   async getFileInfo(fileId) {
     try {
       if (!this.isAuthenticated()) {
@@ -164,12 +133,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Обновить метаданные файла
-   * @param {string|number} fileId - ID файла
-   * @param {Object} metadata - Новые метаданные
-   * @returns {Promise<Object>} Обновленная информация о файле
-   */
+
   async updateFileMetadata(fileId, metadata) {
     try {
       if (!this.isAuthenticated()) {
@@ -182,11 +146,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Удалить файл
-   * @param {string|number} fileId - ID файла
-   * @returns {Promise<Object>} Результат операции
-   */
+
   async deleteFile(fileId) {
     try {
       if (!this.isAuthenticated()) {
@@ -199,14 +159,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить превью файла (для изображений)
-   * @param {string|number} fileId - ID файла
-   * @param {Object} options - Опции превью
-   * @param {number} options.width - Ширина превью
-   * @param {number} options.height - Высота превью
-   * @returns {Promise<string>} URL превью
-   */
+
   async getFilePreview(fileId, options = {}) {
     try {
       const { width = 200, height = 200 } = options;
@@ -223,10 +176,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить статистику файлов пользователя
-   * @returns {Promise<Object>} Статистика файлов
-   */
+
   async getFileStats() {
     try {
       if (!this.isAuthenticated()) {
@@ -245,12 +195,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Поиск файлов
-   * @param {string} query - Поисковый запрос
-   * @param {number} limit - Количество результатов
-   * @returns {Promise<Array>} Результаты поиска
-   */
+
   async searchFiles(query, limit = 20) {
     try {
       const files = await this.getFiles({ 
@@ -263,13 +208,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить файлы по типу
-   * @param {string} type - Тип файла (image, video, audio, document)
-   * @param {number} limit - Количество файлов
-   * @param {number} offset - Смещение для пагинации
-   * @returns {Promise<Object>} Файлы указанного типа
-   */
+
   async getFilesByType(type, limit = 20, offset = 0) {
     try {
       return await this.getFiles({ 
@@ -282,12 +221,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Создать папку
-   * @param {string} name - Название папки
-   * @param {string} parentId - ID родительской папки (опционально)
-   * @returns {Promise<Object>} Созданная папка
-   */
+
   async createFolder(name, parentId = null) {
     try {
       if (!this.isAuthenticated()) {
@@ -305,10 +239,7 @@ class FileApi extends BaseApi {
     }
   }
 
-  /**
-   * Получить структуру папок
-   * @returns {Promise<Array>} Дерево папок
-   */
+
   async getFolderStructure() {
     try {
       if (!this.isAuthenticated()) {

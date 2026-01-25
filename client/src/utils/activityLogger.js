@@ -54,6 +54,7 @@ export const logActivity = async (action, details) => {
   try {
     await axios.post(`${BASE_URL}/api/activity/log`, payload);
   } catch (error) {
+    throw new Error(error);
   }
 };
 

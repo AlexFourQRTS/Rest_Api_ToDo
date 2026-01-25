@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 // Removed CSS module import
 import { authApi } from '../../api';
 import Hero from "../../components/UI/Hero/Hero";
-import FileLists from "./FileLists";
+
 import FileUploader from "./FileUploader";
-import FileList from './FileList';
+import {FileList }from './FileList';
 import { useToast } from '../../context/ToastContext';
+
+import FileLists from "./FileLists";
 
 const API_BASE_URL = process.env.REACT_APP_API_URL;
 

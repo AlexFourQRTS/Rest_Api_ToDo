@@ -76,7 +76,7 @@ export class FilesService implements OnModuleDestroy {
     } catch (error) {
       console.error('Ошибка при подключении или проверке/создании таблицы:', error);
       await this.client.end();
-      throw error;
+      throw new Error(error)
     }
   }
 
@@ -91,7 +91,7 @@ export class FilesService implements OnModuleDestroy {
       }
     } catch (error) {
       console.error('Ошибка при создании директорий:', error);
-      throw error;
+      throw new Error(error)
     }
   }
 
@@ -222,7 +222,7 @@ export class FilesService implements OnModuleDestroy {
       await this.fileRepository.remove(file);
     } catch (error) {
       if (error instanceof NotFoundException) {
-        throw error;
+        throw new Error(error)
       }
       console.error('Error deleting file:', error);
       throw new HttpException('Error deleting file', HttpStatus.INTERNAL_SERVER_ERROR);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { authApi } from 'api/authApi';
+import { authApi } from 'api/AuthApi';
 // Removed CSS module import
 
 const UsersList = () => {

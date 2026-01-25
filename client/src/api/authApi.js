@@ -1,10 +1,9 @@
-// DEPRECATED: Этот файл устарел. Используйте новый AuthApi класс.
-// Импортируйте: import { authApi } from './api';
+
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 const API_URL = `${BASE_URL}/api`;
 
-export const authApi = {
+const AuthApi = {
   async login(credentials) {
     try {
       const response = await fetch(`${API_URL}/api/auth/login`, {
@@ -88,6 +87,7 @@ export const authApi = {
         });
       }
     } catch (error) {
+      throw new Error(error)
     } finally {
       localStorage.removeItem('token');
     }
@@ -114,8 +114,7 @@ export const authApi = {
       localStorage.setItem('token', data.token);
       return data;
     } catch (error) {
-      authApi.logout();
-      return null;
+     throw new Error(error);
     }
   },
 
@@ -165,7 +164,7 @@ export const authApi = {
 
       return await response.json();
     } catch (error) {
-      return null;
+      throw new Error(error);
     }
   },
 
@@ -173,3 +172,6 @@ export const authApi = {
     return !!localStorage.getItem('token');
   },
 }; 
+
+export default AuthApi;
+export { AuthApi as authApi };

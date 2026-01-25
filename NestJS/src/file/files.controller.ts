@@ -34,7 +34,7 @@ export class FilesController {
       };
     } catch (error) {
       if (error instanceof HttpException) {
-        throw error;
+        throw new Error(error)
       }
       console.error('Ошибка при получении информации о файле:', error);
       throw new HttpException('Ошибка при получении информации о файле', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -64,7 +64,7 @@ export class FilesController {
       });
     } catch (error) {
       if (error instanceof HttpException) {
-        throw error;
+        throw new Error(error)
       }
       console.error('Ошибка при скачивании файла:', error);
       throw new HttpException('Ошибка при скачивании файла', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -81,7 +81,7 @@ export class FilesController {
       };
     } catch (error) {
       if (error instanceof HttpException) {
-        throw error;
+        throw new Error(error)
       }
       console.error('Error deleting file:', error);
       throw new HttpException('Error deleting file', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -118,7 +118,7 @@ export class FilesController {
     } catch (error) {
       console.error('Ошибка при загрузке файлов:', error);
       if (error instanceof HttpException) {
-        throw error;
+        throw new Error(error)
       } else {
         throw new HttpException('Ошибка при обработке файлов на сервере', HttpStatus.INTERNAL_SERVER_ERROR);
       }
@@ -174,7 +174,7 @@ export class FilesController {
       }
     } catch (error) {
       if (error instanceof HttpException) {
-        throw error;
+        throw new Error(error)
       }
       console.error('Ошибка при потоковой передаче видео:', error);
       throw new HttpException('Ошибка при потоковой передаче видео', HttpStatus.INTERNAL_SERVER_ERROR);

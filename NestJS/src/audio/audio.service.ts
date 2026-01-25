@@ -59,7 +59,7 @@ export class AudioService implements OnModuleDestroy {
     } catch (error) {
       console.error('Ошибка при подключении или проверке/создании таблицы (AudioService):', error);
       await this.client.end();
-      throw error;
+      throw new Error(error)
     }
   }
 
