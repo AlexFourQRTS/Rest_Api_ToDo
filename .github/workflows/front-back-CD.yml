@@ -1,0 +1,48 @@
+name: Deploy Front (NPM) + Back (Docker)
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 1. СОБИРАЕМ ФРОНТЕНД (на стороне GitHub)
+      - name: Build Frontend
+        run: |
+          cd client
+          npm install
+          npm run build
+        # Мы билдим его здесь, чтобы на сервер отправить уже готовую папку build
+
+      # 2. КОПИРУЕМ ВСЁ НА СЕРВЕР
+      - name: Copy Project Files
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_config: |
+            HostKeyAlgorithms +ssh-rsa
+            PubkeyAcceptedAlgorithms +ssh-rsa
+          source: "./*"
+          target: "/home/dzen/app"
+
+      # 3. ЗАПУСКАЕМ БЭКЕНД И БАЗУ (Docker)
+      - name: Run Docker Services
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh_config: |
+            HostKeyAlgorithms +ssh-rsa
+            PubkeyAcceptedAlgorithms +ssh-rsa
+          script: |
+            cd /home/dzen/app
+            # Запуск postgres, бэкенда и эмуляторов
+            docker-compose up -d --build postgres backend emulator romserv
