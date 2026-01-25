@@ -11,38 +11,40 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 1. СОБИРАЕМ ФРОНТЕНД (на стороне GitHub)
+      # 1. СОБИРАЕМ ФРОНТЕНД
       - name: Build Frontend
         run: |
           cd client
           npm install
           npm run build
-        # Мы билдим его здесь, чтобы на сервер отправить уже готовую папку build
 
-      # 2. КОПИРУЕМ ВСЁ НА СЕРВЕР
+      # 2. КОПИРУЕМ ВСЕ ФАЙЛЫ (включая папку build и docker-compose)
       - name: Copy Project Files
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          ssh_config: |
-            HostKeyAlgorithms +ssh-rsa
-            PubkeyAcceptedAlgorithms +ssh-rsa
+          # scp-action не поддерживает ssh_config, используем эти флаги для совместимости:
+          use_insecure_cipher: true 
           source: "./*"
           target: "/home/dzen/app"
+          strip_components: 0
 
-      # 3. ЗАПУСКАЕМ БЭКЕНД И БАЗУ (Docker)
+      # 3. ЗАПУСКАЕМ ДОКЕР НА СЕРВЕРЕ
       - name: Run Docker Services
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          # А здесь ssh_config нужен и поддерживается:
           ssh_config: |
             HostKeyAlgorithms +ssh-rsa
             PubkeyAcceptedAlgorithms +ssh-rsa
           script: |
             cd /home/dzen/app
-            # Запуск postgres, бэкенда и эмуляторов
+            # Поднимаем базу, бэк и остальные сервисы
             docker-compose up -d --build postgres backend emulator romserv
+            # Очистка старых ненужных образов, чтобы диск не забился
+            docker image prune -f
