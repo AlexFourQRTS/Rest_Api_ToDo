@@ -18,7 +18,7 @@ jobs:
             HostKeyAlgorithms +ssh-rsa
             PubkeyAcceptedAlgorithms +ssh-rsa
           script: |
-            cd /home/dzen/GIT_PET/Rest_Api_ToDo/
+            cd /Desktop/dzen/GIT_PET/Rest_Api_ToDo/
             git fetch --all
             git reset --hard origin/main
 
