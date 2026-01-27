@@ -3,7 +3,6 @@ const fs = require('fs').promises;
 const path = require('path');
 const { getConsoleConfig, getConsolePath } = require('../config/consoles');
 const GameUtils = require('../utils/gameUtils');
-const logger = require('../utils/logger');
 const ErrorMiddleware = require('../middleware/error');
 const RequestLogger = require('../middleware/requestLogger');
 
@@ -81,8 +80,6 @@ router.get('/consoles/:consoleId/games',
       const endIndex = startIndex + limitNum;
       games = games.slice(startIndex, endIndex);
     }
-
-    logger.gameRequest(consoleId, 'list', null);
     
     res.json({
       success: true,

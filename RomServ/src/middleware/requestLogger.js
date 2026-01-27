@@ -2,28 +2,6 @@ const logger = require('../utils/logger');
 
 class RequestLogger {
   static logRequest(req, res, next) {
-    const start = Date.now();
-    
-    logger.apiRequest(req.method, req.path, req.ip);
-
-    res.on('finish', () => {
-      const duration = Date.now() - start;
-      const logData = {
-        method: req.method,
-        path: req.path,
-        status: res.statusCode,
-        duration: `${duration}ms`,
-        ip: req.ip,
-        userAgent: req.get('User-Agent')
-      };
-
-      if (res.statusCode >= 400) {
-        logger.warn(`Request completed with status ${res.statusCode}`, logData);
-      } else {
-        logger.info(`Request completed successfully`, logData);
-      }
-    });
-
     next();
   }
 
@@ -44,7 +22,7 @@ class RequestLogger {
       const userRequests = requests.get(ip);
 
       if (userRequests.length >= limit) {
-        logger.warn(`Rate limit exceeded for IP: ${ip}`);
+        logger.error('Rate limit exceeded', { ip, path: req.path, method: req.method });
         return res.status(429).json({
           success: false,
           error: {

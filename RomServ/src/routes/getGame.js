@@ -3,7 +3,6 @@ const fs = require('fs').promises;
 const path = require('path');
 const { getConsoleConfig, getConsolePath } = require('../config/consoles');
 const GameUtils = require('../utils/gameUtils');
-const logger = require('../utils/logger');
 const ErrorMiddleware = require('../middleware/error');
 const RequestLogger = require('../middleware/requestLogger');
 
@@ -39,8 +38,6 @@ router.get('/consoles/:consoleId/games/:fileName',
     const stats = await fs.stat(filePath);
     game.fileSize = stats.size;
     game.lastModified = stats.mtime;
-
-    logger.gameRequest(consoleId, 'get', fileName);
     
     res.json({ success: true, data: game });
   })

@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const logger = require('./utils/logger');
 
 const RequestLogger = require('./middleware/requestLogger');
 const ErrorMiddleware = require('./middleware/error');
@@ -88,31 +87,17 @@ class App {
   start(port =  9999) {
     return new Promise((resolve) => {
       const server = this.app.listen(port, () => {
-        logger.info(`Server started on port ${port}`, {
-          port,
-          environment: process.env.NODE_ENV || 'development',
-          nodeVersion: process.version
-        });
-        
-        const { getAllConsoles } = require('./config/consoles');
-        const consoles = getAllConsoles();
-        logger.info(`Available consoles: ${consoles.map(c => c.id).join(', ')}`);
-        
         resolve(server);
       });
 
       process.on('SIGTERM', () => {
-        logger.info('SIGTERM received, shutting down gracefully');
         server.close(() => {
-          logger.info('Process terminated');
           process.exit(0);
         });
       });
 
       process.on('SIGINT', () => {
-        logger.info('SIGINT received, shutting down gracefully');
         server.close(() => {
-          logger.info('Process terminated');
           process.exit(0);
         });
       });

@@ -3,7 +3,6 @@ const fs = require('fs').promises;
 const path = require('path');
 const { getConsoleConfig, getConsolePath } = require('../config/consoles');
 const GameUtils = require('../utils/gameUtils');
-const logger = require('../utils/logger');
 const ErrorMiddleware = require('../middleware/error');
 const RequestLogger = require('../middleware/requestLogger');
 
@@ -33,8 +32,6 @@ router.get('/consoles/:consoleId/roms/:fileName',
     if (!GameUtils.isValidRomFile(fileName, consoleId)) {
       throw ErrorMiddleware.createError(`File '${fileName}' is not a valid ROM for ${config.name}`, 400);
     }
-
-    logger.gameRequest(consoleId, 'download', fileName);
     
     res.download(filePath, fileName);
   })

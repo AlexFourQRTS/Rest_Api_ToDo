@@ -11,7 +11,7 @@ class ErrorMiddleware {
       ip: req.ip
     };
 
-    logger.apiError(req.method, req.path, err, req.ip);
+    logger.error('API Error', { method: req.method, path: req.path, error: err.message, ip: req.ip, status: error.status });
 
     if (process.env.NODE_ENV === 'development') {
       error.stack = err.stack;
