@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { DOMEN_Brahma } from "common/constant";
+import { DOMEN_BRAHMA_CONST } from 'common/constant';
+
+const DOMEN_Brahma = DOMEN_BRAHMA_CONST ? DOMEN_BRAHMA_CONST : "https://brahmadzen.space"
 
 const CreateTaskForm = ({ users, onCreateTask }) => {
   const [title, setTitle] = useState("Название Задания");

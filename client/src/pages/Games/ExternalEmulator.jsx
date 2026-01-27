@@ -2,11 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 // Removed CSS module import
 import qrCodeImage from './TronTRC.jpg';
 
+import {
+  REACT_APP_ROMSERV_URL,
+  EMUL_URL_CONST,
+  DOMEN_BRAHMA_CONST
+} from 'common/constant';
 
-const ROM_SERV = process.env.REACT_APP_ROMSERV_URL;
-const EMUL_URL = process.env.EMUL_URL;
-import { DOMEN_Brahma } from 'common/constant';
 
+const ROM_SERV = REACT_APP_ROMSERV_URL ? REACT_APP_ROMSERV_URL : "http://localhost:5000/romserv"
+const EMUL_URL = EMUL_URL_CONST ? EMUL_URL_CONST : 'http://localhost:5000/emulator/?core='
+const DOMEN_Brahma  = DOMEN_BRAHMA_CONST ? DOMEN_BRAHMA_CONST : 'http://localhost:5000/romserv'
 
 const DonationBanner = ({ isVisible, onClose }) => {
   const [isQrFullscreen, setIsQrFullscreen] = useState(false);
@@ -62,17 +67,17 @@ const DonationBanner = ({ isVisible, onClose }) => {
               <h4 className="text-lg font-semibold">Реквизиты</h4>
               <ul className="space-y-2">
                 <li>
-                 <div className="flex items-center space-x-2">
-                   <span>QR-код для удобства криптой</span>
-                </div>
-                   
-                    <div className="cursor-pointer" onClick={handleQrClick}>
-                      <img
-                        src={qrCodeImage}
-                        alt="QR-код для оплаты USDT"
-                        className="w-32 h-32 mx-auto"
-                      />
-                   
+                  <div className="flex items-center space-x-2">
+                    <span>QR-код для удобства криптой</span>
+                  </div>
+
+                  <div className="cursor-pointer" onClick={handleQrClick}>
+                    <img
+                      src={qrCodeImage}
+                      alt="QR-код для оплаты USDT"
+                      className="w-32 h-32 mx-auto"
+                    />
+
                   </div>
 
                 </li>
@@ -185,6 +190,7 @@ const DonationButton = ({ onClick }) => {
 };
 
 // Component for selecting game consoles (desktop: buttons, mobile: dropdown)
+
 const ConsoleSelector = ({ consoles, selectedConsole, onConsoleSelect, isMobile }) => {
   // Helper function to get short name for console icons
   const getShort = (consoleData) => {
@@ -225,9 +231,8 @@ const ConsoleSelector = ({ consoles, selectedConsole, onConsoleSelect, isMobile 
         {consoles.map(consoleData => (
           <button
             key={consoleData.id}
-            className={`card p-4 text-center hover:shadow-lg transition-all ${
-              selectedConsole?.id === consoleData.id ? 'ring-2 ring-slate-500 bg-slate-600/20' : ''
-            }`}
+            className={`card p-4 text-center hover:shadow-lg transition-all ${selectedConsole?.id === consoleData.id ? 'ring-2 ring-slate-500 bg-slate-600/20' : ''
+              }`}
             onClick={() => onConsoleSelect(consoleData)}
             onTouchStart={(e) => {
               e.currentTarget.style.transform = 'scale(0.95)';
@@ -355,9 +360,8 @@ const RomSelector = ({
             {games.map(game => (
               <div
                 key={game.id}
-                className={`p-3 rounded-lg cursor-pointer transition-all ${
-                  selectedRom?.id === game.id ? 'bg-slate-600 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'
-                }`}
+                className={`p-3 rounded-lg cursor-pointer transition-all ${selectedRom?.id === game.id ? 'bg-slate-600 text-white' : 'bg-gray-700 hover:bg-gray-600 text-white'
+                  }`}
                 onClick={() => {
                   onRomSelect(game);
                   onCloseModal(); // Close modal when game is selected
@@ -488,9 +492,8 @@ const RomSelector = ({
         {games.map(game => (
           <div
             key={game.id}
-            className={`card p-4 text-center hover:shadow-lg transition-all cursor-pointer ${
-              selectedRom?.id === game.id ? 'ring-2 ring-slate-500 bg-slate-600/20' : ''
-            }`}
+            className={`card p-4 text-center hover:shadow-lg transition-all cursor-pointer ${selectedRom?.id === game.id ? 'ring-2 ring-slate-500 bg-slate-600/20' : ''
+              }`}
             onClick={() => onRomSelect(game)}
             onTouchStart={(e) => {
               e.currentTarget.style.transform = 'scale(0.95)';
@@ -871,9 +874,8 @@ const ExternalEmulator = () => {
         {/* Resizable divider (desktop only) */}
         {!isMobile && (
           <div
-            className={`w-1 bg-gray-600 hover:bg-gray-500 cursor-col-resize transition-colors ${
-              isResizing ? 'bg-gray-500' : ''
-            }`}
+            className={`w-1 bg-gray-600 hover:bg-gray-500 cursor-col-resize transition-colors ${isResizing ? 'bg-gray-500' : ''
+              }`}
             onMouseDown={handleMouseDown}
           >
             <div className="w-full h-full"></div>

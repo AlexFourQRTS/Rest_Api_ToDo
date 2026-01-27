@@ -1,9 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpecs = require('./config/swagger');
 const logger = require('./utils/logger');
+
 const RequestLogger = require('./middleware/requestLogger');
 const ErrorHandler = require('./middleware/errorHandler');
 
@@ -11,6 +10,7 @@ const gameRoutes = require('./routes/gameRoutes');
 const consoleRoutes = require('./routes/consoleRoutes');
 
 class App {
+
   constructor() {
     this.app = express();
     this.setupMiddleware();
@@ -35,23 +35,12 @@ class App {
   }
 
   setupRoutes() {
-    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs, {
-      customCss: '.swagger-ui .topbar { display: none }',
-      customSiteTitle: 'Retro Games API Documentation',
-      customfavIcon: '/favicon.ico',
-      swaggerOptions: {
-        docExpansion: 'list',
-        filter: true,
-        showRequestHeaders: true,
-        tryItOutEnabled: true
-      }
-    }));
-
     const apiV1Router = express.Router();
     
     apiV1Router.use('/', consoleRoutes);
     apiV1Router.use('/', gameRoutes);
     
+    this.app.use('/romserv', apiV1Router);
     this.app.use('/', apiV1Router);
     
     this.app.get('/', (req, res) => {
@@ -59,64 +48,17 @@ class App {
         success: true,
         message: 'Retro Games API Server',
         version: '1.0.0',
-        documentation: '/api-docs',
         endpoints: {
           consoles: '/consoles',
           games: '/consoles/:consoleId/games',
-          health: '/health',
-          docs: '/api-docs'
+          health: '/health'
         },
         supportedConsoles: ['nes', 'megadrive', 'snes', 'gba', 'gbc', 'psx', 'atari']
       });
     });
 
-    this.app.get('/docs', (req, res) => {
-      res.json({
-        success: true,
-        message: 'API Documentation',
-        version: '1.0.0',
-        swagger: '/api-docs',
-        endpoints: {
-          consoles: {
-            'GET /consoles': 'Get all supported consoles',
-            'GET /consoles/:consoleId': 'Get console information',
-            'GET /stats': 'Get global statistics',
-            'GET /health': 'Health check',
-            'GET /system/info': 'System information'
-          },
-          games: {
-            'GET /consoles/:consoleId/games': 'Get games list with pagination and filtering',
-            'GET /consoles/:consoleId/games/search': 'Search games by name',
-            'GET /consoles/:consoleId/games/random': 'Get random game',
-            'GET /consoles/:consoleId/games/stats': 'Get games statistics',
-            'GET /consoles/:consoleId/categories': 'Get game categories',
-            'GET /consoles/:consoleId/games/:fileName': 'Get game information',
-            'GET /consoles/:consoleId/roms/:fileName': 'Download game ROM',
-            'GET /consoles/:consoleId/images/:imageName': 'Get game image',
-            'GET /consoles/:consoleId/saves/:saveName': 'Get save file'
-          }
-        },
-        queryParameters: {
-          games: {
-            page: 'Page number (default: 1)',
-            limit: 'Items per page (default: 50)',
-            sortBy: 'Sort field (name, category, region, fileName)',
-            sortOrder: 'Sort order (asc, desc)',
-            category: 'Filter by category',
-            region: 'Filter by region',
-            search: 'Search term'
-          }
-        }
-      });
-    });
 
-    if (process.env.NODE_ENV === 'production') {
-      this.app.use(express.static(path.join(__dirname, '../client/build')));
-      
-      this.app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../client/build/index.html'));
-      });
-    }
+
   }
 
   setupErrorHandling() {
@@ -125,7 +67,7 @@ class App {
     this.app.use(ErrorHandler.handleError);
   }
 
-  start(port = process.env.PORT || 9999) {
+  start(port =  9999) {
     return new Promise((resolve) => {
       const server = this.app.listen(port, () => {
         logger.info(`Server started on port ${port}`, {

@@ -4,9 +4,13 @@ import { Container, ListGroup, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { ToastContainer, toast } from "react-toastify";
-import { DOMEN_Brahma } from "common/constant";
+import { DOMEN_BRAHMA_CONST } from 'common/constant';
 
 import 'react-toastify/dist/ReactToastify.css';
+
+
+const DOMEN_Brahma = DOMEN_BRAHMA_CONST ? DOMEN_BRAHMA_CONST : "https://brahmadzen.space"
+
 
 const UserPage = () => {
   const navigate = useNavigate();

@@ -153,41 +153,6 @@ class GameService {
     }
   }
 
-  /**
-   * Получает статистику по играм
-   */
-  static async getGameStats(consoleId = null) {
-    try {
-      const { getAllConsoles } = require('../config/consoles');
-      const consoles = consoleId ? [consoleId] : getAllConsoles().map(c => c.id);
-      
-      let allGames = [];
-      
-      for (const cId of consoles) {
-        try {
-          const result = await this.getGames(cId);
-          allGames = allGames.concat(result.data);
-        } catch (error) {
-          logger.warn(`Failed to get games for console ${cId}`, { error: error.message });
-        }
-      }
-
-      const stats = GameUtils.getGameStats(allGames);
-      
-      return {
-        success: true,
-        data: stats
-      };
-
-    } catch (error) {
-      logger.error('Failed to get game stats', { error: error.message });
-      throw error;
-    }
-  }
-
-  /**
-   * Получает категории игр
-   */
   static async getGameCategories(consoleId) {
     try {
       const config = getConsoleConfig(consoleId);
@@ -268,31 +233,6 @@ class GameService {
 
     } catch (error) {
       logger.error('Failed to search games', { error: error.message });
-      throw error;
-    }
-  }
-
-  /**
-   * Получает случайную игру
-   */
-  static async getRandomGame(consoleId) {
-    try {
-      const result = await this.getGames(consoleId);
-      
-      if (result.data.length === 0) {
-        throw ErrorHandler.createError('No games found for this console', 404);
-      }
-
-      const randomIndex = Math.floor(Math.random() * result.data.length);
-      const randomGame = result.data[randomIndex];
-
-      return {
-        success: true,
-        data: randomGame
-      };
-
-    } catch (error) {
-      logger.error('Failed to get random game', { error: error.message });
       throw error;
     }
   }

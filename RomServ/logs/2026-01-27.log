@@ -1,0 +1,322 @@
+[2026-01-27T15:26:38.238Z] [ERROR] Uncaught Exception | Data: {"error":"logger is not defined","stack":"ReferenceError: logger is not defined\n    at Server.<anonymous> (C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\src\\app.js:135:9)\n    at Object.onceWrapper (node:events:633:28)\n    at Server.emit (node:events:531:35)\n    at emitListeningNT (node:net:1983:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"}
+[2026-01-27T15:27:11.923Z] [ERROR] Uncaught Exception | Data: {"error":"logger is not defined","stack":"ReferenceError: logger is not defined\n    at Server.<anonymous> (C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\src\\app.js:135:9)\n    at Object.onceWrapper (node:events:633:28)\n    at Server.emit (node:events:531:35)\n    at emitListeningNT (node:net:1983:10)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)"}
+[2026-01-27T15:27:27.053Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:27:27.053Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:27:27.053Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:27:32.257Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv","ip":"::1"}
+[2026-01-27T15:27:32.258Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv","error":"Route /romserv not found","ip":"::1"}
+[2026-01-27T15:27:32.262Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv","status":404,"duration":"5ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:27:35.586Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:27:35.587Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/consoles","error":"Route /romserv/consoles not found","ip":"::1"}
+[2026-01-27T15:27:35.589Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/consoles","status":404,"duration":"2ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:27:35.590Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:27:35.590Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/consoles","error":"Route /romserv/consoles not found","ip":"::1"}
+[2026-01-27T15:27:35.592Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/consoles","status":404,"duration":"2ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:28:09.125Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:28:09.126Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/consoles","error":"Route /romserv/consoles not found","ip":"::1"}
+[2026-01-27T15:28:09.128Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/consoles","status":404,"duration":"2ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:29:11.338Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv","ip":"::1"}
+[2026-01-27T15:29:11.339Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv","error":"Route /romserv not found","ip":"::1"}
+[2026-01-27T15:29:11.341Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv","status":404,"duration":"2ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:29:46.808Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/api/consoles","ip":"::1"}
+[2026-01-27T15:29:46.809Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/api/consoles","error":"Route /romserv/api/consoles not found","ip":"::1"}
+[2026-01-27T15:29:46.810Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/api/consoles","status":404,"duration":"1ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:30:01.430Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/","ip":"::1"}
+[2026-01-27T15:30:01.430Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/","error":"Route /romserv/ not found","ip":"::1"}
+[2026-01-27T15:30:01.432Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/","status":404,"duration":"2ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:30:18.584Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:30:18.585Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:30:18.585Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:30:20.355Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:30:20.356Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:30:20.356Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:30:26.279Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/api-docs","ip":"::1"}
+[2026-01-27T15:30:26.281Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/api-docs","error":"Route /romserv/api-docs not found","ip":"::1"}
+[2026-01-27T15:30:26.285Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/api-docs","status":404,"duration":"5ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:30:44.445Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/docs","ip":"::1"}
+[2026-01-27T15:30:44.446Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/docs","error":"Route /romserv/docs not found","ip":"::1"}
+[2026-01-27T15:30:44.447Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/docs","status":404,"duration":"3ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:32:33.979Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:32:33.979Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:32:33.980Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:32:46.786Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:32:46.787Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:32:46.787Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:32:49.591Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/docs","ip":"::1"}
+[2026-01-27T15:32:49.592Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/docs","error":"Route /romserv/docs not found","ip":"::1"}
+[2026-01-27T15:32:49.595Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/docs","status":404,"duration":"5ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:32:50.835Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/docs","ip":"::1"}
+[2026-01-27T15:32:50.836Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/docs","error":"Route /romserv/docs not found","ip":"::1"}
+[2026-01-27T15:32:50.837Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/docs","status":404,"duration":"3ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:32:52.013Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/docs","ip":"::1"}
+[2026-01-27T15:32:52.013Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/docs","error":"Route /romserv/docs not found","ip":"::1"}
+[2026-01-27T15:32:52.014Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/docs","status":404,"duration":"2ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:32:57.708Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:32:57.709Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:32:57.710Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:33:25.145Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:33:25.146Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:33:25.146Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:33:30.332Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:33:30.333Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:33:30.334Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:33:36.859Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv","ip":"::1"}
+[2026-01-27T15:33:36.861Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv","error":"Route /romserv not found","ip":"::1"}
+[2026-01-27T15:33:36.864Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv","status":404,"duration":"6ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:34:59.475Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:34:59.476Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:34:59.477Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:37:09.547Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:37:09.547Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:37:09.548Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:37:13.100Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:37:13.101Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:37:13.101Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:37:25.881Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:37:25.882Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:37:25.882Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:37:29.207Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:37:29.208Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:37:29.208Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:37:40.386Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv","ip":"::1"}
+[2026-01-27T15:37:40.388Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv","error":"Route /romserv not found","ip":"::1"}
+[2026-01-27T15:37:40.391Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv","status":404,"duration":"6ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:37:49.448Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:37:49.605Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:37:49.606Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:37:53.747Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv","ip":"::1"}
+[2026-01-27T15:37:53.749Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv","error":"Route /romserv not found","ip":"::1"}
+[2026-01-27T15:37:53.752Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv","status":404,"duration":"6ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:37:57.264Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:37:57.266Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/consoles","error":"Route /romserv/consoles not found","ip":"::1"}
+[2026-01-27T15:37:57.267Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/consoles","status":404,"duration":"3ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:37:57.269Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:37:57.270Z] [ERROR] API Error | Data: {"method":"GET","path":"/romserv/consoles","error":"Route /romserv/consoles not found","ip":"::1"}
+[2026-01-27T15:37:57.271Z] [WARN] Request completed with status 404 | Data: {"method":"GET","path":"/romserv/consoles","status":404,"duration":"2ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:38:21.979Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:38:21.980Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:38:21.980Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:38:31.588Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:38:31.589Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:38:31.589Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:38:35.382Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:38:35.383Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:38:35.384Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:38:40.223Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:38:40.226Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:38:40.227Z] [INFO] Game list | Data: {"console":"megadrive","file":null}
+[2026-01-27T15:38:40.227Z] [INFO] Game list | Data: {"console":"gba","file":null}
+[2026-01-27T15:38:40.227Z] [INFO] Game list | Data: {"console":"gbc","file":null}
+[2026-01-27T15:38:40.229Z] [ERROR] Game list failed | Data: {"console":"psx","file":null,"error":"ENOENT: no such file or directory, scandir 'C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\Games\\PlayStationX'"}
+[2026-01-27T15:38:40.229Z] [WARN] Failed to get games for console psx | Data: {"error":"ENOENT: no such file or directory, scandir 'C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\Games\\PlayStationX'"}
+[2026-01-27T15:38:40.230Z] [INFO] Game list | Data: {"console":"snes","file":null}
+[2026-01-27T15:38:40.230Z] [INFO] Game list | Data: {"console":"atari","file":null}
+[2026-01-27T15:38:40.234Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles","status":200,"duration":"12ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:38:40.236Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:38:40.237Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:38:40.238Z] [INFO] Game list | Data: {"console":"megadrive","file":null}
+[2026-01-27T15:38:40.240Z] [INFO] Game list | Data: {"console":"gba","file":null}
+[2026-01-27T15:38:40.241Z] [INFO] Game list | Data: {"console":"gbc","file":null}
+[2026-01-27T15:38:40.241Z] [INFO] Game list | Data: {"console":"snes","file":null}
+[2026-01-27T15:38:40.242Z] [ERROR] Game list failed | Data: {"console":"psx","file":null,"error":"ENOENT: no such file or directory, scandir 'C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\Games\\PlayStationX'"}
+[2026-01-27T15:38:40.243Z] [WARN] Failed to get games for console psx | Data: {"error":"ENOENT: no such file or directory, scandir 'C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\Games\\PlayStationX'"}
+[2026-01-27T15:38:40.244Z] [INFO] Game list | Data: {"console":"atari","file":null}
+[2026-01-27T15:38:40.246Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles","status":304,"duration":"11ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:38:40.248Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles/nes/games","ip":"::1"}
+[2026-01-27T15:38:40.250Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:38:40.251Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles/nes/games","status":200,"duration":"3ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:38:40.328Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles/nes/games","ip":"::1"}
+[2026-01-27T15:38:40.330Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:38:40.332Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles/nes/games","status":304,"duration":"5ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:39:03.604Z] [INFO] SIGINT received, shutting down gracefully
+[2026-01-27T15:39:06.969Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:39:06.969Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:39:06.970Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:41:51.637Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:41:51.638Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:41:51.638Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:41:57.155Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:41:57.156Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:41:57.156Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:05.564Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:05.565Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:05.565Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:11.797Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:11.798Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:11.798Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:12.940Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:12.941Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:12.941Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:13.966Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:13.967Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:13.967Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:15.328Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:15.329Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:15.329Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:25.293Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:25.294Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:25.294Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:26.297Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:26.297Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:26.297Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:31.672Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:31.673Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:31.673Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:39.157Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:39.158Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:39.159Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:44.429Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:44.430Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:44.430Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:49.320Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:49.321Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:49.321Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:50.172Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:50.173Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:50.173Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:51.527Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:51.528Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:51.529Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:42:56.206Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:42:56.207Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:42:56.207Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:43:02.538Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:43:02.539Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:43:02.539Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:43:13.098Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:43:13.101Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:43:13.102Z] [INFO] Game list | Data: {"console":"megadrive","file":null}
+[2026-01-27T15:43:13.102Z] [INFO] Game list | Data: {"console":"snes","file":null}
+[2026-01-27T15:43:13.102Z] [INFO] Game list | Data: {"console":"gba","file":null}
+[2026-01-27T15:43:13.103Z] [INFO] Game list | Data: {"console":"gbc","file":null}
+[2026-01-27T15:43:13.103Z] [ERROR] Game list failed | Data: {"console":"psx","file":null,"error":"ENOENT: no such file or directory, scandir 'C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\Games\\PlayStationX'"}
+[2026-01-27T15:43:13.104Z] [WARN] Failed to get games for console psx | Data: {"error":"ENOENT: no such file or directory, scandir 'C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\Games\\PlayStationX'"}
+[2026-01-27T15:43:13.104Z] [INFO] Game list | Data: {"console":"atari","file":null}
+[2026-01-27T15:43:13.108Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles","status":304,"duration":"9ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:43:13.109Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:43:13.112Z] [INFO] Game list | Data: {"console":"megadrive","file":null}
+[2026-01-27T15:43:13.114Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:43:13.115Z] [INFO] Game list | Data: {"console":"snes","file":null}
+[2026-01-27T15:43:13.115Z] [INFO] Game list | Data: {"console":"gba","file":null}
+[2026-01-27T15:43:13.116Z] [ERROR] Game list failed | Data: {"console":"psx","file":null,"error":"ENOENT: no such file or directory, scandir 'C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\Games\\PlayStationX'"}
+[2026-01-27T15:43:13.116Z] [WARN] Failed to get games for console psx | Data: {"error":"ENOENT: no such file or directory, scandir 'C:\\Users\\Александр\\Desktop\\Pet\\Rest_Api_ToDo\\RomServ\\Games\\PlayStationX'"}
+[2026-01-27T15:43:13.117Z] [INFO] Game list | Data: {"console":"gbc","file":null}
+[2026-01-27T15:43:13.117Z] [INFO] Game list | Data: {"console":"atari","file":null}
+[2026-01-27T15:43:13.119Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles","status":304,"duration":"9ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:43:13.121Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles/nes/games","ip":"::1"}
+[2026-01-27T15:43:13.122Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:43:13.127Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles/nes/games","status":304,"duration":"3ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:43:13.128Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles/nes/games","ip":"::1"}
+[2026-01-27T15:43:13.129Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:43:13.131Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles/nes/games","status":304,"duration":"2ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:46:28.944Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:46:28.945Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:46:28.945Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:46:31.993Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:46:31.993Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:46:31.994Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:46:33.025Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:46:33.027Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:46:33.028Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:46:35.195Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:46:35.196Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:46:35.196Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:46:36.500Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:46:36.501Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:46:36.501Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:46:40.168Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:46:40.168Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:46:40.169Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:46:43.372Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:46:43.373Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:46:43.373Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:46:50.164Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:46:50.166Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:46:50.166Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:47:01.944Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:47:01.945Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:47:01.945Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:47:02.323Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:47:02.324Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:47:02.324Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:03.120Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:03.120Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:03.121Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:05.702Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:05.703Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:05.703Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:06.555Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:06.556Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:06.556Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:09.095Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:09.096Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:09.096Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:20.323Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:20.324Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:20.324Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:21.958Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:21.959Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:21.959Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:25.146Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:25.147Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:25.147Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:27.781Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:27.781Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:27.782Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:28.121Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:28.122Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:28.122Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:31.445Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:31.446Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:31.446Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:54.499Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:54.500Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:54.500Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:48:56.327Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:48:56.328Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:48:56.328Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:49:07.079Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:49:07.079Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:49:07.080Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:49:15.958Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:49:15.962Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles","status":200,"duration":"4ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:49:15.963Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:49:15.965Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles","status":304,"duration":"1ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:49:15.972Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles/nes/games","ip":"::1"}
+[2026-01-27T15:49:15.975Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:49:15.976Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles/nes/games","status":304,"duration":"3ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:49:15.983Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles/nes/games","ip":"::1"}
+[2026-01-27T15:49:15.985Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:49:15.986Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles/nes/games","status":304,"duration":"3ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:51:42.887Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:51:42.888Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:51:42.888Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:51:45.754Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:51:45.754Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:51:45.755Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:51:55.008Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:51:55.009Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:51:55.009Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:53:00.625Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:53:00.626Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:53:00.626Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:53:02.601Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:53:02.602Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:53:02.602Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:53:11.156Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:53:11.157Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:53:11.158Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:53:18.252Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:53:18.256Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles","status":304,"duration":"4ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:53:18.257Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles","ip":"::1"}
+[2026-01-27T15:53:18.259Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles","status":304,"duration":"1ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:53:18.264Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles/nes/games","ip":"::1"}
+[2026-01-27T15:53:18.266Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:53:18.269Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles/nes/games","status":304,"duration":"4ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:53:18.275Z] [INFO] API Request | Data: {"method":"GET","path":"/romserv/consoles/nes/games","ip":"::1"}
+[2026-01-27T15:53:18.276Z] [INFO] Game list | Data: {"console":"nes","file":null}
+[2026-01-27T15:53:18.277Z] [INFO] Request completed successfully | Data: {"method":"GET","path":"/consoles/nes/games","status":304,"duration":"3ms","ip":"::1","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+[2026-01-27T15:53:49.937Z] [INFO] Server started on port 9999 | Data: {"port":9999,"environment":"development","nodeVersion":"v22.20.0"}
+[2026-01-27T15:53:49.938Z] [INFO] Available consoles: nes, megadrive, snes, gba, gbc, psx, atari
+[2026-01-27T15:53:49.938Z] [INFO] API Documentation available at: http:/localhost:9999/api-docs
+[2026-01-27T15:55:55.385Z] [INFO] SIGINT received, shutting down gracefully

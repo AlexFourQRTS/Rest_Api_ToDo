@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 // Removed CSS module import
-import { DOMEN_Brahma } from 'common/constant';
+import { DOMEN_BRAHMA_CONST } from 'common/constant';
+
+const DOMEN_Brahma = DOMEN_BRAHMA_CONST ? DOMEN_BRAHMA_CONST : "https://brahmadzen.space"
 
 const FileDetail = () => {
   const { fileId } = useParams();

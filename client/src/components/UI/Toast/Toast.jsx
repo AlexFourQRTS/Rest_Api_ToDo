@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 // Removed CSS module import
 
-const Toast = ({ message, type = 'info', duration = 3000, onClose }) => {
+const Toast = ({ message, type = 'info', duration = 1500, onClose }) => {
   useEffect(() => {
     if (duration) {
       const timer = setTimeout(() => {

@@ -18,7 +18,9 @@ async function startServer() {
     const app = new App();
     await app.start();
   } catch (error) {
-    logger.error('Failed to start server', { error: error.message });
+    // RequestLogger.console.log();
+    
+    console.log('Failed to start server', { error: error.message });
     process.exit(1);
   }
 }
