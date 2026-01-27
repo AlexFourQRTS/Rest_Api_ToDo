@@ -1,6 +1,7 @@
 const path = require('path');
 
 const CONSOLES_CONFIG = {
+
   nes: {
     name: 'Nintendo Entertainment System',
     shortName: 'NES',
@@ -8,7 +9,7 @@ const CONSOLES_CONFIG = {
     extensions: ['.nes'],
     imageExtensions: ['.png', '.jpg', '.jpeg'],
     saveExtensions: ['.srm'],
-    maxFileSize: 2 * 1024 * 1024, // 2MB
+    maxFileSize: 2 * 1024 * 1024,
     supportedRegions: ['USA', 'Europe', 'Japan', 'Asia'],
     categories: {
       action: ['action', 'adventure', 'arcade', 'fighting', 'shooter', 'contra', 'burner', 'combat'],
@@ -19,6 +20,7 @@ const CONSOLES_CONFIG = {
       strategy: ['strategy', 'tactics', 'chess', 'mahjong', 'gun']
     }
   },
+
   megadrive: {
     name: 'Sega Mega Drive / Genesis',
     shortName: 'Mega Drive',
@@ -26,7 +28,7 @@ const CONSOLES_CONFIG = {
     extensions: ['.bin', '.md', '.gen'],
     imageExtensions: ['.png', '.jpg', '.jpeg'],
     saveExtensions: ['.srm'],
-    maxFileSize: 4 * 1024 * 1024, // 4MB
+    maxFileSize: 4 * 1024 * 1024,
     supportedRegions: ['USA', 'Europe', 'Japan', 'Asia'],
     categories: {
       action: ['action', 'adventure', 'arcade', 'fighting', 'shooter', 'combat'],
@@ -37,6 +39,7 @@ const CONSOLES_CONFIG = {
       strategy: ['strategy', 'tactics', 'chess']
     }
   },
+
   snes: {
     name: 'Super Nintendo Entertainment System',
     shortName: 'Super Nintendo',
@@ -44,7 +47,7 @@ const CONSOLES_CONFIG = {
     extensions: ['.smc', '.sfc', '.fig'],
     imageExtensions: ['.png', '.jpg', '.jpeg'],
     saveExtensions: ['.srm'],
-    maxFileSize: 4 * 1024 * 1024, // 4MB
+    maxFileSize: 4 * 1024 * 1024,
     supportedRegions: ['USA', 'Europe', 'Japan', 'Asia'],
     categories: {
       action: ['action', 'adventure', 'arcade', 'fighting', 'shooter'],
@@ -55,6 +58,7 @@ const CONSOLES_CONFIG = {
       strategy: ['strategy', 'tactics', 'chess']
     }
   },
+
   gba: {
     name: 'Game Boy Advance',
     shortName: 'Game Boy Advance',
@@ -62,7 +66,7 @@ const CONSOLES_CONFIG = {
     extensions: ['.gba'],
     imageExtensions: ['.png', '.jpg', '.jpeg'],
     saveExtensions: ['.sav'],
-    maxFileSize: 32 * 1024 * 1024, // 32MB
+    maxFileSize: 32 * 1024 * 1024,
     supportedRegions: ['USA', 'Europe', 'Japan', 'Asia'],
     categories: {
       action: ['action', 'adventure', 'arcade', 'fighting', 'shooter'],
@@ -73,6 +77,7 @@ const CONSOLES_CONFIG = {
       strategy: ['strategy', 'tactics', 'chess']
     }
   },
+
   gbc: {
     name: 'Game Boy Color',
     shortName: 'Game Boy Color',
@@ -80,7 +85,7 @@ const CONSOLES_CONFIG = {
     extensions: ['.gbc', '.gb'],
     imageExtensions: ['.png', '.jpg', '.jpeg'],
     saveExtensions: ['.sav'],
-    maxFileSize: 2 * 1024 * 1024, // 2MB
+    maxFileSize: 2 * 1024 * 1024,
     supportedRegions: ['USA', 'Europe', 'Japan', 'Asia'],
     categories: {
       action: ['action', 'adventure', 'arcade', 'fighting', 'shooter'],
@@ -91,6 +96,7 @@ const CONSOLES_CONFIG = {
       strategy: ['strategy', 'tactics', 'chess']
     }
   },
+
   psx: {
     name: 'PlayStation',
     shortName: 'PlayStation X',
@@ -98,7 +104,7 @@ const CONSOLES_CONFIG = {
     extensions: ['.iso', '.bin', '.img'],
     imageExtensions: ['.png', '.jpg', '.jpeg'],
     saveExtensions: ['.mcr'],
-    maxFileSize: 700 * 1024 * 1024, // 700MB
+    maxFileSize: 700 * 1024 * 1024,
     supportedRegions: ['USA', 'Europe', 'Japan', 'Asia'],
     categories: {
       action: ['action', 'adventure', 'arcade', 'fighting', 'shooter'],
@@ -109,6 +115,7 @@ const CONSOLES_CONFIG = {
       strategy: ['strategy', 'tactics']
     }
   },
+
   atari: {
     name: 'Atari 2600',
     shortName: 'Atari',
@@ -116,7 +123,7 @@ const CONSOLES_CONFIG = {
     extensions: ['.a26', '.bin', '.rom'],
     imageExtensions: ['.png', '.jpg', '.jpeg'],
     saveExtensions: ['.sav'],
-    maxFileSize: 64 * 1024, // 64KB
+    maxFileSize: 64 * 1024,
     supportedRegions: ['USA', 'Europe', 'Japan'],
     categories: {
       action: ['action', 'adventure', 'arcade', 'fighting', 'shooter'],
@@ -128,19 +135,16 @@ const CONSOLES_CONFIG = {
   }
 };
 
-// Функция для получения конфигурации консоли
 function getConsoleConfig(consoleId) {
   return CONSOLES_CONFIG[consoleId] || null;
 }
 
-// Функция для получения пути к папке консоли
 function getConsolePath(consoleId) {
   const config = getConsoleConfig(consoleId);
   if (!config) return null;
   return path.join(process.cwd(), config.folder);
 }
 
-// Функция для получения списка всех поддерживаемых консолей
 function getAllConsoles() {
   return Object.keys(CONSOLES_CONFIG).map(id => ({
     id,

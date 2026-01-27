@@ -1,13 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const logger = require('./utils/logger');
 
 const RequestLogger = require('./middleware/requestLogger');
-const ErrorHandler = require('./middleware/errorHandler');
+const ErrorMiddleware = require('./middleware/error');
 
-const gameRoutes = require('./routes/gameRoutes');
-const consoleRoutes = require('./routes/consoleRoutes');
+const getConsoles = require('./routes/getConsoles');
+const getConsole = require('./routes/getConsole');
+const health = require('./routes/health');
+const getGames = require('./routes/getGames');
+const searchGames = require('./routes/searchGames');
+const getGameCategories = require('./routes/getGameCategories');
+const getGame = require('./routes/getGame');
+const downloadGame = require('./routes/downloadGame');
 
 class App {
 
@@ -35,13 +40,29 @@ class App {
   }
 
   setupRoutes() {
-    const apiV1Router = express.Router();
+    this.app.use('/romserv', getConsoles);
+    this.app.use('/', getConsoles);
     
-    apiV1Router.use('/', consoleRoutes);
-    apiV1Router.use('/', gameRoutes);
+    this.app.use('/romserv', getConsole);
+    this.app.use('/', getConsole);
     
-    this.app.use('/romserv', apiV1Router);
-    this.app.use('/', apiV1Router);
+    this.app.use('/romserv', health);
+    this.app.use('/', health);
+    
+    this.app.use('/romserv', getGames);
+    this.app.use('/', getGames);
+    
+    this.app.use('/romserv', searchGames);
+    this.app.use('/', searchGames);
+    
+    this.app.use('/romserv', getGameCategories);
+    this.app.use('/', getGameCategories);
+    
+    this.app.use('/romserv', getGame);
+    this.app.use('/', getGame);
+    
+    this.app.use('/romserv', downloadGame);
+    this.app.use('/', downloadGame);
     
     this.app.get('/', (req, res) => {
       res.json({
@@ -56,15 +77,12 @@ class App {
         supportedConsoles: ['nes', 'megadrive', 'snes', 'gba', 'gbc', 'psx', 'atari']
       });
     });
-
-
-
   }
 
   setupErrorHandling() {
-    this.app.use(ErrorHandler.handleNotFound);
+    this.app.use(ErrorMiddleware.handleNotFound);
     
-    this.app.use(ErrorHandler.handleError);
+    this.app.use(ErrorMiddleware.handleError);
   }
 
   start(port =  9999) {
@@ -79,8 +97,6 @@ class App {
         const { getAllConsoles } = require('./config/consoles');
         const consoles = getAllConsoles();
         logger.info(`Available consoles: ${consoles.map(c => c.id).join(', ')}`);
-        
-        logger.info(`API Documentation available at: http:/localhost:${port}/api-docs`);
         
         resolve(server);
       });

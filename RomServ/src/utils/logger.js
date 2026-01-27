@@ -62,7 +62,6 @@ class Logger {
     }
   }
 
-  // Специальные методы для игровых операций
   gameRequest(consoleId, action, fileName = null) {
     this.info(`Game ${action}`, { console: consoleId, file: fileName });
   }

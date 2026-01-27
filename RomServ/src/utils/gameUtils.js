@@ -2,14 +2,10 @@ const path = require('path');
 const { getConsoleConfig } = require('../config/consoles');
 
 class GameUtils {
-  /**
-   * Извлекает чистое имя игры из имени файла
-   */
   static extractGameName(fileName, consoleId) {
     const config = getConsoleConfig(consoleId);
     if (!config) return fileName;
 
-    // Удаляем расширение файла
     let gameName = fileName;
     for (const ext of config.extensions) {
       if (gameName.toLowerCase().endsWith(ext.toLowerCase())) {
@@ -18,21 +14,15 @@ class GameUtils {
       }
     }
 
-    // Удаляем региональные метки в скобках
     gameName = gameName.replace(/\([^)]*\)/g, '').trim();
     
-    // Удаляем лишние пробелы
     gameName = gameName.replace(/\s+/g, ' ');
     
-    // Удаляем специальные символы в начале и конце
     gameName = gameName.replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
 
     return gameName || fileName;
   }
 
-  /**
-   * Определяет категорию игры на основе названия
-   */
   static categorizeGame(gameName, consoleId) {
     const config = getConsoleConfig(consoleId);
     if (!config || !config.categories) return 'other';
@@ -48,9 +38,6 @@ class GameUtils {
     return 'other';
   }
 
-  /**
-   * Проверяет, является ли файл валидным ROM для консоли
-   */
   static isValidRomFile(fileName, consoleId) {
     const config = getConsoleConfig(consoleId);
     if (!config) return false;
@@ -59,38 +46,12 @@ class GameUtils {
     return config.extensions.includes(ext);
   }
 
-  /**
-   * Проверяет, является ли файл изображением
-   */
-  static isImageFile(fileName, consoleId) {
-    const config = getConsoleConfig(consoleId);
-    if (!config) return false;
-
-    const ext = path.extname(fileName).toLowerCase();
-    return config.imageExtensions.includes(ext);
-  }
-
-  /**
-   * Проверяет, является ли файл файлом сохранения
-   */
-  static isSaveFile(fileName, consoleId) {
-    const config = getConsoleConfig(consoleId);
-    if (!config) return false;
-
-    const ext = path.extname(fileName).toLowerCase();
-    return config.saveExtensions.includes(ext);
-  }
-
-  /**
-   * Извлекает регион из имени файла
-   */
   static extractRegion(fileName, consoleId) {
     const config = getConsoleConfig(consoleId);
     if (!config) return 'Unknown';
 
     const name = fileName.toLowerCase();
     
-    // Поиск региональных меток
     if (name.includes('(usa)') || name.includes('(us)')) return 'USA';
     if (name.includes('(europe)') || name.includes('(eu)')) return 'Europe';
     if (name.includes('(japan)') || name.includes('(jp)')) return 'Japan';
@@ -99,9 +60,6 @@ class GameUtils {
     return 'Unknown';
   }
 
-  /**
-   * Создает объект игры с полной информацией
-   */
   static createGameObject(fileName, consoleId, filePath) {
     const gameName = this.extractGameName(fileName, consoleId);
     const category = this.categorizeGame(gameName, consoleId);
@@ -115,14 +73,11 @@ class GameUtils {
       category,
       region,
       console: consoleId,
-      hasImage: false, // Будет обновлено позже
-      hasSave: false   // Будет обновлено позже
+      hasImage: false,
+      hasSave: false
     };
   }
 
-  /**
-   * Сортирует игры по различным критериям
-   */
   static sortGames(games, sortBy = 'name', order = 'asc') {
     const sortedGames = [...games];
     
@@ -152,22 +107,16 @@ class GameUtils {
     return sortedGames;
   }
 
-  /**
-   * Фильтрует игры по различным критериям
-   */
   static filterGames(games, filters = {}) {
     return games.filter(game => {
-      // Фильтр по категории
       if (filters.category && game.category !== filters.category) {
         return false;
       }
       
-      // Фильтр по региону
       if (filters.region && game.region !== filters.region) {
         return false;
       }
       
-      // Фильтр по поиску
       if (filters.search) {
         const searchTerm = filters.search.toLowerCase();
         const matchesName = game.name.toLowerCase().includes(searchTerm);
@@ -181,46 +130,6 @@ class GameUtils {
     });
   }
 
-  /**
-   * Группирует игры по категориям
-   */
-  static groupGamesByCategory(games) {
-    const grouped = {};
-    
-    games.forEach(game => {
-      if (!grouped[game.category]) {
-        grouped[game.category] = [];
-      }
-      grouped[game.category].push(game);
-    });
-    
-    return grouped;
-  }
-
-  /**
-   * Получает статистику по играм
-   */
-  static getGameStats(games) {
-    const stats = {
-      total: games.length,
-      categories: {},
-      regions: {},
-      consoles: {}
-    };
-    
-    games.forEach(game => {
-      // Статистика по категориям
-      stats.categories[game.category] = (stats.categories[game.category] || 0) + 1;
-      
-      // Статистика по регионам
-      stats.regions[game.region] = (stats.regions[game.region] || 0) + 1;
-      
-      // Статистика по консолям
-      stats.consoles[game.console] = (stats.consoles[game.console] || 0) + 1;
-    });
-    
-    return stats;
-  }
 }
 
 module.exports = GameUtils; 
