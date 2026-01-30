@@ -23,7 +23,5 @@ jobs:
             git reset --hard origin/main
             git pull
             cd client && npm install && npm run build && cd ..
-            
-            # Используем новую команду docker compose (без тире)
-            # Если не сработает, оставь с тире, но обнови права (см. пункт 1)
-            docker compose up -d --build postgres backend emulator romserv
+            docker compose down -v
+            docker compose up --build -d
