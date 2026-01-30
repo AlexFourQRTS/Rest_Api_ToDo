@@ -9,9 +9,9 @@ import {
 } from 'common/constant';
 
 
-const ROM_SERV = REACT_APP_ROMSERV_URL ? REACT_APP_ROMSERV_URL : "http://localhost:5000/romserv"
-const EMUL_URL = EMUL_URL_CONST ? EMUL_URL_CONST : 'http://localhost:5000/emulator/?core='
-const DOMEN_Brahma  = DOMEN_BRAHMA_CONST ? DOMEN_BRAHMA_CONST : 'http://localhost:5000/romserv'
+const ROM_SERV = REACT_APP_ROMSERV_URL 
+const EMUL_URL = EMUL_URL_CONST 
+const DOMEN_Brahma  = DOMEN_BRAHMA_CONST 
 
 const DonationBanner = ({ isVisible, onClose }) => {
   const [isQrFullscreen, setIsQrFullscreen] = useState(false);

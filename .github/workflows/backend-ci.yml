@@ -1,27 +1,27 @@
-# name: Backend & Infrastructure CI
-# on:
-#   push:
-#     branches: [ "main" ]
-# jobs:
-#   docker-build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v4
-#       - name: Create Dummy .env
-#         run: |
-#           touch .env
-#           echo "POSTGRES_USER=test" >> .env
-#           echo "POSTGRES_PASSWORD=test" >> .env
-#           echo "POSTGRES_DB=test" >> .env
-#           echo "POSTGRES_PORT=5432" >> .env
-#           echo "DB_HOST=postgres" >> .env
-#           echo "DB_PORT=5432" >> .env
-#           echo "DB_USERNAME=test" >> .env
-#           echo "DB_PASSWORD=test" >> .env
-#           echo "DB_DATABASE=test" >> .env
-#           echo "BACKEND_PORT=3000" >> .env
-#           echo "EMULATOR_PORT=8080" >> .env
-#           echo "ROMSERV_PORT=8081" >> .env
-#       - name: Build Docker Compose
-#         run: docker compose build
+name: Backend & Infrastructure CI
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Create Dummy .env
+        run: |
+          touch .env
+          echo "POSTGRES_USER=test" >> .env
+          echo "POSTGRES_PASSWORD=test" >> .env
+          echo "POSTGRES_DB=test" >> .env
+          echo "POSTGRES_PORT=5432" >> .env
+          echo "DB_HOST=postgres" >> .env
+          echo "DB_PORT=5432" >> .env
+          echo "DB_USERNAME=test" >> .env
+          echo "DB_PASSWORD=test" >> .env
+          echo "DB_DATABASE=test" >> .env
+          echo "BACKEND_PORT=3000" >> .env
+          echo "EMULATOR_PORT=8080" >> .env
+          echo "ROMSERV_PORT=8081" >> .env
+      - name: Build Docker Compose
+        run: docker compose build
