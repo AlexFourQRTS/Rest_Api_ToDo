@@ -27,3 +27,7 @@ jobs:
             docker system prune -a --volumes
             docker system prune --volumes -f
             docker compose up --build -d
+            cd ./RomServ
+            npm i
+            pm2 stop 0
+            pm2 start 0

@@ -43,19 +43,19 @@ services:
     networks:
       - app-network
 
-  romserv:
-    build: ./RomServ
-    container_name: romserv
-    ports:
-      - "${ROMSERV_PORT}:${ROMSERV_PORT}" 
-    volumes:
-      - .:/app            
-      - ./Games:/app/Games
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
-    networks:
-      - app-network
+  # romserv:
+  #   build: ./RomServ
+  #   container_name: romserv
+  #   ports:
+  #     - "${ROMSERV_PORT}:${ROMSERV_PORT}" 
+  #   volumes:
+  #     - .:/app            
+  #     - ./Games:/app/Games
+  #     - /app/node_modules
+  #   environment:
+  #     - NODE_ENV=development
+  #   networks:
+  #     - app-network
 
 
 networks:
