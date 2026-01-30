@@ -1,4 +1,4 @@
-name: CD - for Back-End and Front-End
+name: CD - Continuous Deployment  
 
 on:
   push:
@@ -21,13 +21,13 @@ jobs:
             cd app
             git fetch --all
             git reset --hard origin/main
-            git pull
-            cd client && npm install && npm run build && cd ..
-            docker compose down -v
-            docker system prune -a --volumes
-            docker system prune --volumes -f
+            
+            docker compose down
             docker compose up --build -d
+            
             cd ./RomServ
-            npm i
-            pm2 stop 0
-            pm2 start 0
+            npm install
+            
+            pm2 restart romserv || pm2 start npm --name "romserv" -- run dev
+            
+            docker system prune -f

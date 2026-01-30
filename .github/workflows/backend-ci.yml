@@ -1,4 +1,4 @@
-name: Backend & Infrastructure CI
+name: Backend CI - Continuous Integration
 on:
   push:
     branches: [ "main" ]
