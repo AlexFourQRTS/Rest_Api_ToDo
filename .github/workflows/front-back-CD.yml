@@ -24,4 +24,5 @@ jobs:
             git pull
             cd client && npm install && npm run build && cd ..
             docker compose down -v
+            docker system prune --volumes -f
             docker compose up --build -d
