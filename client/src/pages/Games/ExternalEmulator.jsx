@@ -4,14 +4,14 @@ import qrCodeImage from './TronTRC.jpg';
 
 import {
   REACT_APP_ROMSERV_URL,
-  EMUL_URL_CONST,
+  EMUL_URL_CONST_CONST,
   DOMEN_BRAHMA_CONST
 } from 'common/constant';
 
 
-const ROM_SERV = REACT_APP_ROMSERV_URL 
-const EMUL_URL = EMUL_URL_CONST 
-const DOMEN_Brahma  = DOMEN_BRAHMA_CONST 
+
+
+
 
 const DonationBanner = ({ isVisible, onClose }) => {
   const [isQrFullscreen, setIsQrFullscreen] = useState(false);
@@ -387,7 +387,7 @@ const RomSelector = ({
                   {
                     game.hasImage ? (
                       <img
-                        src={`${ROM_SERV}${game.imagePath}`}
+                        src={`${REACT_APP_ROMSERV_URL}${game.imagePath}`}
                         alt={game.name}
                         className="w-full h-full object-cover rounded"
                         loading="lazy"
@@ -514,7 +514,7 @@ const RomSelector = ({
             <div className="w-16 h-16 bg-gray-600 rounded mx-auto mb-2 flex items-center justify-center text-2xl">
               {game.hasImage ? (
                 <img
-                  src={`${ROM_SERV}${game.imagePath}`}
+                  src={`${REACT_APP_ROMSERV_URL}${game.imagePath}`}
                   alt={game.name}
                   className="w-full h-full object-cover rounded"
                   loading="lazy"
@@ -641,7 +641,7 @@ const ExternalEmulator = () => {
       try {
         setIsLoadingConsoles(true);
         setError(null);
-        const response = await fetch(`${ROM_SERV}/consoles`);
+        const response = await fetch(`${REACT_APP_ROMSERV_URL}/consoles`);
         const data = await response.json();
 
         if (data.success) {
@@ -670,7 +670,7 @@ const ExternalEmulator = () => {
         setIsLoadingGames(true);
         setError(null);
         setGames([]);
-        const url = `${ROM_SERV}/consoles/${selectedConsole.id}/games?page=${currentPage}&limit=${gamesPerPage}&search=${encodeURIComponent(searchTerm)}`;
+        const url = `${REACT_APP_ROMSERV_URL}/consoles/${selectedConsole.id}/games?page=${currentPage}&limit=${gamesPerPage}&search=${encodeURIComponent(searchTerm)}`;
         const response = await fetch(url);
         const data = await response.json();
         if (data.success) {
@@ -724,7 +724,7 @@ const ExternalEmulator = () => {
   const getEmulatorUrl = () => {
     if (!selectedRom) return null;
 
-    const romUrl = `${ROM_SERV}${selectedRom.path}`;
+    const romUrl = `${REACT_APP_ROMSERV_URL}${selectedRom.path}`;
     console.log("romUrl :", romUrl)
     const system = selectedRom.console;
 
@@ -788,8 +788,8 @@ const ExternalEmulator = () => {
     }
 
 
-    // EMUL_URL
-    const emulatorUrl = `${DOMEN_Brahma}/emulator/?core=${core}&gameUrl=${encodeURIComponent(romUrl)}`;
+    // EMUL_URL_CONST
+    const emulatorUrl = `${DOMEN_BRAHMA_CONST}/emulator/?core=${core}&gameUrl=${encodeURIComponent(romUrl)}`;
     return emulatorUrl;
   };
 
@@ -809,7 +809,7 @@ const ExternalEmulator = () => {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <h2>🚫 Ошибка подключения к серверу</h2>
-          <p>Убедитесь, что API сервер запущен на <code>{ROM_SERV}</code></p>
+          <p>Убедитесь, что API сервер запущен на <code>{REACT_APP_ROMSERV_URL}</code></p>
           <p>Ошибка: {error}</p>
           <button
             className="btn-primary mt-4"
