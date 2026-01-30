@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import qrCodeImage from './TronTRC.jpg';
 
 import {
-  REACT_APP_ROMSERV_URL,
   EMUL_URL_CONST_CONST,
   DOMEN_BRAHMA_CONST
 } from 'common/constant';
@@ -387,7 +386,7 @@ const RomSelector = ({
                   {
                     game.hasImage ? (
                       <img
-                        src={`${REACT_APP_ROMSERV_URL}${game.imagePath}`}
+                        src={`https://brahmadzen.space/roms${game.imagePath}`}
                         alt={game.name}
                         className="w-full h-full object-cover rounded"
                         loading="lazy"
@@ -514,7 +513,7 @@ const RomSelector = ({
             <div className="w-16 h-16 bg-gray-600 rounded mx-auto mb-2 flex items-center justify-center text-2xl">
               {game.hasImage ? (
                 <img
-                  src={`${REACT_APP_ROMSERV_URL}${game.imagePath}`}
+                  src={`https://brahmadzen.space/roms${game.imagePath}`}
                   alt={game.name}
                   className="w-full h-full object-cover rounded"
                   loading="lazy"
@@ -641,7 +640,7 @@ const ExternalEmulator = () => {
       try {
         setIsLoadingConsoles(true);
         setError(null);
-        const response = await fetch(`${REACT_APP_ROMSERV_URL}/consoles`);
+        const response = await fetch(`https://brahmadzen.space/roms/consoles`);
         const data = await response.json();
 
         if (data.success) {
@@ -670,7 +669,7 @@ const ExternalEmulator = () => {
         setIsLoadingGames(true);
         setError(null);
         setGames([]);
-        const url = `${REACT_APP_ROMSERV_URL}/consoles/${selectedConsole.id}/games?page=${currentPage}&limit=${gamesPerPage}&search=${encodeURIComponent(searchTerm)}`;
+        const url = `https://brahmadzen.space/roms/consoles/${selectedConsole.id}/games?page=${currentPage}&limit=${gamesPerPage}&search=${encodeURIComponent(searchTerm)}`;
         const response = await fetch(url);
         const data = await response.json();
         if (data.success) {
@@ -724,7 +723,7 @@ const ExternalEmulator = () => {
   const getEmulatorUrl = () => {
     if (!selectedRom) return null;
 
-    const romUrl = `${REACT_APP_ROMSERV_URL}${selectedRom.path}`;
+    const romUrl = `https://brahmadzen.space/roms${selectedRom.path}`;
     console.log("romUrl :", romUrl)
     const system = selectedRom.console;
 
@@ -810,7 +809,7 @@ const ExternalEmulator = () => {
         <div className="text-center">
           <h2>🚫 Ошибка подключения к серверу</h2>
           <p>Убедитесь, что API сервер запущен на</p>
-            <code>{REACT_APP_ROMSERV_URL}</code>
+            <code>https://brahmadzen.space/roms</code>
           <p>Ошибка: {error}</p>
           <button
             className="btn-primary mt-4"
