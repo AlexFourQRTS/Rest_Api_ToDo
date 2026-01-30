@@ -49,7 +49,11 @@ services:
     ports:
       - "${ROMSERV_PORT}:${ROMSERV_PORT}" 
     volumes:
-      - ./RomServ/Games:/app/Games
+      - .:/app            
+      - ./Games:/app/Games
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
     networks:
       - app-network
 
