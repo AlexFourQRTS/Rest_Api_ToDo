@@ -809,7 +809,8 @@ const ExternalEmulator = () => {
       <div className="flex items-center justify-center min-h-screen">
         <div className="text-center">
           <h2>🚫 Ошибка подключения к серверу</h2>
-          <p>Убедитесь, что API сервер запущен на <code>{REACT_APP_ROMSERV_URL}</code></p>
+          <p>Убедитесь, что API сервер запущен на</p>
+            <code>{REACT_APP_ROMSERV_URL}</code>
           <p>Ошибка: {error}</p>
           <button
             className="btn-primary mt-4"

@@ -10,7 +10,7 @@ import { Repository } from 'typeorm';
 import { File } from './entities/file.entity';
 
 @Injectable()
-export class FilesService implements OnModuleDestroy {
+export class FilesService  {
   private client: Client;
 
   private readonly imageExtensions = /\.(jpg|jpeg|png|gif|webp|svg)$/i;
@@ -40,194 +40,12 @@ export class FilesService implements OnModuleDestroy {
       database: this.configService.get<string>('DB_DATABASE'),
     });
 
-    this.connectAndInitializeDatabase().catch((err) => console.error('Ошибка подключения и инициализации базы данных:', err));
-    this.initializeDirectories();
+
   }
 
-  private async connectAndInitializeDatabase() {
-    try {
-      await this.client.connect();
-      const checkTableResult = await this.client.query(`
-        SELECT EXISTS (
-          SELECT FROM pg_tables
-          WHERE schemaname = 'public'
-          AND tablename  = 'files'
-        );
-      `);
 
-      if (!checkTableResult.rows[0].exists) {
-        console.log('Таблица "files" не найдена. Создаю таблицу...');
-        await this.client.query(`
-          CREATE TABLE files (
-            id SERIAL PRIMARY KEY,
-            filename VARCHAR(255) NOT NULL,
-            original_name VARCHAR(255) NOT NULL,
-            mime_type VARCHAR(255) NOT NULL,
-            path VARCHAR(255) NOT NULL,
-            size BIGINT NOT NULL,
-            uploaded_at TIMESTAMP NOT NULL DEFAULT NOW(),
-            file_type VARCHAR(50) NOT NULL
-          );
-        `);
-        console.log('Таблица "files" успешно создана.');
-      } else {
-        console.log('Таблица "files" уже существует.');
-      }
-    } catch (error) {
-      console.error('Ошибка при подключении или проверке/создании таблицы:', error);
-      await this.client.end();
-      throw error;
-    }
-  }
 
-  private async initializeDirectories() {
-    try {
-      // Создаем основную директорию
-      await ensureDir(this.baseUploadDir);
 
-      // Создаем поддиректории для каждого типа файлов
-      for (const dir of Object.values(this.typeDirs)) {
-        await ensureDir(dir);
-      }
-    } catch (error) {
-      console.error('Ошибка при создании директорий:', error);
-      throw error;
-    }
-  }
-
-  private determineFileType(filename: string): string {
-    const ext = extname(filename).toLowerCase();
-    if (this.imageExtensions.test(ext)) return 'images';
-    if (this.videoExtensions.test(ext)) return 'videos';
-    if (this.audioExtensions.test(ext)) return 'audio';
-    if (this.documentExtensions.test(ext)) return 'documents';
-    return 'other';
-  }
-
-  private getUploadPath(fileType: string, filename: string): string {
-    const typeDir = this.typeDirs[fileType] || this.typeDirs.other;
-    return join(typeDir, filename);
-  }
-
-  async getAllFiles(): Promise<{ [key: string]: any[] }> {
-    try {
-      const files = await this.fileRepository.find();
-      const groupedFiles = {
-        images: files.filter(file => file.file_type === 'images'),
-        videos: files.filter(file => file.file_type === 'videos'),
-        audio: files.filter(file => file.file_type === 'audio'),
-        documents: files.filter(file => file.file_type === 'documents'),
-        other: files.filter(file => file.file_type === 'other')
-      };
-
-      const result = {
-
-        images: groupedFiles.images.map(file => ({
-          ...file,
-          url: `/api/files/${file.file_type}/${file.filename}`,
-          downloadUrl: `/api/files/number${file.id}/download`
-        })),
-
-        videos: groupedFiles.videos.map(file => ({
-          ...file,
-          url: `/api/files/${file.file_type}/${file.filename}`,
-          downloadUrl: `/api/files/number${file.id}/download`
-        })),
-
-        audio: groupedFiles.audio.map(file => ({
-          ...file,
-          url: `/api/files/${file.file_type}/${file.filename}`,
-          downloadUrl: `/api/files/number${file.id}/download`
-        })),
-
-        documents: groupedFiles.documents.map(file => ({
-          ...file,
-          url: `/api/files/${file.file_type}/${file.filename}`,
-          downloadUrl: `/api/files/number${file.id}/download`
-        })),
-
-        other: groupedFiles.other.map(file => ({
-          ...file,
-          url: `/api/files/${file.file_type}/${file.filename}`,
-          downloadUrl: `/api/files/number${file.id}/download`
-        }))
-      };
-      return result;
-    } catch (error) {
-      console.error('Ошибка при получении списка файлов:', error);
-      throw new HttpException('Ошибка при получении списка файлов', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  async getFileById(id: string): Promise<File> {
-    const file = await this.fileRepository.findOne({ where: { id: parseInt(id) } });
-    if (!file) {
-      throw new HttpException('File not found', HttpStatus.NOT_FOUND);
-    }
-    return file;
-  }
-
-  async saveFiles(files: MulterFile[]): Promise<File[]> {
-    try {
-      const savedFiles: File[] = [];
-      
-      for (const file of files) {
-        const fileType = this.determineFileType(file.originalname);
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        const ext = extname(file.originalname);
-        const filename = `${file.originalname.replace(ext, '')}-${uniqueSuffix}${ext}`;
-
-        // Определяем путь для сохранения файла
-        const uploadPath = this.getUploadPath(fileType, filename);
-
-        // Перемещаем файл в соответствующую директорию
-        await writeFile(uploadPath, file.buffer);
-
-        const fileData = this.fileRepository.create({
-          filename: filename,
-          original_name: file.originalname,
-          mime_type: file.mimetype,
-          size: file.size,
-          path: uploadPath,
-          file_type: fileType,
-        });
-
-        const savedFile = await this.fileRepository.save(fileData);
-        savedFiles.push(savedFile);
-      }
-
-      return savedFiles;
-    } catch (error) {
-      console.error('Error saving files:', error);
-      throw new HttpException('Error saving files', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  async deleteFile(id: string): Promise<void> {
-    try {
-      const file = await this.getFileById(id);
-      if (!file) {
-        throw new NotFoundException('File not found');
-      }
-
-      // Удаляем физический файл
-      try {
-        await unlink(file.path);
-      } catch (error) {
-        console.error('Error deleting physical file:', error);
-        // Продолжаем выполнение даже если файл не найден
-      }
-
-      // Удаляем запись из базы данных
-      await this.fileRepository.remove(file);
-    } catch (error) {
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-      console.error('Error deleting file:', error);
-      throw new HttpException('Error deleting file', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
 
   async onModuleDestroy() {
     await this.client.end();
