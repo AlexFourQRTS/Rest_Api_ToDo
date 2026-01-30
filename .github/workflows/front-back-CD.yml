@@ -1,4 +1,4 @@
-name: Fast Git Pull Deploy
+name: CD - for Back-End and Front-End
 
 on:
   push:
