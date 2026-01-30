@@ -18,6 +18,14 @@ jobs:
             HostKeyAlgorithms +ssh-rsa
             PubkeyAcceptedAlgorithms +ssh-rsa
           script: |
+            cd /home/dzen
+            
+            # 2. Проверяем, существует ли папка и репозиторий
+            if [ ! -d "app/.git" ]; then
+              echo "Папка пуста или репозитория нет. Клонирую..."
+              rm -rf app
+              git clone https://github.com/AlexFourQRTS/Rest_Api_ToDo.git app
+            fi
             cd app
             git fetch --all
             git reset --hard origin/main
