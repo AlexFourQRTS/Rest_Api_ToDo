@@ -25,8 +25,7 @@ router.get('/consoles/:consoleId',
       imageExtensions: config.imageExtensions,
       saveExtensions: config.saveExtensions,
       maxFileSize: config.maxFileSize,
-      supportedRegions: config.supportedRegions,
-      categories: Object.keys(config.categories)
+
     };
 
     res.json({ success: true, data: consoleInfo });
