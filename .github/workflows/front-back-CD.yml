@@ -39,3 +39,6 @@ jobs:
             pm2 restart romserv || pm2 start npm --name "romserv" -- run dev
             
             docker system prune -f
+            cd client
+            npm install
+            npm run build
